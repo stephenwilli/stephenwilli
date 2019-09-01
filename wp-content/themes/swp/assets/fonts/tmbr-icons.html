@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tmbr-icons</title>
+	<style>
+		body {
+			font-family: sans-serif;
+			margin: 0;
+			padding: 10px 20px;
+		}
+
+		.preview {
+			line-height: 2em;
+		}
+
+		.preview__icon {
+			display: inline-block;
+			width: 32px;
+			text-align: center;
+		}
+
+		.icon {
+			display: inline-block;
+			font-size: 16px;
+		}
+
+		@font-face {
+	font-family: "tmbr-icons";
+	src: url("tmbr-icons.woff2?19aaa8aaf2910d86e8d376000f6ca030") format("woff2"),
+url("tmbr-icons.woff?19aaa8aaf2910d86e8d376000f6ca030") format("woff"),
+url("tmbr-icons.svg?19aaa8aaf2910d86e8d376000f6ca030#tmbr-icons") format("svg");
+}
+
+.icon {
+	line-height: 1;
+}
+
+.icon:before {
+	font-family: tmbr-icons !important;
+	font-style: normal;
+	font-weight: normal !important;
+	vertical-align: top;
+}
+
+.icon-phone:before {
+	content: "\f101";
+}
+
+	</style>
+</head>
+<body>
+	<h1>tmbr-icons</h1>
+	<div class="preview">
+		<span class="preview__icon">
+			<span class=" icon-phone"></span>
+		</span>
+		<span>phone</span>
+	</div>
+</body>
+</html>

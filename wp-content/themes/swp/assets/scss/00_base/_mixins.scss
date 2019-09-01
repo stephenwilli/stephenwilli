@@ -1,0 +1,593 @@
+
+// * MIXINS *
+// - Opacity
+// - Letter Spacing
+// - Text-Truncate
+// - Transform
+// - Font-smoothing
+// - Width & Height: 100%
+// - Border Radius
+// - TMBRICON font
+// - Prefix
+// - Cover background
+// - Background Size
+// - Respond to
+// - Respond between
+// - Respond Max
+// - Arrow
+// - Position (absolute, relative, fixed)
+// - Center
+// - Firefox hack for images
+// - Placeholder
+// - Animation
+// - Keyframes
+// - Color
+// - Inline Gravity form
+// - Link (:visited)
+// - Hover (:hover, :active, :focus)
+// - No-touch
+// - Background gradient
+
+
+
+/*
+opacity filter with x-browser fallback
+@include opacity(.9);
+--------------------- */
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+/*
+letter-spacing to match PSD
+@include spacing(99);
+--------------------- */
+@mixin spacing($ls) {
+  letter-spacing: $ls*0.001em;
+}
+
+
+/*
+Truncate text
+--------------------- */
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/*
+Transform
+@include transform(translateY(-50%));
+--------------------- */
+@mixin transform( $transform-props ) {
+  transform: $transform-props;
+  -webkit-transform: $transform-props;
+  -moz-transform: $transform-props;
+  -ms-transform: $transform-props;
+  -o-transform: $transform-props;
+
+}
+
+/*
+transition
+@include transition(transitionY(-50%));
+--------------------- */
+@mixin transition( $transition-props ) {
+  transition: $transition-props;
+  -webkit-transition: $transition-props;
+  -moz-transition: $transition-props;
+  -ms-transition: $transition-props;
+  -o-transition: $transition-props;
+
+}
+
+// Font Smoothing
+// ==================================
+@mixin font-smoothing {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// WIDTH & HEIGHT 100%
+@mixin wh100 {
+  width: 100%;
+  height: 100%;
+}
+
+/*
+Set Border radious for any element
+@include border-radius(0px);
+--------------------- */
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+  background-clip: padding-box;  /* stops bg color from leaking outside the border: */
+}
+
+// Tmbricon font
+// ==================================
+@mixin tmbricon {
+  font-family: "tmbricons";
+  display: inline-block;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  @include font-smoothing;
+}
+
+// PREFIX
+// ==================================
+@mixin prefix($property, $value) {
+  -webkit-#{$property}: #{$value};
+  -moz-#{$property}: #{$value};
+  -ms-#{$property}: #{$value};
+  -o-#{$property}: #{$value};
+  #{$property}: #{$value};
+}
+
+
+
+/*
+Background size with broswer prefix for cover image
+@include cover-background(path/to/img.jpg);
+--------------------- */
+@mixin cover-background($img-uri) {
+    background: url($img-uri) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+@mixin bg-cover() {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/*
+Background size with broswer prefix for cover
+@include background-cover(cover);
+--------------------- */
+@mixin background-size($size) {
+    -webkit-background-size: $size;
+    -moz-background-size: $size;
+    -o-background-size: $size;
+    background-size: $size;
+}
+
+@mixin respond-to($breakpoint) {
+  @media all and (max-width: ($breakpoint - 1)) {
+    @content;
+  }
+}
+
+@mixin respond-between($min, $max) {
+  @media all and (min-width:$min) and (max-width:$max - 1) {
+    @content;
+  }
+}
+
+@mixin respond-max($min-width) {
+  @media all and (min-width: ($min-width)) {
+    @content;
+  }
+}
+
+/*
+CSS Arrow Shape
+@include arrow-right(10px, $blue);
+--------------------- */
+@mixin arrow-down($size, $color) {
+  height: 0;
+  width: 0;
+  border-top: $size solid $color;
+  border-right: $size solid transparent;
+  border-left: $size solid transparent;
+  border-bottom: 0 solid transparent;
+}
+
+@mixin arrow-up($size, $color) {
+  height: 0;
+  width: 0;
+  border-bottom: $size solid $color;
+  border-right: $size solid transparent;
+  border-left: $size solid transparent;
+  border-top: 0 solid transparent;
+}
+
+@mixin arrow-left($size, $color) {
+  height: 0;
+  width: 0;
+  border-right: $size solid $color;
+  border-top: $size solid transparent;
+  border-bottom: $size solid transparent;
+  border-left: 0 solid transparent;
+}
+
+@mixin arrow-right($size, $color) {
+  height: 0;
+  width: 0;
+  border-left: $size solid $color;
+  border-top: $size solid transparent;
+  border-bottom: $size solid transparent;
+  border-right: 0 solid transparent;
+}
+
+/*
+Positioning - Absolute / Fixed / Relative
+Set position (top, right, bottom, left ) & z-index
+@include absolute($t:50%, $l:0, $z: 9999);
+@include relative;
+--------------------- */
+@mixin absolute ($t: null, $r: null, $b: null, $l: null, $z: null) {
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+  z-index: $z;
+  position: absolute;
+}
+
+@mixin fixed ($t: null, $r: null, $b: null, $l: null, $z: null) {
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+  z-index: $z;
+  position: fixed;
+}
+
+@mixin relative ($t: null, $r: null, $b: null, $l: null, $z: null) {
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+  z-index: $z;
+  position: relative;
+}
+
+// CENTER
+@mixin center {
+  @include absolute($t: 50%, $l: 50%);
+  @include transform(translate(-50%, -50%));
+}
+
+@mixin center-x {
+  @include absolute($l: 50%);
+  @include transform(translateX(-50%));
+}
+
+@mixin center-y {
+  @include absolute($t: 50%);
+  @include transform(translateY(-50%));
+}
+
+@mixin overlay {
+  @include absolute($t: 0, $l:0);
+  height: 100%;
+  width: 100%;
+}
+
+
+
+/*
+Firefox hack for images with opacity changes
+@include ff-hack;
+--------------------- */
+@mixin ff-hack {
+  background-color: $black;
+  -moz-backface-visibility: hidden;
+  -webkit-transform: translateZ(0px);
+}
+
+/*
+Placeholder
+--------------------- */
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+
+  &:-moz-placeholder { /* Firefox 18- */
+    @content;
+  }
+
+  &::-moz-placeholder {  /* Firefox 19+ */
+    @content;
+  }
+
+  &:-ms-input-placeholder {
+    @content;
+  }
+}
+
+/*
+Animation
+--------------------- */
+@mixin animation( $property, $animation-props ){
+  @if $property == animation {
+    -webkit-animation: $animation-props;
+        -moz-animation: $animation-props;
+        -ms-animation: $animation-props;
+        -o-animation: $animation-props;
+        animation: $animation-props;
+  }
+  @else {
+    -webkit-animation-#{$property}: $animation-props;
+    -moz-animation-#{$property}: $animation-props;
+    -ms-animation-#{$property}: $animation-props;
+    -o-animation-#{$property}: $animation-props;
+    animation--#{$property}: $animation-props;
+  }
+
+}
+
+/*
+keyframes
+https://gist.github.com/ericam/1607696
+--------------------- */
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+/*
+Color
+@include color(white, $white);
+--------------------- */
+@mixin color($class, $color) {
+  .#{$class} {
+    color: $color;
+    a {
+      &,&:visited {
+        color: $color;
+      }
+    }
+  }
+}
+
+/*
+Inline Gravity Form
+#gform_wrapper_ID {
+  @include inline-gform;
+}
+--------------------- */
+@mixin inline-gform {
+  
+  &.gform_wrapper {
+    width: 100%;
+    
+    .gform_body {
+      width: 85%;
+      float: left;
+    }
+    
+    .gform_fields {
+      .gfield {
+        float: left;
+        clear: none;
+        width: 50%;
+        .ginput_container {
+          margin-top: 0;
+          input {
+            width: 100%;
+            margin-top: 0;
+          }
+        }
+      }
+    }
+    
+    .gform_footer {
+      float: left;
+      clear: none;
+      padding: 0;
+      margin-left: 0;
+      width: 15%;
+    }
+    
+    @include respond-to($screen-sm){
+      .gform_body {
+        width: 100%;
+      }
+      
+      .gform_fields {
+        .gfield {
+          width: 100%;
+          padding-right: 0;
+        }
+      }
+      
+      .gform_footer {
+        width: 100%;
+      }
+      
+    }
+  }
+}
+
+/*
+Style Links & Visited in one
+a.link {
+  @include a-link {
+    color: $white;
+    background: $black;
+  }
+}
+--------------------- */
+@mixin a-link {
+  &, &:visited {
+    @content;
+  }
+}
+
+/*
+Style All Active Psuedo States
+a.link {
+  @include a-hover {
+    color: $red;
+    background: $white;
+  }
+}
+--------------------- */
+@mixin a-hover {
+  &:hover,
+  &:active,
+  &:focus {
+    @content;
+  }
+}
+
+/*
+Style Hover State only on no-touch
+a.link {
+  @include no-touch {
+    color: $red;
+    background: $white;
+  }
+}
+--------------------- */
+@mixin no-touch {
+  html.no-touch &:hover,
+  html.no-touch &:active,
+  html.no-touch &:focus {
+    @content;
+  }
+}
+
+
+// ----
+// Sass (v3.4.7)
+// Compass (v1.0.1)
+// ----
+// http://www.sitepoint.com/building-linear-gradient-mixin-sass/
+/// Convert angle
+/// @author Chris Eppstein
+/// @param {Number} $value - Value to convert
+/// @param {String} $unit - Unit to convert to
+/// @return {Number} Converted angle
+@function convert-angle($value, $unit) {
+  $convertable-units: deg grad turn rad;
+  $conversion-factors: 1 (10grad/9deg) (1turn/360deg) (3.1415926rad/180deg);
+  @if index($convertable-units, unit($value)) and index($convertable-units, $unit) {
+    @return $value
+             / nth($conversion-factors, index($convertable-units, unit($value)))
+             * nth($conversion-factors, index($convertable-units, $unit));
+  }
+
+  @warn "Cannot convert `#{unit($value)}` to `#{$unit}`.";
+}
+
+/// Test if `$value` is an angle
+/// @param {*} $value - Value to test
+/// @return {Bool}
+@function is-direction($value) {
+  $is-direction: index((to top, to top right, to right top, to right, to bottom right, to right bottom, to bottom, to bottom left, to left bottom, to left, to left top, to top left), $value);
+  $is-angle: type-of($value) == 'number' and index('deg' 'grad' 'turn' 'rad', unit($value));
+
+  @return $is-direction or $is-angle;
+}
+
+/// Convert a direction to legacy syntax
+/// @param {Keyword | Angle} $value - Value to convert
+/// @require {function} is-direction
+/// @require {function} convert-angle
+@function legacy-direction($value) {
+  @if is-direction($value) == false {
+    @warn "Cannot convert `#{$value}` to legacy syntax because it doesn't seem to be an angle or a direction";
+  }
+
+  $conversion-map: (
+    to top          : bottom,
+    to top right    : bottom left,
+    to right top    : left bottom,
+    to right        : left,
+    to bottom right : top left,
+    to right bottom : left top,
+    to bottom       : top,
+    to bottom left  : top right,
+    to left bottom  : right top,
+    to left         : right,
+    to left top     : right bottom,
+    to top left     : bottom right
+  );
+
+  @if map-has-key($conversion-map, $value) {
+    @return map-get($conversion-map, $value);
+  }
+
+  @return 90deg - convert-angle($value, 'deg');
+}
+
+/// Mixin printing a linear-gradient
+/// as well as a plain color fallback
+/// and the `-webkit-` prefixed declaration
+/// @access public
+/// @param {String | List | Angle} $direction - Linear gradient direction
+/// @param {Arglist} $color-stops - List of color-stops composing the gradient
+@mixin linear-gradient($direction, $color-stops...) {
+  @if is-direction($direction) == false {
+    $color-stops: ($direction, $color-stops);
+    $direction: 90deg;
+  }
+
+  background: nth(nth($color-stops, 1), 1);
+  background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+  background: linear-gradient($direction, $color-stops);
+}
+
+
+/// ANIMATION/KEYFRAMES
+
+@mixin animation($animate...) {
+    $max: length($animate);
+    $animations: '';
+
+    @for $i from 1 through $max {
+        $animations: #{$animations + nth($animate, $i)};
+
+        @if $i < $max {
+            $animations: #{$animations + ", "};
+        }
+    }
+    -webkit-animation: $animations;
+    -moz-animation:    $animations;
+    -o-animation:      $animations;
+    animation:         $animations;
+}
+
+@mixin keyframes($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+    @keyframes #{$animationName} {
+        @content;
+    }
+}
+
+
+
+
+
+
+
+

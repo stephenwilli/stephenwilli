@@ -1,0 +1,26 @@
+.home-menu {
+  @include bg-cover;
+  padding: 120px 60px;
+  position: relative;
+  
+  .xl-header {
+    @include absolute($l: -15px, $t: 60px);
+    font-size: 8rem;
+    color: $primary;
+    opacity: .4;
+  }
+  
+  .section-icon {
+    @include absolute($r: 60px, $t: -120px);
+    width: 200px;
+  }
+  
+  .section-intro {
+    width: 50%;
+    
+    h1, p {
+      color: $black;
+    }
+  }
+  
+}

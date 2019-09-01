@@ -1,0 +1,12 @@
+.social-bar {
+  a {
+    color: $secondary;
+    font-size: 1rem;
+    margin: 0 5px;
+    @include transition($transition);
+    
+    &:hover {
+      color: $primary;
+    }
+  }
+}

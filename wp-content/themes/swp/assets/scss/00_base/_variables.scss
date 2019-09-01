@@ -1,0 +1,57 @@
+/* COLORS */
+$white: #FFF;
+$black: #000;
+$primary: #8c5434; // DARK BROWN
+$secondary: #363636; // DARK GREY
+$tan: #f5f3e7; 
+$light-grey: #727272;
+
+$link-color: $primary;
+$heading-color: $secondary;
+$action-color: $primary;
+
+$copy-font: henderson-slab-basic, sans-serif;
+
+@mixin heading-font {
+	font-family: 'Blackport';
+	text-transform: uppercase;
+}
+
+@mixin bold-heading {
+	font-family: 'Blackstock';
+	text-transform: uppercase;
+	letter-spacing: 0.15rem;
+}
+
+@mixin copy-font {
+	font-family: $copy-font;
+}
+
+/* FONT WEIGHTS */
+$fw-light: 300;
+$fw-semi: 600;
+$fw-bold: 700;
+$fw-black: 900;
+
+/* GUTTER */
+$gutter: 15px;
+$col: 100%/12;
+
+/* SCREEN SIZE */
+$screen-tiny: 480px;
+$screen-xxs: 600px;
+$screen-xs: 768px;
+$screen-sm: 992px;
+$screen-md: 1200px;
+$screen-lg: 1350px;
+$screen-xl: 1400px;
+$screen-xxl: 1680px;
+$screen-jumbo: 1920px;
+
+/* GLOBAL DIMENSIONS */
+$menu-height: 75px;
+$mobile-menu-height: 50px;
+
+/* INTERACTION */
+$transition: .2s ease-in;
+

@@ -1,0 +1,25 @@
+.nav-sidebar {
+  background-color: $tan;
+  height: 100vh;
+  width: 280px;
+  position: fixed;
+  text-align: center;
+  z-index: 100;
+  
+  .sidebar-content {
+    padding: 30px;
+    .logo {
+      max-width: 240px;
+    }
+  }
+  
+  .sidebar-footer {
+    @include absolute($b: 0, $l:0);
+    @include heading-font;
+    width: 100%;
+    padding: 15px;
+    background-color: $primary;
+    background-image: url('../images/dust.png');
+  }
+  
+}

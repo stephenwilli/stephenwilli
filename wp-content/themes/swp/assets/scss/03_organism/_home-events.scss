@@ -1,0 +1,27 @@
+.home-events {
+  @include bg-cover;
+  padding: 120px 60px;
+  position: relative;
+  
+  .xl-header {
+    @include absolute($r: -15px, $t: 60px);
+    font-size: 8rem;
+    color: $tan;
+    opacity: .1;
+  }
+  
+  .section-icon {
+    @include absolute($l: 120px, $t: 60px);
+    width: 300px;
+  }
+  
+  .section-intro {
+    width: 50%;
+    margin-left: 50%;
+    
+    h1, p {
+      color: $tan;
+    }
+  }
+  
+}

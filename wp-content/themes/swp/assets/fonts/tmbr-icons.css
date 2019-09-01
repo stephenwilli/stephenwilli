@@ -1,0 +1,30 @@
+@font-face {
+	font-family: "tmbr-icons";
+	src: url("tmbr-icons.woff2?469a5b1e087005fd27321e80591d4b0d") format("woff2"),
+url("tmbr-icons.woff?469a5b1e087005fd27321e80591d4b0d") format("woff"),
+url("tmbr-icons.svg?469a5b1e087005fd27321e80591d4b0d#tmbr-icons") format("svg");
+}
+
+.icon {
+	line-height: 1;
+}
+
+.icon:before {
+	font-family: tmbr-icons !important;
+	font-style: normal;
+	font-weight: normal !important;
+	vertical-align: top;
+}
+
+.icon-arrow-left:before {
+	content: "\f101";
+}
+.icon-arrow-right:before {
+	content: "\f102";
+}
+.icon-facebook-f:before {
+	content: "\f103";
+}
+.icon-instagram:before {
+	content: "\f104";
+}
