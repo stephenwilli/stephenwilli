@@ -1,0 +1,26 @@
+%btn {
+	background-color: transparent;
+  border: 1px solid $action-color;
+	display: inline-block;
+	padding: 5px 15px;
+	@include border-radius(0);
+	@include heading-font;
+	font-size: 1.3rem;
+	position: relative;
+	z-index: 1;
+}
+
+%btn-active {
+  background: transparent;
+  color: $white;
+}
+
+.btn {
+  @extend %btn;
+  @include a-hover {
+    @extend %btn-active;
+  }
+  &.active {
+    @extend %btn-active;
+	}
+}

@@ -1,0 +1,53 @@
+/* COLORS */
+$white: #FFF;
+$black: #000;
+$primary: #baa772; // GOLD
+$secondary: #333; // MID-GREY
+
+$link-color: $primary;
+$heading-color: $secondary;
+$action-color: $primary;
+
+/* FONTS */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400i,300i,300,700,700i,800i,800);
+$heading-font: 'Open Sans', sans-serif;
+$copy-font: 'Open Sans', sans-serif;
+
+@mixin heading-font($weight: 800) {
+	font-family: $heading-font;
+	font-weight: $weight;
+}
+
+@mixin copy-font($weight: 400) {
+	font-family: $copy-font;
+	font-weight: $weight;
+}
+
+/* FONT WEIGHTS */
+$fw-light: 300;
+$fw-semi: 600;
+$fw-bold: 700;
+$fw-black: 900;
+
+/* GUTTER */
+$gutter: 15px;
+$col: 100%/12;
+
+/* SCREEN SIZE */
+$screen-tiny: 480px;
+$screen-xxs: 600px;
+$screen-xs: 768px;
+$screen-sm: 992px;
+$screen-md: 1200px;
+$screen-lg: 1350px;
+$screen-xl: 1400px;
+$screen-xxl: 1680px;
+$screen-jumbo: 1920px;
+
+/* GLOBAL DIMENSIONS */
+$menu-height: 75px;
+$mobile-menu-height: 50px;
+
+/* INTERACTION */
+$transition: .2s ease-in;
+

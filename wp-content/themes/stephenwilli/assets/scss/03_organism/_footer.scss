@@ -1,0 +1,30 @@
+.footer {
+	padding: 3rem 0;
+	background-color: $secondary;
+	color: $white;
+	a {
+		color: $white;
+	}
+	
+	ul, li {
+		list-style: none;
+	}
+	
+	.footer-contact {
+		h4 {
+			font-size: 1.3rem;
+			margin: 0;
+			line-height: 1.6;
+		}
+		li {
+			line-height: 1.6;
+		}
+	}
+	
+	.copyright {
+		text-align: center;
+		font-size: .8rem;
+	}
+}
+
+

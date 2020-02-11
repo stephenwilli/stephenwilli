@@ -1,0 +1,54 @@
+@font-face {
+	font-family: "tmbr-icons";
+	src: url("tmbr-icons.woff2?e2858e76d6364a5cb22b4c9ef50cf0e0") format("woff2"),
+url("tmbr-icons.woff?e2858e76d6364a5cb22b4c9ef50cf0e0") format("woff"),
+url("tmbr-icons.svg?e2858e76d6364a5cb22b4c9ef50cf0e0#tmbr-icons") format("svg");
+}
+
+.icon {
+	line-height: 1;
+}
+
+.icon:before {
+	font-family: tmbr-icons !important;
+	font-style: normal;
+	font-weight: normal !important;
+	vertical-align: top;
+}
+
+.icon-angle-left:before {
+	content: "\f101";
+}
+.icon-angle-right:before {
+	content: "\f102";
+}
+.icon-dot:before {
+	content: "\f103";
+}
+.icon-phone:before {
+	content: "\f104";
+}
+.icon-facebook:before {
+	content: "\f105";
+}
+.icon-instagram:before {
+	content: "\f106";
+}
+.icon-mail:before {
+	content: "\f107";
+}
+.icon-pin:before {
+	content: "\f108";
+}
+.icon-twitter:before {
+	content: "\f109";
+}
+.icon-arrow-left:before {
+	content: "\f10a";
+}
+.icon-plus:before {
+	content: "\f10b";
+}
+.icon-minus:before {
+	content: "\f10c";
+}

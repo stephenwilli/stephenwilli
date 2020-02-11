@@ -1,0 +1,20 @@
+html {
+	overflow-x: hidden;
+	font-size: 16px;
+	@include font-smoothing;
+	@include respond-to($screen-xs) {
+		font-size: 14px;
+	}
+}
+
+
+body {
+	overflow-x: hidden;
+	@include copy-font;
+}
+
+// .site-wrap {
+// 	@include opacity(0);
+// }
+
+
