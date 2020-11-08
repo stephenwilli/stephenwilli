@@ -5,7 +5,7 @@
         {
             "key": "field_5cb79b8fae173",
             "label": "Social Media Link",
-            "name": "site_social_media_link",
+            "name": "social_media_link",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -24,7 +24,7 @@
                 {
                     "key": "field_5cb79b9cae174",
                     "label": "Social Media Site",
-                    "name": "site_social_media_site",
+                    "name": "social_media_site",
                     "type": "select",
                     "instructions": "",
                     "required": 0,
@@ -52,8 +52,8 @@
                 },
                 {
                     "key": "field_5cb79bf3ae175",
-                    "label": "Social Media Link",
-                    "name": "social_media_link",
+                    "label": "Social Media URL",
+                    "name": "social_media_url",
                     "type": "text",
                     "instructions": "",
                     "required": 0,
@@ -87,7 +87,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1555536910
+    "modified": 1565022768
 }

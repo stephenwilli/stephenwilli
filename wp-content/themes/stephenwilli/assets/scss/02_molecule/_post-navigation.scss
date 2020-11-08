@@ -1,0 +1,49 @@
+.post-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  height: 600px;
+  position: relative;
+  
+  .page-link {
+    display: block;
+    position: relative;
+    width: 50%;
+    @include bg-cover;
+    @include transition($transition);
+    
+    .overlay {
+      @include absolute();
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,.4);
+      @include transition($transition);
+    }
+    
+    .text-content {
+      @include center;
+      margin: 0;
+    }
+    
+    
+      
+    &:hover {
+      .overlay {
+        background-color: rgba(34,61,67,.7);
+      }
+    }
+  }
+  
+  @include respond-to($screen-sm){
+    
+    .page-link {
+      width: 100%;
+    }
+  }
+  
+  @include respond-to($screen-xs){
+    
+    .page-link {
+      width: 100%;
+    }
+  }
+}

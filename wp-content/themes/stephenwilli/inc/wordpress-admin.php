@@ -2,52 +2,37 @@
 
 add_action('init', function() {
     add_theme_support('title-tag');
-    add_theme_support('post-thumbnails', ['page', 'post']);
-    add_theme_support('automatic-feed-links');
-    add_theme_support( 'html5', array(
-      'search-form', 'comment-form', 'comment-list', 'gallery', 'caption',
-    ) );
+    // add_theme_support('post-thumbnails', ['page', 'post']);
+    // add_post_type_support('page', ['excerpt']);
+    // set_post_thumbnail_size($width, $height, true);
+    // add_image_size($name, $width, $height, true);
 });
 
-// ADD LOGO TO LOGIN PAGE
-add_action('login_head', 'tmbr_login_head');
-
-function tmbr_login_head() {
-	echo "
-	<style>
-		body.login #login h1 a {
-			background: url('".get_bloginfo('template_url')."/assets/images/login-logo.svg') no-repeat scroll center top transparent;
-			background-size: contain;
-			height: 150px;
-			width: 300px;
-			margin: 0 auto;
-		}
-	</style>
-	";
-}
-
-// add ie conditional html5 shim to header
-function add_ie_html5_shim () {
-	echo '<!--[if lt IE 9]>';
-	echo '<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>';
-	echo '<![endif]-->';
-}
-add_action('wp_head', 'add_ie_html5_shim');
-
-
-// SVG UPLOADS
 function cc_mime_types($mimes) {
   $mimes['svg'] = 'image/svg+xml';
   return $mimes;
 }
 add_filter('upload_mimes', 'cc_mime_types');
 
-// EXCERPT LENGTH
+add_action('template_redirect', function() {
+
+    global $post;
+    $redirect_to = null;
+
+    if (is_attachment()) {
+        $redirect_to = home_url();
+    }
+
+    if ($redirect_to !== null) {
+        wp_redirect($redirect_to, 301);
+        exit();
+    }
+});
+
 add_filter('excerpt_length', function($length) {
     return 30;
 });
 
-// HIDE ADMIN BAR
 add_filter('show_admin_bar', '__return_false');
 
 
@@ -112,22 +97,60 @@ add_action('admin_init', function() {
     remove_meta_box('postcustom',            'post', 'normal');
 });
 
-// TINY MCE CUSTOMIZATION
-add_filter('tiny_mce_before_init', function($init) {
 
-    $init['wordpress_adv_hidden'] = false;
-    $init['toolbar1'] = 'bold,italic,bullist,numlist,blockquote,hr,link,unlink,spellchecker,pastetext,removeformat,charmap,undo,redo';
-    $init['toolbar2'] = 'formatselect,styleselect';
-    $init['block_formats'] = 'Paragraph=p;h2=h2;h3=h3';
 
-    $init['style_formats'] = json_encode(array(
-        array('title' => 'Lead',           'selector' => 'p', 'classes' => 'lead'),
-        array('title' => 'Call-to-Action', 'selector' => 'a', 'classes' => 'cta-link'),
-        array('title' => 'Button',         'selector' => 'a', 'classes' => 'btn'),
-        array('title' => 'Footnote',       'selector' => 'p', 'classes' => 'footnote')
-    ));
 
-    return $init;
+// uncomment to force updates
+// wp_maybe_auto_update();
+
+if (!is_admin()) return;
+
+
+add_action('init', function() {
+
+    // TODO: split these admin assets up? build/admin/main.css, build/admin/editor.css, build/admin/login.css?
+    // wp_enqueue_script('admin', build_url('admin.js'), ['wp-blocks', 'wp-editor'], null, true);
+    // wp_enqueue_style('admin', build_url('admin.css'));
+    // add_editor_style(build_url('admin.css'));
+    // add_theme_support('editor-styles');
+    // add_theme_support('editor-color-palette');
+    // add_theme_support('disable-custom-colors');
+
+    // hide specified taxonomies
+    global $wp_taxonomies;
+    $taxonomies = defined('ADMIN_HIDE_TAXONOMIES') ? ADMIN_HIDE_TAXONOMIES : [];
+    foreach ($taxonomies as $key) if (taxonomy_exists($key)) unset($wp_taxonomies[$key]);
+
+    // hide specified WYSIWYG editors
+    $id = isset($_GET['post']) ? $_GET['post'] : null ;
+    if ($id && defined('ADMIN_HIDE_EDITORS') && in_array($id, ADMIN_HIDE_EDITORS)) remove_post_type_support('page', 'editor');
+
+    // add an ID column to all admin tables
+    function pid_column($cols) {
+        $cols['pid'] = 'ID';
+        return $cols;
+    }
+
+    function pid_value($column, $id) {
+        if ($column == 'pid') echo $id;
+    }
+
+    function pid_return_value($value, $column, $id) {
+        if ($column == 'pid') $value = $id;
+        return $value;
+    }
+
+    add_filter('manage_posts_columns',       'pid_column');
+    add_action('manage_posts_custom_column', 'pid_value', 10, 2);
+    add_filter('manage_pages_columns',       'pid_column');
+    add_action('manage_pages_custom_column', 'pid_value', 10, 2);
+    add_filter('manage_media_columns',       'pid_column');
+    add_action('manage_media_custom_column', 'pid_value', 10, 2);
+
+    foreach (get_taxonomies() as $taxonomy) {
+        add_action("manage_edit-${taxonomy}_columns",  'pid_column');
+        add_filter("manage_${taxonomy}_custom_column", 'pid_return_value', 10, 3);
+    }
 });
 
 

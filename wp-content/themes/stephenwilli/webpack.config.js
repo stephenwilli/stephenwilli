@@ -1,6 +1,7 @@
 const pkg = require('./package.json');
 const path = require('path');
 const sass = require('sass');
+const webpack = require("webpack");
 const beep = require('webpack-build-notifier');
 const webfontsGenerator = require('webfonts-generator');
 const execSync = require('child_process').execSync;
@@ -25,7 +26,10 @@ module.exports = (env, options) => {
     'assets/icons/twitter.svg',
     'assets/icons/arrow-left.svg',
     'assets/icons/plus.svg',
-    'assets/icons/minus.svg'
+    'assets/icons/minus.svg',
+    'assets/icons/video.svg',
+    'assets/icons/gift.svg',
+    'assets/icons/cloud.svg'
   ],
   dest: './assets/fonts/',
   fontName: 'tmbr-icons',
@@ -114,6 +118,10 @@ module.exports = (env, options) => {
           }
           return JSON.stringify(manifest, null, 2);
         }
+      }),
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery"
       }),
       new BrowserSyncPlugin({
         proxy: `${pkg.name}.localhost`,

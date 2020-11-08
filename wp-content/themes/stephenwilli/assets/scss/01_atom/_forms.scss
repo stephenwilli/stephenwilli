@@ -1,0 +1,144 @@
+/* INPUTS
+.gf_wrapper input[type=text] {
+  @extend %input;
+}
+======================== */
+%input-text {
+  color: $primary;
+  @include placeholder {
+    color: $primary;
+    text-transform: uppercase;
+  }
+}
+
+textarea,
+select,
+input[type="text"] {
+  @extend %input-text;
+  border: none;
+}
+
+input::-moz-focus-inner {
+  border: 0;
+}
+
+textarea,
+input[type="text"],
+input[type="button"],
+input[type="submit"] {
+   -webkit-appearance: none;
+   border-radius: 0;
+}
+
+select,
+input[type=checkbox],
+input[type=radio] {
+  cursor: pointer;
+}
+
+select {
+  option {
+    color: $black;
+    &:checked {
+      color: $heading-color
+    }
+  }
+  &::-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 $black;
+  }
+}
+
+input[type="submit"] {
+  @extend %btn;
+  padding: 10px 45px !important;
+  @include transition($transition);
+  &:hover {
+    @extend %btn-active;
+  }
+}
+
+.flex-form, .flex-wave-section, .form-modal {
+  .gform_wrapper {
+    .gfield {
+      padding: 10px 0;
+      margin-top: 0;
+      .gfield_label {
+        display: none !important;
+      }
+      
+      .ginput_container_name {
+        label {
+          display: none !important;
+        }
+      }
+      
+      &.visible_label {
+        .gfield_label {
+          display: inline-block !important;
+        }
+        
+        .ginput_container_name {
+          label {
+            display: inline-block !important;
+          }
+        }
+      }
+    }
+    
+    
+    .gfield_checkbox {
+      li { 
+        label {
+          margin: 8px 0 0 5px;
+          font-size: 1.1rem;
+        }
+      }
+    }
+    
+    .ginput_container_radio {
+      margin-top: 0 !important;
+    }
+    
+    .gfield_radio {
+      li {
+        margin-right: 25px !important;
+        margin-bottom: 0 !important;
+        label {
+          margin: 8px 0 0 10px;
+          font-size: 1.1rem;
+          color: $white;
+        }
+        
+        @include respond-to($screen-sm) {
+          width: 100%;
+        }
+      }
+    }
+    
+    .gform_fields {
+      .ginput_container {
+        input {
+          padding: 0;
+          padding-left: 15px;
+          line-height: 40px;
+          height: 40px;
+        }
+      }
+    }
+  }
+}
+
+#gform_wrapper_5 {
+  .gform_wrapper {
+    .gfield {
+      .gfield_label {
+        display: inline-block !important;
+      }
+    }
+  }
+}
+  
+
+
+

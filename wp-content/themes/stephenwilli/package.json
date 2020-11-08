@@ -1,11 +1,11 @@
 {
   "name": "wordpress",
   "version": "0.1.0",
-  "description": "TMBR Starter Theme",
+  "description": "A custom WordPress theme",
   "author": {
-    "name": "TMBR",
-    "email": "webmaster@wearetmbr.com",
-    "url": "http://wearetmbr.com/"
+    "name": "Nik Rowell",
+    "email": "nik@nikrowell.com",
+    "url": "http://www.nikrowell.com/"
   },
   "scripts": {
     "start": "npm run clean && webpack --mode development --watch",
@@ -15,6 +15,8 @@
   "dependencies": {
     "animejs": "^3.0.1",
     "fitvids": "^2.0.0",
+    "isotope-layout": "^3.0.6",
+    "gsap": "file:gsap-bonus.tgz",
     "jquery": "^3.3.1",
     "magnific-popup": "^1.1.0",
     "slick-carousel": "^1.8.1",

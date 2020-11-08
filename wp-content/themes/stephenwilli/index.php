@@ -1,41 +1,40 @@
-<?php
-
-get_header();
-render('partials/page-header');
+<?php get_header(); 
 
 ?>
 
-    <div class="container">
+<main class="page-main" role="main">
+		
+		<?php if(have_posts()): ?>
+				
+      <?php 
+        $images = get_field( 'default_header_image', 'option' );
+        $rand = rand(0, (count($images) - 1));
+        $heroImage = $images[$rand]['header_image'];
+        $credit = $heroImage['caption']; 
+      ?>
 
-        <?php while (have_posts()): the_post(); ?>
-        <article <?php post_class(); ?>>
+      <section class="page-hero" style="background-image: url('<?php echo $heroImage['sizes']['full_screen'];?>')">
+        <div class="overlay"></div>
+        <h1 class="hero-title">News</h1>
+        <?php if($credit){?>
+          <span class="photo-credit">Photo: <?php echo $credit;?></span>
+        <?php }?>
+      </section><!-- /section -->
+      
+				<div class="blog-wrap loop-wrap">
+					<?php while ( have_posts() ) : the_post(); ?>
+							<?php get_template_part( 'partials/02_molecule/post-loop' ); ?>
+					<?php endwhile; // end of the loop. ?>
+			  </div>
+        
+        <?php
+          if ( function_exists('wp_bootstrap_pagination') )
+            wp_bootstrap_pagination();
+        ?>
 
-            <?php if (has_post_thumbnail()): ?>
-            <a class="post__thumb" href="<?php the_permalink(); ?>">
-                <img src="<?php echo get_thumbnail_src(); ?>" alt="<?php the_title_attribute(); ?>">
-            </a>
-            <?php endif; ?>
+			<?php endif;?>
 
-            <header class="article-header">
-                <h2 class="article-header__title">
-                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                </h2>
-                <?php
-                // render('partials/article-meta');
-                // render('partials/share');
-                ?>
-            </header>
+</main>
+<!-- #page-main -->
 
-            <div class="content content--excerpt">
-                <?php the_excerpt(); ?>
-                <a class="cta-link" href="<?php the_permalink(); ?>">Read More</a>
-            </div>
-
-        </article>
-        <?php endwhile; ?>
-
-        <?php if (is_singular('post')) render('partials/nav-archive'); ?>
-
-    </div>
-
-<?php get_footer(); ?>
+<?php get_footer();

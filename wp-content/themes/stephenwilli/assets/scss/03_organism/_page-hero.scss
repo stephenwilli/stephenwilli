@@ -1,0 +1,23 @@
+.page-hero {
+	@include bg-cover;
+	background-position: center center;
+	width: 100%;
+	height: 400px;
+	position: relative;
+	
+	.overlay {
+		@include overlay(rgba(0,0,0,.3));
+	}
+
+	.hero-title {
+		@include center;
+		color: $white;
+		width: 80%;
+		margin: 0;
+		text-align: center;
+	}
+	
+	@include respond-to($screen-xs){
+		margin-top: 2rem;
+	}
+}

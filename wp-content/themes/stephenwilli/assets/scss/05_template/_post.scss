@@ -1,0 +1,47 @@
+.post-content {
+	padding: 4rem 10rem;
+	
+	.post-meta {
+		color: $primary;
+		font-weight: bold;
+		font-size: 1.1rem;
+		margin-bottom: 2rem;
+	}
+	
+	@include respond-to($screen-sm){
+		padding: 4rem;
+	}
+	
+	@include respond-to($screen-xs){
+		padding: 4rem 2rem;
+	}
+}
+
+.alignleft {
+	float:left;
+	margin: 0 15px 15px 0;
+	@include respond-to($screen-xs){
+		float:none;
+	}
+}
+
+.alignright {
+	float:right;
+	margin: 0 0 15px 15px;
+	@include respond-to($screen-xs){
+		float:none;
+	}
+}
+
+.content-404 {
+	text-align: center;
+	
+	.pagenav {
+		list-style: none;
+		font-size: 1.1rem;
+		line-height: 2;
+	}
+}
+
+
+

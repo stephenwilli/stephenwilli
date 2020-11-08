@@ -1,28 +1,37 @@
 /* FONT SIZES */
-$h1: 4rem;
-$h2: 3rem;
-$h3: 2.5rem;
+$h1: 6.5rem;
+$h2: 6rem;
+$h3: 2rem;
 $h4: 2rem;
-$h5: 1.5rem;
+$h5: 1.2rem;
 $p: 1rem;
 $hero: 7rem;
 $lead: 1.125rem;
 $small: .875rem;
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6 {
-  margin: 2rem 0;
+  margin: 0 0 1rem 0;
   @include heading-font();
   color: $heading-color;
+  letter-spacing: .02em;
 }
 
 h1,
 .h1 {
   font-size: $h1; /* 4em */
+  
+  @include respond-to($screen-sm) {
+    font-size: 5rem;
+  }
 }
 
 h2,
 .h2 {
   font-size: $h2; /* 3em */
+  
+  @include respond-to($screen-sm) {
+    font-size: 4rem;
+  }
 }
 
 h3,
@@ -32,17 +41,17 @@ h3,
 
 h4,
 .h4 {
-  font-size: $h4; /* 2em */
+  font-size: $h4;
 }
 
 h5,
 .h5 {
-  font-size: $h5; /* 1.5em */
+  font-size: $h5;
 }
 
 p {
   line-height: 1.8rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .small {
@@ -56,13 +65,14 @@ p {
 
 a {
   color: $link-color;
+  text-decoration: none;
   @include transition(all $transition);
   &:hover,
   &:focus,
   &:active {
     text-decoration: none;
     outline: none;
-    color: darken($link-color,20%);
+    color: $secondary;
   }
 }
 
@@ -77,14 +87,28 @@ em {
   font-style: italic;
 }
 
+.icon {
+  line-height: 1.8;
+}
+
 
 ::-moz-selection {
-	background: $primary;
+	background: $secondary;
 	color: $white;
 }
 
 ::selection {
-	background: $primary;
+	background: $secondary;
 	color: $white;
 }
+
+.center {
+  text-align: center;
+}
+
+.quote-mark {
+  color: $action-color;
+  @include heading-font;
+}
+
 

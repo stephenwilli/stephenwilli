@@ -237,3 +237,13 @@ function custom_taxonomy_labels($singular, $plural = null, $labels = []) {
         'not_found'                  => 'No '.$plural.' found'
     ], $labels);
 }
+
+// H5P STYLES
+add_action('h5p_alter_library_styles', function(&$styles) {
+    $styles[] = (object) [
+        'path' => build_url('main.css'),
+        'version' => '?ver=0.1'
+    ];
+});
+
+

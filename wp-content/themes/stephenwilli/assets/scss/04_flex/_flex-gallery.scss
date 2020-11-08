@@ -1,0 +1,53 @@
+.flex-gallery {
+  padding: 4rem;
+  text-align: center;
+  
+  .gallery-mosaic-1,
+  .gallery-mosaic-2 {
+    margin-top: 1rem;
+    .mosaic-image-1,
+    .mosaic-image-2 {
+      display: block;
+      width: 33%;
+      padding: 0 .5rem 1rem;
+      position: relative;
+      
+      .photo-credit {
+        @include absolute($r: 1rem, $b: 2rem);
+      }
+      
+      img {
+        width: 100%;
+        opacity: 1;
+        @include transition($transition);
+        cursor: zoom-in;
+      }
+      
+      &:hover {
+        img {
+          opacity: .5;
+        }
+      }
+    }
+  }
+  
+  @include respond-to($screen-sm) {
+    padding: 4rem 2rem;
+    .gallery-mosaic-1,
+    .gallery-mosaic-2 {
+      .mosaic-image-1,
+      .mosaic-image-2 {
+        width: 50%;
+      }
+    }
+  }
+  @include respond-to($screen-xs) {
+    .gallery-mosaic-1,
+    .gallery-mosaic-2 {
+      .mosaic-image-1,
+      .mosaic-image-2 {
+        width: 100%;
+      }
+    }
+  }
+}

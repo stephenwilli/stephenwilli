@@ -2,127 +2,238 @@
 	border: none;
 	width: 100%;
 	margin-bottom: 0;
-	position: fixed;
+	position: absolute;
 	top: 0;
 	z-index:50;
 	
+	.navbar-utility {
+		height: 2rem;
+		background-color: $primary;
+		width: 100%;
+		position: relative;
+		.utility-list {
+			@include center-y;
+			right: 4rem;
+			height: 100%;
+			
+			.utility-item {
+				display: inline-block;
+				height: 100%;
+				padding: 0 10px;
+				line-height: 2rem;
+				@include transition($transition);
+				.icon {
+					margin-right: 5px;
+					line-height: 2rem;
+				}
+				a {
+					color: $white;
+					text-transform: uppercase;
+					font-size: .8rem;
+				}
+				
+				&:hover {
+					background-color: $secondary;
+				}
+			}
+		}
+	}
+	
+	
 	.navbar-main {
 		height: $menu-height;
-		background-color: $white;
+		background-color: transparent;
 		position: relative;
 		
 		.navbar-brand {
-			max-width: 100px;
 			height: auto;
 			padding: 0;
 			@include center-y;
-			left: 30px;
+			left: 2rem;
 			z-index: 15;
+			width: 160px;
 			.logo {
-				width: 100%;
+				max-width: 100%;
+				opacity: 1;
 				@include transition($transition);
+				&:hover {
+					opacity: .6;
+				}
 			}
 		}
 		
 		.navbar-hamburger {
 			display: none;
 			@include center-y;
-			right: 30px;
-			@include transition($transition);
+			right: 2rem;
+			width: 40px;
 			
-			.hamburger-bar {
+			&:after, &:before, span {
+				background-color: $white;
+				border-radius: 3px;
+				content: '';
 				display: block;
 				height: 3px;
-				width: 35px;
-				margin-bottom: 8.5px;
-				background-color: $action-color;
-				@include transition($transition);
-				@include opacity(1);
-				@include transform(rotate(0deg));
-				
-				&.-three {
-					margin-bottom: 0;
-				}
+				margin: 7px 0;
+				transition: all .2s ease-in-out;
 			}
-			
 			&.-collapsed {
-				.hamburger-bar {
-					&.-one{
-				    @include transform(rotate(-45deg));
-				    transform-origin: 100% 0;
-				  }
-					
-					&.-two{
-				    @include opacity(0);
-				  }
-					
-					&.-three{
-				    @include transform(rotate(45deg));
-				    transform-origin: 100% 100%;
-				  }
+				&:before {
+					transform: translateY(10px) rotate(135deg);
+				}
+				&:after {
+					transform: translateY(-10px) rotate(-135deg);
+				}
+				span {
+					transform: scale(0);
 				}
 			}	
 		}
 		
 		.navbar-menu {
-			display: inline-block;
 			@include center-y;
-			width: 100%;
+			right: 2rem;
 			@include transition($transition);
 			
 			.parent-menu {
 				float: right;
+				margin-top: -1px;
 				@include transition($transition);
 				
-				.menu-item {
+				> .menu-item {
 					display: inline-block;
-					padding: 0 25px;
+					padding: 0 45px;
 					position: relative;
 					a {
+						color: $white;
 						line-height: $menu-height;
 						display: block;
-						&:after {
-							@include absolute($b:0,$l:0);
-							content: '';
-							background-color: $action-color;
-							height: 5px;
+						text-transform: uppercase;
+						position: relative;
+						z-index: 10;
+					}
+					
+					&:after {
+						@include absolute($b:0,$l:0);
+						content: '';
+						background-color: $primary;
+						height: 100%;
+						width: 0;
+						@include transition($transition);
+					}
+					
+					&.menu-item-has-children {
+						.sub-menu {
 							width: 0;
+							visibility: hidden;	
+							opacity: 0;
+							@include absolute($l:0);
+							background: $primary;
+							padding: 15px 45px;
 							@include transition($transition);
-						}
-						
-						&:hover {
-							&:after {
-								width: 100%;
+							transition-delay: 100ms;
+												
+							> .menu-item {
+								a {
+									width: 300px;
+									color: $white;
+									&:hover {
+										color: $primary;
+									}
+								}
 							}
 						}
 						
-						&.active {
+						> a {
 							&:after {
-								width: 100%;
+								content: "\2039";
+								@include center-y;
+								right: -15px;
+								font-size: 1.4rem;
+								transform:translateY(-50%) rotate(-90deg);
 							}
+						}
+					}
+
+					&:hover {
+						a {
+							color: $white;
+						}
+						&:after {
+							width: 100%;
+						}
+						
+						&.menu-item-has-children {
+							.sub-menu {
+								width: 300px;
+								visibility: visible;
+								opacity: 1;
+								
+							}
+						}
+					}
+
+
+					&.active {
+						&:after {
+							width: 100%;
 						}
 					}
 				}
 			}
 		}
+		
+		.nav-cta {
+			display: inline-block;
+			@include center-y;
+			right: 30px;
+		}
 	}
-
+	
+	&.-alert-bump {
+		.navbar-utility {
+			width: 50%;
+			float: right;
+		}
+		
+		.navbar-main {
+			margin-top: 2rem;
+		}
+	}
 	
 	/* SCROLLED  */
 	
 	&.scrolled {
+		position: fixed;
+		background-color: $primary;
 		
-		.navbar-hamburger {
-			right: 30px;
+		.alert-bar {
+			background-color: $secondary;
 		}
 		
-		.navbar-main {
-			
-			.navbar-menu {
-				.parent-menu {
-					margin-right: 180px;
+		.navbar-utility {
+			background-color: $secondary;
+			.utility-item {
+				&:hover {
+					background-color: $primary;
 				}
-			}	
+			}
+		}
+		
+		@include respond-to($screen-sm){
+			.alert-bar {
+				display: none;
+			}
+			
+			&.-alert-bump {
+				.navbar-main {
+					margin-top: 2rem;
+				}
+			}
+		}
+		
+		@include respond-to($screen-xs){
+			background-color: $primary;
 		}
 	}
 	
@@ -130,6 +241,18 @@
 	/* RESPONSIVE */
 	
 	@include respond-to($screen-sm){
+		
+		background-color: $primary;
+		
+		.navbar-utility {
+			background-color: $secondary;
+			text-align: center;
+			.utility-list { 
+				@include center;
+				width: 100%;
+				
+			}
+		}
 		
 		.navbar-main {
 			.navbar-hamburger {
@@ -142,13 +265,10 @@
 				&.-open {
 					display: inline-block;
 					width: 100%;
-					height: 460px;
 					@include center-x;
 					top: 75px;
-					background-color: $white;
-					overflow-y: auto;
+					background-color: $primary;
 					-webkit-overflow-scrolling: touch;
-
 				}
 				
 				.parent-menu {
@@ -156,29 +276,65 @@
 					width: 100%;
 					height: 100%;
 					
-					.menu-item {
+					> .menu-item {
 						width: 100%;
 						display: block;
 						border-top: 1px solid #ddd;
 						a {
 							font-size: 1.2rem;
-							color: $black;
+							color: $white;
 							line-height: 60px;
-							&:after {
+						}
+						
+						&:after {
+							display: none;
+						}
+						
+						&:before {
+							
+						}
+						
+						&:hover {
+							a {
+								color: $white;
+							}
+						}
+						
+						&.menu-item-has-children {
+							a {
+								&:after {
+									right: 0;
+    							font-size: 1.9rem;
+									transform:translateY(-50%) rotate(180deg);
+								}
+							}
+							
+							&.-open {
+								a {
+									&:after {
+										transform:translateY(-50%) rotate(270deg);
+									}
+								}
+							}
+
+							.sub-menu {
+								background-color: $primary;
 								display: none;
-							}
-							
-							&:before {
-								// content: url('../images/arrow-02.svg');
-								width: 7px;
-								@include center-y;
-								right: $gutter*2;
-							}
-							
-							&.active { 
-								&:before {
-									// content: url('../images/arrow-03.svg');
-									width: 10px;
+								opacity: 1;
+								visibility: visible;
+								width: 100%;
+								position: relative;
+								text-align: left;
+								padding: 0 0 15px 15px;
+								.menu-item {
+									a {
+										color: $white;
+										line-height: 30px;
+									}
+								}
+								
+								&.-open {
+									display: block;
 								}
 							}
 						}
@@ -186,6 +342,39 @@
 				}
 			}
 		}
-
+		
+		&.-alert-bump {
+			.navbar-utility {
+				width: 100%;
+			}
+			
+			.navbar-main {
+				margin-top: 4rem;
+			}
+		}
 	}
+	
+	@include respond-to($screen-xs){
+		.navbar-utility {
+			.utility-list { 
+				.utility-item {
+					padding: 0 5px;
+					a {
+						font-size: .6rem;
+					}
+				}
+			}
+		}
+	}
+
 }
+
+
+
+
+
+
+
+
+
+

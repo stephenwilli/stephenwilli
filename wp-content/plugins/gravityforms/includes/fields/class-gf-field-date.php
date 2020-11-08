@@ -111,7 +111,7 @@ class GF_Field_Date extends GF_Field {
 			// GFCommon::parse_date() takes a numeric array.
 			$value = array_values( $value );
 		} else {
-			$picker_value = $value;
+			$picker_value = esc_attr( $value );
 		}
 		$format    = empty( $this->dateFormat ) ? 'mdy' : esc_attr( $this->dateFormat );
 		$date_info = GFCommon::parse_date( $value, $format );
@@ -131,6 +131,7 @@ class GF_Field_Date extends GF_Field {
 		$disabled_text = $is_form_editor ? "disabled='disabled'" : '';
 		$class_suffix  = $is_entry_detail ? '_admin' : '';
 		$class         = $size . $class_suffix;
+		$class         = esc_attr( $class );
 
 		$form_sub_label_placement  = rgar( $form, 'subLabelPlacement' );
 		$field_sub_label_placement = $this->subLabelPlacement;
@@ -185,7 +186,7 @@ class GF_Field_Date extends GF_Field {
                                     <input id='{$field_id}_2' name='ginput_day' type='text' {$day_placeholder_attribute} {$disabled_text} value='{$day_value}'/>
                                </div>";
 				$year_field  = "<div class='gfield_date_year ginput_date' id='gfield_input_date_year' style='display:$datefield_display'>
-                                    <label for='{$field_id}_2' {$sub_label_class_attribute}>{$year_sub_label}</label>
+                                    <label for='{$field_id}_3' {$sub_label_class_attribute}>{$year_sub_label}</label>
                                     <input id='{$field_id}_3' type='text' name='text' {$year_placeholder_attribute} {$disabled_text} value='{$year_value}'/>
                                </div>";
 			} else {
@@ -207,7 +208,7 @@ class GF_Field_Date extends GF_Field {
 			$day_dropdown   = "<div class='gfield_date_dropdown_day ginput_date_dropdown' id='gfield_dropdown_date_day' style='display:$dropdown_display'>" . $this->get_day_dropdown( '', "{$field_id}_2", rgar( $date_info, 'day' ), '', $disabled_text, $day_placeholder_value ) . '</div>';
 			$year_dropdown  = "<div class='gfield_date_dropdown_year ginput_date_dropdown' id='gfield_dropdown_date_year' style='display:$dropdown_display'>" . $this->get_year_dropdown( '', "{$field_id}_3", rgar( $date_info, 'year' ), '', $disabled_text, $year_placeholder_value, $form ) . '</div>';
 
-			$field_string = "<div class='ginput_container ginput_container_date' id='gfield_input_datepicker' style='display:$datepicker_display'><input name='ginput_datepicker' type='text' {$date_picker_placeholder} {$disabled_text} value = '{$picker_value}'/><img src='" . GFCommon::get_base_url() . "/images/calendar.png' id='gfield_input_datepicker_icon' style='display:$icon_display'/></div>";
+			$field_string = "<div class='ginput_container ginput_container_date' id='gfield_input_datepicker' style='display:$datepicker_display'><input name='ginput_datepicker' type='text' {$date_picker_placeholder} {$disabled_text} value='{$picker_value}'/><img src='" . GFCommon::get_base_url() . "/images/calendar.png' id='gfield_input_datepicker_icon' style='display:$icon_display'/></div>";
 
 			switch ( $field_position ) {
 				case 'dmy' :
@@ -411,12 +412,39 @@ class GF_Field_Date extends GF_Field {
 				$picker_value = esc_attr( GFCommon::date_display( $picker_value, $format ) );
 				$icon_class   = $this->calendarIconType == 'none' ? 'datepicker_no_icon' : 'datepicker_with_icon';
 				$icon_url     = empty( $this->calendarIconUrl ) ? GFCommon::get_base_url() . '/images/calendar.png' : $this->calendarIconUrl;
-				$icon_url = esc_url( $icon_url );
+				$icon_url     = esc_url( $icon_url );
 				$tabindex     = $this->get_tabindex();
 				$class        = esc_attr( $class );
 
+				$aria_describedby  = "aria-describedby='{$field_id}_date_format'";
+				$date_format_label = esc_attr__( 'Date Format: ', 'gravityforms' );
+				switch ( $format ) {
+					case 'mdy':
+						$date_format_label .= esc_attr__( 'MM slash DD slash YYYY', 'gravityforms' );
+						break;
+					case 'dmy':
+						$date_format_label .= esc_attr__( 'DD slash MM slash YYYY', 'gravityforms' );
+						break;
+					case 'dmy_dash':
+						$date_format_label .= esc_attr__( 'DD dash MM dash YYYY', 'gravityforms' );
+						break;
+					case 'dmy_dot':
+						$date_format_label .= esc_attr__( 'DD dot MM dot YYYY', 'gravityforms' );
+						break;
+					case 'ymd_slash':
+						$date_format_label .= esc_attr__( 'YYYY slash MM slash DD', 'gravityforms' );
+						break;
+					case 'ymd_dash':
+						$date_format_label .= esc_attr__( 'YYYY dash MM dash DD', 'gravityforms' );
+						break;
+					case 'ymd_dot':
+						$date_format_label .= esc_attr__( 'YYYY dot MM dot DD', 'gravityforms' );
+						break;
+				}
+
 				return "<div class='ginput_container ginput_container_date'>
-                            <input name='input_{$id}' id='{$field_id}' type='text' value='{$picker_value}' class='datepicker {$class} {$format} {$icon_class}' {$tabindex} {$disabled_text} {$date_picker_placeholder}/>
+                            <input name='input_{$id}' id='{$field_id}' type='text' value='{$picker_value}' class='datepicker {$class} {$format} {$icon_class}' {$tabindex} {$disabled_text} {$date_picker_placeholder} {$aria_describedby} />
+                            <span id='{$field_id}_date_format' class='screen-reader-text'>{$date_format_label}</span>
                         </div>
                         <input type='hidden' id='gforms_calendar_icon_$field_id' class='gform_hidden' value='$icon_url'/>";
 			}

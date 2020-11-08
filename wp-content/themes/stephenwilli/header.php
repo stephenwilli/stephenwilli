@@ -11,13 +11,11 @@
   site.dir = '<?php echo get_bloginfo('template_url') ?>';
   </script>
   
-  <!-- TYPEKIT
-  <script src="//use.typekit.net/mhf8zro.js"></script>
-  <script>try{Typekit.load();}catch(e){}</script>
-  -->
+  <!-- <link rel="stylesheet" href="https://use.typekit.net/skp1szj.css"> -->
+  
+  <link rel="icon" type="image/png" href="<?php echo(get_template_directory_uri()) ?>/favicon.ico" />
   
   <title><?php wp_title(' | ', true, 'right'); ?></title>
-  <link rel="icon" type="image/png" href="<?php echo(get_template_directory_uri()) ?>/favicon.ico" />
   
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -30,9 +28,12 @@
 </head>
 
 <body <?php body_class(); ?>>
+  
+  <?php // get_template_part( 'partials/02_molecule/form-modal' ); ?>
+  
 
-<div class="js-sitewrap site-wrap">
+  <div class="js-sitewrap site-wrap">
 
-  <header class="site-header" id="header" role="header">
-    <?php get_template_part( 'partials/03_organism/site-header' ); ?>
-  </header>
+    <header class="site-header" id="header" role="header">
+      <?php get_template_part( 'partials/03_organism/site-header' ); ?>
+    </header>

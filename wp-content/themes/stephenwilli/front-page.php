@@ -2,18 +2,12 @@
   get_header();
   while ( have_posts() ) : the_post(); ?>
 
-  <main class="page-main" role="main">
+  <section class="full-screen" style="background-image:url('<?php bloginfo( 'template_url' ); ?>/assets/images/crest_trail_55.jpg');">
     <?php
-      // PAGE HERO
-      get_template_part( 'partials/03_organism/home-hero' );
-      
-      // PAGE CONTENT
-      get_template_part( 'partials/03_organism/page-content' );
-
       // FLEXIBLE CONTENT
-      get_template_part( 'partials/03_organism/flex-layouts' ); 
+      //get_template_part( 'partials/03_organism/flex-layouts' ); 
     ?>
-  </main>
+  </section>
   
 <?php endwhile;
 get_footer();

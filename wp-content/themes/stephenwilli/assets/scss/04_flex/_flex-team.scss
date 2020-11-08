@@ -1,0 +1,45 @@
+.flex-team {
+  padding: 6rem 0 0;
+  
+  .section-title {
+    text-align: center;
+  }
+  
+  .team-wrap {
+    padding: 2rem 4rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    .team-item {
+      margin: 2rem;
+      width: calc(33% - 4rem);
+      
+      h5 {
+        font-size: 1.1rem;
+      }
+      .team-image {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  @include respond-to($screen-md){
+    .team-wrap {
+      .team-item {
+        width: calc(50% - 4rem);
+      }
+    }
+  }
+  
+  
+  @include respond-to($screen-xs){
+    padding: 4rem 0 0;
+    .team-wrap {
+      padding: 2rem 0;
+      .team-item {
+        width: calc(100% - 4rem);
+      }
+    }
+  }
+}

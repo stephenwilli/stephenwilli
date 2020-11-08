@@ -1,26 +1,57 @@
-@import
-  'abstracts/mixins';
+// VENDOR
+
+@import "~animate.css/animate.css";
+@import "~slick-carousel/slick/slick.scss";
+@import "~magnific-popup/src/css/main.scss";
+
+// ICON FONT CSS
+
+@import "../fonts/tmbr-icons.css";
+
+// THEME
 
 @import
   '00_base/_reset',
-  '00_base/_fonts',
+  // '00_base/_flexboxgrid', 
+  // '00_base/_fonts',
   '00_base/_variables',
   '00_base/_mixins',
-  '00_base/_body',
-  '00_base/_browser-reset',
-  '00_base/_flexboxgrid';
+  '00_base/_body', 
+  '00_base/_animation';
   
 @import
   '01_atom/_typography',
+  '01_atom/_slick',
   '01_atom/_edit-link',
+  '01_atom/_forms',
   '01_atom/_buttons';
+  
+@import
+  '02_molecule/_social-links',
+  '02_molecule/_post-nav',
+  '02_molecule/_slick-slider',
+  '02_molecule/_post-navigation';
     
 @import
   '03_organism/header',
-  '03_organism/footer';
+  '03_organism/home-hero',
+  '03_organism/page-hero',
+  '03_organism/footer',
+  '03_organism/alert-bar';
   
+@import
+  '04_flex/flex-wysiwyg',
+  '04_flex/flex-icon-columns',
+  '04_flex/flex-page-links',
+  '04_flex/flex-collapse',
+  '04_flex/flex-image-columns',
+  '04_flex/flex-gallery',
+  '04_flex/flex-team',
+  '04_flex/flex-form';
   
-  
+@import
+  '05_template/post', 
+  '05_template/post-loop'; 
   
   
   

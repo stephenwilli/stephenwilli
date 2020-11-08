@@ -1,24 +1,44 @@
-<?php
-  $heroBGVideo = get_field('hero_background_video');
-  $heroImage = get_field('hero_image');
-  $heroLink = get_field('hero_video_link');
-  $heroTitle = get_field('hero_title');
-?>
-
-<section class="home-hero" style="background-image:url('<?php echo $heroImage['sizes']['full_screen'];?>');">
-  <div class="overlay"></div>
-  <div class="cap-wrap">
-    <div class="row">
-      <div class="col-sm-10 col-sm-offset-1">
-        <div class="caption">
-          <h1><?php echo $heroTitle;?></h1>
-          <a href="<?php echo $heroLink;?>" class="js-popup-video play-button">
-            <?php get_template_part( 'partials/02_molecule/play-button.svg' ); ?>
-          </a>
-        </div>
+<section class="home-hero">
+  <?php
+    $heroType = get_field('home_hero_type');
+    if($heroType ==='video') { 
+        $videoURL = get_field('home_hero_video_url');
+      ?>
+      <div class="hero-video">
+        <video playsinline autoplay muted loop>
+         <source src="<?php echo $videoURL; ?>" type='video/mp4' />
+        </video>
       </div>
-    </div>
-  </div>
-</section><!-- /section -->
+      <div class="hero-caption">
+        <h1 class="hero-title">
+        </h1>
+      </div>
+      
+    <?php } elseif($heroType ==='slider') { 
+        if(have_rows('home_hero_slide')) {
+      ?>
+
+        <div id="js-hero-slider">
+          <?php while(have_rows('home_hero_slide')) { the_row();
+              $slideImage = get_sub_field('home_hero_image');
+            ?>
+            <div class="hero-slide">
+              <div class="overlay"></div>
+              <div class="hero-image" style="background-image:url('<?php echo $slideImage['sizes']['full_screen'];?>');">
+              </div>
+              <div class="hero-caption">
+                <h1 class="hero-title">
+                </h1>
+              </div>
+            </div>
+          <?php } ?>
+        </div>
+
+      <?php }?>
+    <?php } ?>
+    
+  </section><!-- /section -->
+
+
 
 

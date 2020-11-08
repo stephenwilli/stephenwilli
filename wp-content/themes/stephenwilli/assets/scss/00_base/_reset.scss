@@ -34,6 +34,25 @@ template, [hidden] {
   display: none !important;
 }
 
+:active,
+:focus  {
+	outline: none;
+}
+
+::-moz-focus-inner,
+a::-moz-focus-inner,
+button::-moz-focus-inner {
+	border: 0;
+}
+
+:focus {
+	outline: none!important;
+}
+
+::-moz-focus-inner {
+	border: 0;
+}
+
 input:not([type="checkbox"]),
 input:not([type="radio"]),
 textarea,

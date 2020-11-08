@@ -8,21 +8,26 @@ require 'inc/enqueue-assets.php';
 
 // WORDPRESS CUSTOMIZATION
 require 'inc/wordpress-admin.php';
+require 'inc/tmbr-theme-setup.php';
 require 'inc/image-sizes.php';
+require 'inc/site-config.php';
+// require 'inc/weather/init.php';
 
 // CMS SETUP
 require 'inc/register-menus.php';
-require 'inc/register-post-type.php';
+//require 'inc/register-post-type.php';
 require 'inc/register-sidebars.php';
-require 'inc/register-taxonomy.php';
+// require 'inc/register-taxonomy.php';
 require 'inc/register-option-pages.php';
-require 'inc/shortcodes.php';
 
 // HELPER FUNCTIONS
 require 'inc/helper-functions.php';
 require 'inc/tmbr-load-template.php';
+require 'inc/wp_bootstrap_pagination.php';
 
 // VENDOR
-// require 'inc/gravity-form-filters.php';
+require 'inc/gravity-form-filters.php';
+require 'inc/weather/init.php';
+
 
 

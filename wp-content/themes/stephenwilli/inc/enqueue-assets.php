@@ -7,5 +7,5 @@ add_action('wp_enqueue_scripts', function() {
     wp_deregister_script('wp-embed');
 
     wp_enqueue_style('main', build_url('main.css'));
-    wp_enqueue_script('main', build_url('main.js'), null, null, true);
+    wp_enqueue_script('main', build_url('main.js'), ['jquery'], null, true);
 });

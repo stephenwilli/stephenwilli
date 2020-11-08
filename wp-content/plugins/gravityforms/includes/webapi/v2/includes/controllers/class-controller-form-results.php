@@ -36,6 +36,7 @@ class GF_REST_Form_Results_Controller extends GF_REST_Controller {
 		register_rest_route( $namespace, '/' . $base . '/schema', array(
 			'methods'         => WP_REST_Server::READABLE,
 			'callback'        => array( $this, 'get_public_item_schema' ),
+			'permission_callback' => '__return_true',
 		) );
 	}
 
@@ -77,11 +78,11 @@ class GF_REST_Form_Results_Controller extends GF_REST_Controller {
 		 *
 		 * @since 2.0-beta-2
 		 *
-		 * @param string          $capability The capability required for this endpoint.
+		 * @param string|array    $capability The capability required for this endpoint.
 		 * @param WP_REST_Request $request    Full data about the request.
 		 */
 		$capability = apply_filters( 'gform_rest_api_capability_get_results', 'gravityforms_view_entries', $request );
-		return GFAPI::current_user_can_any( $capability );
+		return $this->current_user_can_any( $capability, $request );
 	}
 
 

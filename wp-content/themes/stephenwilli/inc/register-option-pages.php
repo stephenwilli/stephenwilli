@@ -10,13 +10,28 @@ if (function_exists('acf_add_options_page')) {
 		'redirect'		=> false,
     'position' => 3
 	));
-
-	acf_add_options_sub_page(array(
-		'page_title' 	=> 'Header Settings',
-		'menu_title'	=> 'Header',
-		'parent_slug'	=> 'site-settings',
-		'capability'	=> 'manage_options'
-	));
+  
+  acf_add_options_sub_page(array(
+    'page_title' 	=> 'Utility Navigation',
+    'menu_title'	=> 'Utility Navigation',
+    'parent_slug'	=> 'site-settings',
+    'capability'	=> 'manage_options'
+  ));
+  
+  acf_add_options_sub_page(array(
+    'page_title' 	=> 'Alert Bar',
+    'menu_title'	=> 'Alert Bar',
+    'parent_slug'	=> 'site-settings',
+    'capability'	=> 'manage_options'
+  ));
+  
+  
+  acf_add_options_sub_page(array(
+    'page_title' 	=> 'Modal',
+    'menu_title'	=> 'Modal',
+    'parent_slug'	=> 'site-settings',
+    'capability'	=> 'manage_options'
+  ));
 	
 	acf_add_options_sub_page(array(
 		'page_title' 	=> 'Footer Settings',

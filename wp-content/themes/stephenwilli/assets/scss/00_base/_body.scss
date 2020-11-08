@@ -2,19 +2,25 @@ html {
 	overflow-x: hidden;
 	font-size: 16px;
 	@include font-smoothing;
-	@include respond-to($screen-xs) {
+	@include respond-to($screen-sm){
 		font-size: 14px;
 	}
+	
+	@include respond-max($screen-jumbo){
+		font-size: 18px;
+	}
 }
-
 
 body {
 	overflow-x: hidden;
 	@include copy-font;
 }
 
-// .site-wrap {
-// 	@include opacity(0);
-// }
+section {
+	display: inline-block;
+	width: 100%;
+}
+
+
 
 

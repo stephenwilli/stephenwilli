@@ -1,29 +1,41 @@
 .footer {
-	padding: 3rem 0;
-	background-color: $secondary;
+	padding: 4rem;
+	width: 100%;
+	background-color: $primary;
 	color: $white;
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 1.1rem;
+	line-height: 1.8rem;
+
+	
 	a {
 		color: $white;
 	}
 	
-	ul, li {
-		list-style: none;
+	.footer-column {
+		margin: 0 2rem;
+		width: calc(33% - 4rem);
 	}
-	
-	.footer-contact {
-		h4 {
-			font-size: 1.3rem;
-			margin: 0;
-			line-height: 1.6;
-		}
-		li {
-			line-height: 1.6;
-		}
-	}
-	
+
 	.copyright {
+		margin-top: 2rem;
+		width: 100%;
 		text-align: center;
-		font-size: .8rem;
+		font-size: .9rem;
+		a {
+			text-decoration: underline;
+		}
+	}
+	
+	@include respond-to($screen-sm){
+		padding: 4rem 2rem;
+		display: inline-block;
+		text-align: center;
+		.footer-column {
+			margin: 2rem 0;
+			width: 100%;
+		}
 	}
 }
 

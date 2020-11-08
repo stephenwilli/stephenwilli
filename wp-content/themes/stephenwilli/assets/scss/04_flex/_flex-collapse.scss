@@ -1,0 +1,44 @@
+.flex-collapse, .flex-interactive-map {
+  padding: 4rem 12rem;
+  .collapse-wrap {
+    
+    .collapse-item {
+      margin-bottom: 2rem;
+      .collapse-title {
+        cursor: pointer;
+        &:before {
+          content: "\f10b";
+          font-family: 'tmbr-icons';
+          color: $secondary;
+          margin-right: 10px;
+          font-size: .9rem;
+        }
+      }
+
+      .collapse-text {
+        display: none;
+        padding: 0 1rem 1rem;
+      }
+      
+      &.-open {
+        .collapse-title {
+          &:before {
+            content: "\f10c";
+          }
+        }
+        .collapse-text {
+          display: block;
+          border-bottom: 1px #ddd solid;
+        }
+      }
+    }
+  }
+  
+  @include respond-to($screen-sm) {
+    padding: 4rem;
+  }
+  
+  @include respond-to($screen-xs) {
+    padding: 4rem 2rem;
+  }
+}

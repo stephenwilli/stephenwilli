@@ -1,63 +1,4 @@
 
-// * MIXINS *
-// - Opacity
-// - Letter Spacing
-// - Text-Truncate
-// - Transform
-// - Font-smoothing
-// - Width & Height: 100%
-// - Border Radius
-// - TMBRICON font
-// - Prefix
-// - Cover background
-// - Background Size
-// - Respond to
-// - Respond between
-// - Respond Max
-// - Arrow
-// - Position (absolute, relative, fixed)
-// - Center
-// - Firefox hack for images
-// - Placeholder
-// - Animation
-// - Keyframes
-// - Color
-// - Inline Gravity form
-// - Link (:visited)
-// - Hover (:hover, :active, :focus)
-// - No-touch
-// - Background gradient
-
-
-
-/*
-opacity filter with x-browser fallback
-@include opacity(.9);
---------------------- */
-@mixin opacity($opacity) {
-  opacity: $opacity;
-  $opacity-ie: $opacity * 100;
-  filter: alpha(opacity=$opacity-ie); //IE8
-}
-
-/*
-letter-spacing to match PSD
-@include spacing(99);
---------------------- */
-@mixin spacing($ls) {
-  letter-spacing: $ls*0.001em;
-}
-
-
-/*
-Truncate text
---------------------- */
-@mixin text-truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 /*
 Transform
 @include transform(translateY(-50%));
@@ -91,12 +32,6 @@ transition
   -moz-osx-font-smoothing: grayscale;
 }
 
-// WIDTH & HEIGHT 100%
-@mixin wh100 {
-  width: 100%;
-  height: 100%;
-}
-
 /*
 Set Border radious for any element
 @include border-radius(0px);
@@ -107,28 +42,17 @@ Set Border radious for any element
   background-clip: padding-box;  /* stops bg color from leaking outside the border: */
 }
 
+
 // Tmbricon font
 // ==================================
 @mixin tmbricon {
-  font-family: "tmbricons";
+  font-family: "tmbr-icons";
   display: inline-block;
   font-style: normal;
   font-weight: normal;
   line-height: 1;
   @include font-smoothing;
 }
-
-// PREFIX
-// ==================================
-@mixin prefix($property, $value) {
-  -webkit-#{$property}: #{$value};
-  -moz-#{$property}: #{$value};
-  -ms-#{$property}: #{$value};
-  -o-#{$property}: #{$value};
-  #{$property}: #{$value};
-}
-
-
 
 /*
 Background size with broswer prefix for cover image
@@ -148,15 +72,11 @@ Background size with broswer prefix for cover image
   background-position: center center;
 }
 
-/*
-Background size with broswer prefix for cover
-@include background-cover(cover);
---------------------- */
-@mixin background-size($size) {
-    -webkit-background-size: $size;
-    -moz-background-size: $size;
-    -o-background-size: $size;
-    background-size: $size;
+@mixin overlay($bgColor) {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: $bgColor;
 }
 
 @mixin respond-to($breakpoint) {
@@ -175,46 +95,6 @@ Background size with broswer prefix for cover
   @media all and (min-width: ($min-width)) {
     @content;
   }
-}
-
-/*
-CSS Arrow Shape
-@include arrow-right(10px, $blue);
---------------------- */
-@mixin arrow-down($size, $color) {
-  height: 0;
-  width: 0;
-  border-top: $size solid $color;
-  border-right: $size solid transparent;
-  border-left: $size solid transparent;
-  border-bottom: 0 solid transparent;
-}
-
-@mixin arrow-up($size, $color) {
-  height: 0;
-  width: 0;
-  border-bottom: $size solid $color;
-  border-right: $size solid transparent;
-  border-left: $size solid transparent;
-  border-top: 0 solid transparent;
-}
-
-@mixin arrow-left($size, $color) {
-  height: 0;
-  width: 0;
-  border-right: $size solid $color;
-  border-top: $size solid transparent;
-  border-bottom: $size solid transparent;
-  border-left: 0 solid transparent;
-}
-
-@mixin arrow-right($size, $color) {
-  height: 0;
-  width: 0;
-  border-left: $size solid $color;
-  border-top: $size solid transparent;
-  border-bottom: $size solid transparent;
-  border-right: 0 solid transparent;
 }
 
 /*
@@ -267,17 +147,6 @@ Set position (top, right, bottom, left ) & z-index
 }
 
 
-
-/*
-Firefox hack for images with opacity changes
-@include ff-hack;
---------------------- */
-@mixin ff-hack {
-  background-color: $black;
-  -moz-backface-visibility: hidden;
-  -webkit-transform: translateZ(0px);
-}
-
 /*
 Placeholder
 --------------------- */
@@ -299,60 +168,6 @@ Placeholder
   }
 }
 
-/*
-Animation
---------------------- */
-@mixin animation( $property, $animation-props ){
-  @if $property == animation {
-    -webkit-animation: $animation-props;
-        -moz-animation: $animation-props;
-        -ms-animation: $animation-props;
-        -o-animation: $animation-props;
-        animation: $animation-props;
-  }
-  @else {
-    -webkit-animation-#{$property}: $animation-props;
-    -moz-animation-#{$property}: $animation-props;
-    -ms-animation-#{$property}: $animation-props;
-    -o-animation-#{$property}: $animation-props;
-    animation--#{$property}: $animation-props;
-  }
-
-}
-
-/*
-keyframes
-https://gist.github.com/ericam/1607696
---------------------- */
-@mixin keyframes($name) {
-  @-webkit-keyframes #{$name} {
-    @content;
-  }
-  @-moz-keyframes #{$name} {
-    @content;
-  }
-  @-ms-keyframes #{$name} {
-    @content;
-  }
-  @keyframes #{$name} {
-    @content;
-  }
-}
-
-/*
-Color
-@include color(white, $white);
---------------------- */
-@mixin color($class, $color) {
-  .#{$class} {
-    color: $color;
-    a {
-      &,&:visited {
-        color: $color;
-      }
-    }
-  }
-}
 
 /*
 Inline Gravity Form
@@ -366,7 +181,7 @@ Inline Gravity Form
     width: 100%;
     
     .gform_body {
-      width: 85%;
+      width: 80%;
       float: left;
     }
     
@@ -390,7 +205,8 @@ Inline Gravity Form
       clear: none;
       padding: 0;
       margin-left: 0;
-      width: 15%;
+      width: 20%;
+      margin-top: 10px;
     }
     
     @include respond-to($screen-sm){
