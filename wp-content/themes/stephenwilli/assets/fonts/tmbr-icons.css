@@ -1,8 +1,8 @@
 @font-face {
 	font-family: "tmbr-icons";
-	src: url("tmbr-icons.woff2?2a8726a2d8031c973a2e5412cca7c359") format("woff2"),
-url("tmbr-icons.woff?2a8726a2d8031c973a2e5412cca7c359") format("woff"),
-url("tmbr-icons.svg?2a8726a2d8031c973a2e5412cca7c359#tmbr-icons") format("svg");
+	src: url("tmbr-icons.woff2?b70cb2705b8fa701dc77f74a5d670f36") format("woff2"),
+url("tmbr-icons.woff?b70cb2705b8fa701dc77f74a5d670f36") format("woff"),
+url("tmbr-icons.svg?b70cb2705b8fa701dc77f74a5d670f36#tmbr-icons") format("svg");
 }
 
 .icon {

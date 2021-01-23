@@ -1,6 +1,8 @@
-@charset "UTF-8";/*!
+
+@charset "UTF-8";
+/*!
  * animate.css - https://animate.style/
- * Version - 4.1.1
+ * Version - 4.1.0
  * Licensed under the MIT license - http://opensource.org/licenses/MIT
  *
  * Copyright (c) 2020 Animate.css
@@ -4073,8 +4075,8 @@
 
 @font-face {
 	font-family: "tmbr-icons";
-	src: url(../assets/fonts/tmbr-icons.woff2?3838d99cdb512039597fb506ce43b638) format("woff2"),
-url(../assets/fonts/tmbr-icons.woff?b571b46e38a348bc1d7d656a95c8e772) format("woff"),
+	src: url(../assets/fonts/tmbr-icons.woff2?9fe0f9946ec07df2a76bb317e92040f8) format("woff2"),
+url(../assets/fonts/tmbr-icons.woff?2790d1e5299178070abb2da8a6a15347) format("woff"),
 url(../assets/fonts/tmbr-icons.svg?c4c0ee1cab3511721c019c77088ddb1c#tmbr-icons) format("svg");
 }
 
