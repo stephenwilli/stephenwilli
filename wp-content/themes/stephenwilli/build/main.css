@@ -5154,14 +5154,14 @@ input[type=radio] {
 }
 
 select option {
-  color: #000;
+  color: #333;
 }
 select option:checked {
   color: #223c42;
 }
 select::-moz-focusring {
   color: transparent;
-  text-shadow: 0 0 0 #000;
+  text-shadow: 0 0 0 #333;
 }
 
 input[type=submit] {
@@ -5486,7 +5486,7 @@ input[type=submit] {
   transform: scale(0);
 }
 .navbar-hamburger.-collapsed:after, .navbar-hamburger.-collapsed:before, .navbar-hamburger.-collapsed span {
-  background-color: #000;
+  background-color: #333;
 }
 .navbar-hamburger.-collapsed:before {
   transform: translateY(4px) rotate(135deg);
@@ -5535,7 +5535,7 @@ input[type=submit] {
   font-weight: 700;
   font-style: normal;
   font-size: 8rem;
-  color: #000;
+  color: #333;
   display: block;
   position: relative;
   z-index: 10;
@@ -5546,7 +5546,7 @@ input[type=submit] {
   left: 0;
   position: absolute;
   content: "";
-  background-color: #000;
+  background-color: #333;
   height: 100%;
   width: 0;
   transition: 0.2s ease-in;

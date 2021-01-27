@@ -12,7 +12,10 @@ gsap.defaults({
   rotation: 0.01
 });
 
+
+
 jQuery(document).ready(function($) {
+
   
   // GREENSOCK
   findAll('[data-animate]').forEach(el => {
@@ -169,6 +172,8 @@ jQuery(document).ready(function($) {
       $(this).attr("target","_blank");
    }
 });
+
+
   
   function hoverImage() {
     // TILT HOVER
@@ -218,6 +223,29 @@ jQuery(document).ready(function($) {
   };
 
   hoverImage();
+  
+  window.addEventListener("deviceorientation", function(event) {
+    console.log(event.gamma);
+    let position = Math.round(event.gamma);
+  });
+  
+  const overlayTilt = document.getElementById("overlay");
+  const bgTilt = document.getElementById("background");
+  const limit = 45;
+  window.addEventListener("deviceorientation", function(event) {
+  let position = Math.round(event.gamma);
+   if (Math.abs(position) > limit) {
+         if (position > limit) {
+              position = limit;
+          } else {
+              position = -limit;
+              }
+          }
+  position = position / -100;
+  let style = "rotateY(" + position + "deg)";
+  overlayTilt.style.transform = style;
+  bgTilt.style.transform = style;
+  });
   
 });
 

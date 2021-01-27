@@ -314,6 +314,29 @@ jQuery(document).ready(function ($) {
 
   ;
   hoverImage();
+  window.addEventListener("deviceorientation", function (event) {
+    console.log(event.gamma);
+    var position = Math.round(event.gamma);
+  });
+  var overlayTilt = document.getElementById("overlay");
+  var bgTilt = document.getElementById("background");
+  var limit = 45;
+  window.addEventListener("deviceorientation", function (event) {
+    var position = Math.round(event.gamma);
+
+    if (Math.abs(position) > limit) {
+      if (position > limit) {
+        position = limit;
+      } else {
+        position = -limit;
+      }
+    }
+
+    position = position / -100;
+    var style = "rotateY(" + position + "deg)";
+    overlayTilt.style.transform = style;
+    bgTilt.style.transform = style;
+  });
 });
 jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('load', function () {
   var grid = document.querySelector('.gallery-mosaic-1');
