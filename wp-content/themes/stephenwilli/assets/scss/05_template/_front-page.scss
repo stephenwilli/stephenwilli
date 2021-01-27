@@ -1,0 +1,14 @@
+.inner-wrap {
+	padding: 2rem;
+	width: 100%;
+	height: 100%;
+	@include absolute($t:0, $l: 0);
+	z-index: 5;
+	pointer-events: none;
+	.inner-border {
+		border: 2px solid $white;
+		width: 100%;
+		height: 100%;
+		position: relative;
+	}
+}

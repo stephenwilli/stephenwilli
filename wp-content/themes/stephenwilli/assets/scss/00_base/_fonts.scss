@@ -1,40 +1,10 @@
-
 @font-face {
-    font-family: 'ActionCond-Bold';
-    src: url('../fonts/ActionCondBoldWeb-Grade1.woff2') format('woff2'),
-        url('../fonts/ActionCondBoldWeb-Grade1.woff') format('woff');
-    font-style: normal;
+    font-family: 'Elegant-Lux';
+    src: url('../fonts/ElegantLux-Mager.woff2') format('woff2'),
+        url('../fonts/ElegantLux-Mager.woff') format('woff');
     font-weight: normal;
-}
-
-@font-face {
-    font-family: 'ActionCond-Medium';
-    src: url('../fonts/ActionCondMediumWeb-Grade1.woff2') format('woff2'),
-        url('../fonts/ActionCondMediumWeb-Grade1.woff') format('woff');
     font-style: normal;
-    font-weight: normal;
-}
-
-
-@font-face {
-    font-family: 'Integral';
-    src: url('../fonts/IntegralCF-Regular.woff2') format('woff2'),
-        url('../fonts/IntegralCF-Regular.woff') format('woff');
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'SFProDisplay-Bold';
-    src: url('../fonts/SFProDisplay-Bold.woff2') format('woff2'),
-        url('../fonts/SFProDisplay-Bold.woff') format('woff');
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'SFProDisplay';
-    src: url('../fonts/SFProDisplay-Regular.woff2') format('woff2'),
-        url('../fonts/SFProDisplay-Regular.woff') format('woff');
-    font-style: normal;
+    font-display: swap;
 }
 
 

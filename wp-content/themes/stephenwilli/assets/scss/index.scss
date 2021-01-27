@@ -13,7 +13,7 @@
 @import
   '00_base/_reset',
   // '00_base/_flexboxgrid', 
-  // '00_base/_fonts',
+  '00_base/_fonts',
   '00_base/_variables',
   '00_base/_mixins',
   '00_base/_body', 
@@ -36,22 +36,23 @@
   '03_organism/header',
   '03_organism/home-hero',
   '03_organism/page-hero',
-  '03_organism/footer',
-  '03_organism/alert-bar';
+  '03_organism/footer';
+  
+// @import
+//   '04_flex/flex-wysiwyg',
+//   '04_flex/flex-icon-columns',
+//   '04_flex/flex-page-links',
+//   '04_flex/flex-collapse',
+//   '04_flex/flex-image-columns',
+//   '04_flex/flex-gallery',
+//   '04_flex/flex-team',
+//   '04_flex/flex-form';
   
 @import
-  '04_flex/flex-wysiwyg',
-  '04_flex/flex-icon-columns',
-  '04_flex/flex-page-links',
-  '04_flex/flex-collapse',
-  '04_flex/flex-image-columns',
-  '04_flex/flex-gallery',
-  '04_flex/flex-team',
-  '04_flex/flex-form';
-  
-@import
-  '05_template/post', 
-  '05_template/post-loop'; 
+  // '05_template/post', 
+  '05_template/image-warp',
+  '05_template/front-page';
+  // '05_template/post-loop'; 
   
   
   

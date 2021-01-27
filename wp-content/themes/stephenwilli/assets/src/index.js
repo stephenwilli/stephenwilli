@@ -28,43 +28,22 @@ jQuery(document).ready(function($) {
     }
   });
   
-  // COLLAPSE
-  $('#js-collapse-1').addClass( '-open' );
-  $('.collapse-item > .collapse-title').on('click', function(e) {
-    e.preventDefault();
-    if($(this).parent().hasClass('-open')) {
-      $(this).parent().removeClass('-open');
-    } else {
-      $(this).parent().addClass('-open');
-    }
-    
-    if($(this).parent().hasClass('-toggle')) {
-       $('.collapse-item').removeClass('-open');
-       $(this).parent().addClass('-open');
-    }
-  });
+  // // COLLAPSE
+  // $('#js-collapse-1').addClass( '-open' );
+  // $('.collapse-item > .collapse-title').on('click', function(e) {
+  //   e.preventDefault();
+  //   if($(this).parent().hasClass('-open')) {
+  //     $(this).parent().removeClass('-open');
+  //   } else {
+  //     $(this).parent().addClass('-open');
+  //   }
+  // 
+  //   if($(this).parent().hasClass('-toggle')) {
+  //      $('.collapse-item').removeClass('-open');
+  //      $(this).parent().addClass('-open');
+  //   }
+  // });
   
-  // COIN SLIDER
-  $('#coin-trigger-1').parent().addClass( '-open-item' );
-  $('#coin-face-1').addClass( '-show-coin' );
-  
-  $('.js-coin-trigger').on('click', function(e) {
-    e.preventDefault();
-    var coinID = $(this).attr('data-coin');
-    
-    if($(this).parent().hasClass('-open-item')) {
-    } else {
-    $('.slider-list-item').removeClass('-open-item');
-    $(this).parent().addClass('-open-item');
-    } 
-
-    if($(coinID).hasClass('-show-coin')) {
-    } else {
-      $('.coin-face').removeClass('-show-coin');
-      $(coinID).removeClass('-hidden-coin');
-      $(coinID).addClass('-show-coin');
-    }
-  });
 
   // NAV HAMBURGER
   $('.js-hamburger-toggle').on('click', function(e) {
@@ -190,6 +169,55 @@ jQuery(document).ready(function($) {
       $(this).attr("target","_blank");
    }
 });
+  
+  function hoverImage() {
+    // TILT HOVER
+    let parent = document.getElementById('image-warp')
+    let overlayparent = document.getElementById('overlay')
+    let background = document.getElementById('background')
+    const overlayH = overlay.clientHeight
+    const overlayW = overlay.clientWidth
+    const bgH = background.clientHeight
+    const bgW = background.clientWidth
+    
+    parent.addEventListener('mousemove', handleOverlay);
+    parent.addEventListener('mousemove', handleBackground);
+
+    function handleOverlay(e) {
+      const oxVal = e.layerX
+      const oyVal = e.layerY
+      const oyRotation = 6 * ((oxVal - overlayW / 2) / overlayW)
+      const oxRotation = -6 * ((oyVal - overlayH / 2) / overlayH)
+      const ostring = 'perspective(500px) scale(1.1) rotateX(' + oxRotation + 'deg) rotateY(' + oyRotation + 'deg)'
+      overlay.style.transform = ostring
+    }
+    
+    function handleBackground(e) {
+      const bxVal = e.layerX
+      const byVal = e.layerY
+      const byRotation = 3 * ((bxVal - bgW / 2) / bgW)
+      const bxRotation = -3 * ((byVal - bgH / 2) / bgH)
+      const bstring = 'perspective(500px) scale(1.1) rotateX(' + bxRotation + 'deg) rotateY(' + byRotation + 'deg)'
+      background.style.transform = bstring
+    }
+
+    parent.addEventListener('mouseout', function() {
+      overlay.style.transform = 'perspective(00px) scale(1.1) rotateX(0) rotateY(0)'
+      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)'
+    })
+
+    parent.addEventListener('mousedown', function() {
+      overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)'
+      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)'
+    })
+
+    parent.addEventListener('mouseup', function() {
+      overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)'
+      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)'
+    })
+  };
+
+  hoverImage();
   
 });
 

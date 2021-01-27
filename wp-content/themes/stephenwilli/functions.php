@@ -4,20 +4,18 @@ defined('ABSPATH') or die;
 
 // ENQUEUE ASSETS
 require 'inc/enqueue-assets.php';
-// require 'inc/tmbr-load-scripts.php';
 
 // WORDPRESS CUSTOMIZATION
 require 'inc/wordpress-admin.php';
 require 'inc/tmbr-theme-setup.php';
 require 'inc/image-sizes.php';
 require 'inc/site-config.php';
-// require 'inc/weather/init.php';
 
 // CMS SETUP
 require 'inc/register-menus.php';
-//require 'inc/register-post-type.php';
+require 'inc/register-post-type.php';
 require 'inc/register-sidebars.php';
-// require 'inc/register-taxonomy.php';
+require 'inc/register-taxonomy.php';
 require 'inc/register-option-pages.php';
 
 // HELPER FUNCTIONS
@@ -27,7 +25,6 @@ require 'inc/wp_bootstrap_pagination.php';
 
 // VENDOR
 require 'inc/gravity-form-filters.php';
-require 'inc/weather/init.php';
 
 
 

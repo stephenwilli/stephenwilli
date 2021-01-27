@@ -11,7 +11,7 @@
   site.dir = '<?php echo get_bloginfo('template_url') ?>';
   </script>
   
-  <!-- <link rel="stylesheet" href="https://use.typekit.net/skp1szj.css"> -->
+  <link rel="stylesheet" href="https://use.typekit.net/qzz4jnb.css">
   
   <link rel="icon" type="image/png" href="<?php echo(get_template_directory_uri()) ?>/favicon.ico" />
   
@@ -30,10 +30,19 @@
 <body <?php body_class(); ?>>
   
   <?php // get_template_part( 'partials/02_molecule/form-modal' ); ?>
-  
-
-  <div class="js-sitewrap site-wrap">
-
+  <div class="site-wrap">
+    
+    <section id="image-warp">
+      <div id="background" style="background-image:url('<?php bloginfo( 'template_url' ); ?>/assets/images/spring-02.jpg');"></div>
+      <div id="overlay" style="background-image:url('<?php bloginfo( 'template_url' ); ?>/assets/images/spring-01.png');"></div>
+      <h1>Teton Reflections</h1>
+    </section>
+    
+    <div class="inner-wrap">
+      <div class="inner-border">
+      </div>
+    </div>
+    
     <header class="site-header" id="header" role="header">
       <?php get_template_part( 'partials/03_organism/site-header' ); ?>
     </header>

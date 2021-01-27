@@ -13,14 +13,21 @@ $action-color: $secondary;
 /* FONTS */
 
 @mixin heading-font() {
-	font-family: Helvetica, sans-serif;
-	text-transform: uppercase;
-	font-weight: bold;
+	font-family: 'ivypresto-display', serif;
+	font-weight: 700;
+	font-style: normal;
+}
+
+@mixin light-heading() {
+	font-family: 'ivypresto-display', serif;
+	font-weight: 700;
+	font-style: normal;
 }
 
 @mixin copy-font {
-	font-family: Helvetica, sans-serif;
-	color: $body-copy;
+	font-family: 'raleway', sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }
 
 

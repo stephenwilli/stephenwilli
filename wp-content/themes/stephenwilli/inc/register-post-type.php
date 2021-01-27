@@ -5,9 +5,9 @@ add_action( 'init', 'create_post_type' );
 
 	function create_post_type() {
 
-	register_post_type( 'products',
-			array (	'label' => 'Products',
-				'description' => 'Products',
+	register_post_type( 'photos',
+			array (	'label' => 'Photos',
+				'description' => 'Photos',
 				'public' => true,
 				'show_ui' => true,
 				'show_in_menu' => true,
@@ -18,23 +18,23 @@ add_action( 'init', 'create_post_type' );
 				'query_var' => true,
 				'supports' => array('title','editor','thumbnail','page-attributes'),
 				'taxonomies' => array(),
-				'menu_icon' => 'dashicons-shield-alt',
+				'menu_icon' => 'dashicons-format-gallery',
 				'menu_position' 		=>4,
 
 				'labels' =>
 					array (
-  					'name' => 'Products', 
-  					'singular_name' => 'Product',
-						'menu_name' => 'Products', 
-						'add_new' => 'Add Product', 
-						'add_new_item' => 'Add New Product',
+  					'name' => 'Photos', 
+  					'singular_name' => 'Photo',
+						'menu_name' => 'Photos', 
+						'add_new' => 'Add Photo', 
+						'add_new_item' => 'Add New Photo',
 						'edit' => 'Edit',
-						'edit_item' => 'Edit Product',
-						'new_item' => 'New Product',
-						'view_item' => 'View Product',
-						'search_items' => 'Search Products',
-						'not_found' => 'No Products Found',
-						'not_found_in_trash' => 'No Products Found in Trash'
+						'edit_item' => 'Edit Photo',
+						'new_item' => 'New Photo',
+						'view_item' => 'View Photo',
+						'search_items' => 'Search Photos',
+						'not_found' => 'No Photos Found',
+						'not_found_in_trash' => 'No Photos Found in Trash'
 						),
 			)
 	);

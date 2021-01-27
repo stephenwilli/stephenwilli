@@ -1,5 +1,5 @@
 html {
-	overflow-x: hidden;
+	overflow: hidden;
 	font-size: 16px;
 	@include font-smoothing;
 	@include respond-to($screen-sm){
@@ -12,7 +12,7 @@ html {
 }
 
 body {
-	overflow-x: hidden;
+	overflow: hidden;
 	@include copy-font;
 }
 

@@ -36,11 +36,13 @@ h2,
 
 h3,
 .h3 {
+  @include light-heading();
   font-size: $h3; /* 2.5em */
 }
 
 h4,
 .h4 {
+  @include light-heading();
   font-size: $h4;
 }
 

@@ -1,4 +1,4 @@
-<footer class="footer" role="contentinfo" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+<!-- <footer class="footer" role="contentinfo" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 	
 	<?php	edit_post_link( __( 'Edit', '_s' ), '<span class="post-edit-link">', '</span>' ); ?>
 	
@@ -10,7 +10,7 @@
 	</div>
 
 	
-</footer><!-- footer -->
+</footer> -->
 
 </div><!-- .body -->
 

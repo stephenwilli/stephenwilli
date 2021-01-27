@@ -142,41 +142,22 @@ jQuery(document).ready(function ($) {
     } else {
       $('.js-nav-scroll').removeClass('scrolled');
     }
-  }); // COLLAPSE
-
-  $('#js-collapse-1').addClass('-open');
-  $('.collapse-item > .collapse-title').on('click', function (e) {
-    e.preventDefault();
-
-    if ($(this).parent().hasClass('-open')) {
-      $(this).parent().removeClass('-open');
-    } else {
-      $(this).parent().addClass('-open');
-    }
-
-    if ($(this).parent().hasClass('-toggle')) {
-      $('.collapse-item').removeClass('-open');
-      $(this).parent().addClass('-open');
-    }
-  }); // COIN SLIDER
-
-  $('#coin-trigger-1').parent().addClass('-open-item');
-  $('#coin-face-1').addClass('-show-coin');
-  $('.js-coin-trigger').on('click', function (e) {
-    e.preventDefault();
-    var coinID = $(this).attr('data-coin');
-
-    if ($(this).parent().hasClass('-open-item')) {} else {
-      $('.slider-list-item').removeClass('-open-item');
-      $(this).parent().addClass('-open-item');
-    }
-
-    if ($(coinID).hasClass('-show-coin')) {} else {
-      $('.coin-face').removeClass('-show-coin');
-      $(coinID).removeClass('-hidden-coin');
-      $(coinID).addClass('-show-coin');
-    }
-  }); // NAV HAMBURGER
+  }); // // COLLAPSE
+  // $('#js-collapse-1').addClass( '-open' );
+  // $('.collapse-item > .collapse-title').on('click', function(e) {
+  //   e.preventDefault();
+  //   if($(this).parent().hasClass('-open')) {
+  //     $(this).parent().removeClass('-open');
+  //   } else {
+  //     $(this).parent().addClass('-open');
+  //   }
+  // 
+  //   if($(this).parent().hasClass('-toggle')) {
+  //      $('.collapse-item').removeClass('-open');
+  //      $(this).parent().addClass('-open');
+  //   }
+  // });
+  // NAV HAMBURGER
 
   $('.js-hamburger-toggle').on('click', function (e) {
     e.preventDefault();
@@ -286,6 +267,53 @@ jQuery(document).ready(function ($) {
       $(this).attr("target", "_blank");
     }
   });
+
+  function hoverImage() {
+    // TILT HOVER
+    var parent = document.getElementById('image-warp');
+    var overlayparent = document.getElementById('overlay');
+    var background = document.getElementById('background');
+    var overlayH = overlay.clientHeight;
+    var overlayW = overlay.clientWidth;
+    var bgH = background.clientHeight;
+    var bgW = background.clientWidth;
+    parent.addEventListener('mousemove', handleOverlay);
+    parent.addEventListener('mousemove', handleBackground);
+
+    function handleOverlay(e) {
+      var oxVal = e.layerX;
+      var oyVal = e.layerY;
+      var oyRotation = 6 * ((oxVal - overlayW / 2) / overlayW);
+      var oxRotation = -6 * ((oyVal - overlayH / 2) / overlayH);
+      var ostring = 'perspective(500px) scale(1.1) rotateX(' + oxRotation + 'deg) rotateY(' + oyRotation + 'deg)';
+      overlay.style.transform = ostring;
+    }
+
+    function handleBackground(e) {
+      var bxVal = e.layerX;
+      var byVal = e.layerY;
+      var byRotation = 3 * ((bxVal - bgW / 2) / bgW);
+      var bxRotation = -3 * ((byVal - bgH / 2) / bgH);
+      var bstring = 'perspective(500px) scale(1.1) rotateX(' + bxRotation + 'deg) rotateY(' + byRotation + 'deg)';
+      background.style.transform = bstring;
+    }
+
+    parent.addEventListener('mouseout', function () {
+      overlay.style.transform = 'perspective(00px) scale(1.1) rotateX(0) rotateY(0)';
+      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+    });
+    parent.addEventListener('mousedown', function () {
+      overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+    });
+    parent.addEventListener('mouseup', function () {
+      overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+    });
+  }
+
+  ;
+  hoverImage();
 });
 jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('load', function () {
   var grid = document.querySelector('.gallery-mosaic-1');
