@@ -1,18 +1,31 @@
 %btn {
-	background-color: $action-color;
+	background-color: transparent;
 	color: $white;
-	@include copy-font;
+	@include light-heading;
 	display: inline-block;
 	padding: 10px 35px;
-	border: none;
-	font-size: 1rem;
+	border: 2px solid $white;
+	font-size: 1.2rem;
+	font-weight: 700;
+	line-height: 1.2rem;
 	text-transform: uppercase;
 	position: relative;
 	z-index: 1;
+	
+	&:before {
+		content:'';
+		@include absolute($t:0, $l: 0);
+		width: 0;
+		height: 100%;
+		@include transition($transition all);
+		z-index: -1;
+		background-color: $white;
+	}
 }
 
+
 %btn-active {
-	color: $white;
+	color: $black;
 }
 
 .btn {

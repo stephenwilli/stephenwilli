@@ -1,14 +1,14 @@
 .navbar-brand {
 	@include absolute($t: 3rem, $l: 3rem);
 	z-index: 15;
-	width: 80px;
+	width: 70px;
 	display: inline-block;
 	.logo {
 		max-width: 100%;
 		opacity: 1;
 		@include transition($transition);
 		&:hover {
-			opacity: .6;
+			transform: perspective(500px) rotateX(5deg) rotateY(5deg);
 		}
 	}
 }
@@ -33,6 +33,7 @@
 		transform: scale(0);
 	}
 	&.-collapsed {
+		cursor: url('../images/cursor-arrow-03.svg') 25 15, auto;
 		&:after, &:before, span {
 			background-color: $black;
 		}
@@ -54,6 +55,10 @@
 	height: 100%;
 	background: rgba(255, 255, 255, .9);
 	@include transition($transition);
+	cursor: url('../images/cursor-circle-02.svg') 25 15, auto;
+	a {
+		cursor: url('../images/cursor-arrow-03.svg') 25 15, auto;
+	}
 	
 	.parent-menu {
 		opacity: 0;
@@ -151,40 +156,13 @@
 		&.-open {
 			display: inline-block;
 			width: 100%;
-			@include center-x;
-			top: 75px;
-			background-color: $primary;
 			-webkit-overflow-scrolling: touch;
 		}
 		
 		.parent-menu {
-			float: left;
-			width: 100%;
-			height: 100%;
-			
 			> .menu-item {
 				width: 100%;
 				display: block;
-				border-top: 1px solid #ddd;
-				a {
-					font-size: 1.2rem;
-					color: $white;
-					line-height: 60px;
-				}
-				
-				&:after {
-					display: none;
-				}
-				
-				&:before {
-					
-				}
-				
-				&:hover {
-					a {
-						color: $white;
-					}
-				}
 				
 				&.menu-item-has-children {
 					a {

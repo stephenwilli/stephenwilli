@@ -69,6 +69,7 @@ a {
   color: $link-color;
   text-decoration: none;
   @include transition(all $transition);
+  cursor: url('../images/cursor-arrow-02.svg') 25 15, auto;
   &:hover,
   &:focus,
   &:active {

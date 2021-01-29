@@ -270,9 +270,56 @@ jQuery(document).ready(function ($) {
 
   function hoverImage() {
     // TILT HOVER
-    var parent = document.getElementById('image-warp');
-    var overlayparent = document.getElementById('overlay');
-    var background = document.getElementById('background');
+    var parent = document.getElementById('image-warp-1');
+    var overlay = document.getElementById('overlay-1');
+    var background = document.getElementById('background-1');
+    var overlayH = overlay.clientHeight;
+    var overlayW = overlay.clientWidth;
+    var bgH = background.clientHeight;
+    var bgW = background.clientWidth;
+    parent.addEventListener('mousemove', handleOverlay);
+    parent.addEventListener('mousemove', handleBackground);
+
+    function handleOverlay(e) {
+      var oxVal = e.layerX;
+      var oyVal = e.layerY;
+      var oyRotation = 6 * ((oxVal - overlayW / 2) / overlayW);
+      var oxRotation = -6 * ((oyVal - overlayH / 2) / overlayH);
+      var ostring = 'perspective(500px) scale(1.1) rotateX(' + oxRotation + 'deg) rotateY(' + oyRotation + 'deg)';
+      overlay.style.transform = ostring;
+    }
+
+    function handleBackground(e) {
+      var bxVal = e.layerX;
+      var byVal = e.layerY;
+      var byRotation = 3 * ((bxVal - bgW / 2) / bgW);
+      var bxRotation = -3 * ((byVal - bgH / 2) / bgH);
+      var bstring = 'perspective(500px) scale(1.1) rotateX(' + bxRotation + 'deg) rotateY(' + byRotation + 'deg)';
+      background.style.transform = bstring;
+    }
+
+    parent.addEventListener('mouseout', function () {
+      overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+    });
+    parent.addEventListener('mousedown', function () {
+      overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+    });
+    parent.addEventListener('mouseup', function () {
+      overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+    });
+  }
+
+  ;
+  hoverImage();
+
+  function hoverImage2() {
+    // TILT HOVER
+    var parent = document.getElementById('image-warp-2');
+    var overlay = document.getElementById('overlay-2');
+    var background = document.getElementById('background-2');
     var overlayH = overlay.clientHeight;
     var overlayW = overlay.clientWidth;
     var bgH = background.clientHeight;
@@ -313,30 +360,28 @@ jQuery(document).ready(function ($) {
   }
 
   ;
-  hoverImage();
-  window.addEventListener("deviceorientation", function (event) {
-    console.log(event.gamma);
-    var position = Math.round(event.gamma);
-  });
-  var overlayTilt = document.getElementById("overlay");
-  var bgTilt = document.getElementById("background");
-  var limit = 45;
-  window.addEventListener("deviceorientation", function (event) {
-    var position = Math.round(event.gamma);
-
-    if (Math.abs(position) > limit) {
-      if (position > limit) {
-        position = limit;
-      } else {
-        position = -limit;
-      }
-    }
-
-    position = position / -100;
-    var style = "rotateY(" + position + "deg)";
-    overlayTilt.style.transform = style;
-    bgTilt.style.transform = style;
-  });
+  hoverImage2(); // window.addEventListener("deviceorientation", function(event) {
+  //   console.log(event.gamma);
+  //   let position = Math.round(event.gamma);
+  // });
+  // 
+  // const overlayTilt = document.getElementById("overlay");
+  // const bgTilt = document.getElementById("background");
+  // const limit = 45;
+  // window.addEventListener("deviceorientation", function(event) {
+  // let position = Math.round(event.gamma);
+  //  if (Math.abs(position) > limit) {
+  //        if (position > limit) {
+  //             position = limit;
+  //         } else {
+  //             position = -limit;
+  //             }
+  //         }
+  // position = position / -100;
+  // let style = "rotateY(" + position + "deg)";
+  // overlayTilt.style.transform = style;
+  // bgTilt.style.transform = style;
+  // });
 });
 jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('load', function () {
   var grid = document.querySelector('.gallery-mosaic-1');

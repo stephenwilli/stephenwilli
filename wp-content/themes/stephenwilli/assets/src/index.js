@@ -177,9 +177,9 @@ jQuery(document).ready(function($) {
   
   function hoverImage() {
     // TILT HOVER
-    let parent = document.getElementById('image-warp')
-    let overlayparent = document.getElementById('overlay')
-    let background = document.getElementById('background')
+    let parent = document.getElementById('image-warp-1')
+    let overlay = document.getElementById('overlay-1')
+    let background = document.getElementById('background-1')
     const overlayH = overlay.clientHeight
     const overlayW = overlay.clientWidth
     const bgH = background.clientHeight
@@ -207,7 +207,7 @@ jQuery(document).ready(function($) {
     }
 
     parent.addEventListener('mouseout', function() {
-      overlay.style.transform = 'perspective(00px) scale(1.1) rotateX(0) rotateY(0)'
+      overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)'
       background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)'
     })
 
@@ -224,28 +224,78 @@ jQuery(document).ready(function($) {
 
   hoverImage();
   
-  window.addEventListener("deviceorientation", function(event) {
-    console.log(event.gamma);
-    let position = Math.round(event.gamma);
-  });
   
-  const overlayTilt = document.getElementById("overlay");
-  const bgTilt = document.getElementById("background");
-  const limit = 45;
-  window.addEventListener("deviceorientation", function(event) {
-  let position = Math.round(event.gamma);
-   if (Math.abs(position) > limit) {
-         if (position > limit) {
-              position = limit;
-          } else {
-              position = -limit;
-              }
-          }
-  position = position / -100;
-  let style = "rotateY(" + position + "deg)";
-  overlayTilt.style.transform = style;
-  bgTilt.style.transform = style;
-  });
+  function hoverImage2() {
+    // TILT HOVER
+    let parent = document.getElementById('image-warp-2')
+    let overlay = document.getElementById('overlay-2')
+    let background = document.getElementById('background-2')
+    const overlayH = overlay.clientHeight
+    const overlayW = overlay.clientWidth
+    const bgH = background.clientHeight
+    const bgW = background.clientWidth
+  
+    parent.addEventListener('mousemove', handleOverlay);
+    parent.addEventListener('mousemove', handleBackground);
+  
+    function handleOverlay(e) {
+      const oxVal = e.layerX
+      const oyVal = e.layerY
+      const oyRotation = 6 * ((oxVal - overlayW / 2) / overlayW)
+      const oxRotation = -6 * ((oyVal - overlayH / 2) / overlayH)
+      const ostring = 'perspective(500px) scale(1.1) rotateX(' + oxRotation + 'deg) rotateY(' + oyRotation + 'deg)'
+      overlay.style.transform = ostring
+    }
+  
+    function handleBackground(e) {
+      const bxVal = e.layerX
+      const byVal = e.layerY
+      const byRotation = 3 * ((bxVal - bgW / 2) / bgW)
+      const bxRotation = -3 * ((byVal - bgH / 2) / bgH)
+      const bstring = 'perspective(500px) scale(1.1) rotateX(' + bxRotation + 'deg) rotateY(' + byRotation + 'deg)'
+      background.style.transform = bstring
+    }
+  
+    parent.addEventListener('mouseout', function() {
+      overlay.style.transform = 'perspective(00px) scale(1.1) rotateX(0) rotateY(0)'
+      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)'
+    })
+  
+    parent.addEventListener('mousedown', function() {
+      overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)'
+      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)'
+    })
+  
+    parent.addEventListener('mouseup', function() {
+      overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)'
+      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)'
+    })
+  };
+  
+  hoverImage2();
+  
+  // window.addEventListener("deviceorientation", function(event) {
+  //   console.log(event.gamma);
+  //   let position = Math.round(event.gamma);
+  // });
+  // 
+  // const overlayTilt = document.getElementById("overlay");
+  // const bgTilt = document.getElementById("background");
+  // const limit = 45;
+  // window.addEventListener("deviceorientation", function(event) {
+  // let position = Math.round(event.gamma);
+  //  if (Math.abs(position) > limit) {
+  //        if (position > limit) {
+  //             position = limit;
+  //         } else {
+  //             position = -limit;
+  //             }
+  //         }
+  // position = position / -100;
+  // let style = "rotateY(" + position + "deg)";
+  // overlayTilt.style.transform = style;
+  // bgTilt.style.transform = style;
+  // });
   
 });
 

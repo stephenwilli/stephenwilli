@@ -1,16 +1,13 @@
-#image-warp {
+#image-warp-1 {
 	width: 100%;
 	height: 100vh;
 	position: relative;
 	overflow: hidden;
 	
-	&:hover {
-		cursor: pointer;
-	}
-	
-	#background {
+	#background-1 {
 		@include absolute($t:0, $l:0);
 		@include bg-cover;
+		background-position: center top;
 		height: 105%;
 		width: 105%;
 		transform: scale(1.1);
@@ -19,9 +16,10 @@
 		height: 100vh;
 	}
 	
-	#overlay {
+	#overlay-1 {
 		@include absolute($t:0, $l:0);
 		@include bg-cover;
+		background-position: center top;
 		height: 105%;
 		width: 105%;
 		transform: scale(1.1);
