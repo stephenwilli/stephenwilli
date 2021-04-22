@@ -14,7 +14,7 @@
 }
 		
 .navbar-hamburger {
-	display: inline-block;
+	display: block;
 	@include absolute($t: 3rem, $r: 3rem);
 	width: 40px;
 	z-index: 99;
@@ -33,7 +33,7 @@
 		transform: scale(0);
 	}
 	&.-collapsed {
-		cursor: url('../images/cursor-arrow-03.svg') 25 15, auto;
+		cursor: url('../images/cursor-arrow-03.svg') 25 5, auto;
 		&:after, &:before, span {
 			background-color: $black;
 		}
@@ -54,7 +54,8 @@
 	width: 0;
 	height: 100%;
 	background: rgba(255, 255, 255, .9);
-	@include transition($transition);
+	z-index: 98;
+	@include transition(.5s ease-in-out);
 	cursor: url('../images/cursor-circle-02.svg') 25 15, auto;
 	a {
 		cursor: url('../images/cursor-arrow-03.svg') 25 15, auto;
@@ -145,9 +146,26 @@
 		}
 	}
 	
+	.contact-nav {
+		@include absolute($r: 10rem, $b:8rem);
+		@include transition($transition);
+		transition-delay: .2s;
+		opacity: 0;
+	  .social-links {
+			display: flex;
+			.icon {
+        font-size: 3rem;
+        margin: 0 1rem;
+	    }
+	  }
+	}
+	
 	&.-open {
 		width: 100%;
 		.parent-menu {
+			opacity: 1;
+		}
+		.contact-nav {
 			opacity: 1;
 		}
 	}

@@ -5,7 +5,7 @@
   <main class="page-main" role="main">
     <?php
       // PAGE HERO
-      get_template_part( 'partials/03_organism/page-hero' );    
+      //get_template_part( 'partials/03_organism/series-gallery' );    
         
       // FLEXIBLE CONTENT
       get_template_part( 'partials/04_flex/flex-layouts' ); 

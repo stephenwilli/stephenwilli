@@ -180,16 +180,17 @@ jQuery(document).ready(function ($) {
         $(this).parent().children('ul').toggleClass('-open');
       }
     });
-  } // SLICK SLIDER
+  } // // SLICK SLIDER
+  // $('#js-hero-slider').slick({
+  //   autoplay: true,
+  //   autoplaySpeed: 4000,
+  //   arrows: false,
+  //   dots: true,
+  //   slidesToShow: 1
+  // });
+  // 
 
 
-  $('#js-hero-slider').slick({
-    autoplay: true,
-    autoplaySpeed: 4000,
-    arrows: false,
-    dots: true,
-    slidesToShow: 1
-  });
   $('#js-intro-list').slick({
     slidesToShow: 7,
     slidesToScroll: 1,
@@ -393,15 +394,12 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('load', function () {
   }
 
   ;
-  var grid2 = document.querySelector('.gallery-mosaic-2');
-
-  if (grid2) {
-    var iso = new isotope_layout__WEBPACK_IMPORTED_MODULE_3___default.a(grid2, {
-      itemSelector: '.mosaic-image-2'
-    });
-  }
-
-  ;
+  setTimeout(function () {
+    // $('.js-sitewrap').animate({
+    //   opacity: 1
+    // }, 300);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#site-loader').addClass('-loaded');
+  });
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 

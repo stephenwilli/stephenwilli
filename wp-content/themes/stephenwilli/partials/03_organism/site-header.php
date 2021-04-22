@@ -12,7 +12,6 @@
 </a>
 
 <div class="navbar-menu">
-  <div class="navbar-border"></div>
   <?php                              
     wp_nav_menu( array(
       'menu'              => "",
@@ -24,4 +23,6 @@
       'depth'            => 0
       ));
     ?>
+  <?php get_template_part('partials/02_molecule/contact-nav')?>
 </div>
+

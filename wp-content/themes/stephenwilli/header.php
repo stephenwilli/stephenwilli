@@ -38,13 +38,6 @@
 <body <?php body_class(); ?>>
   <div class="site-wrap">
     
-    <?php get_template_part( 'partials/03_organism/image-warp' ); ?>
-    
-    <div class="inner-wrap">
-      <div class="inner-border">
-      </div>
-    </div>
-    
     <header class="site-header" id="header" role="header">
       <?php get_template_part( 'partials/03_organism/site-header' ); ?>
     </header>

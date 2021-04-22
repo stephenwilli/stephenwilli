@@ -5,8 +5,8 @@
       $bgImage = get_sub_field('slide_bg_image');
     ?>
       <section id="image-warp-<?= $i;?>" class="cursor-compass">
-        <div id="background-<?= $i;?>" style="background-image:url('<?= $bgImage['sizes']['full_screen'];?>"></div>
-        <div id="overlay-<?= $i;?>" style="background-image:url('<?= $overlay['sizes']['full_screen'];?>');"></div>
+        <div id="background-<?= $i;?>" style="background-image:url('<?= $bgImage;?>"></div>
+        <div id="overlay-<?= $i;?>" style="background-image:url('<?= $overlay;?>');"></div>
       </section>
       <?php $i++; } ?>
   </div>

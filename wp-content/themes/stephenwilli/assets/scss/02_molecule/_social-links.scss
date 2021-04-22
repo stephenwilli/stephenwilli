@@ -1,4 +1,5 @@
 .social-links {
+  @include absolute();
   ul {
     li {
       display: inline-block;
