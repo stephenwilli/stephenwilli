@@ -4073,8 +4073,8 @@
 
 @font-face {
 	font-family: "tmbr-icons";
-	src: url(../assets/fonts/tmbr-icons.woff2?cf4eaf734090a8e0af8bda13385d9aa2) format("woff2"),
-url(../assets/fonts/tmbr-icons.woff?8f68a4c6783d21b10f8a3b3b55e46a3c) format("woff"),
+	src: url(../assets/fonts/tmbr-icons.woff2?7995fa8f6bc9086a4baf06c702b6af16) format("woff2"),
+url(../assets/fonts/tmbr-icons.woff?65b4cbb8efc69e89fb6a921130fe9bde) format("woff"),
 url(../assets/fonts/tmbr-icons.svg?c4c0ee1cab3511721c019c77088ddb1c#tmbr-icons) format("svg");
 }
 
@@ -4940,7 +4940,13 @@ h1,
 @media all and (max-width: 991px) {
   h1,
 .h1 {
-    font-size: 5rem;
+    font-size: 6rem;
+  }
+}
+@media all and (max-width: 767px) {
+  h1,
+.h1 {
+    font-size: 4rem;
   }
 }
 
@@ -5044,6 +5050,10 @@ em {
   font-family: "ivypresto-display", serif;
   font-weight: 700;
   font-style: normal;
+}
+
+.block-link {
+  display: block;
 }
 
 .slick-arrow {
@@ -5496,8 +5506,8 @@ input[type=submit] {
 
 .navbar-hamburger {
   display: block;
-  top: 3rem;
-  right: 3rem;
+  top: 4rem;
+  right: 4rem;
   position: absolute;
   width: 40px;
   z-index: 99;
@@ -5534,8 +5544,9 @@ input[type=submit] {
   top: 0;
   right: 0;
   position: absolute;
+  margin: 2rem;
   width: 0;
-  height: 100%;
+  height: calc(100% - 4rem);
   background: rgba(255, 255, 255, 0.9);
   z-index: 98;
   transition: 0.5s ease-in-out;
@@ -5661,7 +5672,7 @@ input[type=submit] {
   margin: 0 1rem;
 }
 .navbar-menu.-open {
-  width: 100%;
+  width: calc(100% - 4rem);
 }
 .navbar-menu.-open .parent-menu {
   opacity: 1;
@@ -5672,7 +5683,6 @@ input[type=submit] {
 @media all and (max-width: 991px) {
   .navbar-menu.-open {
     display: inline-block;
-    width: 100%;
     -webkit-overflow-scrolling: touch;
   }
   .navbar-menu .parent-menu > .menu-item {
@@ -5703,6 +5713,15 @@ input[type=submit] {
   }
   .navbar-menu .parent-menu > .menu-item.menu-item-has-children .sub-menu.-open {
     display: block;
+  }
+}
+@media all and (max-width: 767px) {
+  .navbar-menu {
+    height: 100%;
+    margin: 0;
+  }
+  .navbar-menu.-open {
+    width: 100%;
   }
 }
 
@@ -5752,6 +5771,39 @@ input[type=submit] {
 .hero-caption:hover .btn:before {
   width: 100%;
   transition-delay: 0.2s;
+}
+@media all and (max-width: 991px) {
+  .hero-caption {
+    width: 100%;
+  }
+}
+@media all and (max-width: 767px) {
+  .hero-caption .btn {
+    margin-left: 150px;
+    color: #333;
+  }
+  .hero-caption .btn:after {
+    left: -100px;
+    width: 100px;
+  }
+  .hero-caption .btn:before {
+    width: 100%;
+  }
+  .hero-caption:hover .btn:after {
+    width: 100px;
+  }
+}
+@media all and (max-width: 599px) {
+  .hero-caption {
+    bottom: 3rem;
+    left: 4rem;
+  }
+  .hero-caption .btn {
+    margin-left: 3rem;
+  }
+  .hero-caption .btn:after {
+    display: none;
+  }
 }
 
 .page-hero {
@@ -6108,7 +6160,7 @@ button:focus {
   -moz-transition: 0.5s ease-in-out;
   -ms-transition: 0.5s ease-in-out;
   -o-transition: 0.5s ease-in-out;
-  transition-delay: 2.5s;
+  transition-delay: 3s;
   cursor: url(../assets/images/cursor-hourglass-02.svg?485007cd458dee32d8a44d3fe439a0b9) 25 15, auto;
 }
 #site-loader svg {
@@ -6127,24 +6179,25 @@ button:focus {
   -moz-transition: 0.5s ease-out;
   -ms-transition: 0.5s ease-out;
   -o-transition: 0.5s ease-out;
-  transition-delay: 2.5s;
+  transition-delay: 3s;
 }
 #site-loader svg .ess {
   stroke-dasharray: 450;
   stroke-dashoffset: 450;
   animation: draw 2.5s ease-in-out forwards;
-  animation-delay: 0.5s;
+  animation-delay: 1s;
 }
 #site-loader svg .dubs {
   stroke-dasharray: 450;
   stroke-dashoffset: 450;
   animation: draw 1.75s ease-in-out forwards;
-  animation-delay: 0.5s;
+  animation-delay: 1s;
 }
 #site-loader svg .slash {
   stroke-dasharray: 450;
   stroke-dashoffset: 450;
   animation: draw 0.5s linear forwards;
+  animation-delay: 0.5s;
 }
 @keyframes draw {
   to {
@@ -6153,6 +6206,7 @@ button:focus {
 }
 #site-loader.-loaded {
   width: 0;
+  z-index: -1;
 }
 #site-loader.-loaded svg {
   opacity: 0;

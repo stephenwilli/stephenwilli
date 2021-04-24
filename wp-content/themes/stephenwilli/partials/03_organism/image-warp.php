@@ -11,8 +11,10 @@
       <?php $i++; } ?>
   </div>
   <div class="hero-caption">
-    <h1>Inversions</h1>
-    <h3>Series 1</h3>
-    <a href="/" class="btn">View Series</a>
+    <a href="/" class="block-link">
+      <h1>Inversions</h1>
+      <h3>Series 1</h3>
+      <a href="/" class="btn">View Series</a>
+    </a>
   </div>
 <?php } ?>

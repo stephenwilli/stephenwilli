@@ -21,7 +21,10 @@ h1,
   font-size: $h1; /* 4em */
   
   @include respond-to($screen-sm) {
-    font-size: 5rem;
+    font-size: 6rem;
+  }
+  @include respond-to($screen-xs) {
+    font-size: 4rem;
   }
 }
 
@@ -112,6 +115,10 @@ em {
 .quote-mark {
   color: $action-color;
   @include heading-font;
+}
+
+.block-link {
+  display: block;
 }
 
 

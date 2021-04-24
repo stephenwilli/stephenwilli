@@ -15,7 +15,7 @@
 		
 .navbar-hamburger {
 	display: block;
-	@include absolute($t: 3rem, $r: 3rem);
+	@include absolute($t:4rem, $r: 4rem);
 	width: 40px;
 	z-index: 99;
 	
@@ -51,8 +51,9 @@
 		
 .navbar-menu {
 	@include absolute($t: 0, $r:0);
+	margin: 2rem;
 	width: 0;
-	height: 100%;
+	height: calc(100% - 4rem);
 	background: rgba(255, 255, 255, .9);
 	z-index: 98;
 	@include transition(.5s ease-in-out);
@@ -161,7 +162,7 @@
 	}
 	
 	&.-open {
-		width: 100%;
+		width: calc(100% - 4rem);
 		.parent-menu {
 			opacity: 1;
 		}
@@ -173,7 +174,6 @@
 	@include respond-to($screen-sm){
 		&.-open {
 			display: inline-block;
-			width: 100%;
 			-webkit-overflow-scrolling: touch;
 		}
 		
@@ -221,6 +221,13 @@
 					}
 				}
 			}
+		}
+	}
+	@include respond-to($screen-xs){
+		height: 100%;
+		margin: 0;
+		&.-open {
+			width: 100%;
 		}
 	}
 }

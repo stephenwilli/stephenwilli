@@ -35,6 +35,41 @@
 			}
 		}
 	}
+	@include respond-to($screen-sm){
+		width: 100%;
+	}
+	
+	@include respond-to($screen-xs){
+		.btn {
+			margin-left: 150px;
+			color: $black;
+			&:after {
+				left: -100px;
+				width: 100px;
+			}
+			&:before {
+				width: 100%;
+			}
+		}
+		&:hover {
+			.btn {
+				&:after {
+					width: 100px;
+				}
+			}
+		}
+	}
+	
+	@include respond-to($screen-xxs){
+		bottom: 3rem;
+		left: 4rem;
+		.btn {
+			margin-left: 3rem;
+			&:after {
+				display: none;
+			}
+		}
+	}
 }
 
 // .home-hero {
