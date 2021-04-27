@@ -226,6 +226,13 @@
 	@include respond-to($screen-xs){
 		height: 100%;
 		margin: 0;
+		.parent-menu {
+			> .menu-item {
+				> a {
+					font-size: 6rem;
+				}
+			}
+		}
 		&.-open {
 			width: 100%;
 		}

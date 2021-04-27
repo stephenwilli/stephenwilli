@@ -61,10 +61,12 @@
 	}
 	
 	@include respond-to($screen-xxs){
-		bottom: 3rem;
+		bottom: 7rem;
 		left: 4rem;
+		width: auto;
 		.btn {
-			margin-left: 3rem;
+			margin-left: 0;
+			@include absolute($b:-3rem, $l: 0);
 			&:after {
 				display: none;
 			}
