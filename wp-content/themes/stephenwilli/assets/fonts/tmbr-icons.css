@@ -1,8 +1,8 @@
 @font-face {
 	font-family: "tmbr-icons";
-	src: url("tmbr-icons.woff2?2a8726a2d8031c973a2e5412cca7c359") format("woff2"),
-url("tmbr-icons.woff?2a8726a2d8031c973a2e5412cca7c359") format("woff"),
-url("tmbr-icons.svg?2a8726a2d8031c973a2e5412cca7c359#tmbr-icons") format("svg");
+	src: url("tmbr-icons.woff2?0027d68ec046bf562f0084b96755744c") format("woff2"),
+url("tmbr-icons.woff?0027d68ec046bf562f0084b96755744c") format("woff"),
+url("tmbr-icons.svg?0027d68ec046bf562f0084b96755744c#tmbr-icons") format("svg");
 }
 
 .icon {
@@ -52,12 +52,9 @@ url("tmbr-icons.svg?2a8726a2d8031c973a2e5412cca7c359#tmbr-icons") format("svg");
 .icon-minus:before {
 	content: "\f10c";
 }
-.icon-video:before {
+.icon-sw:before {
 	content: "\f10d";
 }
-.icon-gift:before {
+.icon-tumblr:before {
 	content: "\f10e";
-}
-.icon-cloud:before {
-	content: "\f10f";
 }

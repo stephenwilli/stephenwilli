@@ -1,0 +1,23 @@
+.internal-template {
+	a {
+		cursor: url('../images/cursor-arrow-03.svg') 25 5, auto;
+	}
+	.navbar-brand {
+		.icon {
+			color: $black;
+		}
+	}
+	
+	.navbar-hamburger {
+		cursor: url('../images/cursor-arrow-03.svg') 25 5, auto;
+		&:after, &:before, span {
+			background-color: $black;
+		}
+	}
+	
+	.inner-wrap {
+		.inner-border {
+			border: 2px solid $black;
+		}
+	}
+}

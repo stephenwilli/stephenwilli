@@ -38,11 +38,9 @@
                         "facebook": "Facebook",
                         "instagram": "Instagram",
                         "twitter": "Twitter",
-                        "vimeo": "Vimeo",
-                        "youtube": "YouTube",
-                        "linkedin": "LinkedIn"
+                        "tumblr": "Tumblr"
                     },
-                    "default_value": [],
+                    "default_value": false,
                     "allow_null": 0,
                     "multiple": 0,
                     "ui": 0,
@@ -52,8 +50,8 @@
                 },
                 {
                     "key": "field_5cb79bf3ae175",
-                    "label": "Social Media URL",
-                    "name": "social_media_url",
+                    "label": "Social Media Link",
+                    "name": "social_media_link",
                     "type": "text",
                     "instructions": "",
                     "required": 0,
@@ -89,5 +87,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1565022768
+    "modified": 1619645031
 }

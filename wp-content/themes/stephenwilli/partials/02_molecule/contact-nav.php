@@ -5,7 +5,7 @@
       $icon = get_sub_field('social_media_site');
       $url = get_sub_field('social_media_url');
       ?>
-      <a href="<?php echo $url;?>" target="_blank"><i class="icon icon-<?php echo $icon;?>"></i></a>
+      <a class="social-link" href="<?php echo $url;?>" target="_blank"><i class="icon icon-<?php echo $icon;?>"></i></a>
     <?php endwhile; ?>
   </div>
 <?php endif;?>

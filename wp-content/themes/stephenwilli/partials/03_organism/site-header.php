@@ -1,8 +1,6 @@
-<?php 
-  $primaryLogo = get_field('site_primary_logo', 'option');
- ?>
+
 <a class="navbar-brand" href="<?php bloginfo('url'); ?>">
-  <img class="logo" src="<?php echo $primaryLogo['sizes']['medium'];?>" alt="<?php echo get_bloginfo('name');?>" />
+  <i class="icon icon-sw"></i>
 </a>
 
 <a class="js-hamburger-toggle" data-target=".navbar-menu">

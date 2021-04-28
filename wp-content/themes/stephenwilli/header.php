@@ -35,7 +35,14 @@
 
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php
+  if (is_front_page()){
+    body_class();
+    } else {
+    body_class('internal-template');
+  }
+  ?>
+>
   <div class="site-wrap">
     
     <header class="site-header" id="header" role="header">

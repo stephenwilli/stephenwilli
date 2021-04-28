@@ -3,12 +3,14 @@
 	z-index: 15;
 	width: 70px;
 	display: inline-block;
-	.logo {
-		max-width: 100%;
+	.icon {
+		line-height: 1;
+		font-size: 4rem;
+		color: $white;
 		opacity: 1;
 		@include transition($transition);
 		&:hover {
-			transform: perspective(500px) rotateX(5deg) rotateY(5deg);
+			opacity: .6;
 		}
 	}
 }
@@ -59,7 +61,7 @@
 	@include transition(.5s ease-in-out);
 	cursor: url('../images/cursor-circle-02.svg') 25 15, auto;
 	a {
-		cursor: url('../images/cursor-arrow-03.svg') 25 15, auto;
+		cursor: url('../images/cursor-arrow-02.svg') 25 15, auto;
 	}
 	
 	.parent-menu {
@@ -78,7 +80,7 @@
 				display: block;
 				position: relative;
 				z-index: 10;
-				line-height: 10rem;
+				line-height: 1.5;
 			}
 			
 			&:after {
@@ -92,21 +94,38 @@
 			
 			&.menu-item-has-children {
 				.sub-menu {
-					width: 0;
+					width: 500px;
 					visibility: hidden;	
 					opacity: 0;
-					@include absolute($l:0);
-					background: $primary;
-					padding: 15px 45px;
+					padding: 0 2rem;
+					@include absolute($l:100%, $t:0);
 					@include transition($transition);
 					transition-delay: 100ms;
 										
 					> .menu-item {
 						a {
-							width: 300px;
-							color: $white;
+							color: $black;
+							position: relative;
+							font-size: 3rem;
+							line-height: 1;
+							margin-bottom: 2rem;
+							@include light-heading();
+							z-index: 10;
+							padding: 1rem 0 1rem 1rem;
+							&:after {
+								@include absolute($b:0,$l:0);
+								content: '';
+								background-color: $black;
+								height: 100%;
+								width: 0;
+								@include transition($transition);
+								z-index: -1;
+							}
 							&:hover {
-								color: $primary;
+								color: $white;
+								&:after {
+									width: 100%;
+								}
 							}
 						}
 					}
@@ -114,11 +133,11 @@
 				
 				> a {
 					&:after {
-						content: "\2039";
+						font-family: 'tmbr-icons';
+						content: "\f10b";
 						@include center-y;
-						right: -15px;
-						font-size: 1.4rem;
-						transform:translateY(-50%) rotate(-90deg);
+						right: 1rem;
+						font-size: 2rem;
 					}
 				}
 			}
@@ -133,7 +152,6 @@
 				
 				&.menu-item-has-children {
 					.sub-menu {
-						width: 300px;
 						visibility: visible;
 						opacity: 1;
 					}
@@ -148,16 +166,41 @@
 	}
 	
 	.contact-nav {
-		@include absolute($r: 10rem, $b:8rem);
-		@include transition($transition);
-		transition-delay: .2s;
+		@include transition(.5s ease-in-out);
+		@include absolute($r: 15rem, $b:8rem);
 		opacity: 0;
+		visibility: hidden;
 	  .social-links {
 			display: flex;
-			.icon {
-        font-size: 3rem;
-        margin: 0 1rem;
-	    }
+			.social-link {
+				position: relative;
+				padding: .5rem 0;
+				&:after {
+					@include absolute($b:0,$l:0);
+					content: '';
+					background-color: $black;
+					height: 100%;
+					width: 0;
+					@include transition($transition);
+					z-index: -1;
+				}
+				
+				.icon {
+	        font-size: 3rem;
+	        margin: 0 1rem;
+					color: $black;
+					line-height: 1;
+					@include transition($transition);
+		    }
+				&:hover {
+					.icon {
+						color: $white;
+					}
+					&:after {
+						width: 100%;
+					}
+				}
+			}
 	  }
 	}
 	
@@ -168,6 +211,34 @@
 		}
 		.contact-nav {
 			opacity: 1;
+			visibility: visible;
+		}
+	}
+	
+	@include respond-max($screen-jumbo){
+		.parent-menu {
+			> .menu-item {
+				&.menu-item-has-children {
+					.sub-menu {
+						width: 600px;
+					}
+				}
+			}
+		}
+	}
+	
+	@include respond-to($screen-md){
+		.parent-menu {
+			> .menu-item {
+				a {
+					font-size: 6rem;
+				}
+				&.menu-item-has-children {
+					.sub-menu {
+						width: 400px;
+					}
+				}
+			}
 		}
 	}
 	
@@ -179,44 +250,41 @@
 		
 		.parent-menu {
 			> .menu-item {
-				width: 100%;
-				display: block;
-				
-				&.menu-item-has-children {
+				&:after {
+					display: none;
+				}
+				&:hover {
 					a {
+						color: $black;
+					}
+				}
+				&.menu-item-has-children {
+					> a {
 						&:after {
-							right: 0;
-							font-size: 1.9rem;
-							transform:translateY(-50%) rotate(180deg);
+							display: none;
 						}
 					}
-					
-					&.-open {
-						a {
-							&:after {
-								transform:translateY(-50%) rotate(270deg);
-							}
-						}
-					}
-
 					.sub-menu {
-						background-color: $primary;
-						display: none;
-						opacity: 1;
-						visibility: visible;
 						width: 100%;
-						position: relative;
-						text-align: left;
-						padding: 0 0 15px 15px;
-						.menu-item {
+						visibility: visible;
+						opacity: 1;
+						padding: 0 2rem;
+						@include relative($l:0, $t:auto, $b:0);
+						@include transition($transition);
+						transition-delay: 100ms;
+						> .menu-item {
 							a {
-								color: $white;
-								line-height: 30px;
+								font-size: 2.5rem;
+								line-height: 1;
+								margin-bottom: 1rem;
+								padding: 1rem 0 1rem 1rem;
+								&:after {
+									display: none;
+								}
+								&:hover {
+									color: $black;
+								}
 							}
-						}
-						
-						&.-open {
-							display: block;
 						}
 					}
 				}
@@ -227,14 +295,45 @@
 		height: 100%;
 		margin: 0;
 		.parent-menu {
+			left: 2rem;
 			> .menu-item {
 				> a {
-					font-size: 6rem;
+					font-size: 3rem;
+				}
+				
+				&.menu-item-has-children {
+					.sub-menu {
+						padding: 0;
+						> .menu-item {
+							a {
+								font-size: 2rem;
+							}
+						}
+					}
 				}
 			}
 		}
 		&.-open {
 			width: 100%;
+		}
+	}
+	
+	.contact-nav {
+		@include absolute($r: auto, $l:2rem, $b: 6rem);
+		.social-links {
+			.social-link {
+				&:after {
+					display: none;
+				}
+				.icon {
+					font-size: 2rem;
+				}
+				&:hover {
+					.icon {
+						color: $black;
+					}
+				}
+			}
 		}
 	}
 }

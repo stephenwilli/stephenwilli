@@ -13,8 +13,13 @@ html {
 
 body {
 	overflow: hidden;
+	width: 100%;
 	@include copy-font;
 	cursor: url('../images/cursor-circle.svg') 25 15, auto;
+	
+	&.internal-template {
+		cursor: url('../images/cursor-circle-02.svg') 25 15, auto !important;
+	}
 }
 
 section {
