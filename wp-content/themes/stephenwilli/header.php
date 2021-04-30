@@ -43,7 +43,6 @@
   }
   ?>
 >
-  <div class="site-wrap">
     
     <header class="site-header" id="header" role="header">
       <?php get_template_part( 'partials/03_organism/site-header' ); ?>

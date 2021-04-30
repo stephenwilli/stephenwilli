@@ -1,11 +1,11 @@
 {
     "key": "group_5e67e4ea72196",
-    "title": "Page Hero",
+    "title": "About",
     "fields": [
         {
             "key": "field_5e67e4f9c35f7",
-            "label": "Hero Image",
-            "name": "page_hero_image",
+            "label": "About Image",
+            "name": "about_image",
             "type": "image",
             "instructions": "",
             "required": 0,
@@ -27,70 +27,36 @@
             "mime_types": ""
         },
         {
-            "key": "field_5e67e51bc35f8",
-            "label": "Custom Title?",
-            "name": "page_hero_custom_title",
-            "type": "true_false",
+            "key": "field_608b3c1665e42",
+            "label": "Second Image",
+            "name": "about_second_image",
+            "type": "image",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "20",
+                "width": "",
                 "class": "",
                 "id": ""
             },
-            "message": "",
-            "default_value": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
-        {
-            "key": "field_5e67e530c35f9",
-            "label": "Custom Title Text",
-            "name": "page_hero_custom_title_text",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5e67e51bc35f8",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "75",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
         }
     ],
     "location": [
         [
             {
-                "param": "post_type",
+                "param": "page_template",
                 "operator": "==",
-                "value": "page"
-            },
-            {
-                "param": "page_type",
-                "operator": "!=",
-                "value": "front_page"
-            }
-        ],
-        [
-            {
-                "param": "post_type",
-                "operator": "==",
-                "value": "post"
+                "value": "templates\/page-about.php"
             }
         ]
     ],
@@ -100,7 +66,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1587586770
+    "modified": 1619738916
 }

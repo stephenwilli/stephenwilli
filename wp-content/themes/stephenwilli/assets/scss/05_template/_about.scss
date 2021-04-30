@@ -1,0 +1,21 @@
+.about-wrap {
+	width: 100%;
+	padding: 5rem;
+	display: flex;
+	
+	.about-images {
+		width: 50%;
+		position: relative;
+		.first {
+			width: 60%;
+		}
+		.second {
+			width: 50%;
+			margin: -10rem 0 0 10rem;
+		}
+	}
+	.page-content {
+		width: 50%;
+		padding: 2rem;
+	}
+}

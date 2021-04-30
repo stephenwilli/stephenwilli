@@ -13,6 +13,9 @@
 			opacity: .6;
 		}
 	}
+	@include respond-to($screen-xs){
+		@include absolute($t:2rem, $l: 2rem);
+	}	
 }
 		
 .navbar-hamburger {
@@ -48,6 +51,10 @@
 		span {
 			transform: scale(0);
 		}
+	}
+	
+	@include respond-to($screen-xs){
+		@include absolute($t:3rem, $r: 3rem);
 	}	
 }
 		
@@ -306,7 +313,7 @@
 						padding: 0;
 						> .menu-item {
 							a {
-								font-size: 2rem;
+								font-size: 1.7rem;
 							}
 						}
 					}
@@ -316,21 +323,20 @@
 		&.-open {
 			width: 100%;
 		}
-	}
-	
-	.contact-nav {
-		@include absolute($r: auto, $l:2rem, $b: 6rem);
-		.social-links {
-			.social-link {
-				&:after {
-					display: none;
-				}
-				.icon {
-					font-size: 2rem;
-				}
-				&:hover {
+		.contact-nav {
+			@include absolute($r: auto, $l:2rem, $b: 6rem);
+			.social-links {
+				.social-link {
+					&:after {
+						display: none;
+					}
 					.icon {
-						color: $black;
+						font-size: 2rem;
+					}
+					&:hover {
+						.icon {
+							color: $black;
+						}
 					}
 				}
 			}

@@ -16,6 +16,7 @@
 	}
 	
 	.inner-wrap {
+		pointer-events: all;
 		.inner-border {
 			border: 2px solid $black;
 		}

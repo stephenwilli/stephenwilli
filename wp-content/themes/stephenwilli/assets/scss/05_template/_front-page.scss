@@ -13,9 +13,7 @@
 		pointer-events: none;
 	}
 	
-	&.-internal {
-		.inner-border {
-			border: 2px solid $black;
-		}
+	@include respond-to($screen-xs){
+		padding: 1rem;
 	}
 }
