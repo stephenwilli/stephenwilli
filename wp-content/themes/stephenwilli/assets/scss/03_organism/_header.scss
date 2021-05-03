@@ -252,7 +252,6 @@
 	@include respond-to($screen-sm){
 		&.-open {
 			display: inline-block;
-			-webkit-overflow-scrolling: touch;
 		}
 		
 		.parent-menu {
@@ -301,6 +300,7 @@
 	@include respond-to($screen-xs){
 		height: 100%;
 		margin: 0;
+		display: none;
 		.parent-menu {
 			left: 2rem;
 			> .menu-item {
@@ -322,6 +322,7 @@
 		}
 		&.-open {
 			width: 100%;
+			display: inline-block;
 		}
 		.contact-nav {
 			@include absolute($r: auto, $l:2rem, $b: 6rem);

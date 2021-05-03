@@ -6,7 +6,6 @@
 
 <section class="home-hero">
   <?php 
-  
       $slides = get_field( 'home_hero_slide' );
       $rand = rand(0, (count($slides) - 1));
       $slides[$rand]['slide_image_bg'];

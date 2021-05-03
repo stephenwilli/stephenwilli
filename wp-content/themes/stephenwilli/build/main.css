@@ -4073,8 +4073,8 @@
 
 @font-face {
 	font-family: "tmbr-icons";
-	src: url(../assets/fonts/tmbr-icons.woff2?6541209fc2a4678a670bcd394399e4b0) format("woff2"),
-url(../assets/fonts/tmbr-icons.woff?3df21ba848c8540bbee787f5fbc00326) format("woff"),
+	src: url(../assets/fonts/tmbr-icons.woff2?e719b08f9f6a7c73df4597f8f68a47b1) format("woff2"),
+url(../assets/fonts/tmbr-icons.woff?5b800dd0a5fa6e43e4e70f504ff99aac) format("woff"),
 url(../assets/fonts/tmbr-icons.svg?59f68fba7195de6e82b413b034451f9d#tmbr-icons) format("svg");
 }
 
@@ -5826,7 +5826,6 @@ input[type=submit] {
 @media all and (max-width: 991px) {
   .navbar-menu.-open {
     display: inline-block;
-    -webkit-overflow-scrolling: touch;
   }
   .navbar-menu .parent-menu > .menu-item:after {
     display: none;
@@ -5870,6 +5869,7 @@ input[type=submit] {
   .navbar-menu {
     height: 100%;
     margin: 0;
+    display: none;
   }
   .navbar-menu .parent-menu {
     left: 2rem;
@@ -5885,6 +5885,7 @@ input[type=submit] {
   }
   .navbar-menu.-open {
     width: 100%;
+    display: inline-block;
   }
   .navbar-menu .contact-nav {
     right: auto;
@@ -5974,7 +5975,7 @@ input[type=submit] {
 @media all and (max-width: 599px) {
   .hero-caption {
     bottom: 7rem;
-    left: 4rem;
+    left: 3rem;
     width: auto;
   }
   .hero-caption .btn {
@@ -6413,7 +6414,7 @@ input[type=submit] {
 }
 @media all and (max-width: 767px) {
   .inner-wrap {
-    padding: 1rem;
+    display: none;
   }
 }
 
