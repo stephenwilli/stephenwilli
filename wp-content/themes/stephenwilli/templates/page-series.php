@@ -27,7 +27,7 @@
 
       $images = new WP_Query($args);
       $i = 1;?>
-        <div class="mosaic-image series-intro" data-delay="<?= $i;?>" data-animate="fade-up">
+        <div class="mosaic-image series-intro">
           <div class="reveal"  data-delay="<?= $i;?>" data-animate="reveal-up"></div>
           <div class="series-text">
             <h1><?= $seriesTitle;?></h1>

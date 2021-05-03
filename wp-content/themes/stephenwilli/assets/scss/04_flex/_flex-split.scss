@@ -1,0 +1,11 @@
+.flex-split {
+  padding: 8rem 6rem;
+  
+  .split-wrap {
+    display: flex;
+    
+    .split-half {
+      width: 50%;
+    }
+  }
+}

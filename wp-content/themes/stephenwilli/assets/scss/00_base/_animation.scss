@@ -38,11 +38,11 @@
 }
 
 [data-animate~="fade-up"] {
-  // opacity: .9;
+  opacity: .5;
   transform: translate3d(0,10px,0);
   transition-property: transform;
   &.animate { 
-    // opacity: 1; 
+    opacity: 1; 
     transform: none 
   }
 }

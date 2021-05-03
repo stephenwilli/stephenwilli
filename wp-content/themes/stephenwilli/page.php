@@ -1,18 +1,10 @@
 <?php
-  get_header();
-  while ( have_posts() ) : the_post(); ?>
-  
-  <main class="internal-main">
-    <?php
-      // PAGE HERO
-      //get_template_part( 'partials/03_organism/series-gallery' );    
-        
-      // FLEXIBLE CONTENT
+  get_header(); 
+  while (have_posts()):the_post();
+?>
+  <main class="main-wrap">
+    <?php  
       get_template_part( 'partials/04_flex/flex-layouts' ); 
     ?>
-  </main>
-
-
-  
-<?php endwhile;
+  <?php endwhile; 
 get_footer();
