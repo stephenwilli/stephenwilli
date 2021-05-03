@@ -25,7 +25,7 @@ body {
 	
 	&.internal-template {
 		cursor: url('../images/cursor-circle-02.svg') 25 15, auto !important;
-		// overflow-y: auto;
+		overflow-y: scroll;
 	}
 }
 

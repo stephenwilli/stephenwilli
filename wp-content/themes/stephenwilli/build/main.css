@@ -4842,6 +4842,7 @@ body {
 }
 body.internal-template {
   cursor: url(../assets/images/cursor-circle-02.svg?456c35d1aa4bc658aaeaa155ff63f98b) 25 15, auto !important;
+  overflow-y: scroll;
 }
 
 section {
@@ -6366,13 +6367,11 @@ input[type=submit] {
     padding: 8rem 0;
   }
   .series-wrap .gallery-mosaic .mosaic-image {
-    width: calc(100% - 2rem);
+    width: 100%;
+    margin: 0 0 2rem;
   }
   .series-wrap .gallery-mosaic .mosaic-image.series-intro {
     min-height: auto;
-  }
-  .series-wrap .gallery-mosaic .mosaic-image.series-intro h1 {
-    font-size: 5rem;
   }
 }
 

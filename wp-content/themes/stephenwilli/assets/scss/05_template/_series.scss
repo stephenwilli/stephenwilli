@@ -59,24 +59,15 @@
 			}
 		}
 	}
-
-	// @include respond-to($screen-md) {
-	// 	.gallery-mosaic {
-	// 		.mosaic-image {
-	// 			width: calc(50% - 2rem);
-	// 		}
-	// 	}
-	// }
+	
 	@include respond-to($screen-sm) {
 		padding: 8rem 0;
 		.gallery-mosaic {
 			.mosaic-image {
-				width: calc(100% - 2rem);
+				width: 100%;
+				margin: 0 0 2rem;
 				&.series-intro {
 					min-height: auto;
-					h1 {
-						font-size: 5rem;
-					}
 				}
 			}
 		}
