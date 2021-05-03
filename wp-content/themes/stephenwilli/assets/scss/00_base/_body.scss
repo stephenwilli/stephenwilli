@@ -7,6 +7,10 @@ html {
 		font-size: 14px;
 	}
 	
+	@include respond-to($screen-xs){
+		overflow: hidden;
+	}
+	
 	@include respond-max($screen-jumbo){
 		font-size: 18px;
 	}
@@ -21,7 +25,7 @@ body {
 	
 	&.internal-template {
 		cursor: url('../images/cursor-circle-02.svg') 25 15, auto !important;
-		overflow-y: auto;
+		// overflow-y: auto;
 	}
 }
 

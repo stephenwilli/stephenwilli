@@ -4820,6 +4820,11 @@ html {
     font-size: 14px;
   }
 }
+@media all and (max-width: 767px) {
+  html {
+    overflow: hidden;
+  }
+}
 @media all and (min-width: 1680px) {
   html {
     font-size: 18px;
@@ -4837,7 +4842,6 @@ body {
 }
 body.internal-template {
   cursor: url(../assets/images/cursor-circle-02.svg?456c35d1aa4bc658aaeaa155ff63f98b) 25 15, auto !important;
-  overflow-y: auto;
 }
 
 section {
@@ -6307,7 +6311,7 @@ input[type=submit] {
 }
 .series-wrap .gallery-mosaic .mosaic-image {
   display: block;
-  width: calc(33% - 2rem);
+  width: calc(50% - 2rem);
   margin: 0 1rem 2rem;
   position: relative;
   overflow: hidden;
@@ -6352,12 +6356,15 @@ input[type=submit] {
 .series-wrap .photo-open {
   display: none;
 }
-@media all and (max-width: 1199px) {
+@media all and (min-width: 1680px) {
   .series-wrap .gallery-mosaic .mosaic-image {
-    width: calc(50% - 2rem);
+    width: calc(33% - 2rem);
   }
 }
 @media all and (max-width: 991px) {
+  .series-wrap {
+    padding: 8rem 0;
+  }
   .series-wrap .gallery-mosaic .mosaic-image {
     width: calc(100% - 2rem);
   }

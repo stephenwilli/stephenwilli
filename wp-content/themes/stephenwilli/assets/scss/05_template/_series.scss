@@ -6,7 +6,7 @@
 		
 		.mosaic-image {
 			display: block;
-			width: calc(33% - 2rem);
+			width: calc(50% - 2rem);
 			margin: 0 1rem 2rem;
 			position: relative;
 			overflow: hidden;
@@ -51,15 +51,24 @@
 	.photo-open {
 		display: none;
 	}
-
-	@include respond-to($screen-md) {
+	
+	@include respond-max($screen-jumbo){
 		.gallery-mosaic {
 			.mosaic-image {
-				width: calc(50% - 2rem);
+				width: calc(33% - 2rem);
 			}
 		}
 	}
+
+	// @include respond-to($screen-md) {
+	// 	.gallery-mosaic {
+	// 		.mosaic-image {
+	// 			width: calc(50% - 2rem);
+	// 		}
+	// 	}
+	// }
 	@include respond-to($screen-sm) {
+		padding: 8rem 0;
 		.gallery-mosaic {
 			.mosaic-image {
 				width: calc(100% - 2rem);
