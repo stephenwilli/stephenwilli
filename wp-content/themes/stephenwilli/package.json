@@ -14,9 +14,10 @@
   },
   "dependencies": {
     "animejs": "^3.0.1",
+    "embla-carousel": "^4.5.1",
     "fitvids": "^2.0.0",
-    "isotope-layout": "^3.0.6",
     "gsap": "file:gsap-bonus.tgz",
+    "isotope-layout": "^3.0.6",
     "jquery": "^3.3.1",
     "magnific-popup": "^1.1.0",
     "slick-carousel": "^1.8.1",

@@ -1,5 +1,5 @@
 html {
-	overflow: hidden;
+	// overflow: hidden;
 	height: 100vh;
 	font-size: 16px;
 	@include font-smoothing;
@@ -21,6 +21,7 @@ body {
 	
 	&.internal-template {
 		cursor: url('../images/cursor-circle-02.svg') 25 15, auto !important;
+		overflow-y: auto;
 	}
 }
 

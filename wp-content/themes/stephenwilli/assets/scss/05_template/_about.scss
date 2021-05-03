@@ -17,5 +17,10 @@
 	.page-content {
 		width: 50%;
 		padding: 2rem;
+		ol, ul {
+			list-style: inherit;
+			padding-left: 2rem;
+			line-height: 2;
+		}
 	}
 }

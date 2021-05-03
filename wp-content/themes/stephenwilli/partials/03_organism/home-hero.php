@@ -1,44 +1,28 @@
+<?php
+  $heroTitle = get_field('home_hero_title');
+  $subtitle = get_field('home_hero_subtitle');
+  $heroLink = get_field('home_hero_link');
+?>
+
 <section class="home-hero">
-  <?php
-    $heroType = get_field('home_hero_type');
-    if($heroType ==='video') { 
-        $videoURL = get_field('home_hero_video_url');
-      ?>
-      <div class="hero-video">
-        <video playsinline autoplay muted loop>
-         <source src="<?php echo $videoURL; ?>" type='video/mp4' />
-        </video>
-      </div>
-      <div class="hero-caption">
-        <h1 class="hero-title">
-        </h1>
-      </div>
-      
-    <?php } elseif($heroType ==='slider') { 
-        if(have_rows('home_hero_slide')) {
-      ?>
-
-        <div id="js-hero-slider">
-          <?php while(have_rows('home_hero_slide')) { the_row();
-              $slideImage = get_sub_field('home_hero_image');
-            ?>
-            <div class="hero-slide">
-              <div class="overlay"></div>
-              <div class="hero-image" style="background-image:url('<?php echo $slideImage['sizes']['full_screen'];?>');">
-              </div>
-              <div class="hero-caption">
-                <h1 class="hero-title">
-                </h1>
-              </div>
-            </div>
-          <?php } ?>
-        </div>
-
-      <?php }?>
-    <?php } ?>
-    
-  </section><!-- /section -->
-
-
-
-
+  <?php 
+  
+      $slides = get_field( 'home_hero_slide' );
+      $rand = rand(0, (count($slides) - 1));
+      $slides[$rand]['slide_image_bg'];
+      $bgImage = $slides[$rand]['slide_image_bg'];
+      $overlay = $slides[$rand]['slide_image_overlay'];
+    ?>
+    <div id="image-warp" class="cursor-compass image-warp">
+      <div id="background" style="background-image:url('<?= $bgImage;?>"></div>
+      <div id="overlay" style="background-image:url('<?= $overlay;?>');"></div>
+    </div>
+  
+  <div class="hero-caption">
+    <a href="<?= $heroLink['url'];?>" class="block-link">
+      <h1><?= $heroTitle;?></h1>
+      <h4><?= $subtitle;?></h4>
+      <a href="<?= $heroLink['url'];?>" class="btn"><?= $heroLink['title'];?></a>
+    </a>
+  </div>
+</section>

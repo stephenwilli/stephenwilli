@@ -6,7 +6,7 @@
     <?php echo file_get_contents(get_template_directory_uri() . '/assets/images/sw-03.svg'); ?>
   </div>
   
-  <?php get_template_part( 'partials/03_organism/image-warp' ); ?>
+  <?php get_template_part( 'partials/03_organism/home-hero' ); ?>
   
   <div class="inner-wrap">
     <div class="inner-border">

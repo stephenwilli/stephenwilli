@@ -1,10 +1,10 @@
-#image-warp-1 {
+.image-warp {
 	width: 100%;
 	height: 100vh;
 	position: relative;
 	overflow: hidden;
 	
-	#background-1 {
+	#background {
 		@include absolute($t:0, $l:0);
 		@include bg-cover;
 		background-position: center center;
@@ -14,7 +14,7 @@
 		height: 100vh;
 	}
 	
-	#overlay-1 {
+	#overlay {
 		@include absolute($t:0, $l:0);
 		@include bg-cover;
 		background-position: center center;

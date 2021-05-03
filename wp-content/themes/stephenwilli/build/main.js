@@ -125,24 +125,39 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+ // EMBLA SLIDER?? Can't get the #image-wrap id to move from one slide to the next
+// import EmblaCarousel from "embla-carousel";
+// import { setupPrevNextBtns, disablePrevNextBtns } from "./prevNext";
+// import { setupDotBtns, generateDotBtns, selectDotBtn } from "./dotButtons";
+// 
+// const wrap = document.querySelector(".embla");
+// const viewPort = wrap.querySelector(".embla__viewport");
+// const prevBtn = wrap.querySelector(".embla__button--prev");
+// const nextBtn = wrap.querySelector(".embla__button--next");
+// const dots = document.querySelector(".embla__dots");
+// const embla = EmblaCarousel(viewPort, { loop: true, skipSnaps: false });
+// const dotsArray = generateDotBtns(dots, embla);
+// const setSelectedDotBtn = selectDotBtn(dotsArray, embla);
+// const disablePrevAndNextBtns = disablePrevNextBtns(prevBtn, nextBtn, embla);
+// 
+// setupPrevNextBtns(prevBtn, nextBtn, embla);
+// setupDotBtns(dotsArray, embla);
+// 
+// embla.on("select", setSelectedDotBtn);
+// embla.on("select", disablePrevAndNextBtns);
+// embla.on("init", setSelectedDotBtn);
+// embla.on("init", disablePrevAndNextBtns);
 
-gsap__WEBPACK_IMPORTED_MODULE_4__["default"].defaults({
-  // https://greensock.com/forums/topic/12760-animation-slowjerky-not-smooth-in-firefox/
-  rotation: 0.01
-});
 jQuery(document).ready(function ($) {
-  // GREENSOCK
-  Object(_utils__WEBPACK_IMPORTED_MODULE_7__["findAll"])('[data-animate]').forEach(function (el) {
-    observer.observe(el);
-  }); // NAV SCROLL CLASS
-
-  $(window).scroll(function () {
-    if ($(window).scrollTop() > 30) {
-      $('.js-nav-scroll').addClass('scrolled');
-    } else {
-      $('.js-nav-scroll').removeClass('scrolled');
-    }
-  }); // // COLLAPSE
+  // NAV SCROLL CLASS
+  // $(window).scroll(function() {
+  //   if ($(window).scrollTop() > 30 ){
+  //     $('.js-nav-scroll').addClass('scrolled');
+  //   } else {
+  //     $('.js-nav-scroll').removeClass('scrolled');
+  //   }
+  // });
+  // // COLLAPSE
   // $('#js-collapse-1').addClass( '-open' );
   // $('.collapse-item > .collapse-title').on('click', function(e) {
   //   e.preventDefault();
@@ -158,15 +173,20 @@ jQuery(document).ready(function ($) {
   //   }
   // });
   // NAV HAMBURGER
-
   $('.js-hamburger-toggle').on('click', function (e) {
     e.preventDefault();
     $('.navbar-hamburger').toggleClass('-collapsed');
     $('.navbar-menu').toggleClass('-open');
-  }); // $('.menu-item').on('click', function(e) {
-  //   $('.navbar-hamburger').removeClass( '-collapsed' );
-  //   $('.navbar-menu').removeClass( '-open' );
-  // });
+  });
+
+  function photoGallery() {
+    $('.js-photo-open').on('click', function (e) {
+      e.preventDefault();
+      $(this).children('.photo-open').addClass('-open');
+    });
+  }
+
+  photoGallery();
 
   if ($(window).width() < 992) {
     // $('.parent-menu > .menu-item > a').addClass('click-through');
@@ -180,66 +200,21 @@ jQuery(document).ready(function ($) {
         $(this).parent().children('ul').toggleClass('-open');
       }
     });
-  } // // SLICK SLIDER
-  // $('#js-hero-slider').slick({
-  //   autoplay: true,
-  //   autoplaySpeed: 4000,
-  //   arrows: false,
-  //   dots: true,
-  //   slidesToShow: 1
-  // });
+  } // EMBLA SLIDER
+  // $('.js-embla-open div:first').attr('id', 'image-warp');
+  // embla.on('select', (removeclass) => {
+  //   var slide = $('.embla__slide');
+  //   var slideID = $('.embla__slide').attr('id');
+  //   if(slideID === 'image-warp'){
+  //     $(slide).removeAttr('id');
+  //   }
+  // })
   // 
+  // embla.on('settle', (addclass) => {
+  //   $('.is-selected').attr('id', 'image-warp');
+  // })
+  //MAGNIFIC POPUP
 
-
-  $('#js-intro-list').slick({
-    slidesToShow: 7,
-    slidesToScroll: 1,
-    asNavFor: '#js-intro-images',
-    dots: false,
-    arrows: false,
-    focusOnSelect: true
-  });
-  $('#js-intro-images').slick({
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    dots: false,
-    vertical: true,
-    asNavFor: '#js-intro-list'
-  });
-  $('.js-gallery-slider').slick({
-    infinite: true,
-    autoplay: true,
-    slidesToScroll: 1,
-    centerMode: true,
-    variableWidth: true,
-    nextArrow: '<span class="slick-next"></span>',
-    prevArrow: '<span class="slick-prev"></span>',
-    responsive: [{
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 1
-      }
-    }]
-  });
-  $('.js-testimonial-slider').slick({
-    infinite: true,
-    autoplay: true,
-    slidesToScroll: 1,
-    slidesToShow: 2,
-    nextArrow: '<span class="slick-next"></span>',
-    prevArrow: '<span class="slick-prev"></span>',
-    responsive: [{
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 1,
-        infinite: false,
-        arrows: false,
-        variableWidth: true
-      }
-    }]
-  }); //MAGNIFIC POPUP
 
   $('.js-popup-video').magnificPopup({
     type: 'iframe'
@@ -268,136 +243,80 @@ jQuery(document).ready(function ($) {
       $(this).attr("target", "_blank");
     }
   });
+  var warp = $('#image-warp');
 
-  function hoverImage() {
-    // TILT HOVER
-    var parent = document.getElementById('image-warp-1');
-    var overlay = document.getElementById('overlay-1');
-    var background = document.getElementById('background-1');
-    var overlayH = overlay.clientHeight;
-    var overlayW = overlay.clientWidth;
-    var bgH = background.clientHeight;
-    var bgW = background.clientWidth;
-    parent.addEventListener('mousemove', handleOverlay);
-    parent.addEventListener('mousemove', handleBackground);
+  if (warp.length > 0) {
+    var hoverImage = function hoverImage() {
+      // TILT HOVER
+      var parent = document.getElementById('image-warp');
+      var overlay = document.getElementById('overlay');
+      var background = document.getElementById('background');
+      var overlayH = overlay.clientHeight;
+      var overlayW = overlay.clientWidth;
+      var bgH = background.clientHeight;
+      var bgW = background.clientWidth;
+      parent.addEventListener('mousemove', handleOverlay);
+      parent.addEventListener('mousemove', handleBackground);
 
-    function handleOverlay(e) {
-      var oxVal = e.layerX;
-      var oyVal = e.layerY;
-      var oyRotation = 6 * ((oxVal - overlayW / 2) / overlayW);
-      var oxRotation = -6 * ((oyVal - overlayH / 2) / overlayH);
-      var ostring = 'perspective(500px) scale(1.1) rotateX(' + oxRotation + 'deg) rotateY(' + oyRotation + 'deg)';
-      overlay.style.transform = ostring;
-    }
+      function handleOverlay(e) {
+        var oxVal = e.layerX;
+        var oyVal = e.layerY;
+        var oyRotation = 6 * ((oxVal - overlayW / 2) / overlayW);
+        var oxRotation = -6 * ((oyVal - overlayH / 2) / overlayH);
+        var ostring = 'perspective(500px) scale(1.1) rotateX(' + oxRotation + 'deg) rotateY(' + oyRotation + 'deg)';
+        overlay.style.transform = ostring;
+      }
 
-    function handleBackground(e) {
-      var bxVal = e.layerX;
-      var byVal = e.layerY;
-      var byRotation = 3 * ((bxVal - bgW / 2) / bgW);
-      var bxRotation = -3 * ((byVal - bgH / 2) / bgH);
-      var bstring = 'perspective(500px) scale(1.1) rotateX(' + bxRotation + 'deg) rotateY(' + byRotation + 'deg)';
-      background.style.transform = bstring;
-    }
+      function handleBackground(e) {
+        var bxVal = e.layerX;
+        var byVal = e.layerY;
+        var byRotation = 3 * ((bxVal - bgW / 2) / bgW);
+        var bxRotation = -3 * ((byVal - bgH / 2) / bgH);
+        var bstring = 'perspective(500px) scale(1.1) rotateX(' + bxRotation + 'deg) rotateY(' + byRotation + 'deg)';
+        background.style.transform = bstring;
+      }
 
-    parent.addEventListener('mouseout', function () {
-      overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
-      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
-    });
-    parent.addEventListener('mousedown', function () {
-      overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
-      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
-    });
-    parent.addEventListener('mouseup', function () {
-      overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
-      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
-    });
+      parent.addEventListener('mouseout', function () {
+        overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+        background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+      });
+      parent.addEventListener('mousedown', function () {
+        overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+        background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+      });
+      parent.addEventListener('mouseup', function () {
+        overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+        background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
+      });
+    };
+
+    ;
+    hoverImage();
   }
-
-  ;
-  hoverImage();
-
-  function hoverImage2() {
-    // TILT HOVER
-    var parent = document.getElementById('image-warp-2');
-    var overlay = document.getElementById('overlay-2');
-    var background = document.getElementById('background-2');
-    var overlayH = overlay.clientHeight;
-    var overlayW = overlay.clientWidth;
-    var bgH = background.clientHeight;
-    var bgW = background.clientWidth;
-    parent.addEventListener('mousemove', handleOverlay);
-    parent.addEventListener('mousemove', handleBackground);
-
-    function handleOverlay(e) {
-      var oxVal = e.layerX;
-      var oyVal = e.layerY;
-      var oyRotation = 6 * ((oxVal - overlayW / 2) / overlayW);
-      var oxRotation = -6 * ((oyVal - overlayH / 2) / overlayH);
-      var ostring = 'perspective(500px) scale(1.1) rotateX(' + oxRotation + 'deg) rotateY(' + oyRotation + 'deg)';
-      overlay.style.transform = ostring;
-    }
-
-    function handleBackground(e) {
-      var bxVal = e.layerX;
-      var byVal = e.layerY;
-      var byRotation = 3 * ((bxVal - bgW / 2) / bgW);
-      var bxRotation = -3 * ((byVal - bgH / 2) / bgH);
-      var bstring = 'perspective(500px) scale(1.1) rotateX(' + bxRotation + 'deg) rotateY(' + byRotation + 'deg)';
-      background.style.transform = bstring;
-    }
-
-    parent.addEventListener('mouseout', function () {
-      overlay.style.transform = 'perspective(00px) scale(1.1) rotateX(0) rotateY(0)';
-      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
-    });
-    parent.addEventListener('mousedown', function () {
-      overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
-      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
-    });
-    parent.addEventListener('mouseup', function () {
-      overlay.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
-      background.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)';
-    });
-  }
-
-  ;
-  hoverImage2(); // window.addEventListener("deviceorientation", function(event) {
-  //   console.log(event.gamma);
-  //   let position = Math.round(event.gamma);
-  // });
-  // 
-  // const overlayTilt = document.getElementById("overlay");
-  // const bgTilt = document.getElementById("background");
-  // const limit = 45;
-  // window.addEventListener("deviceorientation", function(event) {
-  // let position = Math.round(event.gamma);
-  //  if (Math.abs(position) > limit) {
-  //        if (position > limit) {
-  //             position = limit;
-  //         } else {
-  //             position = -limit;
-  //             }
-  //         }
-  // position = position / -100;
-  // let style = "rotateY(" + position + "deg)";
-  // overlayTilt.style.transform = style;
-  // bgTilt.style.transform = style;
-  // });
 });
 jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('load', function () {
-  var grid = document.querySelector('.gallery-mosaic-1');
+  var grid = document.querySelector('.js-mosaic-gallery');
 
   if (grid) {
     var iso = new isotope_layout__WEBPACK_IMPORTED_MODULE_3___default.a(grid, {
-      itemSelector: '.mosaic-image-1'
+      itemSelector: '.mosaic-image'
     });
   }
 
-  ;
+  ; // see [data-animate] styles in scss/base/_animation.scss
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      entry.isIntersecting && requestAnimationFrame(function () {
+        entry.target.classList.add('animate');
+        observer.unobserve(entry.target);
+      });
+    });
+  });
+  Object(_utils__WEBPACK_IMPORTED_MODULE_7__["findAll"])('[data-animate]').forEach(function (el) {
+    observer.observe(el);
+  });
   setTimeout(function () {
-    // $('.js-sitewrap').animate({
-    //   opacity: 1
-    // }, 300);
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#site-loader').addClass('-loaded');
   });
 });
