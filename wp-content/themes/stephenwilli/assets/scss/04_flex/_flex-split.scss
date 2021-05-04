@@ -1,11 +1,81 @@
 .flex-split {
-  padding: 8rem 6rem;
+  padding: 4rem 2rem;
   
   .split-wrap {
     display: flex;
     
     .split-half {
       width: 50%;
+      padding: 0 2rem;
+    }
+    
+    .reveal-wrap {
+      position: relative;
+      .reveal {
+        @include absolute($t: 0, $l:0);
+        background-color: $white;;
+        width: 100%;
+        height: 100%;;
+        &.animate {
+          height: 0;
+        }
+      }
+    }
+      
+    // .-image {
+    //   .image1 {
+    //     width: 100%;
+    //   }
+    // }
+      
+    .image-1 {
+      width: 60%;
+    }
+      
+    .image-2 {
+      position: relative;
+      bottom: 16rem;
+      left: 40%;
+      width: 60%;
     }
   }
+  
+  @include respond-to($screen-md){
+    .split-wrap {
+      .image-2 {
+        bottom: 12rem;
+      }
+    }
+  }
+  
+  @include respond-to($screen-sm){
+    padding: 4rem 1rem;
+  
+    .split-wrap {
+      display: inline-block;
+  
+      .split-half {
+        width: 100%;
+        padding: 0 1rem;
+      }
+    }
+  }
+  // 
+  // @include respond-to($screen-sm){
+  //   padding: 4rem 1rem;
+  // 
+  //   .split-wrap {
+  //     .-images {
+  //       .image1 {
+  //         width: 65%;
+  //         margin-left: 0;
+  //       }
+  // 
+  //       .image2 {
+  //         margin: -12rem 0 0 12rem;
+  //         width: 60%;
+  //       }
+  //     }
+  //   }
+  // }
 }

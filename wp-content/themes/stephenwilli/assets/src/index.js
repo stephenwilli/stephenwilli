@@ -33,13 +33,14 @@ import { findAll, isArray } from './utils';
 jQuery(document).ready(function($) {
 
   // NAV SCROLL CLASS
-  // $(window).scroll(function() {
-  //   if ($(window).scrollTop() > 30 ){
-  //     $('.js-nav-scroll').addClass('scrolled');
-  //   } else {
-  //     $('.js-nav-scroll').removeClass('scrolled');
-  //   }
-  // });
+  $(window).scroll(function() {
+    if ($(window).scrollTop() > 30 ){
+      console.log('ypp');
+      $('.js-nav-scroll').addClass('scrolled');
+    } else {
+      $('.js-nav-scroll').removeClass('scrolled');
+    }
+  });
   
   // // COLLAPSE
   // $('#js-collapse-1').addClass( '-open' );

@@ -6,5 +6,6 @@
     <?php  
       get_template_part( 'partials/04_flex/flex-layouts' ); 
     ?>
+  </main>
   <?php endwhile; 
 get_footer();

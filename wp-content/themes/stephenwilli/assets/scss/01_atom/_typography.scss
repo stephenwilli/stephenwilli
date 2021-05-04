@@ -33,7 +33,7 @@ h2,
   font-size: $h2; /* 3em */
   font-weight: 600;
   @include respond-to($screen-sm) {
-    font-size: 4rem;
+    font-size: 3.5rem;
   }
 }
 

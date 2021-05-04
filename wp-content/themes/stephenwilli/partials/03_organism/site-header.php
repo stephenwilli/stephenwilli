@@ -1,4 +1,3 @@
-
 <a class="navbar-brand" href="<?php bloginfo('url'); ?>">
   <i class="icon icon-sw"></i>
 </a>

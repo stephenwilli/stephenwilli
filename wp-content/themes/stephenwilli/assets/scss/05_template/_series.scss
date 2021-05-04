@@ -43,6 +43,11 @@
 					font-size: 4rem;
 				}
 			}
+			
+			&.series-end {
+				padding: 2rem;
+				cursor: url('../images/cursor-circle-02.svg') 25 15, auto !important;
+			}
 		}
 		
 

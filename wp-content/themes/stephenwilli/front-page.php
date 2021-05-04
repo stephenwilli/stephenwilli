@@ -14,4 +14,4 @@
   </div>
   
 <?php endwhile;
-get_footer();
+get_footer('home');

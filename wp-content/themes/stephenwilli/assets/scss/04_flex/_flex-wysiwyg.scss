@@ -1,6 +1,7 @@
 .flex-wysiwyg {
   margin: 4rem 0;
-  padding: 0 12rem;
+  padding: 0 6rem;
+  max-width: 1000px;
   
   ol, ul {
     list-style: inherit;
@@ -14,5 +15,13 @@
   
   @include respond-to($screen-xs) {
     padding: 4rem 2rem;
+  }
+}
+
+.flex-text {
+  ol, ul {
+    list-style: inherit;
+    padding-left: 2rem;
+    line-height: 2;
   }
 }
