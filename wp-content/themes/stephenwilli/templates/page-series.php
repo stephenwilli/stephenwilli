@@ -30,7 +30,7 @@
       $images = new WP_Query($args);
       $i = 1;?>
         <div class="mosaic-image series-intro">
-          <div class="reveal"  data-delay="<?= $i;?>" data-animate="reveal-up"></div>
+          <div class="reveal"  data-delay="1" data-animate="reveal-up"></div>
           <div class="series-text">
             <h1><?= $seriesTitle;?></h1>
             <h3><?= $seriesSubtitle;?></h3>
@@ -40,11 +40,11 @@
       <?php while ( $images->have_posts()) { $images->the_post();
             $photo = get_field('featured_photo')
           ?>
-          <a class="js-photo-open mosaic-image" href="#photo-open-<?= $i;?>" data-delay="<?= $i;?>" data-animate="fade-up">
-            <div class="reveal"  data-delay="1" data-animate="reveal-up"></div>
-            <img class="thumbnail" src="<?= $photo['sizes']['large'];?>" alt="<?php the_title();?>"/>
+          <a class="js-photo-open mosaic-image" href="<?php the_permalink();?>">
+            <div class="reveal" data-delay="2" data-animate="reveal-up"></div>
+            <img class="thumbnail" src="<?= $photo['sizes']['full_screen'];?>" alt="<?php the_title();?>"/>
             <div id="photo-open-<?= $i;?>" class="photo-open">
-              <img class="enlarged" src="<?= $photo['sizes']['full_screen'];?>" alt="<?php the_title();?>"/>
+              <!-- <img class="enlarged" src="<?= $photo['sizes']['full_screen'];?>" alt="<?php the_title();?>"/> -->
             </div> 
           </a>
       <?php $i++; } 
@@ -52,7 +52,7 @@
       ?>
       <?php if($seriesEnd){?>
       <div class="mosaic-image series-end">
-        <div class="reveal"  data-delay="<?= $i;?>" data-animate="reveal-up"></div>
+        <div class="reveal"  data-delay="2" data-animate="reveal-up"></div>
         <div class="series-text">
           <?= $seriesEnd;?>
         </div>

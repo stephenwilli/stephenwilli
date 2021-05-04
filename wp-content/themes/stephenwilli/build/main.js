@@ -150,12 +150,13 @@ __webpack_require__.r(__webpack_exports__);
 
 jQuery(document).ready(function ($) {
   // NAV SCROLL CLASS
-  $(window).scroll(function () {
-    if ($(window).scrollTop() > 30) {
-      console.log('ypp');
-      $('.js-nav-scroll').addClass('scrolled');
+  $('.internal-template').scroll(function () {
+    if ($('.internal-template').scrollTop() > 30) {
+      $('.navbar-brand').addClass('scrolled');
+      $('.navbar-hamburger').addClass('scrolled');
     } else {
-      $('.js-nav-scroll').removeClass('scrolled');
+      $('.navbar-brand').removeClass('scrolled');
+      $('.navbar-hamburger').removeClass('scrolled');
     }
   }); // // COLLAPSE
   // $('#js-collapse-1').addClass( '-open' );
@@ -178,16 +179,21 @@ jQuery(document).ready(function ($) {
     e.preventDefault();
     $('.navbar-hamburger').toggleClass('-collapsed');
     $('.navbar-menu').toggleClass('-open');
-  });
-
-  function photoGallery() {
-    $('.js-photo-open').on('click', function (e) {
-      e.preventDefault();
-      $(this).children('.photo-open').addClass('-open');
-    });
-  }
-
-  photoGallery();
+  }); // PHOTO OPEN FROM SERIES TO FULL WIDTH - needs tweaking
+  // function photoGallery() {
+  //   if ($(window).width() > 992) {
+  //     $('.js-photo-open').on('click', function(e) {
+  //       e.preventDefault();
+  //       if($(this).hasClass('-opened')){
+  //         $(this).removeClass('-opened');
+  //       } else {
+  //         $(this).addClass('-opened')
+  //       }
+  //       $(this).children('.photo-open').addClass('-open');
+  //     });
+  //   }
+  // }
+  // photoGallery();
 
   if ($(window).width() < 992) {
     // $('.parent-menu > .menu-item > a').addClass('click-through');
@@ -214,17 +220,8 @@ jQuery(document).ready(function ($) {
   // embla.on('settle', (addclass) => {
   //   $('.is-selected').attr('id', 'image-warp');
   // })
-  //MAGNIFIC POPUP
 
 
-  $('.js-popup-video').magnificPopup({
-    type: 'iframe'
-  }); //MAGNIFIC POPUP
-
-  $('.js-popup-modal').magnificPopup({
-    type: 'inline',
-    midClick: true
-  });
   $('.js-flex-gallery-img').magnificPopup({
     type: 'image',
     gallery: {

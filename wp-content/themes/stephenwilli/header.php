@@ -43,7 +43,7 @@
   }
   ?>
 >
-    
-    <header class="site-header js-nav-scroll" id="header" role="header">
-      <?php get_template_part( 'partials/03_organism/site-header' ); ?>
-    </header>
+  
+  <header class="site-header js-nav-scroll" id="header" role="header">
+    <?php get_template_part( 'partials/03_organism/site-header' ); ?>
+  </header>

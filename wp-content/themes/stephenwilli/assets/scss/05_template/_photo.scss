@@ -1,0 +1,11 @@
+.single-photo {
+	padding: 8rem 3rem;
+	
+	.photo-wrap {
+		display: flex;
+		.photo-content {
+			width: 40%;
+			padding: 3rem 3rem 0 0;
+		}
+	}
+}

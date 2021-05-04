@@ -1,13 +1,23 @@
 .footer {
 	width: 100%;
-	padding: 2rem;
+	padding: 2rem 2rem 4rem;
 	text-align: center;
+	font-size: .9rem;
+	
+	.footer-links  {
+		.footer-link {
+			margin: 0 1rem;
+		}
+	}
 	a {
 		color: $black;
 		text-decoration: underline;
 		&:hover {
 			text-decoration: none;
 		}
+	}
+	.copyright {
+		margin-top: 1rem;
 	}
 }
 

@@ -246,14 +246,10 @@ add_action('h5p_alter_library_styles', function(&$styles) {
     ];
 });
 
-
-add_filter( 'language_attributes', 'add_no_js_class_to_html_tag', 10, 2 );
-function add_no_js_class_to_html_tag( $output, $doctype ) {
-    if ( 'html' !== $doctype && !is_front_page() ) {
-        return $output;
-    }
-    $output .= ' class="internal"';
-    return $output;
+// GET POSTS COUNT
+function sw_get_posts_count() {
+    global $wp_query;
+    return $wp_query->post_count;
 }
 
 
