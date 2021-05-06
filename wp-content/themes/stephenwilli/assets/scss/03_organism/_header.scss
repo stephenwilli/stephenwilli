@@ -1,6 +1,6 @@
 .navbar-brand {
 	@include absolute($t: 3rem, $l: 3rem);
-	z-index: 15;
+	z-index: 101;
 	width: 70px;
 	display: inline-block;
 	@include transition($transition);
@@ -361,29 +361,39 @@
 		}
 	}
 }
+
+.site-header {
+	&.scrolled {
+		
+		.navbar-brand {
+			position: fixed;
+			top: 1rem;
+			left: 1rem;
+			.icon {
+				font-size: 2.5rem;
+			}	
+		}
+		
+		.hamburger-wrap {
+			height: 4rem;
+			width: 100%;
+			display: inline-block;
+			position: fixed;
+			z-index: 100;
+			background-color: $white;
+		}
+		
+		.navbar-hamburger {
+			position: fixed;
+			top: 1.5rem;
+			right: 2rem;
+			@include respond-to($screen-xs){
+				right: 1rem;
+			}
+		}
+	}
+}
 	
-	// /* SCROLLED  */
-	// 
-	// &.scrolled {
-	// 	position: fixed;
-	// 	background-color: $primary;
-	// 
-	// 	@include respond-to($screen-sm){
-	// 		.alert-bar {
-	// 			display: none;
-	// 		}
-	// 
-	// 		&.-alert-bump {
-	// 			.navbar-main {
-	// 				margin-top: 2rem;
-	// 			}
-	// 		}
-	// 	}
-	// 
-	// 	@include respond-to($screen-xs){
-	// 		background-color: $primary;
-	// 	}
-	// }
 	
 	
 

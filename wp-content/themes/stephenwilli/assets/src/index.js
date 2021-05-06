@@ -35,11 +35,9 @@ jQuery(document).ready(function($) {
   // NAV SCROLL CLASS
   $('.internal-template').scroll(function() {
     if ($('.internal-template').scrollTop() > 30 ){
-      $('.navbar-brand').addClass('scrolled');
-      $('.navbar-hamburger').addClass('scrolled');
+      $('.js-nav-scroll').addClass('scrolled');
     } else {
-      $('.navbar-brand').removeClass('scrolled');
-      $('.navbar-hamburger').removeClass('scrolled');
+      $('.js-nav-scroll').removeClass('scrolled');
     }
   });
   

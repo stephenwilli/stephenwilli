@@ -2,7 +2,7 @@
   <i class="icon icon-sw"></i>
 </a>
 
-<a class="js-hamburger-toggle" data-target=".navbar-menu">
+<a class="js-hamburger-toggle hamburger-wrap" data-target=".navbar-menu">
   <div class="navbar-hamburger">
     <span></span>
   </div>
