@@ -1,18 +1,11 @@
 html {
 	overflow: hidden;
 	height: 100vh;
-	font-size: 16px;
+	font-size: 14px;
 	@include font-smoothing;
-	@include respond-to($screen-sm){
-		font-size: 14px;
-	}
-	
-	@include respond-to($screen-xs){
-		overflow: hidden;
-	}
 	
 	@include respond-max($screen-jumbo){
-		font-size: 18px;
+		font-size: 16px;
 	}
 }
 
@@ -22,7 +15,6 @@ body {
 	width: 100%;
 	@include copy-font;
 	cursor: url('../images/cursor-circle.svg') 25 15, auto;
-	// position: relative;
 	
 	&.internal-template {
 		cursor: url('../images/cursor-circle-02.svg') 25 15, auto !important;

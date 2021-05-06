@@ -1,4 +1,5 @@
 <footer class="footer">
+  <?php	edit_post_link( __( 'Edit', '_s' ), '<span class="post-edit-link">', '</span>' ); ?>
   <?php 
   if(have_rows('footer_links', 'option')){ ?> 
     <div class="footer-links">

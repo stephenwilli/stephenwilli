@@ -1,8 +1,4 @@
-<?php 
-  $sectionID = get_sub_field('fc_section_id');
-?>
-
-<section <?php if($sectionID){ ?>id="<?php echo $sectionID;?>"<?php } ?> class="flex-wysiwyg">
+<section class="flex-wysiwyg" data-animate="fade-right" data-delay="1">
   <?php 
   $wysiwyg = get_sub_field('fc_wysiwyg');
   ?>

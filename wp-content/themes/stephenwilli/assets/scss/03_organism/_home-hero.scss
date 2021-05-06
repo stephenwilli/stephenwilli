@@ -1,3 +1,15 @@
+.home-hero {
+	.kicker {
+		color: $white;
+		@include center-y;
+		right: -10rem;
+		transform: translateY(-50%) rotate(-90deg);
+		@include respond-to($screen-xs){
+			display: none;
+		}
+	}
+}
+
 .hero-caption {
 	@include absolute($l: 5rem, $b: 5rem);
 	h1 {
@@ -10,7 +22,7 @@
 	}
 	.btn {
 		position: relative;
-		margin-left: 200px;
+		margin-left: 180px;
 		&:after {
 			@include center-y;
 			left: -150px;
@@ -61,8 +73,8 @@
 	}
 	
 	@include respond-to($screen-xxs){
-		bottom: 7rem;
-		left: 4rem;
+		bottom: 6rem;
+		left: 3rem;
 		width: auto;
 		.btn {
 			margin-left: 0;

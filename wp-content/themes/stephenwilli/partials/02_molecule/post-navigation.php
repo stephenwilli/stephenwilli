@@ -1,48 +1,21 @@
-<section class="post-navigation">
+<div class="post-navigation">
   <?php
-    $prevPost = get_previous_post(true);
-    if($prevPost) {   
-      $prevThumbnail = get_the_post_thumbnail_url($prevPost->ID, 'full_screen');
-      if(!$prevThumbnail){
-        $images = get_field( 'default_header_image', 'option' );
-        $rand = rand(0, (count($images) - 1));
-        $image = $images[$rand]['header_image'];
-        $prevThumbnail = $image['sizes']['full_screen'];
-      }
-      ?>
-      <a href="<?php echo $prevPost->guid ?>" class="page-link -left" style="background-image: url('<?php echo $prevThumbnail;?>')">
-        <div class="overlay"></div>
-        <div class="text-conent">
-          <i class="icon icon-angle-left"></i>
-          <h5>Previous Post</h5>
-          <h4 class="back-title"><?php echo $prevPost->post_title ?></h4>
-          <?php echo get_the_excerpt( $prevPost->ID ); ?>
-        </div>
-      </a>
-    <?php } ?>
-    
-    <?php
-      $nextPost = get_previous_post(true);
-      if($nextPost) {   
-        $nextThumbnail = get_the_post_thumbnail_url($nextPost->ID, 'full_screen');
-        if(!$nextThumbnail){
-          $images = get_field( 'default_header_image', 'option' );
-          $rand = rand(0, (count($images) - 1));
-          $image = $images[$rand]['header_image'];
-          $nextThumbnail = $image['sizes']['full_screen'];
-        }
-        ?>
-        <a href="<?php echo $nextPost->guid ?>" class="page-link -left" style="background-image: url('<?php echo $$nextThumbnail;?>')">
-          <div class="text-conent"></div>
-          <div class="">
-            <i class="icon icon-angle-left"></i>
-            <h5>Next Post</h5>
-            <h4 class="back-title"><?php echo $nextPost->post_title ?></h4>
-            <?php echo get_the_excerpt( $nextPost->ID ); ?>
-          </div>
-        </a>
-      <?php } ?>
+    $next_post_url = get_permalink( get_adjacent_post(false,'',false)->ID );
+    $previous_post_url = get_permalink( get_adjacent_post(false,'',true)->ID );
+    $postID = get_field('photo_number');
+  ?>
+  <?php
+    if($previous_post_url) {   
+    ?>
+      <a href="<?= $previous_post_url; ?>" class="page-link -prev"><i class="icon icon-arrow-right"></i></a>
+  <?php } ?>
+  <div class="counter">
+    <span class="post-number">07</span> <span class="total">// 10</span>
+  </div>
+  <?php
+    if($next_post_url) {   
+    ?>
+      <a href="<?= $next_post_url; ?>" class="page-link -next"><i class="icon icon-arrow-left"></i></a>
+  <?php } ?>
+</div><!-- /section -->
 
-
-
-</section><!-- /section -->

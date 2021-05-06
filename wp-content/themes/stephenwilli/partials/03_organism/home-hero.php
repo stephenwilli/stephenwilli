@@ -2,6 +2,7 @@
   $heroTitle = get_field('home_hero_title');
   $subtitle = get_field('home_hero_subtitle');
   $heroLink = get_field('home_hero_link');
+  $kicker = get_field('home_hero_kicker');
 ?>
 
 <section class="home-hero">
@@ -23,5 +24,8 @@
       <h4><?= $subtitle;?></h4>
       <a href="<?= $heroLink['url'];?>" class="btn"><?= $heroLink['title'];?></a>
     </a>
+  </div>
+  <div class="kicker">
+    <p><?= $kicker;?></p>
   </div>
 </section>

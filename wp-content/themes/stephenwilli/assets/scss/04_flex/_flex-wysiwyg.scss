@@ -9,12 +9,20 @@
     line-height: 2;
   }
   
+  a {
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  
   @include respond-to($screen-sm) {
     padding: 4rem;
   }
   
   @include respond-to($screen-xs) {
-    padding: 4rem 2rem;
+    padding: 2rem;
+    margin: 2rem 0;
   }
 }
 
@@ -23,5 +31,11 @@
     list-style: inherit;
     padding-left: 2rem;
     line-height: 2;
+  }
+  a {
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
   }
 }

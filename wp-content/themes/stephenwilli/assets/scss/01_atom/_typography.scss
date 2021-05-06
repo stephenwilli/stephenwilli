@@ -1,9 +1,9 @@
 /* FONT SIZES */
-$h1: 6.5rem;
-$h2: 5.5rem;
-$h3: 3rem;
-$h4: 2rem;
-$h5: 1.2rem;
+$h1: 7rem;
+$h2: 6rem;
+$h3: 3.5rem;
+$h4: 2.5rem;
+$h5: 1.5rem;
 $p: 1rem;
 $hero: 7rem;
 $lead: 1.125rem;
@@ -13,7 +13,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6 {
   margin: 0 0 1rem 0;
   @include heading-font();
   color: $heading-color;
-  letter-spacing: .02em;
+  line-height: 1.2;
 }
 
 h1,
@@ -24,7 +24,7 @@ h1,
     font-size: 6rem;
   }
   @include respond-to($screen-xs) {
-    font-size: 4rem;
+    font-size: 4.5rem;
   }
 }
 
@@ -33,7 +33,7 @@ h2,
   font-size: $h2; /* 3em */
   font-weight: 600;
   @include respond-to($screen-sm) {
-    font-size: 3.5rem;
+    font-size: 4rem;
   }
 }
 
@@ -119,6 +119,15 @@ em {
 
 .block-link {
   display: block;
+}
+
+.kicker {
+  @include light-heading();
+  text-transform: uppercase;
+  transform: rotate(90deg);
+  font-size: 1.2rem;
+  font-weight: bold;
+  pointer-events: none;
 }
 
 

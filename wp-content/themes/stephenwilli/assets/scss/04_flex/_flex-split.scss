@@ -22,60 +22,69 @@
       }
     }
       
-    // .-image {
-    //   .image1 {
-    //     width: 100%;
-    //   }
-    // }
-      
-    .image-1 {
-      width: 60%;
+    .-image {
+      .image-1 {
+        width: 100%;
+        img {
+          width: 100%;
+        }
+      }
     }
       
-    .image-2 {
-      position: relative;
-      bottom: 16rem;
-      left: 40%;
-      width: 60%;
+    .-images {  
+      .image-1 {
+        width: 60%;
+      }
+        
+      .image-2 {
+        position: relative;
+        bottom: 16rem;
+        left: 40%;
+        width: 60%;
+      }
     }
   }
   
   @include respond-to($screen-md){
     .split-wrap {
+      .images {
       .image-2 {
-        bottom: 12rem;
+          bottom: 12rem;
+        }
       }
     }
   }
   
   @include respond-to($screen-sm){
-    padding: 4rem 1rem;
-  
+    padding: 2rem 1rem;
     .split-wrap {
       display: inline-block;
-  
       .split-half {
         width: 100%;
         padding: 0 1rem;
       }
+      
+      .-image {
+        .image-1 {
+          margin-bottom: 2rem;
+        }
+      }
     }
   }
-  // 
-  // @include respond-to($screen-sm){
-  //   padding: 4rem 1rem;
-  // 
-  //   .split-wrap {
-  //     .-images {
-  //       .image1 {
-  //         width: 65%;
-  //         margin-left: 0;
-  //       }
-  // 
-  //       .image2 {
-  //         margin: -12rem 0 0 12rem;
-  //         width: 60%;
-  //       }
-  //     }
-  //   }
-  // }
+  
+  @include respond-to($screen-xs){
+    .split-wrap {
+      .-images {  
+        .image-1 {
+          display: none;
+        }
+          
+        .image-2 {
+          bottom: 0;
+          left: 0;
+          width: 100%;
+        }
+      }
+    }
+  }
 }

@@ -1,49 +1,52 @@
 .post-navigation {
-  display: flex;
-  flex-wrap: wrap;
-  height: 600px;
-  position: relative;
+  width: 100%;
+  padding: 2rem 4rem;
+  text-align: center;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  
+  .icon {
+    font-size: 1.3rem;
+  }
   
   .page-link {
-    display: block;
-    position: relative;
-    width: 50%;
-    @include bg-cover;
-    @include transition($transition);
-    
-    .overlay {
-      @include absolute();
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,.4);
+    display: inline-block;
+    &.-prev {
+      transform: none;
       @include transition($transition);
+      &:hover {
+        transform: translate3d(-10px,0,0);
+        .icon {
+          color: $black
+        }
+      }
     }
-    
-    .text-content {
-      @include center;
-      margin: 0;
-    }
-    
-    
-      
-    &:hover {
-      .overlay {
-        background-color: rgba(34,61,67,.7);
+  
+    &.-next {
+      transform: none;
+      @include transition($transition);
+      &:hover {
+        transform: translate3d(10px,0,0);
+        .icon {
+          color: $black
+        }
       }
     }
   }
   
-  @include respond-to($screen-sm){
-    
-    .page-link {
-      width: 100%;
+  .counter {
+    display: inline-flex;
+    padding: 0 3rem;
+    @include heading-font();
+    margin-top: 1rem;
+    .post-number {
+      font-size: 4rem;
     }
-  }
-  
-  @include respond-to($screen-xs){
     
-    .page-link {
-      width: 100%;
+    .total {
+      margin-top: 1rem;
+      font-size: 1.8rem;
     }
   }
 }

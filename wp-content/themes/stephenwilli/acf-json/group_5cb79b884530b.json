@@ -38,7 +38,8 @@
                         "facebook": "Facebook",
                         "instagram": "Instagram",
                         "twitter": "Twitter",
-                        "tumblr": "Tumblr"
+                        "tumblr": "Tumblr",
+                        "email": "Email"
                     },
                     "default_value": false,
                     "allow_null": 0,
@@ -87,5 +88,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1619645031
+    "modified": 1620228029
 }

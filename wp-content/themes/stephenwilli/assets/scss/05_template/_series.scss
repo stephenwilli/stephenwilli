@@ -1,5 +1,5 @@
 .series-wrap {
-	padding: 8rem 3rem;
+	padding: 8rem 3rem 4rem;
 
 	.gallery-mosaic {
 		margin-top: 1rem;
@@ -31,8 +31,8 @@
 			
 			&:hover {
 				img {
-					// @include transform(scale(1.03));
-					opacity: .95;
+					@include transform(scale(1.03));
+					opacity: .9;
 				}
 			}
 			&.series-intro {
@@ -100,7 +100,7 @@
 	}
 	
 	@include respond-to($screen-sm) {
-		padding: 8rem 0;
+		padding: 6rem 0 4rem;
 		.gallery-mosaic {
 			.mosaic-image {
 				width: 100%;
