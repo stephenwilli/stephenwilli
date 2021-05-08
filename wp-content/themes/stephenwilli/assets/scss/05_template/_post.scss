@@ -1,7 +1,19 @@
-.post-content {
-	margin: 4rem 0;
-  padding: 0 6rem;
-  max-width: 1000px;
+.content-wrap {
+	padding: 4rem;
+	display: flex;
+	flex-wrap: wrap;
+	
+	.post-content {
+		width: 50%;
+		padding: 2rem 4rem 0 2rem;
+		.post-meta {
+			font-size: 1.2rem;
+		}
+	}
+
+	.post-image {
+		width: 50%;
+	}
   
   ol, ul {
     list-style: inherit;
@@ -17,13 +29,53 @@
   }
   
   @include respond-to($screen-sm) {
-    padding: 4rem;
+    padding: 4rem 2rem;
+		.post-content {
+			width: 100%;
+			padding: 4rem 0;
+		}
+		.post-image {
+			width: 100%;
+		}
   }
   
   @include respond-to($screen-xs) {
     padding: 2rem;
     margin: 2rem 0;
   }
+}
+
+.archive-wrap {
+	padding: 8rem 4rem;	
+	.post-meta {
+		margin: 1rem 0;
+		.read-more {
+			text-decoration: underline;
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+	
+	.gallery-mosaic {
+		.mosaic-image {
+			cursor: url('../images/cursor-arrow-03.svg') 25 5, auto;
+			&.intro-card {
+				min-height: 400px;
+			}
+		}
+	}
+	
+	@include respond-to($screen-sm){
+		padding: 8rem 2rem;
+		.gallery-mosaic {
+			.mosaic-image {
+				&.intro-card {
+					min-height: auto;
+				}
+			}
+		}
+	}
 }
 
 .alignleft {

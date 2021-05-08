@@ -1,17 +1,61 @@
 .post-nav {
   text-align: center;
-  padding-bottom: 4rem;
+  padding: 4rem 0;
   .pager {
     li {
       display: inline-block;
       padding: 0 15px;
       a, span {
-        font-size: 2.5rem;
+        font-size: 2rem;
         @include heading-font;
       }
       
       &.next, &.previous {
         display: none;
+      }
+      
+      &.active {
+        a, span {
+          text-decoration: underline;
+        }
+      }
+      
+      .prev-arrow {
+        transform: none;
+        @include transition($transition);
+        position: relative;
+        left: -5rem;
+        top: -.5rem;
+        &:before {
+          content: "\f10f";
+          font-family: 'tmbr-icons';
+          font-size: 1rem;
+          @include center-y;
+          left: 0;
+          color: $black;
+        }
+        &:hover {
+          transform: translate3d(-10px,0,0);
+        }
+      }
+    
+      .next-arrow {
+        transform: none;
+        position: relative;
+        @include transition($transition);
+        right: -5rem;
+        top: -.5rem;
+        &:after {
+          content: "\f10a";
+          font-family: 'tmbr-icons';
+          @include center-y;
+          right: 0;
+          font-size: 1rem;
+          color: $black;
+        }
+        &:hover {
+          transform: translate3d(10px,0,0);
+        }
       }
     }
   }

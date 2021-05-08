@@ -29,7 +29,7 @@
 
       $images = new WP_Query($args);
       $i = 1;?>
-        <div class="mosaic-image series-intro">
+        <div class="mosaic-image intro-card">
           <div class="reveal"  data-delay="1" data-animate="reveal-up"></div>
           <div class="series-text">
             <h1><?= $seriesTitle;?></h1>

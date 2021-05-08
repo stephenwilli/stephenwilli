@@ -123,3 +123,16 @@
   transition-delay: .2s;
 }
 
+.reveal-wrap {
+  position: relative;
+  .reveal {
+    @include absolute($t: 0, $l:0);
+    background-color: $white;;
+    width: 100%;
+    height: 100%;;
+    &.animate {
+      height: 0;
+    }
+  }
+}
+

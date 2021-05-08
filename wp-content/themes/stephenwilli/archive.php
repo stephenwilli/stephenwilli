@@ -1,6 +1,8 @@
 <?php get_header(); 
-  $title = get_field('post_page_title', 'option');
-	$text = get_field('post_page_text', 'option');
+  $obj = get_queried_object();
+  $title = $obj->name;
+  $slug = $obj->slug;
+  $text = $obj->description;
 ?>
 
 <main class="archive-wrap">
@@ -11,7 +13,9 @@
         <div class="mosaic-image intro-card">
           <div class="reveal" data-delay="1" data-animate="reveal-up"></div>
           <h1><?= $title;?></h1>
-					<p><?= $text;?></h1>
+          <?php if($text){?>
+            <p><?= $text;?></p>
+          <?php }?>
         </div>
         
 				<?php while(have_posts()) : the_post(); 
@@ -20,11 +24,6 @@
             <a class="mosaic-image" href="<?php the_permalink();?>">
               <div class="reveal" data-delay="2" data-animate="reveal-up"></div>
               <img class="thumbnail" src="<?= $postImage;?>" alt="<?php the_title();?>"/>
-              <div class="post-meta">
-                <h3><?php the_title();?></h3>
-                <?php the_excerpt();?>
-                <span class="read-more">Read More</span>
-              </div>
             </a>
         <?php endwhile;?>
       </div>
