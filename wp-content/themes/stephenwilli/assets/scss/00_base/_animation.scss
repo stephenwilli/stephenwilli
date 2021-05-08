@@ -69,6 +69,13 @@
   &.animate { opacity: 1; transform: none }
 }
 
+[data-animate~="fade-left-2"] {
+  opacity: 0;
+  transform: translate3d(-10px,0,0);
+  transition-property: opacity, transform;
+  &.animate { opacity: 1; }
+}
+
 [data-animate~="fade-right"] {
   opacity: 0;
   transform: translate3d(10px,0,0);

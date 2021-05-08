@@ -16,7 +16,7 @@
       <?php 
       $args = array(  
         'post_type' => 'Photos',
-        'orderby' => 'rand',
+        'order' => 'ASC',
         'posts_per_page' => -1,
         'tax_query' => array(
           array (

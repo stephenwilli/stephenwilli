@@ -1,8 +1,8 @@
 @font-face {
 	font-family: "tmbr-icons";
-	src: url("tmbr-icons.woff2?f3de3fb3db5898ee1da6396637a16a6d") format("woff2"),
-url("tmbr-icons.woff?f3de3fb3db5898ee1da6396637a16a6d") format("woff"),
-url("tmbr-icons.svg?f3de3fb3db5898ee1da6396637a16a6d#tmbr-icons") format("svg");
+	src: url("tmbr-icons.woff2?9ac7620de3460b43861336b268590006") format("woff2"),
+url("tmbr-icons.woff?9ac7620de3460b43861336b268590006") format("woff"),
+url("tmbr-icons.svg?9ac7620de3460b43861336b268590006#tmbr-icons") format("svg");
 }
 
 .icon {
@@ -63,4 +63,7 @@ url("tmbr-icons.svg?f3de3fb3db5898ee1da6396637a16a6d#tmbr-icons") format("svg");
 }
 .icon-email:before {
 	content: "\f110";
+}
+.icon-angle-down:before {
+	content: "\f111";
 }

@@ -1,8 +1,8 @@
 /* FONT SIZES */
 $h1: 7rem;
 $h2: 6rem;
-$h3: 3.5rem;
-$h4: 2.5rem;
+$h3: 2.5rem;
+$h4: 2rem;
 $h5: 1.5rem;
 $p: 1rem;
 $hero: 7rem;
@@ -78,7 +78,7 @@ a {
   &:active {
     text-decoration: none;
     outline: none;
-    color: $secondary;
+    color: $link-color;
   }
 }
 
@@ -125,9 +125,7 @@ em {
   @include light-heading();
   text-transform: uppercase;
   transform: rotate(90deg);
-  font-size: 1.2rem;
-  font-weight: bold;
-  pointer-events: none;
+  font-size: 1.5rem;
 }
 
 

@@ -21,7 +21,7 @@
   <div class="hero-caption">
     <a href="<?= $heroLink['url'];?>" class="block-link">
       <h1><?= $heroTitle;?></h1>
-      <h4><?= $subtitle;?></h4>
+      <h3><?= $subtitle;?></h3>
       <a href="<?= $heroLink['url'];?>" class="btn"><?= $heroLink['title'];?></a>
     </a>
   </div>

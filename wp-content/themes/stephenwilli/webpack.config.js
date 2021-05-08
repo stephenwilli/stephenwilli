@@ -30,7 +30,8 @@ module.exports = (env, options) => {
     'assets/icons/sw.svg',
     'assets/icons/tumblr.svg',
     'assets/icons/arrow-right.svg',
-    'assets/icons/email.svg'
+    'assets/icons/email.svg',
+    'assets/icons/angle-down.svg'
   ],
   dest: './assets/fonts/',
   fontName: 'tmbr-icons',

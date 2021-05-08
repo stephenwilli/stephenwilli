@@ -1,20 +1,28 @@
 .single-photo {
-	padding: 8rem 3rem;
+	padding: 8rem 0;
+	position: relative;
 	
 	.photo-wrap {
 		display: flex;
 		.photo-content {
 			width: 40%;
-			padding: 3rem 3rem 0 0;
+			padding: 3rem 6rem 0 6rem;
 			h1 {
 				font-size: 4rem;
+			}
+
+			a {
+				text-decoration: underline;
+				&:hover {
+					text-decoration: none;
+				}
 			}
 		}
 		.photo-full {
 			position: relative;
 			width: 60%;
 			img {
-				max-height: 800px;
+				width: 100%;
 			}
 			.reveal {
 				@include absolute($t: 0, $l:0);
@@ -24,6 +32,48 @@
 				
 				&.animate {
 					height: 0;
+				}
+			}
+		}
+		
+		&.-vertical {
+			.photo-content {
+				width: 50%;
+			}
+			.photo-full {
+				width: 50%;
+			}
+		}
+	}
+	
+	
+	
+	@include respond-to($screen-sm){
+		padding: 8rem 0 2rem;
+		.photo-wrap {
+			flex-direction: column-reverse;
+			.photo-content {
+				width: 100%;
+				padding: 3rem 2rem 0 2rem;
+				h1 {
+					font-size: 3rem;
+				}
+			}
+			.photo-full {
+				width: 100%;
+				img {
+					max-height: initial;
+					width: 100%;
+				}
+			}
+			
+			&.-vertical {
+				.photo-content {
+					width: 100%;
+				}
+				.photo-full {
+					padding-left: 0;
+					width: 100%;
 				}
 			}
 		}

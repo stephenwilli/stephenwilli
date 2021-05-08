@@ -3,6 +3,9 @@
 		color: $white;
 		@include center-y;
 		right: -10rem;
+		font-weight: bold;
+		pointer-events: none;
+		font-size: 1.2rem;
 		transform: translateY(-50%) rotate(-90deg);
 		@include respond-to($screen-xs){
 			display: none;
@@ -16,7 +19,7 @@
 		color: $white;
 		margin-bottom: 0;
 	}
-	h4 {
+	h3 {
 		color: $white;
 		float: left;
 	}

@@ -1,20 +1,29 @@
 .post-content {
-	padding: 4rem 10rem;
-	
-	.post-meta {
-		color: $primary;
-		font-weight: bold;
-		font-size: 1.1rem;
-		margin-bottom: 2rem;
-	}
-	
-	@include respond-to($screen-sm){
-		padding: 4rem;
-	}
-	
-	@include respond-to($screen-xs){
-		padding: 4rem 2rem;
-	}
+	margin: 4rem 0;
+  padding: 0 6rem;
+  max-width: 1000px;
+  
+  ol, ul {
+    list-style: inherit;
+    padding-left: 2rem;
+    line-height: 2;
+  }
+  
+  a {
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  
+  @include respond-to($screen-sm) {
+    padding: 4rem;
+  }
+  
+  @include respond-to($screen-xs) {
+    padding: 2rem;
+    margin: 2rem 0;
+  }
 }
 
 .alignleft {

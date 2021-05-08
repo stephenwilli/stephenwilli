@@ -1,52 +1,84 @@
 .post-navigation {
   width: 100%;
-  padding: 2rem 4rem;
+  padding: 2rem 0;
   text-align: center;
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
+  margin-top: 12rem;
   
-  .icon {
-    font-size: 1.3rem;
-  }
   
   .page-link {
     display: inline-block;
+    vertical-align: text-bottom;
+    position: relative;
+    a {
+      color: $white;
+      text-decoration: none !important;
+      position: relative;
+    }
     &.-prev {
       transform: none;
       @include transition($transition);
+      a {
+        left: -6rem;
+        &:before {
+          content: "\f10f";
+          font-family: 'tmbr-icons';
+          font-size: 1.2rem;
+          @include center-y;
+          left: 0;
+          color: $black;
+        }
+      }
       &:hover {
         transform: translate3d(-10px,0,0);
-        .icon {
-          color: $black
-        }
       }
     }
   
     &.-next {
       transform: none;
+      right: -6rem;
       @include transition($transition);
+      a {
+        &:after {
+          content: "\f10a";
+          font-family: 'tmbr-icons';
+          @include center-y;
+          right: 0;
+          font-size: 1.2rem;
+          color: $black;
+        }
+      }
       &:hover {
         transform: translate3d(10px,0,0);
-        .icon {
-          color: $black
-        }
       }
     }
   }
   
-  .counter {
-    display: inline-flex;
-    padding: 0 3rem;
-    @include heading-font();
+.counter {
+  display: inline-flex;
+  padding: 0 1rem;
+  @include heading-font();
+  .post-number {
+    font-size: 4rem;
+  }
+  
+  .total {
     margin-top: 1rem;
-    .post-number {
-      font-size: 4rem;
+    font-size: 1.8rem;
+  }
+}
+  
+.series-link {
+  position: relative;
+  @include light-heading();
+  font-size: 1.2rem;
+  text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
     }
-    
-    .total {
-      margin-top: 1rem;
-      font-size: 1.8rem;
-    }
+  }
+  
+  @include respond-to($screen-sm){
+      margin-top: 2rem;
   }
 }

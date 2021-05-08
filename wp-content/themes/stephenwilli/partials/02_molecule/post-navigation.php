@@ -1,21 +1,21 @@
 <div class="post-navigation">
   <?php
-    $next_post_url = get_permalink( get_adjacent_post(false,'',false)->ID );
-    $previous_post_url = get_permalink( get_adjacent_post(false,'',true)->ID );
     $postID = get_field('photo_number');
+    $seriesLink = get_field('series_link');
   ?>
-  <?php
-    if($previous_post_url) {   
-    ?>
-      <a href="<?= $previous_post_url; ?>" class="page-link -prev"><i class="icon icon-arrow-right"></i></a>
-  <?php } ?>
-  <div class="counter">
-    <span class="post-number">07</span> <span class="total">// 10</span>
-  </div>
-  <?php
-    if($next_post_url) {   
-    ?>
-      <a href="<?= $next_post_url; ?>" class="page-link -next"><i class="icon icon-arrow-left"></i></a>
-  <?php } ?>
+    <div class="page-link -prev">
+        <?php previous_post_link( '%link', '', $in_same_term = true, $excluded_terms = '',  $taxonomy = 'series'); ?>                
+    </div>
+    
+    <div class="counter">
+      <span class="post-number"><?= $postID;?></span> <span class="total">// 10</span>
+    </div>
+    
+    <div class="page-link -next">
+        <?php next_post_link('%link', '', $in_same_term = true, $excluded_terms = '', $taxonomy = 'series'); ?>                    
+    </div>
+    <p>
+      <a class="series-link" href="<?= $seriesLink['url'];?>">Back to Series</a>
+    </p>
 </div><!-- /section -->
 
