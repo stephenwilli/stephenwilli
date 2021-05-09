@@ -7,6 +7,7 @@
 		.photo-content {
 			width: 40%;
 			padding: 3rem 6rem 0 6rem;
+			position: relative;
 			h1 {
 				font-size: 4rem;
 			}
@@ -16,6 +17,9 @@
 				&:hover {
 					text-decoration: none;
 				}
+			}
+			.kicker {
+				
 			}
 		}
 		.photo-full {
@@ -39,6 +43,9 @@
 		&.-vertical {
 			.photo-content {
 				width: 50%;
+				.post-navigation {
+					bottom: 24rem;
+				}
 			}
 			.photo-full {
 				width: 50%;
@@ -70,6 +77,9 @@
 			&.-vertical {
 				.photo-content {
 					width: 100%;
+					.post-navigation {
+						bottom: 2rem;
+					}
 				}
 				.photo-full {
 					padding-left: 0;

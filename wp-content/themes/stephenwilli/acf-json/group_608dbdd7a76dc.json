@@ -117,6 +117,25 @@
                 "id": ""
             },
             "return_format": "array"
+        },
+        {
+            "key": "field_60984f879fedc",
+            "label": "Kicker",
+            "name": "photo_kicker",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         }
     ],
     "location": [
@@ -136,5 +155,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1620428533
+    "modified": 1620594578
 }

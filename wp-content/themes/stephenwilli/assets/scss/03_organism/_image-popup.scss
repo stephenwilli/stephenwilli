@@ -1,0 +1,61 @@
+.mfp-bg {
+	background-color: $white;
+	opacity: .9;
+}
+.mfp-wrap {
+	cursor: url('../images/cursor-close.svg') 25 5, auto !important;
+	button.mfp-arrow, .mfp-figure {
+	  cursor: url('../images/cursor-arrow-03.svg') 25 5, auto !important;
+	}
+	
+	.mfp-content {
+		.mfp-counter, .mfp-title {
+			color: $black;
+			@include light-heading();
+			font-weight: bold;
+			font-size: 1rem;
+		}
+	}
+	
+	.mfp-figure:after {
+		display: none;
+	}
+	.mfp-arrow-left {
+		&:before {
+			content: "\f10f";
+			font-family: 'tmbr-icons';
+			font-size: 1.2rem;
+			margin-left: 3rem;
+			border: none;
+			opacity: 1;
+		}
+		&:after {
+			display: none;
+		}
+	}
+	
+	.mfp-arrow-right {
+		right: 5rem;
+		&:before {
+			content: "\f10a";
+			font-family: 'tmbr-icons';
+			font-size: 1.2rem;
+			margin-right: 3rem;
+			border: none;
+			opacity: 1;
+		}
+		&:after {
+			display: none;
+		}
+	}
+	
+	@include respond-to($screen-sm){
+		.mfp-arrow {
+			top: auto;
+			bottom: -1rem;
+		}
+		.mfp-arrow-right {
+			right: 4rem;
+		}
+	}
+}

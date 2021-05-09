@@ -125,7 +125,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // EMBLA SLIDER?? Can't get the #image-wrap id to move from one slide to the next
+
+gsap__WEBPACK_IMPORTED_MODULE_4__["default"].registerPlugin(gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_5__["ScrollTrigger"], gsap_SplitText__WEBPACK_IMPORTED_MODULE_6__["SplitText"]); // EMBLA SLIDER?? Can't get the #image-wrap id to move from one slide to the next
 // import EmblaCarousel from "embla-carousel";
 // import { setupPrevNextBtns, disablePrevNextBtns } from "./prevNext";
 // import { setupDotBtns, generateDotBtns, selectDotBtn } from "./dotButtons";
@@ -156,7 +157,31 @@ jQuery(document).ready(function ($) {
     } else {
       $('.js-nav-scroll').removeClass('scrolled');
     }
-  }); // // COLLAPSE
+  }); // findAll('[data-split-text]').forEach(el => new SplitText(el, {
+  //   type: el.dataset.splitText || 'words, chars',
+  //   wordsClass: 'word',
+  //   charsClass: 'char'
+  // }));
+
+  var tl = gsap__WEBPACK_IMPORTED_MODULE_4__["default"].timeline(),
+      mySplitText = new gsap_SplitText__WEBPACK_IMPORTED_MODULE_6__["SplitText"]("#loader-heading", {
+    type: "words,chars"
+  }),
+      chars = mySplitText.chars; //an array of all the divs that wrap each character
+
+  gsap__WEBPACK_IMPORTED_MODULE_4__["default"].set("#loader-heading", {
+    perspective: 400
+  });
+  tl.from(chars, {
+    duration: .5,
+    opacity: 0,
+    scale: .9,
+    y: 10,
+    delay: 1,
+    transformOrigin: "0% 50% -50",
+    ease: "easeInOut",
+    stagger: 0.03
+  }, "+=0"); // // COLLAPSE
   // $('#js-collapse-1').addClass( '-open' );
   // $('.collapse-item > .collapse-title').on('click', function(e) {
   //   e.preventDefault();
@@ -225,10 +250,8 @@ jQuery(document).ready(function ($) {
     gallery: {
       enabled: true
     },
-    image: {
-      titleSrc: function titleSrc(item) {
-        return item.el.find('img').attr('title');
-      }
+    titleSrc: function titleSrc(item) {
+      return item.el.attr('title');
     }
   }); // EXTERNAL LINKS TARGET BLANK
 

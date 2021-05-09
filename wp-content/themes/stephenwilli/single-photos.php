@@ -7,6 +7,7 @@
     $orientation = get_field('photo_orientation');
     $subtitle = get_field('photo_subtitle');
     $printLink = get_field('print_link');
+    $kicker = get_field('photo_kicker');
   ?>
   
   <main class="single-photo" role="main">
@@ -22,18 +23,21 @@
         <?php } else { ?>
           <p>Prints coming soon</p>
         <?php } ?>
+        
+        <!-- <?php if($kicker){?>
+          <div class="kicker" data-animate="fade-left-2" data-delay="2">
+            <p><?= $kicker;?></p>
+          </div>
+        <?php } ?> -->
+        
         <?php get_template_part( 'partials/02_molecule/post-navigation' ); ?> 
       </div>
       
       <div class="photo-full -<?= $orientation;?>">
         <div class="reveal" data-delay="2" data-animate="reveal-up"></div>
-        <img src="<?= $photo['sizes']['full_screen'];?>" alt="Stephen Williams Photography, Jackson Wyoming" />
+        <img src="<?= $photo['sizes']['full_screen'];?>" alt="<?php the_title();?> - Stephen Williams Photography, Jackson Wyoming" />
       </div>
     </section>
-    
-    <!-- <div class="kicker" data-animate="fade-left-2" data-delay="2">
-      
-    </div> -->
     
   </main>
   

@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import { findAll, isArray } from './utils';
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 // EMBLA SLIDER?? Can't get the #image-wrap id to move from one slide to the next
 // import EmblaCarousel from "embla-carousel";
@@ -41,6 +42,20 @@ jQuery(document).ready(function($) {
     }
   });
   
+  // findAll('[data-split-text]').forEach(el => new SplitText(el, {
+  //   type: el.dataset.splitText || 'words, chars',
+  //   wordsClass: 'word',
+  //   charsClass: 'char'
+  // }));
+  
+    var tl = gsap.timeline(), 
+    mySplitText = new SplitText("#loader-heading", {type:"words,chars"}), 
+    chars = mySplitText.chars; //an array of all the divs that wrap each character
+
+    gsap.set("#loader-heading", {perspective: 400});
+
+    tl.from(chars, {duration: .5, opacity:0, scale:.9, y:10, delay: 1, transformOrigin:"0% 50% -50", ease:"easeInOut", stagger: 0.03}, "+=0");
+      
   // // COLLAPSE
   // $('#js-collapse-1').addClass( '-open' );
   // $('.collapse-item > .collapse-title').on('click', function(e) {
@@ -118,11 +133,9 @@ jQuery(document).ready(function($) {
       gallery:{
           enabled:true
       },
-      image: {
-          titleSrc: function(item) {
-             return item.el.find('img').attr('title');
-          }
-      }
+      titleSrc: function(item) {
+          return item.el.attr('title');
+        }
   });
   
   // EXTERNAL LINKS TARGET BLANK

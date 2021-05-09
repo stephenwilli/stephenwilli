@@ -123,7 +123,7 @@
   transition-delay: .2s;
 }
 
-.reveal-wrap {
+.reveal-wrap, .mosaic-image {
   position: relative;
   .reveal {
     @include absolute($t: 0, $l:0);
@@ -134,5 +134,13 @@
       height: 0;
     }
   }
+}
+
+// animated words and characters via data-split-text / gsap SplitText
+.word {
+  display: inline-block;
+}
+.char {
+  display: inline-block;
 }
 

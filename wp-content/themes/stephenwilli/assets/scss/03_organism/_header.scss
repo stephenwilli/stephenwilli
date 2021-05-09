@@ -1,6 +1,6 @@
 .navbar-brand {
 	@include absolute($t: 3rem, $l: 3rem);
-	z-index: 101;
+	z-index: 121;
 	width: 70px;
 	display: inline-block;
 	@include transition($transition);
@@ -16,6 +16,9 @@
 	}
 	@include respond-to($screen-xs){
 		@include absolute($t:2rem, $l: 2rem);
+		.icon {
+			font-size: 3rem;
+		}
 	}
 	
 	&.scrolled {
@@ -32,7 +35,7 @@
 	display: block;
 	@include absolute($t:4rem, $r: 4rem);
 	width: 40px;
-	z-index: 99;
+	z-index: 120;
 	@include transition($transition);
 	
 	&:after, &:before, span {
@@ -81,7 +84,7 @@
 	width: 0;
 	height: calc(100% - 4rem);
 	background: rgba(255, 255, 255, .9);
-	z-index: 98;
+	z-index: 110;
 	@include transition(.5s ease-in-out);
 	cursor: url('../images/cursor-circle-02.svg') 25 15, auto;
 	a {
@@ -118,7 +121,7 @@
 			
 			&.menu-item-has-children {
 				.sub-menu {
-					width: 500px;
+					width: 600px;
 					visibility: hidden;	
 					opacity: 0;
 					padding: 0 2rem;
@@ -244,7 +247,12 @@
 			> .menu-item {
 				&.menu-item-has-children {
 					.sub-menu {
-						width: 600px;
+						width: 600px;		
+						> .menu-item {
+							a {
+								font-size: 2rem
+							}
+						}
 					}
 				}
 			}
@@ -370,7 +378,7 @@
 			top: 1rem;
 			left: 1rem;
 			.icon {
-				font-size: 2.5rem;
+				font-size: 2rem;
 			}	
 		}
 		
@@ -379,7 +387,7 @@
 			width: 100%;
 			display: inline-block;
 			position: fixed;
-			z-index: 100;
+			z-index: 120;
 			background-color: $white;
 			transition: none;
 		}

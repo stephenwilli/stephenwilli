@@ -16,7 +16,7 @@
       <?php 
       $args = array(  
         'post_type' => 'Photos',
-        'order' => 'ASC',
+        'orderby' => 'rand',
         'posts_per_page' => -1,
         'tax_query' => array(
           array (
@@ -42,7 +42,7 @@
           ?>
           <a class="js-photo-open mosaic-image" href="<?php the_permalink();?>">
             <div class="reveal" data-delay="2" data-animate="reveal-up"></div>
-            <img class="thumbnail" src="<?= $photo['sizes']['full_screen'];?>" alt="<?php the_title();?>"/>
+            <img class="thumbnail" src="<?= $photo['sizes']['large'];?>" alt="<?php the_title();?> - Stephen Williams Photography"/>
             <div id="photo-open-<?= $i;?>" class="photo-open">
               <!-- <img class="enlarged" src="<?= $photo['sizes']['full_screen'];?>" alt="<?php the_title();?>"/> -->
             </div> 

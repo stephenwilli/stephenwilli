@@ -1,9 +1,9 @@
 .post-navigation {
   width: 100%;
-  padding: 2rem 0;
+  padding: 1rem 0;
   text-align: center;
-  margin-top: 12rem;
-  
+  @include center-x;
+  bottom: 2rem;
   
   .page-link {
     display: inline-block;
@@ -79,6 +79,9 @@
   }
   
   @include respond-to($screen-sm){
-      margin-top: 2rem;
+    margin-top: 2rem;
+    position: relative;
+    transform: none;
+    left: auto;
   }
 }
