@@ -15,6 +15,9 @@
 		@include transition(.3s ease-in-out);
 		transition-delay: 3s;
 		padding: 0 2rem;
+		h1 {
+			@include light-heading();
+		}
 	}
 	
 	.loader-heading {

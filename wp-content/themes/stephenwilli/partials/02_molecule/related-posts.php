@@ -1,25 +1,32 @@
 <section class="related-posts">
-  <h3 class="section-title">Related Posts</h3>
+  <div class="posts-wrap">
   <?php
-  $args = array(
-  	'posts_per_page' => 3,
-  	'post__not_in'   => array( get_the_ID() ),
-  	'no_found_rows'  => true,
-  );
+    $prevPost = get_previous_post();?>
+    <div class="post-link -prev">
+      <?php if($prevPost){ 
+        $prevThumbnail = get_the_post_thumbnail_url($prevPost->ID, 'large' );
+        ?>
+          <a href="<?php echo $prevPost->guid ?>">
+            <h4>Previous Post</h4>
+            <h2><?php echo $prevPost->post_title ?></h2>
+          </a>
+      <?php } ?>
+    </div>
+    
+    <?php
+    $nextPost = get_next_post();?>
+      <div class="post-link -next">
+        <?php if($nextPost) { 
+          $nextThumbnail = get_the_post_thumbnail_url($nextPost->ID, 'large' );?>
+            <a href="<?php echo $nextPost->guid ?>">
+              <h4>Next Post</h4>
+              <h2><?php echo $nextPost->post_title ?></h2>
+            </a>
+        <?php } ?>
+      </div>
+  </div>
+    <div class="back-link">
+      <a href="/photo-journal/">Back to Journal</a>
+    </div>
+</section>
 
-  $cats = wp_get_post_terms( get_the_ID(), 'category' ); 
-  $cats_ids = array();  
-  foreach( $cats as $wpex_related_cat ) {
-  	$cats_ids[] = $wpex_related_cat->term_id; 
-  }
-  if ( ! empty( $cats_ids ) ) {
-  	$args['category__in'] = $cats_ids;
-  }
-  $wpex_query = new wp_query( $args );
-  foreach( $wpex_query->posts as $post ) : setup_postdata( $post );
-  	
-  	get_template_part( 'partials/02_molecule/post-loop' );
-
-  endforeach;
-  wp_reset_postdata(); ?>
-</section><!-- /section -->

@@ -55,6 +55,14 @@ jQuery(document).ready(function($) {
     gsap.set("#loader-heading", {perspective: 400});
 
     tl.from(chars, {duration: .5, opacity:0, scale:.9, y:10, delay: 1, transformOrigin:"0% 50% -50", ease:"easeInOut", stagger: 0.03}, "+=0");
+    
+    var tl2 = gsap.timeline(), 
+    mySplitText = new SplitText("#intro-title", {type:"words,chars"}), 
+    chars = mySplitText.chars; //an array of all the divs that wrap each character
+
+    gsap.set("#intro-title", {perspective: 400});
+
+    tl2.from(chars, {duration: .3, opacity:0, scale:.9, y:10, delay: .5, transformOrigin:"0% 50% -50", ease:"easeInOut", stagger: 0.02}, "+=0");
       
   // // COLLAPSE
   // $('#js-collapse-1').addClass( '-open' );

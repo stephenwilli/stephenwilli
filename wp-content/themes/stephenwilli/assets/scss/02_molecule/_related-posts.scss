@@ -1,0 +1,150 @@
+.related-posts {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 2rem 0;
+  
+  .posts-wrap {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    
+    .post-link {
+      display: inline-block;
+      vertical-align: text-bottom;
+      position: relative;
+      width: 50%;
+      padding: 0 2rem;
+      h2 {
+        font-size: 3rem;
+        width: 400px;
+      }
+      &.-prev {
+        text-align: right;
+        padding-right: 4rem;
+        a {
+          display: block;
+        }
+        h2 {
+          float: right;
+          position: relative;
+          padding-left: 2rem;
+          &:before {
+            content: "\f10f";
+            font-family: 'tmbr-icons';
+            font-size: 1.2rem;
+            @include center-y;
+            color: $black;
+            transform: none;
+            left: 0;
+            @include transition($transition);
+          }
+        }
+        &:hover {
+          h2 {
+            &:before {
+              transform: translate3d(-10px,0,0);
+            }
+          }
+        }
+      }
+    
+      &.-next {
+        text-align: left;
+        padding-left: 4rem;
+        a {
+          display: block;
+        }
+        h2{
+          position: relative;
+          padding-right: 2rem;
+          &:after {
+            content: "\f10a";
+            font-family: 'tmbr-icons';
+            @include center-y;
+            font-size: 1.2rem;
+            color: $black;
+            transform: none;
+            right: -2rem;
+            @include transition($transition);
+          }
+        }
+        &:hover {
+          h2 {
+            &:after {
+              transform: translate3d(10px,0,0);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .back-link {
+    margin-top: 2rem;
+    @include light-heading();
+    font-size: 1.2rem;
+    text-decoration: underline;
+    width: 100%;
+    text-align: center;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  
+  
+  @include respond-to($screen-md){
+    padding: 0;
+  }
+  
+  @include respond-to($screen-sm){
+    .posts-wrap {
+      
+      .post-link {
+        h2 {
+          width: 100%;
+        }
+        &.-prev {
+          padding-right: 2rem;
+        }
+        &.-next {
+          padding-left: 2rem;
+          h2{
+            &:after {
+              right: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+  @include respond-to($screen-xs){
+    .posts-wrap {
+      flex-wrap: wrap;
+      flex-direction: column-reverse;
+      .post-link {
+        width: 100%;
+        h2 {
+          width: auto;
+          &:after, &:before {
+            display: none;
+          }
+        }
+        &.-prev {
+          padding: 1rem 2rem;
+          text-align: left;
+          h2 {
+            float: none;
+            padding-left: 0;
+          }
+        }
+      
+        &.-next {
+          padding: 1rem 2rem;
+          h2 {
+            padding-right: 0;
+          }
+        }
+      }
+    }
+  }
+}

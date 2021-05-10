@@ -12,7 +12,7 @@
         
         <div class="mosaic-image intro-card">
           <div class="reveal" data-delay="1" data-animate="reveal-up"></div>
-          <h1><?= $title;?></h1>
+          <h1 id="intro-title"><?= $title;?></h1>
           <?php if($text){?>
             <p><?= $text;?></p>
           <?php }?>

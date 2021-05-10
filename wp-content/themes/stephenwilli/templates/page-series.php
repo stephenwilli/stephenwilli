@@ -32,7 +32,7 @@
         <div class="mosaic-image intro-card">
           <div class="reveal"  data-delay="1" data-animate="reveal-up"></div>
           <div class="series-text">
-            <h1><?= $seriesTitle;?></h1>
+            <h1 id="intro-title"><?= $seriesTitle;?></h1>
             <h3><?= $seriesSubtitle;?></h3>
             <p><?= $seriesText;?></p>
           </div>
@@ -59,6 +59,9 @@
       </div>
       <?php } ?>
     </div>
+    <?php  
+      get_template_part( 'partials/02_molecule/related-series' ); 
+    ?>
   </main>
   
   <?php endwhile; 

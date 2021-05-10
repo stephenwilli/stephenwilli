@@ -13,7 +13,7 @@
   <main class="main-wrap">
     <section class="content-wrap" data-animate="fade-right" data-delay="1">
       <div class="post-content">
-        <h1><?php the_title();?></h1>
+        <h1 id="intro-title"><?php the_title();?></h1>
         <div class="post-meta">
           <p><?= $date ?> // <a href="<?= $catLink;?>"><?= $catTitle;?></a></p>
         </div>
@@ -28,6 +28,10 @@
     </section>
     <?php  
       get_template_part( 'partials/04_flex/flex-layouts' ); 
+    ?>
+    
+    <?php  
+      get_template_part( 'partials/02_molecule/related-posts' ); 
     ?>
   </main>
   <?php endwhile; 

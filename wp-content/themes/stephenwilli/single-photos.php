@@ -13,7 +13,7 @@
   <main class="single-photo" role="main">
     <section class="photo-wrap -<?= $orientation;?>">
       <div class="photo-content" data-animate="fade-left" data-delay="1">
-        <h1><?= $title; ?></h1>
+        <h1 id="intro-title"><?= $title; ?></h1>
         <?php if($subtitle){?>
           <h3><?= $subtitle; ?></h3>
         <?php } ?>

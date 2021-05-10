@@ -181,6 +181,25 @@ jQuery(document).ready(function ($) {
     transformOrigin: "0% 50% -50",
     ease: "easeInOut",
     stagger: 0.03
+  }, "+=0");
+  var tl2 = gsap__WEBPACK_IMPORTED_MODULE_4__["default"].timeline(),
+      mySplitText = new gsap_SplitText__WEBPACK_IMPORTED_MODULE_6__["SplitText"]("#intro-title", {
+    type: "words,chars"
+  }),
+      chars = mySplitText.chars; //an array of all the divs that wrap each character
+
+  gsap__WEBPACK_IMPORTED_MODULE_4__["default"].set("#intro-title", {
+    perspective: 400
+  });
+  tl2.from(chars, {
+    duration: .3,
+    opacity: 0,
+    scale: .9,
+    y: 10,
+    delay: .5,
+    transformOrigin: "0% 50% -50",
+    ease: "easeInOut",
+    stagger: 0.02
   }, "+=0"); // // COLLAPSE
   // $('#js-collapse-1').addClass( '-open' );
   // $('.collapse-item > .collapse-title').on('click', function(e) {
