@@ -6987,6 +6987,7 @@ input[type=submit] {
 }
 .flex-split .split-wrap {
   display: flex;
+  align-items: center;
 }
 .flex-split .split-wrap .split-half {
   width: 50%;
@@ -7039,7 +7040,7 @@ input[type=submit] {
 }
 
 .flex-gallery {
-  padding: 4rem;
+  padding: 8rem 4rem 4rem;
 }
 .flex-gallery .gallery-mosaic .mosaic-image.intro-card {
   min-height: 400px;

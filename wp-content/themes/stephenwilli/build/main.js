@@ -157,18 +157,13 @@ jQuery(document).ready(function ($) {
     } else {
       $('.js-nav-scroll').removeClass('scrolled');
     }
-  }); // findAll('[data-split-text]').forEach(el => new SplitText(el, {
-  //   type: el.dataset.splitText || 'words, chars',
-  //   wordsClass: 'word',
-  //   charsClass: 'char'
-  // }));
+  }); // GSAP Animations
 
   var tl = gsap__WEBPACK_IMPORTED_MODULE_4__["default"].timeline(),
       mySplitText = new gsap_SplitText__WEBPACK_IMPORTED_MODULE_6__["SplitText"]("#loader-heading", {
     type: "words,chars"
   }),
-      chars = mySplitText.chars; //an array of all the divs that wrap each character
-
+      chars = mySplitText.chars;
   gsap__WEBPACK_IMPORTED_MODULE_4__["default"].set("#loader-heading", {
     perspective: 400
   });
@@ -186,8 +181,7 @@ jQuery(document).ready(function ($) {
       mySplitText = new gsap_SplitText__WEBPACK_IMPORTED_MODULE_6__["SplitText"]("#intro-title", {
     type: "words,chars"
   }),
-      chars = mySplitText.chars; //an array of all the divs that wrap each character
-
+      chars = mySplitText.chars;
   gsap__WEBPACK_IMPORTED_MODULE_4__["default"].set("#intro-title", {
     perspective: 400
   });
@@ -200,21 +194,8 @@ jQuery(document).ready(function ($) {
     transformOrigin: "0% 50% -50",
     ease: "easeInOut",
     stagger: 0.02
-  }, "+=0"); // // COLLAPSE
-  // $('#js-collapse-1').addClass( '-open' );
-  // $('.collapse-item > .collapse-title').on('click', function(e) {
-  //   e.preventDefault();
-  //   if($(this).parent().hasClass('-open')) {
-  //     $(this).parent().removeClass('-open');
-  //   } else {
-  //     $(this).parent().addClass('-open');
-  //   }
-  // 
-  //   if($(this).parent().hasClass('-toggle')) {
-  //      $('.collapse-item').removeClass('-open');
-  //      $(this).parent().addClass('-open');
-  //   }
-  // });
+  }, "+=0"); // var loadingtl = gsap.timeline(); 
+  // loadingtl.to('#site-loader', {duration: .3, opacity:0, width: 0, ease:"easeInOut"}, "+=0");
   // NAV HAMBURGER
 
   $('.js-hamburger-toggle').on('click', function (e) {

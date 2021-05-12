@@ -42,44 +42,23 @@ jQuery(document).ready(function($) {
     }
   });
   
-  // findAll('[data-split-text]').forEach(el => new SplitText(el, {
-  //   type: el.dataset.splitText || 'words, chars',
-  //   wordsClass: 'word',
-  //   charsClass: 'char'
-  // }));
+  // GSAP Animations
   
-    var tl = gsap.timeline(), 
-    mySplitText = new SplitText("#loader-heading", {type:"words,chars"}), 
-    chars = mySplitText.chars; //an array of all the divs that wrap each character
+  var tl = gsap.timeline(), 
+  mySplitText = new SplitText("#loader-heading", {type:"words,chars"}), 
+  chars = mySplitText.chars;
+  gsap.set("#loader-heading", {perspective: 400});
+  tl.from(chars, {duration: .5, opacity:0, scale:.9, y:10, delay: 1, transformOrigin:"0% 50% -50", ease:"easeInOut", stagger: 0.03}, "+=0");
+  
+  var tl2 = gsap.timeline(), 
+  mySplitText = new SplitText("#intro-title", {type:"words,chars"}), 
+  chars = mySplitText.chars;
+  gsap.set("#intro-title", {perspective: 400});
+  tl2.from(chars, {duration: .3, opacity:0, scale:.9, y:10, delay: .5, transformOrigin:"0% 50% -50", ease:"easeInOut", stagger: 0.02}, "+=0");
 
-    gsap.set("#loader-heading", {perspective: 400});
-
-    tl.from(chars, {duration: .5, opacity:0, scale:.9, y:10, delay: 1, transformOrigin:"0% 50% -50", ease:"easeInOut", stagger: 0.03}, "+=0");
-    
-    var tl2 = gsap.timeline(), 
-    mySplitText = new SplitText("#intro-title", {type:"words,chars"}), 
-    chars = mySplitText.chars; //an array of all the divs that wrap each character
-
-    gsap.set("#intro-title", {perspective: 400});
-
-    tl2.from(chars, {duration: .3, opacity:0, scale:.9, y:10, delay: .5, transformOrigin:"0% 50% -50", ease:"easeInOut", stagger: 0.02}, "+=0");
+  // var loadingtl = gsap.timeline(); 
+  // loadingtl.to('#site-loader', {duration: .3, opacity:0, width: 0, ease:"easeInOut"}, "+=0");
       
-  // // COLLAPSE
-  // $('#js-collapse-1').addClass( '-open' );
-  // $('.collapse-item > .collapse-title').on('click', function(e) {
-  //   e.preventDefault();
-  //   if($(this).parent().hasClass('-open')) {
-  //     $(this).parent().removeClass('-open');
-  //   } else {
-  //     $(this).parent().addClass('-open');
-  //   }
-  // 
-  //   if($(this).parent().hasClass('-toggle')) {
-  //      $('.collapse-item').removeClass('-open');
-  //      $(this).parent().addClass('-open');
-  //   }
-  // });
-  
 
   // NAV HAMBURGER
   $('.js-hamburger-toggle').on('click', function(e) {
@@ -103,7 +82,6 @@ jQuery(document).ready(function($) {
   //   }
   // }
   // photoGallery();
-
   
   if ($(window).width() < 992) {
     // $('.parent-menu > .menu-item > a').addClass('click-through');
@@ -119,7 +97,6 @@ jQuery(document).ready(function($) {
       }
     });
   }
-  
   
   // EMBLA SLIDER
   // $('.js-embla-open div:first').attr('id', 'image-warp');
@@ -148,12 +125,11 @@ jQuery(document).ready(function($) {
   
   // EXTERNAL LINKS TARGET BLANK
   $('a').each(function() {
-   var a = new RegExp('/' + window.location.host + '/');
-   if (!a.test(this.href)) {
-      $(this).attr("target","_blank");
-   }
-});
-
+     var a = new RegExp('/' + window.location.host + '/');
+     if (!a.test(this.href)) {
+        $(this).attr("target","_blank");
+     }
+  });
 
   var warp = $('#image-warp');
   if(warp.length > 0){

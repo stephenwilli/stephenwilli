@@ -10,13 +10,6 @@ if (function_exists('acf_add_options_page')) {
 		'redirect'		=> false,
     'position' => 3
 	));
-  
-  acf_add_options_sub_page(array(
-    'page_title' 	=> 'Image Warp',
-    'menu_title'	=> 'Image Warp',
-    'parent_slug'	=> 'site-settings',
-    'capability'	=> 'manage_options'
-  ));
 	
 	acf_add_options_sub_page(array(
 		'page_title' 	=> 'Footer Settings',

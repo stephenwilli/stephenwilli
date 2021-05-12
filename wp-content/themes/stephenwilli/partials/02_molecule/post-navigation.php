@@ -2,13 +2,17 @@
   <?php
     $postID = get_field('photo_number');
     $seriesLink = get_field('series_link');
+    $order = get_post_field('menu_order');
+    if($order < 10){
+      $order = '0' . $order;
+    }
   ?>
     <div class="page-link -prev">
         <?php previous_post_link( '%link', '', $in_same_term = true, $excluded_terms = '',  $taxonomy = 'series'); ?>                
     </div>
     
     <div class="counter">
-      <span class="post-number"><?= $postID;?></span> <span class="total">// 10</span>
+      <span class="post-number"><?= $order;?></span> <span class="total">// 10</span>
     </div>
     
     <div class="page-link -next">

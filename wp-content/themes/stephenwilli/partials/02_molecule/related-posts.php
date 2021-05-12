@@ -26,7 +26,7 @@
       </div>
   </div>
     <div class="back-link">
-      <a href="/photo-journal/">Back to Journal</a>
+      <a href="/photo-journal/">Back to Photo Journal</a>
     </div>
 </section>
 
