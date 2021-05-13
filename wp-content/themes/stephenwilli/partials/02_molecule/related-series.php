@@ -1,7 +1,7 @@
 <section class="related-posts">
   <div class="posts-wrap">
   <?php
-    $prevSeries = get_field('previous_series');
+    $prevSeries = get_field('prev_series');
     ?>
     <div class="post-link -prev">
       <?php if($prevSeries){ 
@@ -15,7 +15,7 @@
     </div>
     
     <?php
-    $nextSeries = get_field('next_series');?>
+    $nextSeries = get_field('nex_series');?>
       <div class="post-link -next">
         <?php if($nextSeries) { 
           $nextThumbnail = get_the_post_thumbnail_url($nextSeries->ID, 'large' );?>

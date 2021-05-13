@@ -41,9 +41,9 @@
             "maxlength": ""
         },
         {
-            "key": "field_60983e6bf3292",
-            "label": "Previous Series",
-            "name": "previous_series",
+            "key": "field_609db6c1f5b25",
+            "label": "Prev Series",
+            "name": "prev_series",
             "type": "post_object",
             "instructions": "",
             "required": 0,
@@ -53,9 +53,7 @@
                 "class": "",
                 "id": ""
             },
-            "post_type": [
-                "page"
-            ],
+            "post_type": "",
             "taxonomy": "",
             "allow_null": 0,
             "multiple": 0,
@@ -63,9 +61,9 @@
             "ui": 1
         },
         {
-            "key": "field_6099bf8484e80",
+            "key": "field_609db6cdf5b26",
             "label": "Next Series",
-            "name": "next_series",
+            "name": "nex_series",
             "type": "post_object",
             "instructions": "",
             "required": 0,
@@ -75,9 +73,7 @@
                 "class": "",
                 "id": ""
             },
-            "post_type": [
-                "page"
-            ],
+            "post_type": "",
             "taxonomy": "",
             "allow_null": 0,
             "multiple": 0,
@@ -102,5 +98,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1620688931
+    "modified": 1620948702
 }
