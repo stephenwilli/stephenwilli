@@ -4073,8 +4073,8 @@
 
 @font-face {
 	font-family: "tmbr-icons";
-	src: url(../assets/fonts/tmbr-icons.woff2?0276a39a957940559bc9969e65ef61c3) format("woff2"),
-url(../assets/fonts/tmbr-icons.woff?bb968ea47417f97cfd446399b9c7af19) format("woff"),
+	src: url(../assets/fonts/tmbr-icons.woff2?d4b312cc444d49569cd1dada2edad314) format("woff2"),
+url(../assets/fonts/tmbr-icons.woff?a16e2a91c8ba2037490e2ee78bfeaa36) format("woff"),
 url(../assets/fonts/tmbr-icons.svg?133104ad30eb4310c69174c554481ed8#tmbr-icons) format("svg");
 }
 
@@ -5632,7 +5632,7 @@ input[type=submit] {
   -o-transform: translateY(-50%);
   color: #333;
   transform: none;
-  left: 0;
+  left: -3rem;
   transition: 0.2s ease-in;
   -webkit-transition: 0.2s ease-in;
   -moz-transition: 0.2s ease-in;
@@ -5666,7 +5666,7 @@ input[type=submit] {
   font-size: 1.2rem;
   color: #333;
   transform: none;
-  right: -2rem;
+  right: -3rem;
   transition: 0.2s ease-in;
   -webkit-transition: 0.2s ease-in;
   -moz-transition: 0.2s ease-in;

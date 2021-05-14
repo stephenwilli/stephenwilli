@@ -35,7 +35,7 @@
             @include center-y;
             color: $black;
             transform: none;
-            left: 0;
+            left: -3rem;
             @include transition($transition);
           }
         }
@@ -64,7 +64,7 @@
             font-size: 1.2rem;
             color: $black;
             transform: none;
-            right: -2rem;
+            right: -3rem;
             @include transition($transition);
           }
         }
