@@ -42,8 +42,8 @@
         },
         {
             "key": "field_609db6c1f5b25",
-            "label": "Prev Series",
-            "name": "prev_series",
+            "label": "Previous Series",
+            "name": "previous_series",
             "type": "post_object",
             "instructions": "",
             "required": 0,
@@ -63,7 +63,7 @@
         {
             "key": "field_609db6cdf5b26",
             "label": "Next Series",
-            "name": "nex_series",
+            "name": "next_series",
             "type": "post_object",
             "instructions": "",
             "required": 0,
@@ -98,5 +98,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1620948702
+    "modified": 1620951020
 }
