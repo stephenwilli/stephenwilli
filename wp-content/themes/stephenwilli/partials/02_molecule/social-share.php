@@ -2,7 +2,7 @@
 		$postURL = urlencode(get_permalink());
 		$postTitle = get_the_title();
 		$postThumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full_screen' );
-		$twitterURL = 'https://twitter.com/intent/tweet?text='.$postTitle.'&amp;url='.$postURL.'&amp;via=StephenWilliamsPhotography';
+		$twitterURL = 'https://twitter.com/intent/tweet?text='.$postTitle.'&amp;url='.$postURL.'&amp;via=StephenWilli';
 		$facebookURL = 'https://www.facebook.com/sharer/sharer.php?u='.$postURL;
 		$pinterestURL = 'https://pinterest.com/pin/create/button/?url='.$postURL.'&amp;media='.$postThumbnail[0].'&amp;description='.$postTitle; 
     ?>
