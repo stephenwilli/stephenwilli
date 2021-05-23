@@ -35,7 +35,7 @@ function tmbr_login_head() {
 	echo "
 	<style>
 		body.login #login h1 a {
-			background: url('".get_bloginfo('template_url')."/assets/images/astoria-logo.svg') no-repeat scroll center top transparent;
+			background: url('".get_bloginfo('template_url')."/assets/images/swp-01.svg') no-repeat scroll center top transparent;
 			background-size: contain;
 			height: 150px;
 			width: 300px;
