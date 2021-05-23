@@ -9,8 +9,8 @@
  
 <div class="social-share">
 	<p>Share:  
-    <a class="share-link share-twitter" href="'. $twitterURL .'" target="_blank">Twitter</a>
-		<a class="share-link share-facebook" href="'.$facebookURL.'" target="_blank">Facebook</a>
-		<a class="share-link share-pinterest" href="'.$pinterestURL.'" data-pin-custom="true" target="_blank">Pin It</a>
+    <a class="share-link share-twitter" href="<?= $twitterURL; ?>" target="_blank">Twitter</a>
+		<a class="share-link share-facebook" href="<?= $facebookURL; ?>" target="_blank">Facebook</a>
+		<a class="share-link share-pinterest" href="<?= $pinterestURL; ?>" data-pin-custom="true" target="_blank">Pin It</a>
   </p>
 </div>
