@@ -36,6 +36,9 @@
             <h1 id="intro-title"><?= $seriesTitle;?></h1>
             <h3><?= $seriesSubtitle;?></h3>
             <p><?= $seriesText;?></p>
+            <?php  
+              get_template_part( 'partials/02_molecule/social-share' ); 
+            ?>
           </div>
         </div>
       <?php while ( $images->have_posts()) { $images->the_post();

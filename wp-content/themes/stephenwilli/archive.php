@@ -16,6 +16,9 @@
           <?php if($text){?>
             <p><?= $text;?></p>
           <?php }?>
+          <?php  
+            get_template_part( 'partials/02_molecule/social-share' ); 
+          ?>
         </div>
         
 				<?php while(have_posts()) : the_post(); 

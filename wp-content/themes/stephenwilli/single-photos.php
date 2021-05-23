@@ -23,6 +23,9 @@
         <?php } else { ?>
           <p>Prints coming soon</p>
         <?php } ?>
+        <?php  
+          get_template_part( 'partials/02_molecule/social-share' ); 
+        ?>
         
         <!-- <?php if($kicker){?>
           <div class="kicker" data-animate="fade-left-2" data-delay="2">

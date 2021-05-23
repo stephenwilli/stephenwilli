@@ -4073,8 +4073,8 @@
 
 @font-face {
 	font-family: "tmbr-icons";
-	src: url(../assets/fonts/tmbr-icons.woff2?d84e8e89c58aacd9d5aa60e5fdb1fb58) format("woff2"),
-url(../assets/fonts/tmbr-icons.woff?867127f02c3ad051a66f18f14edb5e0b) format("woff"),
+	src: url(../assets/fonts/tmbr-icons.woff2?44029a63941a8936b1ae0f163e424f7b) format("woff2"),
+url(../assets/fonts/tmbr-icons.woff?f4425249d8044171af0b5cebbaa86b5a) format("woff"),
 url(../assets/fonts/tmbr-icons.svg?133104ad30eb4310c69174c554481ed8#tmbr-icons) format("svg");
 }
 
@@ -5453,6 +5453,14 @@ input[type=submit] {
 }
 .post-nav .pager li .next-arrow:hover {
   transform: translate3d(10px, 0, 0);
+}
+
+.social-share {
+  margin-top: 2rem;
+}
+.social-share .share-link {
+  text-decoration: underline;
+  margin: 0 0.5rem;
 }
 
 /* Arrows */
@@ -7067,6 +7075,9 @@ input[type=submit] {
 }
 .content-wrap .post-content .post-meta {
   font-size: 1.2rem;
+}
+.content-wrap .post-content .social-share {
+  margin-top: 1rem;
 }
 .content-wrap .post-image {
   width: 50%;
