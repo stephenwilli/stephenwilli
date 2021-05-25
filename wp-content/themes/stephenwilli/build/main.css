@@ -4073,8 +4073,8 @@
 
 @font-face {
 	font-family: "tmbr-icons";
-	src: url(../assets/fonts/tmbr-icons.woff2?57cb7009b1c1814f0a81babc3b5b086d) format("woff2"),
-url(../assets/fonts/tmbr-icons.woff?24a7aaf346447b995e9d277661b3ec23) format("woff"),
+	src: url(../assets/fonts/tmbr-icons.woff2?c54d3110004ea88d9767e69ec9a2f1ed) format("woff2"),
+url(../assets/fonts/tmbr-icons.woff?daac02462467c672a619f9bca0a4c068) format("woff"),
 url(../assets/fonts/tmbr-icons.svg?133104ad30eb4310c69174c554481ed8#tmbr-icons) format("svg");
 }
 
@@ -7000,7 +7000,7 @@ input[type=submit] {
 }
 
 .flex-split {
-  padding: 4rem 3rem;
+  padding: 4rem 6rem;
 }
 .flex-split .split-wrap {
   display: flex;
@@ -7074,13 +7074,13 @@ input[type=submit] {
 }
 
 .content-wrap {
-  padding: 4rem;
+  padding: 4rem 6rem;
   display: flex;
   flex-wrap: wrap;
 }
 .content-wrap .post-content {
   width: 50%;
-  padding: 2rem 4rem 0 2rem;
+  padding: 2rem 6rem 0 2rem;
 }
 .content-wrap .post-content .post-meta {
   font-family: "Elegant-Lux", sans-serif;
