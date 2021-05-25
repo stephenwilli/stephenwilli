@@ -15,7 +15,7 @@
       <div class="post-content">
         <h1 id="intro-title"><?php the_title();?></h1>
         <div class="post-meta">
-          <p><?= $date ?> // <a href="<?= $catLink;?>"><?= $catTitle;?></a></p>
+          <p><?= $date ?> / / <a href="<?= $catLink;?>"><?= $catTitle;?></a></p>
           <?php  
             get_template_part( 'partials/02_molecule/social-share' ); 
           ?>

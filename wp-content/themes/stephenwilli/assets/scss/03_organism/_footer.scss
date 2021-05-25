@@ -2,7 +2,7 @@
 	width: 100%;
 	padding: 2rem 2rem 4rem;
 	text-align: center;
-	font-size: .9rem;
+	@include light-heading();
 	
 	.footer-links  {
 		.footer-link {

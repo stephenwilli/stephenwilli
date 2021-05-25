@@ -7,7 +7,9 @@
 		width: 50%;
 		padding: 2rem 4rem 0 2rem;
 		.post-meta {
+			@include light-heading();
 			font-size: 1.2rem;
+			margin-bottom: 2rem;
 		}
 		.social-share {
 			margin-top: 1rem;

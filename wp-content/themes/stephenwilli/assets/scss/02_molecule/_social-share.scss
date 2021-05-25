@@ -1,7 +1,11 @@
 .social-share {
   margin-top: 2rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  @include light-heading();
   .share-link {
     text-decoration: underline;
     margin: 0 .5rem;
+
   }
 }

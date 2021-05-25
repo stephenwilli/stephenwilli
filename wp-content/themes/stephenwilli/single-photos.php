@@ -27,11 +27,11 @@
           get_template_part( 'partials/02_molecule/social-share' ); 
         ?>
         
-        <!-- <?php if($kicker){?>
+        <?php if($kicker){?>
           <div class="kicker" data-animate="fade-left-2" data-delay="2">
             <p><?= $kicker;?></p>
           </div>
-        <?php } ?> -->
+        <?php } ?>
         
         <?php get_template_part( 'partials/02_molecule/post-navigation' ); ?> 
       </div>
