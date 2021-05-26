@@ -7093,6 +7093,9 @@ input[type=submit] {
 .content-wrap .post-content .social-share {
   margin-top: 1rem;
 }
+.content-wrap .post-content .cat-link {
+  margin-left: 1rem;
+}
 .content-wrap .post-image {
   width: 50%;
 }

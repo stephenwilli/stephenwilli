@@ -4,18 +4,21 @@
   $postImage = get_the_post_thumbnail_url(get_the_ID(),'full_screen');
   $date = get_the_date('F j, Y');
   $terms = get_the_terms(get_the_ID(), 'category');
-  if(!empty($terms)) {
-  	$term = array_pop($terms);
-    $catLink = get_term_link($term);
-  	$catTitle = $term->name;
-  } 
 ?>
   <main class="main-wrap">
     <section class="content-wrap" data-animate="fade-right" data-delay="1">
       <div class="post-content">
         <h1 id="intro-title"><?php the_title();?></h1>
         <div class="post-meta">
-          <p><?= $date ?> / / <a href="<?= $catLink;?>"><?= $catTitle;?></a></p>
+          <p><?= $date ?> / / 
+            <?php if(!empty($terms)) {
+              foreach($terms as $term){
+              $term = array_pop($terms);
+              $catLink = get_term_link($term);
+              $catTitle = $term->name; ?>
+                <a class="cat-link" href="<?= $catLink;?>"><?= $catTitle;?></a>
+              <?php } }?> 
+            </p>
           <?php  
             get_template_part( 'partials/02_molecule/social-share' ); 
           ?>
