@@ -259,6 +259,25 @@
                                     "max_height": "",
                                     "max_size": "",
                                     "mime_types": ""
+                                },
+                                {
+                                    "key": "field_60aebdcdb63f3",
+                                    "label": "Image Caption",
+                                    "name": "fc_split_image_caption",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "maxlength": ""
                                 }
                             ]
                         }
@@ -296,5 +315,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "Post Type = Page or Post",
-    "modified": 1620513712
+    "modified": 1622064608
 }

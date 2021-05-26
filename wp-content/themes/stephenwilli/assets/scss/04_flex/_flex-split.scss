@@ -22,6 +22,12 @@
     .-images {  
       .image-1 {
         width: 60%;
+        .caption {
+          font-size: .9rem;
+          max-width: 50%;
+          margin-top: 1rem;
+          display: inline-block;
+        }
       }
         
       .image-2 {

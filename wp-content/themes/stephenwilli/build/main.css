@@ -4073,8 +4073,8 @@
 
 @font-face {
 	font-family: "tmbr-icons";
-	src: url(../assets/fonts/tmbr-icons.woff2?c54d3110004ea88d9767e69ec9a2f1ed) format("woff2"),
-url(../assets/fonts/tmbr-icons.woff?daac02462467c672a619f9bca0a4c068) format("woff"),
+	src: url(../assets/fonts/tmbr-icons.woff2?1226ab17742aab00bdc5c28fd6dbc8ab) format("woff2"),
+url(../assets/fonts/tmbr-icons.woff?7849dcc240e4d9281e3eacbc9b416257) format("woff"),
 url(../assets/fonts/tmbr-icons.svg?133104ad30eb4310c69174c554481ed8#tmbr-icons) format("svg");
 }
 
@@ -7018,6 +7018,12 @@ input[type=submit] {
 }
 .flex-split .split-wrap .-images .image-1 {
   width: 60%;
+}
+.flex-split .split-wrap .-images .image-1 .caption {
+  font-size: 0.9rem;
+  max-width: 50%;
+  margin-top: 1rem;
+  display: inline-block;
 }
 .flex-split .split-wrap .-images .image-2 {
   position: relative;

@@ -6,6 +6,7 @@
           $text = get_sub_field('fc_text_editor');
           $image1 = get_sub_field('fc_split_image_1');
           $image2 = get_sub_field('fc_split_image_2');
+          $caption = get_sub_field('fc_split_image_caption');
         ?>
         <?php if($type === 'text'){?>
           <div class="split-half -text flex-text" data-animate="fade-right" data-delay="1">
@@ -19,6 +20,9 @@
                   <div class="reveal" data-delay="1" data-animate="reveal-up"></div>  
                   <img src="<?= $image1['sizes']['full_screen'];?>" alt="Stephen Williams Photography, Jackson Wyoming">
                 </div>
+                <?php if($caption){?>
+                  <span class="caption"><?= $caption;?></span>
+                <?php } ?>
               </div>
             <?php } ?>
             <?php if($image2){?>
