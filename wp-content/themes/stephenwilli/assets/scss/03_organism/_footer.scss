@@ -11,9 +11,23 @@
 	}
 	a {
 		color: $black;
-		text-decoration: underline;
+		position: relative;
+		text-decoration: none;
+		&:before {
+			content:'';
+			@include absolute($t:0, $l: 0);
+			width: 0;
+			height: 100%;
+			@include transition($transition all);
+			z-index: -1;
+			background-color: $black;
+		}
+
 		&:hover {
-			text-decoration: none;
+			color: $white;
+			&:before {
+				width: 100%;
+			}
 		}
 	}
 	.copyright {

@@ -4073,8 +4073,8 @@
 
 @font-face {
 	font-family: "tmbr-icons";
-	src: url(../assets/fonts/tmbr-icons.woff2?1226ab17742aab00bdc5c28fd6dbc8ab) format("woff2"),
-url(../assets/fonts/tmbr-icons.woff?7849dcc240e4d9281e3eacbc9b416257) format("woff"),
+	src: url(../assets/fonts/tmbr-icons.woff2?9a8709a7c80e32ec5ebd53766893a5b7) format("woff2"),
+url(../assets/fonts/tmbr-icons.woff?c46a40f02cfd9981aca2f13424f81bb8) format("woff"),
 url(../assets/fonts/tmbr-icons.svg?133104ad30eb4310c69174c554481ed8#tmbr-icons) format("svg");
 }
 
@@ -5465,8 +5465,30 @@ input[type=submit] {
   font-weight: 400;
 }
 .social-share .share-link {
-  text-decoration: underline;
   margin: 0 0.5rem;
+  position: relative;
+  text-decoration: none;
+}
+.social-share .share-link:before {
+  content: "";
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 0;
+  height: 100%;
+  transition: 0.2s ease-in all;
+  -webkit-transition: 0.2s ease-in all;
+  -moz-transition: 0.2s ease-in all;
+  -ms-transition: 0.2s ease-in all;
+  -o-transition: 0.2s ease-in all;
+  z-index: -1;
+  background-color: #333;
+}
+.social-share .share-link:hover {
+  color: #FFF;
+}
+.social-share .share-link:hover:before {
+  width: 100%;
 }
 
 /* Arrows */
@@ -6784,10 +6806,29 @@ input[type=submit] {
 }
 .footer a {
   color: #333;
-  text-decoration: underline;
+  position: relative;
+  text-decoration: none;
+}
+.footer a:before {
+  content: "";
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 0;
+  height: 100%;
+  transition: 0.2s ease-in all;
+  -webkit-transition: 0.2s ease-in all;
+  -moz-transition: 0.2s ease-in all;
+  -ms-transition: 0.2s ease-in all;
+  -o-transition: 0.2s ease-in all;
+  z-index: -1;
+  background-color: #333;
 }
 .footer a:hover {
-  text-decoration: none;
+  color: #FFF;
+}
+.footer a:hover:before {
+  width: 100%;
 }
 .footer .copyright {
   margin-top: 1rem;
@@ -7088,6 +7129,9 @@ input[type=submit] {
   width: 50%;
   padding: 2rem 6rem 0 2rem;
 }
+.content-wrap .post-content h1 {
+  font-size: 6rem;
+}
 .content-wrap .post-content .post-meta {
   font-family: "Elegant-Lux", sans-serif;
   text-transform: uppercase;
@@ -7124,6 +7168,9 @@ input[type=submit] {
     width: 100%;
     padding: 4rem 0;
   }
+  .content-wrap .post-content h1 {
+    font-size: 5rem;
+  }
   .content-wrap .post-image {
     width: 100%;
   }
@@ -7135,6 +7182,9 @@ input[type=submit] {
   }
   .content-wrap .post-content {
     padding: 2rem 0;
+  }
+  .content-wrap .post-content h1 {
+    font-size: 4rem;
   }
 }
 
