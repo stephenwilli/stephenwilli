@@ -4073,8 +4073,8 @@
 
 @font-face {
 	font-family: "tmbr-icons";
-	src: url(../assets/fonts/tmbr-icons.woff2?9a8709a7c80e32ec5ebd53766893a5b7) format("woff2"),
-url(../assets/fonts/tmbr-icons.woff?c46a40f02cfd9981aca2f13424f81bb8) format("woff"),
+	src: url(../assets/fonts/tmbr-icons.woff2?a3e412057f1f0192771fe11138c824b9) format("woff2"),
+url(../assets/fonts/tmbr-icons.woff?5ab5e7e725dc8988bb0a43cf49e7d399) format("woff"),
 url(../assets/fonts/tmbr-icons.svg?133104ad30eb4310c69174c554481ed8#tmbr-icons) format("svg");
 }
 
@@ -4995,6 +4995,7 @@ section {
   left: 0;
   position: absolute;
   background-color: #FFF;
+  z-index: 10;
   width: 100%;
   height: 100%;
 }
@@ -7130,7 +7131,7 @@ input[type=submit] {
   padding: 2rem 6rem 0 2rem;
 }
 .content-wrap .post-content h1 {
-  font-size: 6rem;
+  font-size: 5rem;
 }
 .content-wrap .post-content .post-meta {
   font-family: "Elegant-Lux", sans-serif;
@@ -7169,7 +7170,7 @@ input[type=submit] {
     padding: 4rem 0;
   }
   .content-wrap .post-content h1 {
-    font-size: 5rem;
+    font-size: 4rem;
   }
   .content-wrap .post-image {
     width: 100%;

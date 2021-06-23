@@ -8,7 +8,7 @@
   <main class="main-wrap">
     <section class="content-wrap" data-animate="fade-right" data-delay="1">
       <div class="post-content">
-        <h1 id="intro-title"><?php the_title();?></h1>
+        <h1 class="post-title" id="intro-title"><?php the_title();?></h1>
         <div class="post-meta">
           <p><?= $date ?> / / 
             <?php if(!empty($terms)) {
