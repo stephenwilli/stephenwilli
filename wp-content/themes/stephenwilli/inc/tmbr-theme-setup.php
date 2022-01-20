@@ -3,7 +3,7 @@
 // Theme Setup & Support
 // http://codex.wordpress.org/Function_Reference/add_theme_support
 
-function tmbr_setup() {
+function inversion_setup() {
 
 	add_theme_support('automatic-feed-links');
 	add_theme_support('post-thumbnails');
@@ -17,21 +17,21 @@ function tmbr_setup() {
 	) );
 }
 
-add_action('after_setup_theme', 'tmbr_setup');
+add_action('after_setup_theme', 'inversion_setup');
 
 
 /*  Excerpt ending
 /* ------------------------------------ */
-function tmbr_excerpt_more( $more ) {
+function inversion_excerpt_more( $more ) {
     return '&#46;&#46;&#46;';
 }
-add_filter( 'excerpt_more', 'tmbr_excerpt_more' );
+add_filter( 'excerpt_more', 'inversion_excerpt_more' );
 
 
-// ADD TMBR LOGO TO LOGIN PAGE
-add_action('login_head', 'tmbr_login_head');
+// ADD inversion LOGO TO LOGIN PAGE
+add_action('login_head', 'inversion_login_head');
 
-function tmbr_login_head() {
+function inversion_login_head() {
 	echo "
 	<style>
 		body.login #login h1 a {

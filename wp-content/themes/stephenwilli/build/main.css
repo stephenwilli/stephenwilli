@@ -4072,10 +4072,10 @@
 }
 
 @font-face {
-	font-family: "tmbr-icons";
-	src: url(../assets/fonts/tmbr-icons.woff2?a3e412057f1f0192771fe11138c824b9) format("woff2"),
-url(../assets/fonts/tmbr-icons.woff?5ab5e7e725dc8988bb0a43cf49e7d399) format("woff"),
-url(../assets/fonts/tmbr-icons.svg?133104ad30eb4310c69174c554481ed8#tmbr-icons) format("svg");
+	font-family: "inversion-icons";
+	src: url(../assets/fonts/inversion-icons.woff2?77f766f7326998dacb0ebe89a9c0e686) format("woff2"),
+url(../assets/fonts/inversion-icons.woff?9f707857ed973a05e92f35d78d8f85d8) format("woff"),
+url(../assets/fonts/inversion-icons.svg?6a3d8985a1f654963ea9fbdf7fc711cb#inversion-icons) format("svg");
 }
 
 .icon {
@@ -4083,7 +4083,7 @@ url(../assets/fonts/tmbr-icons.svg?133104ad30eb4310c69174c554481ed8#tmbr-icons) 
 }
 
 .icon:before {
-	font-family: tmbr-icons !important;
+	font-family: inversion-icons !important;
 	font-style: normal;
 	font-weight: normal !important;
 	vertical-align: top;
@@ -4141,7 +4141,6 @@ url(../assets/fonts/tmbr-icons.svg?133104ad30eb4310c69174c554481ed8#tmbr-icons) 
 	content: "\f111";
 }
 
-@charset "UTF-8";
 /* Slider */
 .slick-slider {
   position: relative;
@@ -5411,8 +5410,8 @@ input[type=submit] {
   top: -0.5rem;
 }
 .post-nav .pager li .prev-arrow:before {
-  content: "";
-  font-family: "tmbr-icons";
+  content: "\f10f";
+  font-family: "inversion-icons";
   font-size: 1rem;
   top: 50%;
   position: absolute;
@@ -5439,8 +5438,8 @@ input[type=submit] {
   top: -0.5rem;
 }
 .post-nav .pager li .next-arrow:after {
-  content: "";
-  font-family: "tmbr-icons";
+  content: "\f10a";
+  font-family: "inversion-icons";
   top: 50%;
   position: absolute;
   transform: translateY(-50%);
@@ -5530,7 +5529,7 @@ input[type=submit] {
 }
 .slick-prev:before,
 .slick-next:before {
-  font-family: "tmbr-icons";
+  font-family: "inversion-icons";
   font-size: 32px;
   line-height: 1;
   color: #333;
@@ -5547,10 +5546,10 @@ input[type=submit] {
   right: -25px;
 }
 .slick-prev:before {
-  content: "";
+  content: "\f101";
 }
 [dir=rtl] .slick-prev:before {
-  content: "";
+  content: "\f102";
 }
 
 .slick-next {
@@ -5561,10 +5560,10 @@ input[type=submit] {
   right: auto;
 }
 .slick-next:before {
-  content: "";
+  content: "\f102";
 }
 [dir=rtl] .slick-next:before {
-  content: "";
+  content: "\f101";
 }
 
 /* Dots */
@@ -5657,8 +5656,8 @@ input[type=submit] {
   padding-left: 2rem;
 }
 .related-posts .posts-wrap .post-link.-prev h2:before {
-  content: "";
-  font-family: "tmbr-icons";
+  content: "\f10f";
+  font-family: "inversion-icons";
   font-size: 1.2rem;
   top: 50%;
   position: absolute;
@@ -5691,8 +5690,8 @@ input[type=submit] {
   padding-right: 2rem;
 }
 .related-posts .posts-wrap .post-link.-next h2:after {
-  content: "";
-  font-family: "tmbr-icons";
+  content: "\f10a";
+  font-family: "inversion-icons";
   top: 50%;
   position: absolute;
   transform: translateY(-50%);
@@ -5811,8 +5810,8 @@ input[type=submit] {
   left: -6rem;
 }
 .post-navigation .page-link.-prev a:before {
-  content: "";
-  font-family: "tmbr-icons";
+  content: "\f10f";
+  font-family: "inversion-icons";
   font-size: 1.2rem;
   top: 50%;
   position: absolute;
@@ -5837,8 +5836,8 @@ input[type=submit] {
   -o-transition: 0.2s ease-in;
 }
 .post-navigation .page-link.-next a:after {
-  content: "";
-  font-family: "tmbr-icons";
+  content: "\f10a";
+  font-family: "inversion-icons";
   top: 50%;
   position: absolute;
   transform: translateY(-50%);
@@ -6104,8 +6103,8 @@ input[type=submit] {
   width: 100%;
 }
 .navbar-menu .parent-menu > .menu-item.menu-item-has-children > a:after {
-  font-family: "tmbr-icons";
-  content: "";
+  font-family: "inversion-icons";
+  content: "\f10b";
   top: 50%;
   position: absolute;
   transform: translateY(-50%);
@@ -6602,8 +6601,8 @@ input[type=submit] {
   display: none;
 }
 .mfp-wrap .mfp-arrow-left:before {
-  content: "";
-  font-family: "tmbr-icons";
+  content: "\f10f";
+  font-family: "inversion-icons";
   font-size: 1.2rem;
   margin-left: 3rem;
   border: none;
@@ -6616,8 +6615,8 @@ input[type=submit] {
   right: 5rem;
 }
 .mfp-wrap .mfp-arrow-right:before {
-  content: "";
-  font-family: "tmbr-icons";
+  content: "\f10a";
+  font-family: "inversion-icons";
   font-size: 1.2rem;
   margin-right: 3rem;
   border: none;
@@ -7013,8 +7012,8 @@ input[type=submit] {
   cursor: pointer;
 }
 .flex-collapse .collapse-wrap .collapse-item .collapse-title:before, .flex-interactive-map .collapse-wrap .collapse-item .collapse-title:before {
-  content: "";
-  font-family: "tmbr-icons";
+  content: "\f10b";
+  font-family: "inversion-icons";
   color: #476931;
   margin-right: 10px;
   font-size: 0.9rem;
@@ -7024,7 +7023,7 @@ input[type=submit] {
   padding: 0 1rem 1rem;
 }
 .flex-collapse .collapse-wrap .collapse-item.-open .collapse-title:before, .flex-interactive-map .collapse-wrap .collapse-item.-open .collapse-title:before {
-  content: "";
+  content: "\f10c";
 }
 .flex-collapse .collapse-wrap .collapse-item.-open .collapse-text, .flex-interactive-map .collapse-wrap .collapse-item.-open .collapse-text {
   display: block;

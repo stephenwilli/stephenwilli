@@ -34,7 +34,7 @@ module.exports = (env, options) => {
     'assets/icons/angle-down.svg'
   ],
   dest: './assets/fonts/',
-  fontName: 'tmbr-icons',
+  fontName: 'inversion-icons',
   templateOptions: {
     baseClass: 'icon',
     classPrefix: 'icon-'

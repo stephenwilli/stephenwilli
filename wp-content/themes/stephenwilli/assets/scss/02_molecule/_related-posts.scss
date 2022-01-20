@@ -30,7 +30,7 @@
           padding-left: 2rem;
           &:before {
             content: "\f10f";
-            font-family: 'tmbr-icons';
+            font-family: 'inversion-icons';
             font-size: 1.2rem;
             @include center-y;
             color: $black;
@@ -59,7 +59,7 @@
           padding-right: 2rem;
           &:after {
             content: "\f10a";
-            font-family: 'tmbr-icons';
+            font-family: 'inversion-icons';
             @include center-y;
             font-size: 1.2rem;
             color: $black;

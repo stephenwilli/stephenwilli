@@ -7,7 +7,7 @@ require 'inc/enqueue-assets.php';
 
 // WORDPRESS CUSTOMIZATION
 require 'inc/wordpress-admin.php';
-require 'inc/tmbr-theme-setup.php';
+require 'inc/inversion-theme-setup.php';
 require 'inc/image-sizes.php';
 require 'inc/site-config.php';
 
@@ -20,7 +20,7 @@ require 'inc/register-option-pages.php';
 
 // HELPER FUNCTIONS
 require 'inc/helper-functions.php';
-require 'inc/tmbr-load-template.php';
+require 'inc/inversion-load-template.php';
 require 'inc/wp_bootstrap_pagination.php';
 
 // VENDOR

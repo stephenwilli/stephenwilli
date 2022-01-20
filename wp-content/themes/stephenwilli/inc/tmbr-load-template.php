@@ -6,7 +6,7 @@
  * Usage:
  * // This example will expose two variables to the loaded template:
  * // $type = 'Foo', and $url = '//example.com/test.jpg'
- * tmbr_load_template( 'partials/map.php', array(
+ * inversion_load_template( 'partials/map.php', array(
  *   'type' => 'Foo',
  *   'url'  => '//example.com/test.jpg'
  * ) );
@@ -15,7 +15,7 @@
  * @param array $data array of information to be utilized in the template
  * @return null  This echos out the template, does not return it
  */
-function tmbr_load_template( $filename, $data = array() ) {
+function inversion_load_template( $filename, $data = array() ) {
   $file = locate_template( $filename );
   if( $file ){
     extract( $data );

@@ -1,8 +1,8 @@
 @font-face {
-	font-family: "tmbr-icons";
-	src: url("tmbr-icons.woff2?9ac7620de3460b43861336b268590006") format("woff2"),
-url("tmbr-icons.woff?9ac7620de3460b43861336b268590006") format("woff"),
-url("tmbr-icons.svg?9ac7620de3460b43861336b268590006#tmbr-icons") format("svg");
+	font-family: "inversion-icons";
+	src: url("inversion-icons.woff2?cecb9caeef80553a34c3dd234918a57b") format("woff2"),
+url("inversion-icons.woff?cecb9caeef80553a34c3dd234918a57b") format("woff"),
+url("inversion-icons.svg?cecb9caeef80553a34c3dd234918a57b#inversion-icons") format("svg");
 }
 
 .icon {
@@ -10,7 +10,7 @@ url("tmbr-icons.svg?9ac7620de3460b43861336b268590006#tmbr-icons") format("svg");
 }
 
 .icon:before {
-	font-family: tmbr-icons !important;
+	font-family: inversion-icons !important;
 	font-style: normal;
 	font-weight: normal !important;
 	vertical-align: top;

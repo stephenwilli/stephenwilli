@@ -8,12 +8,12 @@
 ** @Return Array - image url and alt text for image
 **
 EXAMPLE :
-$imageObj = tmbr_get_cropped_image( get_field( 'image', $trailHead ), 'archive' );
+$imageObj = inversion_get_cropped_image( get_field( 'image', $trailHead ), 'archive' );
 $imageUrl = $imageObj['url'];
 $imageAlt = $imageObj['alt'];
 */
 
-function tmbr_get_cropped_image( $imageId, $size ) {
+function inversion_get_cropped_image( $imageId, $size ) {
 	$imageArr = wp_get_attachment_image_src( $imageId, $size );
 	$image = $imageArr[0];
 	return $image;
@@ -22,10 +22,10 @@ function tmbr_get_cropped_image( $imageId, $size ) {
 /*
 ** ALLOWS YOU TO OUTPUT EXCERPTS WITH LENGTHS OF YOUR CHOOSING
 ** Usage: If you want to output an excerpt of 25 words
-**	<?php echo tmbr_excerpt(25); ?>
+**	<?php echo inversion_excerpt(25); ?>
 */
 
-function tmbr_excerpt($limit) {
+function inversion_excerpt($limit) {
 	 $excerpt = explode(' ', get_the_excerpt(), $limit);
 	 if (count($excerpt)>=$limit) {
 	 array_pop($excerpt);
