@@ -12,7 +12,6 @@
 
 @import
   '00_base/_reset',
-  // '00_base/_flexboxgrid', 
   '00_base/_fonts',
   '00_base/_variables',
   '00_base/_mixins',
@@ -23,7 +22,7 @@
   '01_atom/_typography',
   '01_atom/_slick',
   '01_atom/_edit-link',
-  '01_atom/_forms',
+  // '01_atom/_forms',
   '01_atom/_buttons';
   
 @import
@@ -38,7 +37,7 @@
 @import
   '03_organism/header',
   '03_organism/home-hero',
-  '03_organism/embla',
+  '03_organism/dev-hero',
   '03_organism/page-hero',
   '03_organism/image-popup',
   '03_organism/site-loader',
@@ -59,7 +58,8 @@
   '05_template/internal',
   '05_template/series',
   '05_template/photo',
-  '05_template/front-page';
+  '05_template/front-page',
+  '05_template/dev-template';
   // '05_template/post-loop'; 
   
   

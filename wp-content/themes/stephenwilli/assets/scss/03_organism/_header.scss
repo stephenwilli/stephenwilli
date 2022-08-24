@@ -7,7 +7,7 @@
 	.icon {
 		line-height: 1;
 		font-size: 4rem;
-		color: $white;
+		color: $black;
 		opacity: 1;
 		@include transition($transition);
 		&:hover {
@@ -39,7 +39,7 @@
 	@include transition($transition);
 	
 	&:after, &:before, span {
-		background-color: $white;
+		background-color: $black;
 		border-radius: 3px;
 		content: '';
 		display: block;
@@ -80,15 +80,15 @@
 		
 .navbar-menu {
 	@include absolute($t: 0, $r:0);
-	margin: 2rem;
 	width: 0;
-	height: calc(100% - 4rem);
+	height: 100%;
+	margin: 0;
 	background: rgba(255, 255, 255, .9);
 	z-index: 110;
 	@include transition(.5s ease-in-out);
-	cursor: url('../images/cursor-circle-02.svg') 25 15, auto;
+	cursor: url('../images/cursor-circle-03.svg') 25 15, auto;
 	a {
-		cursor: url('../images/cursor-arrow-02.svg') 25 15, auto;
+		cursor: url('../images/cursor-arrow-03.svg') 25 15, auto;
 	}
 	
 	.parent-menu {
@@ -232,7 +232,7 @@
 	}
 	
 	&.-open {
-		width: calc(100% - 4rem);
+		width: 100%;
 		.parent-menu {
 			opacity: 1;
 		}

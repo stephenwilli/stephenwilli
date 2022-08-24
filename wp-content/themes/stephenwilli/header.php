@@ -24,13 +24,7 @@
   <link rel="icon" type="image/png" href="<?php echo(get_template_directory_uri()) ?>/favicon.ico" />
   
   <title><?php wp_title(' | ', true, 'right'); ?></title>
-  
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-  
+
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -43,11 +37,12 @@
 
 </head>
 
-<body <?php
+<body 
+<?php
   if (is_front_page()){
-    body_class();
+    body_class('full-screen');
     } else {
-    body_class('internal-template');
+    body_class();
   }
   ?>
 >

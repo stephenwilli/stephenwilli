@@ -1,0 +1,36 @@
+.dev-home {
+	a {
+		cursor: url('../images/cursor-arrow-02.svg') 25 5, auto;
+	}
+	cursor: url('../images/cursor-circle.svg') 25 15, auto;
+	
+	.navbar-brand {
+		.icon {
+			color: $white;
+		}
+	}
+	
+	.navbar-menu {
+		a {
+			cursor: url('../images/cursor-arrow-03.svg') 25 15, auto;
+		}
+		margin: 2rem;
+		height: calc(100% - 4rem);
+		&.-open {
+			width: calc(100% - 4rem);
+		}
+	}
+	
+	.navbar-hamburger {
+		cursor: url('../images/cursor-arrow-02.svg') 25 5, auto;
+		&:after, &:before, span {
+			background-color: $white;
+		}
+		&.-collapsed {
+			cursor: url('../images/cursor-arrow-03.svg') 25 5, auto;
+			&:after, &:before, span {
+				background-color: $black;
+			}
+		}
+	}
+}

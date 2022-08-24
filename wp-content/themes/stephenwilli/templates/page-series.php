@@ -33,7 +33,7 @@
         <div class="mosaic-image intro-card">
           <div class="reveal"  data-delay="1" data-animate="reveal-up"></div>
           <div class="series-text">
-            <h1 id="intro-title"><?= $seriesTitle;?></h1>
+            <h1 id="js-reveal-title"><?= $seriesTitle;?></h1>
             <h3><?= $seriesSubtitle;?></h3>
             <p><?= $seriesText;?></p>
             <?php  

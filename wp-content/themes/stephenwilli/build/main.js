@@ -126,29 +126,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-gsap__WEBPACK_IMPORTED_MODULE_4__["default"].registerPlugin(gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_5__["ScrollTrigger"], gsap_SplitText__WEBPACK_IMPORTED_MODULE_6__["SplitText"]); // EMBLA SLIDER?? Can't get the #image-wrap id to move from one slide to the next
-// import EmblaCarousel from "embla-carousel";
-// import { setupPrevNextBtns, disablePrevNextBtns } from "./prevNext";
-// import { setupDotBtns, generateDotBtns, selectDotBtn } from "./dotButtons";
-// 
-// const wrap = document.querySelector(".embla");
-// const viewPort = wrap.querySelector(".embla__viewport");
-// const prevBtn = wrap.querySelector(".embla__button--prev");
-// const nextBtn = wrap.querySelector(".embla__button--next");
-// const dots = document.querySelector(".embla__dots");
-// const embla = EmblaCarousel(viewPort, { loop: true, skipSnaps: false });
-// const dotsArray = generateDotBtns(dots, embla);
-// const setSelectedDotBtn = selectDotBtn(dotsArray, embla);
-// const disablePrevAndNextBtns = disablePrevNextBtns(prevBtn, nextBtn, embla);
-// 
-// setupPrevNextBtns(prevBtn, nextBtn, embla);
-// setupDotBtns(dotsArray, embla);
-// 
-// embla.on("select", setSelectedDotBtn);
-// embla.on("select", disablePrevAndNextBtns);
-// embla.on("init", setSelectedDotBtn);
-// embla.on("init", disablePrevAndNextBtns);
-
+gsap__WEBPACK_IMPORTED_MODULE_4__["default"].registerPlugin(gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_5__["ScrollTrigger"], gsap_SplitText__WEBPACK_IMPORTED_MODULE_6__["SplitText"]);
 jQuery(document).ready(function ($) {
   // NAV SCROLL CLASS
   $('.internal-template').scroll(function () {
@@ -194,6 +172,24 @@ jQuery(document).ready(function ($) {
     transformOrigin: "0% 50% -50",
     ease: "easeInOut",
     stagger: 0.02
+  }, "+=0");
+  var tl3 = gsap__WEBPACK_IMPORTED_MODULE_4__["default"].timeline(),
+      mySplitText = new gsap_SplitText__WEBPACK_IMPORTED_MODULE_6__["SplitText"]("#js-reveal-title", {
+    type: "words,chars"
+  }),
+      chars = mySplitText.chars;
+  gsap__WEBPACK_IMPORTED_MODULE_4__["default"].set("#js-reveal-title", {
+    perspective: 400
+  });
+  tl3.from(chars, {
+    duration: .3,
+    opacity: 0,
+    scale: .9,
+    y: 10,
+    delay: 1,
+    transformOrigin: "0% 50% -50",
+    ease: "easeInOut",
+    stagger: 0.02
   }, "+=0"); // var loadingtl = gsap.timeline(); 
   // loadingtl.to('#site-loader', {duration: .3, opacity:0, width: 0, ease:"easeInOut"}, "+=0");
   // NAV HAMBURGER
@@ -230,20 +226,7 @@ jQuery(document).ready(function ($) {
         $(this).parent().children('ul').toggleClass('-open');
       }
     });
-  } // EMBLA SLIDER
-  // $('.js-embla-open div:first').attr('id', 'image-warp');
-  // embla.on('select', (removeclass) => {
-  //   var slide = $('.embla__slide');
-  //   var slideID = $('.embla__slide').attr('id');
-  //   if(slideID === 'image-warp'){
-  //     $(slide).removeAttr('id');
-  //   }
-  // })
-  // 
-  // embla.on('settle', (addclass) => {
-  //   $('.is-selected').attr('id', 'image-warp');
-  // })
-
+  }
 
   $('.js-flex-gallery-img').magnificPopup({
     type: 'image',
@@ -311,7 +294,43 @@ jQuery(document).ready(function ($) {
 
     ;
     hoverImage();
+  } // set the variables
+
+
+  var timer;
+  var mouseX = 0,
+      mouseY = 0;
+  var xp = 0,
+      yp = 0;
+  var circle = $("#js-cursor-circle");
+
+  function mouseStopped() {
+    // if mouse stop moving remove class moving 
+    // it will hide the circle with opacity transition                           
+    circle.removeClass('moving');
   }
+
+  $(document).mousemove(function (e) {
+    // if mouse start moving add class moving
+    // it will show the circle with opacity transition 
+    circle.addClass('moving'); // get the mouse position minus 160px to center the circle
+
+    mouseX = e.pageX - 160;
+    mouseY = e.pageY - 160; // if mouse stop moving clear timer and call mouseStopped function
+
+    clearTimeout(timer);
+    timer = setTimeout(mouseStopped, 3000);
+  }); // set the momentum with setInterval function
+
+  var loop = setInterval(function () {
+    // change 12 to alter damping higher is slower
+    xp += (mouseX - xp) / 4;
+    yp += (mouseY - yp) / 4;
+    circle.css({
+      left: xp + 'px',
+      top: yp + 'px'
+    }); // 
+  }, 30);
 });
 jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('load', function () {
   var grid = document.querySelector('.js-mosaic-gallery');

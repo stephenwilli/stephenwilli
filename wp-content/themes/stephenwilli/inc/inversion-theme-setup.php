@@ -5,13 +5,7 @@
 
 function inversion_setup() {
 
-	add_theme_support('automatic-feed-links');
 	add_theme_support('post-thumbnails');
-
-	/*
-	 * Switch default core markup for search form, comment form, and comments
-	 * to output valid HTML5.
-	 */
 	add_theme_support( 'html5', array(
 		'search-form', 'comment-form', 'comment-list', 'gallery', 'caption',
 	) );
@@ -44,12 +38,3 @@ function inversion_login_head() {
 	</style>
 	";
 }
-
-// add ie conditional html5 shim to header
-// http://css-tricks.com/snippets/wordpress/html5-shim-in-functions-php/
-function add_ie_html5_shim () {
-	echo '<!--[if lt IE 9]>';
-	echo '<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>';
-	echo '<![endif]-->';
-}
-add_action('wp_head', 'add_ie_html5_shim');

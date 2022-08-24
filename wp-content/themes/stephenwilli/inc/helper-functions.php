@@ -107,42 +107,11 @@ function render($template, $props = [], $return = false) {
     echo $html;
 }
 
-function get_first_p($str) {
-	return substr($str, strpos($str, "<p"), strpos($str, "</p>") + 4);
-}
-
 function remove_empty_p($content) {
     $content = force_balance_tags($content);
     $content = preg_replace('#<p>\s*+(<br\s*/*>)?\s*</p>#i', '', $content);
     $content = preg_replace('~\s?<p>(\s|&nbsp;)+</p>\s?~', '', $content);
     return $content;
-}
-
-function starts_with($haystack, $needle) {
-    $length = strlen($needle);
-    return substr($haystack, 0, $length) === $needle;
-}
-
-function ends_with($haystack, $needle) {
-   $length = strlen($needle);
-   if ($length === 0) return true;
-   return substr($haystack, -$length) === $needle;
-}
-
-/**
- * Convert comma separated values to an array.
- *
- * @param string $str string to be converted
- * @return array
- */
-function to_array($str, $reqex = ',') {
-    $values = preg_split('/'.$reqex.'/', $str, -1, PREG_SPLIT_NO_EMPTY);
-    $values = array_map('trim', $values);
-    return $values;
-}
-
-function is_external_url($url) {
-    return strpos($url, get_bloginfo('url')) === false && substr($url, 0, 1) != '/';
 }
 
 function is_first_post($query = null) {
@@ -157,29 +126,6 @@ function is_last_post($query = null) {
     return ($query->current_post + 1) === $query->post_count;
 }
 
-function is_child_of($parent_id, $child_id = null) {
-    global $post;
-    $child = ($child_id == null) ? $post : get_post($child_id);
-    return $child && ($child->post_parent == $parent_id || in_array($parent_id, get_post_ancestors($child)));
-}
-
-function get_youtube_id($url) {
-
-    if (strpos($url, '&')) {
-        $parts = explode('&', $url)[0];
-        $url = $parts[0];
-    }
-
-    $url = ltrim($url, 'http://');
-    $url = ltrim($url, 'https://');
-    $replace = (strrpos($url, 'youtu.be') !== false) ? 'youtu.be/' : 'www.youtube.com/watch?v=' ;
-    return str_replace($replace, '', $url);
-}
-
-function get_youtube_url($id, $params = []) {
-    return 'http://youtu.be/'.$id.'?autoplay=1&rel=0';
-}
-
 function get_image_alt($image_id = null) {
     if (!$image_id) $image_id = get_post_thumbnail_id();
     return get_post_meta($image_id, '_wp_attachment_image_alt', true);
@@ -190,61 +136,6 @@ function get_image_src($size, $image_id = null) {
     $image = wp_get_attachment_image_src($image_id, $size);
     return (is_array($image)) ? $image[0] : null;
 }
-
-function custom_post_type_labels($singular, $plural = null, $labels = []) {
-
-    if (!$plural) $plural = $singular.'s';
-
-    return array_merge([
-        'name'                       => $plural,
-        'singular_name'              => $singular,
-        'menu_name'                  => $plural,
-        'name_admin_bar'             => $singular,
-        'all_items'                  => 'All '.$plural,
-        'add_new'                    => 'Add New',
-        'add_new_item'               => 'Add New',
-        'edit_item'                  => 'Edit '.$singular,
-        'new_item'                   => 'New '.$singular,
-        'view_item'                  => 'View '.$singular,
-        'search_items'               => 'Search '.$plural,
-        'not_found'                  => 'No '.$plural.' found',
-        'not_found_in_trash'         => 'No '.$plural.' found in Trash',
-        'parent_item_colon'          => 'Parent '.$plural.':'
-    ], $labels);
-}
-
-function custom_taxonomy_labels($singular, $plural = null, $labels = []) {
-
-    if (!$plural) $plural = $singular.'s';
-
-    return array_merge([
-        'name'                       => $plural,
-        'singular_name'              => $singular,
-        'menu_name'                  => $plural,
-        'all_items'                  => 'All '.$plural,
-        'edit_item'                  => 'Edit '.$singular,
-        'view_item'                  => 'View '.$singular,
-        'update_item'                => 'Update '.$singular,
-        'add_new_item'               => 'Add New '.$singular,
-        'new_item_name'              => 'New '.$singular,
-        'parent_item'                => 'Parent '.$singular,
-        'parent_item_colon'          => 'Parent '.$singular.':',
-        'search_items'               => 'Search '.$plural,
-        'popular_items'              => 'Popular '.$plural,
-        'separate_items_with_commas' => 'Separate '.strtolower($plural).' with commas',
-        'add_or_remove_items'        => 'Add or remove '.strtolower($plural),
-        'choose_from_most_used'      => 'Choose from the most used '.strtolower($plural),
-        'not_found'                  => 'No '.$plural.' found'
-    ], $labels);
-}
-
-// H5P STYLES
-add_action('h5p_alter_library_styles', function(&$styles) {
-    $styles[] = (object) [
-        'path' => build_url('main.css'),
-        'version' => '?ver=0.1'
-    ];
-});
 
 // GET POSTS COUNT
 function sw_get_posts_count() {

@@ -1,32 +1,6 @@
-.internal-template {
-	a {
-		cursor: url('../images/cursor-arrow-03.svg') 25 5, auto;
-	}
-	.navbar-brand {
-		.icon {
-			color: $black;
-		}
-	}
-	
-	.navbar-hamburger {
-		cursor: url('../images/cursor-arrow-03.svg') 25 5, auto;
-		&:after, &:before, span {
-			background-color: $black;
-		}
-	}
-	
-	.navbar-menu {
-		height: 100%;
-		margin: 0;
-		&.-open {
-			width: 100%;
-		}
-	}
-}
-
 .main-wrap {
- padding: 4rem 0;	
- @include respond-to($screen-xs){
-	 padding: 6rem 0 4rem;
- }
+	 padding: 4rem 0;	
+	 @include respond-to($screen-xs){
+		 padding: 6rem 0 4rem;
+	 }
 }

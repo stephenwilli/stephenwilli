@@ -15,7 +15,7 @@
   </div>
   <div class="hero-caption">
     <a href="<?= $heroLink['url'];?>" class="block-link">
-      <h1><?= $heroTitle;?></h1>
+      <h1 class="js-reveal-title"><?= $heroTitle;?></h1>
       <h4><?= $subtitle;?></h4>
       <a href="<?= $heroLink['url'];?>" class="btn"><?= $heroLink['title'];?></a>
     </a>

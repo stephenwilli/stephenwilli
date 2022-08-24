@@ -10,17 +10,52 @@ html {
 }
 
 body {
-	overflow: hidden;
+	overflow-y: scroll;
 	height: 100vh;
 	width: 100%;
 	@include copy-font;
-	cursor: url('../images/cursor-circle.svg') 25 15, auto;
+	cursor: url('../images/cursor-circle-02.svg') 25 15, auto;
 	
-	&.internal-template {
-		cursor: url('../images/cursor-circle-02.svg') 25 15, auto !important;
-		overflow-y: scroll;
+	&.full-screen {
+		overflow: hidden;
+		a {
+			cursor: url('../images/cursor-arrow-02.svg') 25 5, auto;
+		}
+		cursor: url('../images/cursor-circle.svg') 25 15, auto;
+		
+		.navbar-brand {
+			.icon {
+				color: $white;
+			}
+		}
+		
+		.navbar-menu {
+			a {
+				cursor: url('../images/cursor-arrow-03.svg') 25 15, auto;
+			}
+			margin: 2rem;
+			height: calc(100% - 4rem);
+			&.-open {
+				width: calc(100% - 4rem);
+			}
+		}
+		
+		.navbar-hamburger {
+			cursor: url('../images/cursor-arrow-02.svg') 25 5, auto;
+			&:after, &:before, span {
+				background-color: $white;
+			}
+			&.-collapsed {
+				cursor: url('../images/cursor-arrow-03.svg') 25 5, auto;
+				&:after, &:before, span {
+					background-color: $black;
+				}
+			}
+		}
 	}
 }
+
+
 
 section {
 	display: inline-block;

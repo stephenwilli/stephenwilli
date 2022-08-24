@@ -38,4 +38,38 @@ add_action( 'init', 'create_post_type' );
 						),
 			)
 	);
+	
+	register_post_type( 'projects',
+			array (	'label' => 'Projects',
+				'description' => 'Projects',
+				'public' => true,
+				'show_ui' => true,
+				'show_in_menu' => true,
+				'capability_type' => 'post',
+				'hierarchical' => true,
+				'has_archive' => true,
+				'rewrite' => true,
+				'query_var' => true,
+				'supports' => array('title','editor','thumbnail','page-attributes'),
+				'taxonomies' => array(),
+				'menu_icon' => 'dashicons-images-alt',
+				'menu_position' 		=>4,
+
+				'labels' =>
+					array (
+						'name' => 'Projects', 
+						'singular_name' => 'Project',
+						'menu_name' => 'Projects', 
+						'add_new' => 'Add Project', 
+						'add_new_item' => 'Add New Project',
+						'edit' => 'Edit',
+						'edit_item' => 'Edit Project',
+						'new_item' => 'New Project',
+						'view_item' => 'View Project',
+						'search_items' => 'Search Projects',
+						'not_found' => 'No Projects Found',
+						'not_found_in_trash' => 'No Projects Found in Trash'
+						),
+			)
+	);
 }

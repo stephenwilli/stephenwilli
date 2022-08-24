@@ -55,6 +55,31 @@ function create_taxonomy() {
     'query_var' => true,
     'rewrite' => array( 'slug' => 'location' ),
   ));
+  
+  //Locations Taxonomy
+    $labels = array(
+      'name' => _x( 'Project Roles', 'taxonomy general name' ),
+      'singular_name' => _x( 'Project Role', 'taxonomy singular name' ),
+      'search_items' =>  __( 'Search Project Roles' ),
+      'all_items' => __( 'All Project Roles' ),
+      'parent_item' => __( 'Parent Project Role' ),
+      'parent_item_colon' => __( 'Parent Project Role:' ),
+      'edit_item' => __( 'Edit Project Role' ),
+      'update_item' => __( 'Update Project Role' ),
+      'add_new_item' => __( 'Add New Project Role' ),
+      'new_item_name' => __( 'New Project Role Name' ),
+      'menu_name' => __( 'Project Roles' ),
+    );
+
+  // Now register the taxonomy
+    register_taxonomy('project-roles',array('projects'), array(
+      'hierarchical' => true,
+      'labels' => $labels,
+      'show_ui' => true,
+      'show_admin_column' => true,
+      'query_var' => true,
+      'rewrite' => array( 'slug' => 'project-roles' ),
+    ));
 
 }
 ?>
