@@ -3,6 +3,10 @@
     display: none;
   }
 
+  #intro-title {
+    font-size: 5rem;
+  }
+
   .related-posts {
     display: none;
   }
@@ -127,3 +131,9 @@
   }
 }
 
+
+.woocommerce-order {
+  h2 {
+    font-size: 2.5rem !important;
+  }
+}

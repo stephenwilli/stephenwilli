@@ -7406,6 +7406,9 @@ input[type=submit] {
 .single-product .post-meta {
   display: none;
 }
+.single-product #intro-title {
+  font-size: 5rem;
+}
 .single-product .related-posts {
   display: none;
 }
@@ -7507,6 +7510,10 @@ input[type=submit] {
   .woocommerce-cart .woocommerce-shipping-fields, .woocommerce-checkout .woocommerce-shipping-fields {
     margin-top: 3rem;
   }
+}
+
+.woocommerce-order h2 {
+  font-size: 2.5rem !important;
 }
 
 /*# sourceMappingURL=main.css.map*/
