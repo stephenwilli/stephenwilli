@@ -7,6 +7,12 @@
       ?>
       <a class="social-link" href="<?= $url;?>" target="_blank"><i class="icon icon-<?= $icon;?>"></i></a>
     <?php } ?>
+    <?php
+      $items = WC()->cart->get_cart_contents_count();
+      if($items != 0){
+    ?>
+      <a class="social-link cart-customlocation" href="<?php echo wc_get_cart_url(); ?>"><i class="icon icon-cart"></i></a>
+    <?php } ?>
   </div>
 <?php }?>
 </div>

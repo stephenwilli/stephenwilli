@@ -20,7 +20,7 @@
               <?php } }?> 
             </p>
           <?php  
-            get_template_part( 'partials/02_molecule/social-share' ); 
+            // get_template_part( 'partials/02_molecule/social-share' ); 
           ?>
         </div>
         <?php the_content();?>

@@ -1,8 +1,8 @@
 @font-face {
 	font-family: "tmbr-icons";
-	src: url("tmbr-icons.woff2?9ac7620de3460b43861336b268590006") format("woff2"),
-url("tmbr-icons.woff?9ac7620de3460b43861336b268590006") format("woff"),
-url("tmbr-icons.svg?9ac7620de3460b43861336b268590006#tmbr-icons") format("svg");
+	src: url("tmbr-icons.woff2?128680641e9f155e4cde33250cd4afb3") format("woff2"),
+url("tmbr-icons.woff?128680641e9f155e4cde33250cd4afb3") format("woff"),
+url("tmbr-icons.svg?128680641e9f155e4cde33250cd4afb3#tmbr-icons") format("svg");
 }
 
 .icon {
@@ -66,4 +66,7 @@ url("tmbr-icons.svg?9ac7620de3460b43861336b268590006#tmbr-icons") format("svg");
 }
 .icon-angle-down:before {
 	content: "\f111";
+}
+.icon-cart:before {
+	content: "\f112";
 }

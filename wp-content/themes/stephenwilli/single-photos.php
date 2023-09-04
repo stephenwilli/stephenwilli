@@ -24,7 +24,7 @@
           <p>Prints coming soon</p>
         <?php } ?>
         <?php  
-          get_template_part( 'partials/02_molecule/social-share' ); 
+          // get_template_part( 'partials/02_molecule/social-share' ); 
         ?>
         
         <?php if($kicker){?>

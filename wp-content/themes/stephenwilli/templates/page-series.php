@@ -37,7 +37,7 @@
             <h3><?= $seriesSubtitle;?></h3>
             <p><?= $seriesText;?></p>
             <?php  
-              get_template_part( 'partials/02_molecule/social-share' ); 
+              // get_template_part( 'partials/02_molecule/social-share' ); 
             ?>
           </div>
         </div>
