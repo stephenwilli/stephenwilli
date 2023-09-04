@@ -1,0 +1,6 @@
+.page-content {
+  padding: 4rem 6rem;
+  @include respond-to($screen-sm){
+    padding: 2rem 1rem;
+  }
+}

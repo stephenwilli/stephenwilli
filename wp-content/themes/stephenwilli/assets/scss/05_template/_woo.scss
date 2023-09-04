@@ -1,0 +1,129 @@
+.single-product {
+  .post-meta {
+    display: none;
+  }
+
+  .related-posts {
+    display: none;
+  }
+  .woocommerce-product-gallery {
+    display: none;
+  }
+
+  .summary {
+    width: 100% !important;
+    .price {
+      font-size: 1.5rem;
+      color: $black !important;
+      font-weight: bold;
+
+      .woocommerce-Price-amount {
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+    }
+
+    .stock in-stock {
+      color: $black !important;
+    }
+
+    .variations {
+      select {
+        border: 1px $black solid !important;
+        padding: .5em;
+      }
+    }
+    .quantity .qty {
+      padding: .4em;
+    }
+  }
+  // .product_meta {
+  //   display: none;
+  // }
+  
+  .woocommerce-tabs {
+    .wc-tabs {
+      display: none;
+    }
+    .additional_information_tab {
+      display: none !important;
+    }
+    
+    .woocommerce-Tabs-panel--description {
+      h2 {
+        display: none;
+      }
+    }
+  }
+}
+
+.woocommerce button.button.alt {
+  background-color: $black;
+  &:hover {
+    background-color: #888;
+  }
+  &.disabled {
+    background-color: #999;
+
+  }
+}
+
+.term-description {
+  padding: 6rem 6rem;
+  @include respond-to($screen-sm){
+    padding: 4rem 1rem;
+  }
+}
+
+
+.woocommerce {
+
+  &.columns-4 {
+    padding: 0 6rem;
+    @include respond-to($screen-sm){
+      padding: 0 1rem;
+    }
+  }
+}
+
+.woocommerce-cart, .woocommerce-checkout {
+  .woocommerce {
+    padding: 6rem 6rem;
+    @include respond-to($screen-sm){
+      padding: 4rem 1rem;
+    }
+
+    &.columns-4 {
+      padding: 6rem 6rem;
+      @include respond-to($screen-sm){
+        padding: 4rem 1rem;
+      }
+    }
+  }
+
+  .wc-proceed-to-checkout a.checkout-button {
+    background-color: $black;
+    &:hover {
+      background-color: #888;
+    }
+  }
+
+  .woocommerce-billing-fields__field-wrapper, 
+  .woocommerce-shipping-fields__field-wrapper {
+    input {
+      border: 1px #ccc solid;
+      padding: 0.5em;
+    }
+  }
+
+  #order_review_heading {
+    margin-top: 3rem;
+  }
+
+  .woocommerce-shipping-fields {
+    @include respond-to($screen-sm){
+      margin-top: 3rem;
+    }
+  }
+}
+
