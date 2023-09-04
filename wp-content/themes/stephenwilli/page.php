@@ -8,7 +8,6 @@
     $content = get_the_content();
     if($content){?>
         <?php the_content();?>
-    <div class="page-content"></div>
     <?php }?>
 
 
