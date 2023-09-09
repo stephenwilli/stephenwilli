@@ -58,6 +58,23 @@
         display: none;
       }
     }
+
+    .related products {
+      h2 {
+        font-size: 3rem;
+        margin-top: 3rem;
+      }
+    }
+  }
+
+  @include respond-to($screen-sm){
+    .post-content {
+      order: 2;
+    }
+
+    .post-image {
+      order: 1
+    }
   }
 }
 
@@ -83,9 +100,9 @@
 .woocommerce {
 
   &.columns-4 {
-    padding: 0 6rem;
+    padding: 4rem 6rem;
     @include respond-to($screen-sm){
-      padding: 0 1rem;
+      padding: 2rem 1rem;
     }
   }
 }

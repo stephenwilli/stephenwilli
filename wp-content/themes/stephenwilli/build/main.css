@@ -4073,8 +4073,8 @@
 
 @font-face {
 	font-family: "tmbr-icons";
-	src: url(../assets/fonts/tmbr-icons.woff2?c6e3934d457ebbacdacb5bfe40986569) format("woff2"),
-url(../assets/fonts/tmbr-icons.woff?836dcabcf29821e85a3a7c961f94e315) format("woff"),
+	src: url(../assets/fonts/tmbr-icons.woff2?066081ae1a707133a9378c06521bf2d3) format("woff2"),
+url(../assets/fonts/tmbr-icons.woff?e649871e306d25b46b9209c71802ac64) format("woff"),
 url(../assets/fonts/tmbr-icons.svg?84dae6dc8b443a7549e948b0a1c2f3ff#tmbr-icons) format("svg");
 }
 
@@ -7449,6 +7449,18 @@ input[type=submit] {
 .single-product .woocommerce-tabs .woocommerce-Tabs-panel--description h2 {
   display: none;
 }
+.single-product .woocommerce-tabs .related products h2 {
+  font-size: 3rem;
+  margin-top: 3rem;
+}
+@media all and (max-width: 991px) {
+  .single-product .post-content {
+    order: 2;
+  }
+  .single-product .post-image {
+    order: 1;
+  }
+}
 
 .woocommerce button.button.alt {
   background-color: #333;
@@ -7470,11 +7482,11 @@ input[type=submit] {
 }
 
 .woocommerce.columns-4 {
-  padding: 0 6rem;
+  padding: 4rem 6rem;
 }
 @media all and (max-width: 991px) {
   .woocommerce.columns-4 {
-    padding: 0 1rem;
+    padding: 2rem 1rem;
   }
 }
 
