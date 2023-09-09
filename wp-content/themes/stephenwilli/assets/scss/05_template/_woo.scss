@@ -100,9 +100,9 @@
 .woocommerce {
 
   &.columns-4 {
-    padding: 4rem 6rem;
+    padding: 0 6rem;
     @include respond-to($screen-sm){
-      padding: 2rem 1rem;
+      padding: 0 1rem;
     }
   }
 }
