@@ -7449,7 +7449,7 @@ input[type=submit] {
 .single-product .woocommerce-tabs .woocommerce-Tabs-panel--description h2 {
   display: none;
 }
-.single-product .woocommerce-tabs .related products h2 {
+.single-product .related h2 {
   font-size: 3rem;
   margin-top: 3rem;
 }
