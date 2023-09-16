@@ -4073,8 +4073,8 @@
 
 @font-face {
 	font-family: "tmbr-icons";
-	src: url(../assets/fonts/tmbr-icons.woff2?066081ae1a707133a9378c06521bf2d3) format("woff2"),
-url(../assets/fonts/tmbr-icons.woff?e649871e306d25b46b9209c71802ac64) format("woff"),
+	src: url(../assets/fonts/tmbr-icons.woff2?659326cd2179b2abd1b9cc3c611f14ce) format("woff2"),
+url(../assets/fonts/tmbr-icons.woff?c498b345666f7d8838115dfb4bfbc5f5) format("woff"),
 url(../assets/fonts/tmbr-icons.svg?84dae6dc8b443a7549e948b0a1c2f3ff#tmbr-icons) format("svg");
 }
 
@@ -7411,7 +7411,7 @@ input[type=submit] {
   display: none;
 }
 .single-product #intro-title {
-  font-size: 5rem;
+  font-size: 4rem;
 }
 .single-product .related-posts {
   display: none;
