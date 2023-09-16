@@ -7371,7 +7371,7 @@ input[type=submit] {
 }
 @media all and (max-width: 767px) {
   .single-photo .photo-wrap .photo-content .kicker {
-    font-size: 1rem;
+    display: none;
   }
 }
 

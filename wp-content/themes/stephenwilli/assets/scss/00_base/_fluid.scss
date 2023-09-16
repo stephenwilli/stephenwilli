@@ -1,0 +1,20 @@
+@function fluid($min-value, $max-value, $min-width: null, $max-width: null) {
+
+  @if $min-width == null { $min-width: map.get($space, 'min-width'); }
+  @if $max-width == null { $max-width: map.get($space, 'max-width'); }
+
+  $min-value: math.div($min-value, 16);
+  $max-value: math.div($max-value, 16);
+  $min-width: math.div($min-width, 16);
+  $max-width: math.div($max-width, 16);
+
+  $slope: math.div($max-value - $min-value, $max-width - $min-width);
+
+  $y: ($min-width * -1) * $slope + $min-value;
+  $y: math.div(round($y * 10000), 10000);
+
+  $vw: $slope * 100;
+  $vw: math.div(round($vw * 10000), 10000);
+
+  @return clamp(#{$min-value}rem, #{$y}rem + #{$vw}vw, #{$max-value}rem);
+}
