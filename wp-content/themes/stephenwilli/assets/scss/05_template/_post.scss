@@ -2,6 +2,10 @@
 	padding: 4rem 6rem;
 	display: flex;
 	flex-wrap: wrap;
+
+	a {
+		text-decoration: underline;
+	}
 	
 	.post-content {
 		width: 50%;

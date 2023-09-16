@@ -7088,6 +7088,9 @@ input[type=submit] {
   display: flex;
   flex-wrap: wrap;
 }
+.content-wrap a {
+  text-decoration: underline;
+}
 .content-wrap .post-content {
   width: 50%;
   padding: 2rem 6rem 0 2rem;
