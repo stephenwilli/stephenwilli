@@ -106,21 +106,21 @@
     }
   }
 }
+.woocommerce {
+  .woocommerce-cart-form, .woocommerce-checkout {
 
-.woocommerce-cart, .woocommerce-checkout {
-  .woocommerce {
-    padding: 6rem 6rem;
-    @include below('md'){
-      padding: 4rem 1rem;
-    }
-
-    &.columns-4 {
       padding: 6rem 6rem;
       @include below('md'){
         padding: 4rem 1rem;
       }
+
+      &.columns-4 {
+        padding: 6rem 6rem;
+        @include below('md'){
+          padding: 4rem 1rem;
+        }
+      }
     }
-  }
 
   .wc-proceed-to-checkout a.checkout-button {
     background-color: color('black') ;
