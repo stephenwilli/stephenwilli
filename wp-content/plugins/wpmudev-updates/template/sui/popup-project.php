@@ -6,7 +6,7 @@ if ( ! $pid ) {
 	return;
 }
 
-$res = WPMUDEV_Dashboard::$site->get_project_infos( $pid, true );
+$res = WPMUDEV_Dashboard::$site->get_project_info( $pid, true );
 
 // Skip invalid projects.
 if ( empty( $res->pid ) || empty( $res->name ) ) {
@@ -113,7 +113,6 @@ if ( ! $res->is_installed ) {
 			),
 		);
 	}
-
 } else {
 	/*
 	 * Plugin is installed.
@@ -122,7 +121,7 @@ if ( ! $res->is_installed ) {
 	$is_single_action = false;
 	$actions_icon     = 'sui-icon-widget-settings-config';
 
-	//update always prioritized
+	// update always prioritized.
 	if ( $res->has_update ) {
 		$main_action = array(
 			'name' => __( 'Update', 'wpmudev' ),
@@ -148,7 +147,7 @@ if ( ! $res->is_installed ) {
 			),
 		);
 
-		//activate/deactivate, configure, delete
+		// activate/deactivate, configure, delete.
 		if ( $res->is_active ) {
 			$actions['deactivate'] = array(
 				'name' => ( $res->is_network_admin ? __( 'Network Deactivate', 'wpmudev' ) : __( 'Deactivate', 'wpmudev' ) ),
@@ -402,8 +401,7 @@ foreach ( $res->tags as $tid => $plugin_tag ) {
 	$attr[ 'plugin-tag-' . $tid ] = 1;
 }
 ?>
-
-<p id="dialogDescription"><?php echo esc_html( $res->info ); ?></p>
+<p id="dialogDescription<?php echo esc_html( $pid ); ?>2"><?php echo esc_html( $res->info ); ?></p>
 
 <div class="sui-tabs sui-tabs-flushed"
 	style="margin-top: 0 !important; border-top: 1px solid #E6E6E6;">
@@ -638,5 +636,4 @@ foreach ( $res->tags as $tid => $plugin_tag ) {
 	</div>
 
 </div>
-
 

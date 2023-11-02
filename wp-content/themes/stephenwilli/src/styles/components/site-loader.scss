@@ -1,0 +1,84 @@
+#site-loader {
+	@include fill;
+	z-index: 1000;
+	background-color: white;
+	transition: .5s ease-in-out;
+	transition-delay: 3s;
+	cursor: url('../images/cursor-hourglass-02.svg') 25 15, auto;
+	
+	.loader-wrap {
+		@include center;
+		width: 100%;
+		text-align: center;
+		transition: .3s ease-in-out;
+		transition-delay: 3s;
+		padding: 0 2rem;
+		h1 {
+			font-family: var(--font-light-heading);
+			text-transform: uppercase;
+			font-weight: 400;
+		}
+	}
+	
+	.loader-heading {
+		margin-top: space(1);
+		font-size: 4rem;
+	}
+	
+	svg {
+		width: 300px;
+		opacity: 1;
+		transition: .5s ease-out;
+		transition-delay: 3s;
+		margin: 0 auto;
+		.ess {
+			stroke-dasharray: 450;
+			stroke-dashoffset: 450;
+			animation: draw 2.5s ease-in-out forwards;
+			animation-delay: 1s;
+		}
+		
+		.dubs {
+			stroke-dasharray: 450;
+			stroke-dashoffset: 450;
+			animation: draw 1.75s ease-in-out forwards;
+			animation-delay: 1s;
+		}
+		
+		.slash {
+			stroke-dasharray: 450;
+			stroke-dashoffset: 450;
+			animation: draw .5s linear forwards;
+			animation-delay: .5s;
+		}
+	}
+	
+	@keyframes draw {
+	  to {
+	    stroke-dashoffset: 0;
+	  }
+	}
+
+
+	&.-loaded {
+		width: 0;
+		z-index: -1;
+		.loader-wrap {
+			opacity: 0;
+		}
+		svg {
+			opacity: 0;
+		}
+	}
+	
+	@include below('sm') {
+		.loader-wrap {
+			transition: .2s ease-in-out;
+			transition-delay: 3s;
+			.loader-heading {
+				margin-top: 1rem;
+				font-size: 3rem;
+			}
+		}
+	}
+}

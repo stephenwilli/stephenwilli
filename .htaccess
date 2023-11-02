@@ -3,13 +3,14 @@ Options -Indexes
 # .htaccess snippets
 # https://github.com/h5bp/html5-boilerplate/blob/master/dist/.htaccess
 
-# attempt to load files from another site if not found locally
-# <IfModule mod_rewrite.c>
-# RewriteEngine on
-# RewriteCond %{REQUEST_FILENAME} !-d
-# RewriteCond %{REQUEST_FILENAME} !-f
-# RewriteRule wp-content/uploads/(.*) http://example.com/wp-content/uploads/$1 [NC,L]
-# </IfModule>
+# attempt to load uploads from remote site if not found locally
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule wp-content/uploads/(.*) https://stephenwilli.com/wp-content/uploads/$1 [NC,L]
+</IfModule>
+
 
 # BEGIN WordPress
 # The directives (lines) between "BEGIN WordPress" and "END WordPress" are

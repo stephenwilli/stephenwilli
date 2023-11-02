@@ -1,0 +1,9 @@
+@each $key, $value in $colors {
+  .c-#{$key}               { color: color($key) !important }
+  .hover\:c-#{$key}:hover  { color: color($key) !important }
+  .bg-#{$key}              { background-color: color($key) !important }
+  .hover\:bg-#{$key}:hover { background-color: color($key) !important }
+}
+
+.c-current              { color: currentColor !important }
+.hover\:c-current:hover { color: currentColor !important }

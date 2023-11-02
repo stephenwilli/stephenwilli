@@ -1,0 +1,47 @@
+.gallery-mosaic {
+	.mosaic-image {
+		margin-top: space(2);
+		display: block;
+		width: calc(33% - space(4));
+		margin: 0 space(2) space(4);
+		overflow: hidden;
+		cursor: url('../assets/images/cursor-plus.svg') 35 25, auto;
+		transition: all .6s ease-in-out;
+			
+		img {
+			width: 100%;
+			opacity: 1;
+			transition: all .6s ease-in-out;
+		}
+			
+		&:hover {
+			img {
+				transform: scale(1.03);
+				opacity: .9;
+			}
+		}
+		
+		&.intro-card {
+			padding: space(2);
+			min-height: 600px;
+			cursor: url('../assets/images/cursor-circle-02.svg') 25 15, auto !important;
+		}
+	}
+	
+	@include below('md') {
+		.mosaic-image {
+			width: calc(50% - space(6));
+		}
+	}
+	
+	@include below('sm') {
+		.mosaic-image {
+			width: 100%;
+			margin: space(2) 0;
+			&.intro-card {
+				min-height: auto;
+				padding: space(4) space(2);
+			}
+		}
+	}
+}

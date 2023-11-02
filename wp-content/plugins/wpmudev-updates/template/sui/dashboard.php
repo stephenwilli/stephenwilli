@@ -1,238 +1,108 @@
 <?php
-// Render the page header section.
-/** @var WPMUDEV_Dashboard_Sui $this */
-$page_title = __( 'Overview', 'wpmudev' );
-$this->render_sui_header( $page_title );
+/**
+ * Dashboard home template
+ *
+ * @var array                           $member
+ * @var WPMUDEV_Dashboard_Sui_Page_Urls $urls
+ * @var int|string                      $update_plugins
+ * @var string                          $type
+ * @var array                           $data
+ * @var array                           $licensed_projects
+ * @var array                           $membership_data
+ * @var object|bool                     $staff_login
+ * @var bool                            $analytics_enabled
+ * @var bool                            $analytics_allowed
+ * @var bool                            $whitelabel_allowed
+ * @var array                           $whitelabel_settings
+ * @var int                             $total_visits
+ * @var bool                            $tickets_hidden
+ * @var array                           $free_plugins
+ *
+ * @package WPMUDEV DASHBOARD 4.9.0
+ */
 
-/** @var WPMUDEV_Dashboard_Sui_Page_Urls $urls */
+$this->render_sui_header(
+	__( 'Dashboard', 'wpmudev' ),
+	'dashboard'
+);
 
-// Find the 5 most popular plugins, that are not installed yet.
-$popular = array();
-$count   = 0;
-foreach ( $data['projects'] as $item ) {
-	// Skip themes.
-	if ( 'plugin' != $item['type'] ) {
-		continue;
-	}
+$queue = WPMUDEV_Dashboard::$settings->get( 'notifications' );
 
-	$plugin = WPMUDEV_Dashboard::$site->get_project_infos( $item['id'] );
+// Is current membership type expired or paused?.
+$expired_type = in_array( $type, array( 'expired', 'paused' ), true );
 
-	// Skip plugin if it's already installed.
-	if ( $plugin->is_installed ) {
-		continue;
-	}
-
-	// Skip plugins that are not compatible with current site.
-	if ( ! $plugin->is_compatible ) {
-		continue;
-	}
-
-	// Skip hidden/deprecated projects.
-	if ( $plugin->is_hidden ) {
-		continue;
-	}
-
-	$popular[] = $item;
-	$count ++;
-
-	if ( $count >= 5 ) {
-		break;
-	}
+// If already dismissed don't show.
+if ( 'expired' === $type || 'single' === $type ) {
+	$this->render_upgrade_header( $type, $licensed_projects );
 }
 
+// @var WPMUDEV_Dashboard_Sui_Page_Urls $urls.
+// Support & update stats.
+$support_thread_url = $urls->support_url;
+
+$support_threads = count( $member['forum']['support_threads'] );
+$support_threads = $support_threads > 0 ? sprintf( '<span class="sui-tag sui-tag-sm sui-tag-branded"><a href="%s" style="color:#fff">%s</a></span>', esc_url( $support_thread_url ), absint( $support_threads ) ) : absint( $support_threads );
+
+$update_plugins_html  = $update_plugins > 0 ? sprintf( '<span class="sui-tag sui-tag-sm sui-tag-warning"><a href="%s" style="color:#333">%s</a></span>', esc_url( $urls->plugins_url ), $update_plugins ) : $update_plugins;
+$total_active_plugins = isset( $active_projects['all'] ) ? absint( $active_projects['all'] ) : 0;
+
+$is_wpmudev_host       = WPMUDEV_Dashboard::$api->is_wpmu_dev_hosting();
+$is_standalone_hosting = WPMUDEV_Dashboard::$api->is_standalone_hosting_plan();
+$is_hosted_third_party = WPMUDEV_Dashboard::$api->is_hosted_third_party();
+$has_hosted_access     = $is_wpmudev_host && ! $is_standalone_hosting && 'free' === $type;
+
 ?>
-
-<div class="sui-row">
-
-	<?php // BOX: Tools ?>
-	<div class="sui-col-md-6">
-
-		<div class="sui-box">
-
-			<div class="sui-box-header">
-				<h3 class="sui-box-title"><?php esc_html_e( 'Tools', 'wpmudev' ); ?></h3>
-				<div class="sui-actions-right">
-					<a class="sui-button sui-button-ghost" href="<?php echo esc_url( $urls->hub_url ); ?>" target="_blank">
-						<i class="sui-icon-hub" aria-hidden="true"></i>
-						<?php esc_html_e( 'THE HUB', 'wpmudev' ); ?>
-					</a>
-				</div>
+<?php if ( ( 'free' !== $type && ! $is_hosted_third_party ) || $has_hosted_access ) : ?>
+	<div class="sui-box sui-summary sui-summary-sm">
+		<div class="sui-summary-image-space" aria-hidden="true"></div>
+		<div class="sui-summary-segment">
+			<div class="sui-summary-details">
+				<span class="sui-summary-large"><?php echo absint( $total_active_plugins ); ?></span>
+				<span class="sui-summary-sub">
+					<?php echo esc_html( _n( 'Active Pro plugin', 'Active Pro plugins', $total_active_plugins, 'wpmudev' ) ); ?>
+				</span>
 			</div>
-
-			<div class="sui-box-body">
-				<p><?php esc_html_e( 'We don’t just build plugins… take advantage of our great services included with your membership.', 'wpmudev' ); ?></p>
-			</div>
-
-			<table class="sui-table sui-table-flushed dashui-table-tools">
-
-				<tbody>
-
-					<tr>
-						<td class="dashui-item-content">
-							<h4><?php esc_html_e( 'The Hub', 'wpmudev' ); ?></h4>
-							<span class="sui-description"><?php esc_html_e( 'Manage all your websites updates &amp; more in one place.', 'wpmudev' ); ?></span>
-						</td>
-						<td>
-							<a class="sui-button-icon sui-tooltip sui-tooltip-top-right-mobile" href="<?php echo esc_url( $urls->hub_url ); ?>" target="_blank" data-tooltip="<?php esc_html_e( 'Go to The Hub', 'wpmudev' ); ?>">
-								<i class="sui-icon-arrow-right" aria-hidden="true"></i>
-							</a>
-						</td>
-					</tr>
-
-					<tr>
-						<td class="dashui-item-content">
-							<h4><?php esc_html_e( 'Support', 'wpmudev' ); ?></h4>
-							<span class="sui-description"><?php esc_html_e( 'Get 24/7 expert WordPress support for any issue.', 'wpmudev' ); ?></span>
-						</td>
-						<td>
-							<a class="sui-button-icon sui-tooltip sui-tooltip-top-right-mobile" href="<?php echo esc_url( $urls->external_support_url ); ?>" target="_blank"
-							   data-tooltip="<?php esc_html_e( 'Get Support', 'wpmudev' ); ?>">
-								<i class="sui-icon-arrow-right" aria-hidden="true"></i>
-							</a>
-						</td>
-					</tr>
-
-					<tr>
-						<td class="dashui-item-content">
-							<h4><?php esc_html_e( 'Community', 'wpmudev' ); ?></h4>
-							<span class="sui-description"><?php esc_html_e( 'Discuss your favorite topics with other developers.', 'wpmudev' ); ?></span>
-						</td>
-						<td>
-							<a class="sui-button-icon sui-tooltip sui-tooltip-top-right-mobile" href="<?php echo esc_url( $urls->community_url ); ?>" target="_blank"
-							   data-tooltip="<?php esc_html_e( 'View Forums', 'wpmudev' ); ?>">
-								<i class="sui-icon-arrow-right" aria-hidden="true"></i>
-							</a>
-						</td>
-					</tr>
-
-					<tr>
-						<td class="dashui-item-content">
-							<h4><?php esc_html_e( 'Learn', 'wpmudev' ); ?></h4>
-							<span class="sui-description"><?php esc_html_e( 'Become an expert by taking an Academy course.', 'wpmudev' ); ?></span>
-						</td>
-						<td>
-							<a class="sui-button-icon sui-tooltip sui-tooltip-top-right-mobile" href="<?php echo esc_url( $urls->academy_url ); ?>" target="_blank"
-							   data-tooltip="<?php esc_html_e( 'Go to The Academy', 'wpmudev' ); ?>">
-								<i class="sui-icon-arrow-right" aria-hidden="true"></i>
-							</a>
-						</td>
-					</tr>
-
-				</tbody>
-
-			</table>
-
 		</div>
-
-	</div>
-
-	<?php // BOX: Plugins ?>
-	<div class="sui-col-md-6">
-
-		<?php
-		// Single membership
-		if ( $my_project ) : ?>
-
-			<div class="sui-box">
-
-				<div class="sui-box-header">
-					<h3 class="sui-box-title"><?php esc_html_e( 'Purchased', 'wpmudev' ); ?></h3>
-					<div class="sui-actions-right">
-						<a class="sui-button sui-button-ghost" href="<?php echo esc_url( $urls->hub_account_url ); ?>" target="_blank">
-							<i class="sui-icon-unlock" aria-hidden="true"></i>
-							<?php esc_html_e( 'UPGRADE MEMBERSHIP', 'wpmudev' ); ?>
-						</a>
-					</div>
-				</div>
-
-				<div class="sui-box-body">
-
-					<?php
-					$url = $urls->plugins_url;
-					$url .= '#pid=' . $my_project->pid;
-					?>
-
-					<table class="sui-table sui-table-flushed">
-						<tbody>
-							<tr>
-								<td style="width: 90%">
-									<h4><?php echo esc_html( $my_project->name ); ?></h4>
-									<p class="sui-description"><?php echo esc_html( $my_project->info ); ?></p>
-								</td>
-								<td>
-									<a class="sui-button-icon sui-tooltip" href="<?php echo esc_url( $url ); ?>"
-									data-tooltip="<?php esc_html_e( 'View plugin info', 'wpmudev' ); ?>">
-										<i class="sui-icon-arrow-right" aria-hidden="true"></i>
-									</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-
-				</div>
-
-			</div>
-
-		<?php endif; ?>
-
-		<div class="sui-box">
-
-			<div class="sui-box-header">
-				<h3 class="sui-box-title"><?php esc_html_e( 'Plugins', 'wpmudev' ); ?></h3>
-				<div class="sui-actions-right">
-					<a class="sui-button sui-button-ghost" href="<?php echo esc_url( $urls->plugins_url ); ?>">
-						<i class="sui-icon-plugin-2" aria-hidden="true"></i>
-						<?php esc_html_e( 'VIEW ALL', 'wpmudev' ); ?>
-					</a>
-				</div>
-			</div>
-
-			<div class="sui-box-body">
-				<p><?php esc_html_e( 'Your WPMU DEV membership gives you access to 100+ premium plugins. Here’s our most popular!', 'wpmudev' ); ?></p>
-			</div>
-
-			<table class="sui-table sui-table-flushed dashui-table-tools">
-
-				<tbody>
-
-					<?php
-					foreach ( $popular as $item ) :
-
-						$url = $urls->plugins_url;
-						$url .= '#pid=' . $item['id']; ?>
-
-						<tr>
-							<td class="dashui-item-image">
-								<img src="<?php echo esc_url( $item['thumbnail_square'] ); ?>" class="sui-image plugin-image" />
-							</td>
-
-							<td class="dashui-item-content">
-								<h4><?php echo esc_html( $item['name'] ); ?></h4>
-								<span class="sui-description"><?php echo esc_html( $item['short_description'] ); ?></span>
-							</td>
-
-							<td><a href="<?php echo esc_url( $url ); ?>"
-								class="sui-button-icon sui-tooltip sui-tooltip-top-left-mobile"
-								data-tooltip="<?php esc_html_e( 'View plugin info', 'wpmudev' ); ?>"
-							>
-								<i class="sui-icon-arrow-right" aria-hidden="true"></i>
-							</a></td>
-
-						</tr>
-
-					<?php endforeach; ?>
-
-				</tbody>
-
-			</table>
-
+		<div class="sui-summary-segment">
+			<ul class="sui-list">
+				<li>
+					<span class="sui-list-label"><?php esc_html_e( 'Plugin Updates Available', 'wpmudev' ); ?> </span>
+					<span class="sui-list-detail"><?php echo $update_plugins_html; //phpcs:ignore ?></span>
+				</li>
+				<li>
+					<span class="sui-list-label"><?php esc_html_e( 'Active Support Tickets', 'wpmudev' ); ?></span>
+					<span class="sui-list-detail">
+					<?php echo $support_threads; //phpcs:ignore  ?>
+				</span>
+				</li>
+			</ul>
 		</div>
-
-
-	</div>
-</div>
-
-<?php $this->load_sui_template( 'footer', array(), true ); ?>
-<?php if ( 'free' === $type ) : ?>
-	<?php $this->render_upgrade_box( 'free' ); ?>
+	</div><!-- End Overview -->
 <?php endif; ?>
+
+	<div class="sui-row dashui-table-widgets">
+		<div class="sui-col-md-6">
+			<?php $this->render( 'sui/dashboard-templates/plugins', compact( 'data', 'urls', 'update_plugins', 'free_plugins', 'membership_data', 'type', 'has_hosted_access', 'is_hosted_third_party' ) ); // BOX: Installed Plugins. ?>
+			<?php $this->render( 'sui/dashboard-templates/services', compact( 'urls', 'expired_type', 'membership_data' ) ); // BOX: Services. ?>
+			<?php if ( ( 'free' !== $type && ! $is_hosted_third_party ) || $has_hosted_access ) : ?>
+				<?php $this->render( 'sui/dashboard-templates/support', compact( 'urls', 'member', 'staff_login', 'membership_data', 'tickets_hidden', 'has_hosted_access', 'is_hosted_third_party' ) ); // BOX: Support. ?>
+			<?php endif; ?>
+		</div>
+
+		<div class="sui-col-md-6">
+			<?php if ( 'expired' === $type ) : ?>
+				<?php $this->render( 'sui/dashboard-templates/switch-to-free', compact( 'urls' ) ); // BOX: Analytics. ?>
+			<?php endif; ?>
+			<?php if ( $expired_type ) : ?>
+				<?php $this->render( 'sui/dashboard-templates/expired-membership-info', compact( 'urls', 'whitelabel_settings', 'analytics_enabled', 'total_visits', 'membership_data', 'type' ) ); // BOX: Expired Membership Info. ?>
+			<?php endif; ?>
+			<?php $this->render( 'sui/dashboard-templates/analytics', compact( 'urls', 'analytics_enabled', 'analytics_allowed', 'membership_data' ) ); // BOX: Analytics. ?>
+			<?php if ( 'free' !== $type && ! $is_hosted_third_party ) : ?>
+				<?php $this->render( 'sui/dashboard-templates/whitelabel', compact( 'urls', 'whitelabel_settings', 'whitelabel_allowed', 'membership_data' ) ); // BOX: Whitelabel. ?>
+			<?php endif; ?>
+			<?php $this->render( 'sui/dashboard-templates/resources', compact( 'urls', 'type', 'membership_data', 'has_hosted_access', 'is_hosted_third_party' ) ); // BOX: Resources. ?>
+		</div>
+	</div>
+<?php
+$this->render( 'sui/element-last-refresh', array(), true );
+$this->render( 'sui/footer', array(), true );

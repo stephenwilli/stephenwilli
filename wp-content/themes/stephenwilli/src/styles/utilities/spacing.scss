@@ -1,0 +1,47 @@
+@for $i from 0 through map.get($space, 'steps') {
+
+  $value: 0;
+  @if ($i != 0) { $value: space($i); }
+
+  // margin
+  .m-#{$i}  { margin: $value !important }
+  .mt-#{$i} { margin-top: $value !important }
+  .mr-#{$i} { margin-right: $value !important }
+  .mb-#{$i} { margin-bottom: $value !important }
+  .ml-#{$i} { margin-left: $value !important }
+  .mx-#{$i} { margin-left: $value !important; margin-right: $value !important; }
+  .my-#{$i} { margin-top: $value !important; margin-bottom: $value !important; }
+
+  // padding
+  .p-#{$i}  { padding: $value !important }
+  .pt-#{$i} { padding-top: $value !important }
+  .pr-#{$i} { padding-right: $value !important }
+  .pb-#{$i} { padding-bottom: $value !important }
+  .pl-#{$i} { padding-left: $value !important }
+  .px-#{$i} { padding-left: $value !important; padding-right: $value !important; }
+  .py-#{$i} { padding-top: $value !important; padding-bottom: $value !important; }
+}
+
+.mt-auto { margin-top: auto !important }
+.mr-auto { margin-right: auto !important }
+.mb-auto { margin-bottom: auto !important }
+.ml-auto { margin-left: auto !important }
+.mx-auto { @extend .ml-auto, .mr-auto; }
+.my-auto { @extend .mt-auto, .mb-auto; }
+.m-auto  { @extend .mx-auto, .my-auto; }
+
+.pad-t { padding-top: var(--container-space); }
+.pad-r { padding-right: var(--container-space); }
+.pad-b { padding-bottom: var(--container-space); }
+.pad-l { padding-left: var(--container-space); }
+.pad-x { @extend .pad-l, .pad-r; }
+.pad-y { @extend .pad-t, .pad-b; }
+.pad   { @extend .pad-x, .pad-y; }
+
+.gap-t { margin-top: var(--container-space); }
+.gap-r { margin-right: var(--container-space); }
+.gap-b { margin-bottom: var(--container-space); }
+.gap-l { margin-left: var(--container-space); }
+.gap-x { @extend .gap-l, .gap-r; }
+.gap-y { @extend .gap-t, .gap-b; }
+.gap   { @extend .gap-x, .gap-y; }

@@ -1,0 +1,50 @@
+@function fluid($min-value, $max-value, $min-width: null, $max-width: null) {
+
+  @if $min-width == null { $min-width: map.get($space, 'min-width'); }
+  @if $max-width == null { $max-width: map.get($space, 'max-width'); }
+
+  $min-value: math.div($min-value, 16);
+  $max-value: math.div($max-value, 16);
+  $min-width: math.div($min-width, 16);
+  $max-width: math.div($max-width, 16);
+
+  $slope: math.div($max-value - $min-value, $max-width - $min-width);
+
+  $y: ($min-width * -1) * $slope + $min-value;
+  $y: math.div(round($y * 10000), 10000);
+
+  $vw: $slope * 100;
+  $vw: math.div(round($vw * 10000), 10000);
+
+  @return clamp(#{$min-value}rem, #{$y}rem + #{$vw}vw, #{$max-value}rem);
+}
+
+@function color($key, $opacity: null) {
+  @if not map.has-key($colors, $key) { @error '"#{$key}" not found in $colors'; }
+  @if type-of($opacity) == 'number'  { @return rgb(var(--c-#{$key}-rgb) / $opacity); }
+  @if type-of($opacity) == 'bool'    { @return map.get($colors, $key); }
+  @return var(--c-#{$key});
+}
+
+@function space($step) {
+  @if $step > map.get($space, 'steps') { @error '"#{$step}" exceeds steps in $space'; }
+  @return var(--s-#{$step});
+}
+
+@function ease($type) {
+  @return var(--ease-#{$type});
+}
+
+@function rem($px) {
+  @return #{math.div($px, 16)}rem;
+}
+
+@function z($key, $shift: 0) {
+  @if not map.has-key($z-index, $key) { @error '"#{$key}" not found in $z-index'; }
+  @return map.get($z-index, $key) + $shift;
+}
+
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) { $number: math.div($number, ($number * 0 + 1)) }
+  @return $number;
+}

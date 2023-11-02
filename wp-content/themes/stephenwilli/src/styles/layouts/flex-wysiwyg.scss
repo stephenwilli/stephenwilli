@@ -1,0 +1,41 @@
+.flex-wysiwyg {
+  margin: 4rem 0;
+  padding: 0 6rem;
+  max-width: 1000px;
+  
+  ol, ul {
+    list-style: inherit;
+    padding-left: 2rem;
+    line-height: 2;
+  }
+  
+  a {
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  
+  @include below('sm') {
+    padding: 4rem;
+  }
+  
+  @include below('sm') {
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+}
+
+.flex-text {
+  ol, ul {
+    list-style: inherit;
+    padding-left: 2rem;
+    line-height: 2;
+  }
+  a {
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

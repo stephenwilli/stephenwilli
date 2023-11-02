@@ -1,0 +1,107 @@
+.single-photo {
+	padding: 8rem 0;
+	position: relative;
+	
+	.photo-wrap {
+		display: flex;
+		.photo-content {
+			width: 40%;
+			padding: 3rem 6rem 0 6rem;
+			position: relative;
+			h1 {
+				font-size: 4rem;
+			}
+
+			a {
+				text-decoration: underline;
+				&:hover {
+					text-decoration: none;
+				}
+			}
+			.kicker {
+        position: absolute;
+        right: -4rem;
+        top: 24rem;
+				font-size: 1.2rem;
+			}
+		}
+		.photo-full {
+			position: relative;
+			width: 60%;
+			img {
+				width: 100%;
+			}
+			.reveal {
+        @include fill;
+				background-color: white;;
+				
+				&.animate {
+					height: 0;
+				}
+			}
+		}
+		
+		&.-vertical {
+			.photo-content {
+				width: 50%;
+				.post-navigation {
+					bottom: 24rem;
+				}
+			}
+			.photo-full {
+				width: 50%;
+			}
+		}
+	}
+	
+	
+	
+	@include below('md'){
+		padding: 8rem 0 2rem;
+		.photo-wrap {
+			flex-direction: column-reverse;
+			.photo-content {
+				width: 100%;
+				padding: 3rem 2rem 0 2rem;
+				h1 {
+					font-size: 3rem;
+				}
+				.kicker {
+          right: .5rem;
+          top: .5rem;
+					transform: none;
+				}
+			}
+			.photo-full {
+				width: 100%;
+				img {
+					max-height: initial;
+					width: 100%;
+				}
+			}
+			
+			&.-vertical {
+				.photo-content {
+					width: 100%;
+					.post-navigation {
+						bottom: 2rem;
+					}
+				}
+				.photo-full {
+					padding-left: 0;
+					width: 100%;
+				}
+			}
+		}
+	}
+	
+	@include below('sm'){
+		.photo-wrap {
+			.photo-content {
+				.kicker {
+					display: none;
+				}
+			}
+		}
+	}
+}

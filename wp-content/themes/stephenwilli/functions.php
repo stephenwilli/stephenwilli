@@ -2,29 +2,32 @@
 
 defined('ABSPATH') or die;
 
-// ENQUEUE ASSETS
-require 'inc/enqueue-assets.php';
+require 'functions/autoload.php';
+require 'functions/config.php';
+require 'functions/api.php';
+require 'functions/actions.php';
+require 'functions/filters.php';
+require 'functions/helpers.php';
+require 'functions/images.php';
+require 'functions/videos.php';
+require 'functions/search.php';
+require 'functions/taxonomies.php';
+require 'functions/post-types.php';
 
-// WORDPRESS CUSTOMIZATION
-require 'inc/wordpress-admin.php';
-require 'inc/tmbr-theme-setup.php';
-require 'inc/image-sizes.php';
-require 'inc/site-config.php';
+require 'functions/admin/actions.php';
+require 'functions/admin/filters.php';
+require 'functions/admin/updates.php';
+require 'functions/admin/editor.php';
+require 'functions/admin/media.php';
+require 'functions/admin/login.php';
 
-// CMS SETUP
-require 'inc/register-menus.php';
-require 'inc/register-post-type.php';
-require 'inc/register-sidebars.php';
-require 'inc/register-taxonomy.php';
-require 'inc/register-option-pages.php';
+require 'functions/acf/actions.php';
+require 'functions/acf/filters.php';
+require 'functions/acf/options.php';
 
-// HELPER FUNCTIONS
-require 'inc/helper-functions.php';
-require 'inc/tmbr-load-template.php';
-require 'inc/wp_bootstrap_pagination.php';
+require 'functions/plugins/gform.php';
+require 'functions/plugins/yoast.php';
 
-// VENDOR
-require 'inc/gravity-form-filters.php';
-
-
-
+require 'functions/shortcodes/accordion.php';
+require 'functions/shortcodes/comment.php';
+require 'functions/shortcodes/example.php';

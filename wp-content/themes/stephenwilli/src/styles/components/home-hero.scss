@@ -1,0 +1,72 @@
+.home-hero {
+	.kicker {
+		color: white;
+		font-family: var(--font-light-heading);
+		text-transform: uppercase;
+		@include center-y;
+		right: -10rem;
+		font-weight: bold;
+		pointer-events: none;
+		transform: translateY(-50%) rotate(-90deg);
+
+		@include below('sm'){
+			display: none;
+		}
+	}
+}
+
+.hero-caption {
+  position: absolute;
+  left: space(6);
+  bottom: space(6);
+	h1 {
+		color: white;
+		margin-bottom: 0;
+	}
+	h3 {
+		color: white;
+		float: left;
+	}
+	.button {
+		position: relative;
+		margin-left: 180px;
+		&:after {
+			@include center-y;
+			left: -150px;
+			width: 0;
+			height: 2px;
+			content: "";
+			background-color: white;
+			transition: all .25s;
+		}
+	}
+	
+	&:hover {
+		.button {
+			color: color('black');
+			transition-delay: .25s;
+			&:after {
+				width: 150px;
+			}
+			&:before {
+				width: 100%;
+				transition-delay: .25s;
+			}
+		}
+	}
+  
+	
+	@include below('sm'){
+		width: 100%;
+		.button {
+			margin-left: 50px;
+			color: color('black');
+			&:after {
+				display: none;
+			}
+			&:before {
+				width: 100%;
+			}
+		}
+	}
+}

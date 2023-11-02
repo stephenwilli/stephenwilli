@@ -1,0 +1,6 @@
+{
+  "name": "stephenwilli",
+  "short_name": "stephenwilli",
+  "theme_color": "#FFFFFF",
+  "icons": [{"src": "/wp-content/themes/twig/assets/images/favicon.png", "sizes": "512x512"}]
+}

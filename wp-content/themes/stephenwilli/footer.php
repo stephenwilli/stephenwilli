@@ -1,30 +1,27 @@
-<footer class="footer">
-  <?php	edit_post_link( __( 'Edit', '_s' ), '<span class="post-edit-link">', '</span>' ); ?>
-  <?php 
-  if(have_rows('footer_links', 'option')){ ?> 
-    <div class="footer-links">
-      <?php while(have_rows('footer_links', 'option')){ the_row();
-        $link = get_sub_field('footer_link');
-        ?>
-          <a class="footer-link" href="<?= $link['url'];?>"><?= $link['title'];?></a>
-      <?php } ?>
-    </div>
-  <?php } ?>
-  <div class="copyright">
-    <p><?php echo sprintf( __( '%1$s %2$s %3$s.'), '&copy;', date('Y'), esc_html(get_bloginfo('name')) );  ?></p>
-  </div>
-</footer>
-<?php wp_footer(); ?>
+</main>
 
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-<script async defer src="//assets.pinterest.com/js/pinit.js"></script>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<?php render('site-footer') ?>
+
+</div>
+
+<?php wp_footer() ?>
+
+<script nomodule>
+var div = document.createElement('div');
+div.style.cssText = 'position:fixed;z-index:10000;left:0;bottom:0;width:100%;font-size:1rem;padding:2em;background:#FFF;color:#000;text-align:center;';
+div.textContent = 'You are using an outdated and unsupported browser';
+document.body.classList.add('unsupported');
+document.body.appendChild(div);
+</script>
+
+<script type="module">
+window.site = {<?php if (WP_DEBUG) echo 'debug: true' ?>};
+site.api = '<?= trim_url(get_rest_url(null, 'api')) ?>';
+site.dir = '<?= trim_url(get_bloginfo('template_url')) ?>';
+site.url = '<?= get_site_url() ?>';
+</script>
+
+<script type="module" src="<?= build_url('main.js') ?>"></script>
 
 </body>
-</html> 
+</html>

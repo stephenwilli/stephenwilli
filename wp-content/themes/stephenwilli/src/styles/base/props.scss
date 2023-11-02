@@ -1,0 +1,66 @@
+:where(html) {
+
+  --font-size: #{rem(16)};
+  --font-size-sm: 1rem;
+  --font-size-xs: 0.875rem;
+  --font-size-lg: 1.2rem;
+
+  --font-size-h1: #{fluid(64, 120)};
+  --font-size-h2: #{fluid(48, 84)};
+  --font-size-h3: #{fluid(28, 36)};
+  --font-size-h4: #{fluid(24, 28)};
+  --font-size-h5: #{fluid(22, 24)};
+  --font-size-h6: #{fluid(18, 20)};
+
+  --font-body: 'futura-pt', sans-serif;
+  --font-heading: 'ivypresto-display', serif;
+  --font-light-heading: 'Elegant-Lux', sans-serif;
+
+  --container-width: 1680px;
+  --container-space: #{fluid(20, 80)};
+
+  --gutters: calc(100vw - min(var(--container-width), 100vw - var(--container-space) * 2));
+  --gutter:  calc(var(--gutters) / 2);
+
+  --grid-cols: 3;
+  --grid-size: 300px;
+  --grid-repeat: auto-fill;
+  --grid-gap: #{fluid(20, 30)};
+  --grid-row-gap: unset;
+  --grid-col-gap: unset;
+
+  // define --c-{name} and --c-{name}-rgb properties for all keys in $colors
+  @each $name, $hex in $colors {
+    --c-#{$name}: #{$hex};
+    --c-#{$name}-rgb: #{red($hex) + ' ' + green($hex) + ' ' + blue($hex)};
+  }
+
+  --fluid-min-width: #{map.get($space, 'min-width')};
+  --fluid-max-width: #{map.get($space, 'max-width')};
+
+  --fluid-screen: clamp(
+    calc(var(--fluid-min-width) / 16 * 1rem),
+    calc(var(--fluid-max-width) / 16 * 1rem),
+    100vw
+  );
+
+  --fluid: calc(
+    (var(--fluid-screen) - var(--fluid-min-width) / 16 * 1rem) / ((var(--fluid-max-width) - var(--fluid-min-width)) / 16)
+  );
+
+  // define --s-{n} properties for all steps in $space
+  @for $i from 1 through map.get($space, 'steps') {
+
+    @if $i == 1 {
+      --s-1-min: #{map.get($space, 'min-base')};
+      --s-1-max: #{map.get($space, 'max-base')};
+    } @else {
+      --s-#{$i}-min: var(--s-#{$i - 1}-min) * #{map.get($space, 'min-ratio')};
+      --s-#{$i}-max: var(--s-#{$i - 1}-max) * #{map.get($space, 'max-ratio')};
+    }
+
+    --s-#{$i}: calc(
+      (var(--s-#{$i}-min) / 16 * 1rem) + ((var(--s-#{$i}-max) - var(--s-#{$i}-min)) / 16) * var(--fluid)
+    );
+  }
+}

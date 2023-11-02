@@ -1,0 +1,50 @@
+.nav {
+  display: flex;
+  align-items: center;
+  outline: #F00 1px dashed;
+
+  &-menu {
+    display: flex;
+    gap: 1rem;
+  }
+  &-item {
+    position: relative;
+  }
+  &-item > :where(a, button) {
+    display: flex;
+    align-items: center;
+    padding: 0.5em 1em;
+    color: currentColor;
+    background-color: #EEE;
+    text-decoration: none;
+  }
+  &-item > :where(a, button):hover {
+    background-color: #FFF;
+  }
+
+  &-item.has-submenu > :where(a, button):after {
+    content: '\25be';
+    margin-left: rem(10);
+  }
+  &-item.has-submenu > [aria-expanded="true"] + &-submenu {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &-submenu {
+    display: grid;
+    gap: 0.25em;
+    position: absolute;
+    top: calc(100% + 1.5rem);
+    left: 50%;
+    min-width: 150px;
+    padding: 1em;
+    background-color: #EEE;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.25s;
+    transition-property: visibility, opacity;
+  }
+}

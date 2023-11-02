@@ -1,0 +1,391 @@
+.navbar-brand {
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+	z-index: 121;
+	width: 70px;
+	height: 70px;
+	display: inline-block;
+	opacity: 1;
+	transition: all .2s;
+
+	&:hover {
+		opacity: .6;
+	}
+	
+	.icon {
+		color: color('black');
+		--icon-scale: 4;
+	}
+	
+	&.scrolled {
+		position: fixed;
+		top: space(2);
+		left: space(2);
+		.icon {
+			font-size: 2.5rem;
+		}
+	}	
+	@include below('sm'){
+		top: 2rem;
+		left: 2rem;
+	}
+}
+
+.site-header {
+	&.scrolled {
+		
+		.navbar-brand {
+			position: fixed;
+			top: 1rem;
+			left: 1rem;
+			.icon {
+				font-size: 2rem;
+			}	
+		}
+		
+		.hamburger-wrap {
+			height: 4rem;
+			width: 100%;
+			display: inline-block;
+			position: fixed;
+			z-index: 120;
+			background-color: white;
+			transition: none;
+		}
+		
+		.navbar-hamburger {
+			position: fixed;
+			top: 1.5rem;
+			right: 2rem;
+			@include below('xs'){
+				right: 1rem;
+			}
+		}
+	}
+}
+	
+		
+.navbar-menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+	width: 0;
+	height: 100%;
+	background: rgba(255, 255, 255, .9);
+	z-index: 110;
+	transition: all .5s ease-in-out;
+	cursor: url('../assets/images/cursor-circle-02.svg') 25 15, auto;
+	a {
+		cursor: url('../assets/images/cursor-arrow-02.svg') 25 15, auto;
+	}
+	
+	.parent-menu {
+		opacity: 0;
+		transition: all .5s;
+		transition-delay: .5s;
+		@include center-y;
+		left: 4rem;
+		
+		> .menu-item {
+			position: relative;
+			
+			a {
+				font-family: var(--font-heading);
+				font-weight: bold;
+				font-size: var(--font-size-h1);
+				color: color('black');
+				display: block;
+				position: relative;
+				z-index: 10;
+				line-height: 1.5;
+			}
+			
+			&:after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+				content: '';
+				background-color: color('black');
+				height: 100%;
+				width: 0;
+				transition: all .5s;
+			}
+			
+			&.menu-item-has-children {
+				.sub-menu {
+					width: 600px;
+					visibility: hidden;	
+					opacity: 0;
+					padding: 0 2rem;
+          position: absolute;
+          top: 0;
+          left: 100%;
+					transition: all .5s;
+					transition-delay: 100ms;
+										
+					> .menu-item {
+						a {
+							color: color('black');
+							position: relative;
+							font-size: var(--font-size-h3);
+							font-weight: 400;
+							text-transform: uppercase;
+							line-height: 1;
+							margin-bottom: 2rem;
+							font-family: var(--font-light-heading);
+							z-index: 10;
+							padding: 1rem 0 1rem 1rem;
+							&:after {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+								content: '';
+								background-color: color('black');
+								height: 100%;
+								width: 0;
+								transition: all .5s;
+								z-index: -1;
+							}
+							&:hover {
+								color: white;
+								&:after {
+									width: 100%;
+								}
+							}
+						}
+					}
+				}
+				
+				> a {
+					&:before {
+						content: '';
+						@include center-y;
+						right: space(2);
+						background-color: color('black');
+						-webkit-mask: url('./../assets/images/plus.svg') no-repeat 50% 50%;
+						mask: url('./../assets/images/plus.svg') no-repeat 50% 50%;
+						-webkit-mask-size: cover;
+						mask-size: cover;
+						width: 35px;
+						height: 35px;
+						display: inline-block;
+					}
+				}
+			}
+
+			&:hover {
+				a {
+					color: white;
+				}
+				&:after {
+					width: 100%;
+				}
+				
+				&.menu-item-has-children {
+					.sub-menu {
+						visibility: visible;
+						opacity: 1;
+					}
+				}
+			}
+			&.active {
+				&:after {
+					width: 100%;
+				}
+			}
+		}
+	}
+	
+	.contact-nav {
+		transition: all .5s ease-in-out;
+    position: absolute;
+    bottom: space(8);
+    right: 20rem;
+		opacity: 0;
+		visibility: hidden;
+	  .social-links {
+			display: flex;
+			.social-link {
+				position: relative;
+				padding: .5rem 0;
+				&:after {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+					content: '';
+					background-color: color('black');
+					height: 100%;
+					width: 0;
+					transition: all .5s;
+					z-index: -1;
+				}
+				
+				.icon {
+	        font-size: 3rem;
+	        margin: 0 1rem;
+					color: color('black');
+					line-height: 1;
+					transition: all .5s;
+		    }
+				&:hover {
+					.icon {
+						color: white;
+					}
+					&:after {
+						width: 100%;
+					}
+				}
+			}
+	  }
+	}
+	
+	&.-open {
+		width: 100%;
+		margin: 0;
+		
+		.parent-menu {
+			opacity: 1;
+		}
+		.contact-nav {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+	
+	// @include respond-max($screen-jumbo){
+	// 	.parent-menu {
+	// 		> .menu-item {
+	// 			&.menu-item-has-children {
+	// 				.sub-menu {
+	// 					width: 600px;		
+	// 					> .menu-item {
+	// 						a {
+	// 							font-size: 2rem
+	// 						}
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
+	
+	
+	@include below('md'){
+		margin: 1rem;
+		height: calc(100% - 2rem);
+		&.-open {
+			display: inline-block;
+			width: calc(100% - 2rem);
+		}
+		
+		.parent-menu {
+			> .menu-item {
+				&:after {
+					display: none;
+				}
+				&:hover {
+					a {
+						color: color('black');
+					}
+				}
+				&.menu-item-has-children {
+					> a {
+						&:before {
+							display: none;
+						}
+					}
+					.sub-menu {
+						width: 100%;
+						visibility: visible;
+						opacity: 1;
+						padding: 0 2rem;
+            position: relative;
+            top: auto;
+            left: 0;
+            bottom: 0;
+						transition: all .5s;
+						transition-delay: 100ms;
+						> .menu-item {
+							a {
+								line-height: 1;
+								margin-bottom: .5rem;
+								padding: .5rem 0;
+								&:after {
+									display: none;
+								}
+								&:hover {
+									color: color('black');
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	@include below('sm'){
+		height: 100%;
+		margin: 0;
+		display: none;
+		
+		.parent-menu {
+			left: 2rem;
+			> .menu-item {
+				> a {
+					font-size: 3.25rem;
+				}
+				
+				&.menu-item-has-children {
+					.sub-menu {
+						padding: 0;
+						> .menu-item {
+							a {
+								font-size: 1.7rem;
+							}
+						}
+					}
+				}
+			}
+		}
+		&.-open {
+			width: 100%;
+			display: inline-block;
+		}
+		.contact-nav {
+      position: absolute;
+      bottom: space(8);
+      left: space(4);
+      right: auto;
+			.social-links {
+				.social-link {
+					&:after {
+						display: none;
+					}
+					.icon {
+						font-size: 2rem;
+					}
+					&:hover {
+						.icon {
+							color: color('black');
+						}
+					}
+				}
+			}
+		}
+	}
+}
+	
+	
+
+
+
+
+
+
+
+
+
+
+

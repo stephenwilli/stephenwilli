@@ -1,0 +1,48 @@
+body.home {
+  a {
+    cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
+  }
+
+  .navbar-brand {
+		.icon {
+			color: white;
+		}
+	}
+
+  .navbar-hamburger {
+		cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
+    &.-collapsed {
+      cursor: url('../assets/images/cursor-arrow-03.svg') 25 5, auto;
+      &:after, &:before, span {
+        background-color: color('black');
+      }
+    }
+		&:after, &:before, span {
+			background-color: white;
+		}
+	}
+
+  .navbar-menu {
+    height: calc(100% - 4rem);
+    margin: 2rem;
+		&.-open {
+			width: calc(100% - 4rem);
+		}
+
+    @include below('md'){
+      height: calc(100% - 2rem);
+      margin: 1rem;
+      &.-open {
+        width: calc(100% - 2rem);
+      }
+    }
+
+    @include below('sm'){
+      height: 100%;
+      margin: 0;
+      &.-open {
+        width: 100%;
+      }
+    }
+	}
+}

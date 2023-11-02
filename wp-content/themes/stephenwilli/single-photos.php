@@ -23,9 +23,6 @@
         <?php } else { ?>
           <p>Prints coming soon</p>
         <?php } ?>
-        <?php  
-          // get_template_part( 'partials/02_molecule/social-share' ); 
-        ?>
         
         <?php if($kicker){?>
           <div class="kicker" data-animate="fade-left-2" data-delay="2">
@@ -33,12 +30,12 @@
           </div>
         <?php } ?>
         
-        <?php get_template_part( 'partials/02_molecule/post-navigation' ); ?> 
+        <?php render( 'post-navigation' ); ?> 
       </div>
       
       <div class="photo-full -<?= $orientation;?>">
         <div class="reveal" data-delay="2" data-animate="reveal-up"></div>
-        <img src="<?= $photo['sizes']['full_screen'];?>" alt="<?php the_title();?> - Stephen Williams Photography, Jackson Wyoming" />
+        <img src="<?= $photo['sizes']['large'];?>" alt="<?php the_title();?> - Stephen Williams Photography, Jackson Wyoming" />
       </div>
     </section>
     

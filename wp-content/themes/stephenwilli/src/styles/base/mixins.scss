@@ -1,0 +1,91 @@
+@mixin above($width) {
+
+  @if type-of($width) == 'string' {
+    @if not map.has-key($breakpoints, $width) { @error '"#{$width}" not found in $breakpoints'; }
+    $width: map.get($breakpoints, $width);
+  }
+
+  $width: strip-unit($width);
+  @media (min-width: #{$width}px) { @content; }
+}
+
+@mixin below($width) {
+
+  @if type-of($width) == 'string' {
+    @if not map.has-key($breakpoints, $width) { @error '"#{$width}" not found in $breakpoints'; }
+    $width: map.get($breakpoints, $width);
+  }
+
+  $width: strip-unit($width);
+  @media (max-width: #{$width - 0.1}px) { @content; }
+}
+
+@mixin center-x {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@mixin center-y {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+@mixin fill($content: null) {
+  @if $content { content: $content; }
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@mixin hidden {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@mixin ratio($width: 1, $height: $width) {
+  position: relative;
+  &:before {
+    content: '';
+    display: block;
+    width: 100%;
+    padding-top: math.div($height, $width) * 100%;
+  }
+}
+
+@mixin scroll-x {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+@mixin scroll-y {
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+@mixin truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -13,30 +13,36 @@
  */
 
 $url_check  = add_query_arg( 'action', 'check-updates' );
-$last_check = WPMUDEV_Dashboard::$site->get_option( 'last_run_updates' );
+$last_check = WPMUDEV_Dashboard::$settings->get( 'last_run_updates', 'general' );
 
-if ( isset( $_GET['success-action'] ) ) { // wpcs csrf ok. ?>
-	<?php switch ( $_GET['success-action'] ) { // wpcs csrf ok.
-		case 'check-updates':
+if ( isset( $_GET['success-action'] ) ) { // phpcs:ignore ?>
+	<div class="sui-floating-notices">
+
+		<?php
+		if ( 'check-updates' === $_GET['success-action'] ) { // phpcs:ignore
+				$notice_msg = '<p>' . esc_html__( 'Data successfully updated.', 'wpmudev' ) . '</p>';
+				$notice_id  = 'remote-check-success';
 			?>
-			<div class="sui-notice-top sui-notice-success sui-can-dismiss">
-				<div class="sui-notice-content">
-					<p><?php esc_html_e( 'Data successfully updated.', 'wpmudev' ); ?></p>
+				<div
+				role="alert"
+				id="<?php echo esc_attr( $notice_id ); ?>"
+				class="sui-common-notice-alert sui-notice"
+				aria-live="assertive"
+				data-show-dismiss="true"
+				data-notice-type="success"
+				data-notice-msg="<?php echo wp_kses_post( $notice_msg ); ?>"
+				>
 				</div>
-				<span class="sui-notice-dismiss">
-					<a role="button" aria-label="Dismiss" class="sui-icon-check"></a>
-				</span>
-			</div>
-			<?php
-			break;
-		default:
-			break;
-	}
+				<?php
+		}
+		?>
+	</div>
+	<?php
 }
 
-if ( $last_check ) {
-	?>
-	<div class="sui-description sui-block-content-center refresh-infos">
+if ( $last_check ) { ?>
+
+	<p class="dashui-note-refresh refresh-infos">
 		<?php
 		printf(
 			esc_html( _x( 'We last checked for updates %1$s ago %2$sCheck again%3$s', 'Placeholders: time-ago, link-open, link-close', 'wpmudev' ) ),
@@ -45,10 +51,10 @@ if ( $last_check ) {
 			' </a>'
 		);
 		?>
-	</div>
-	<?php
-} else {
-	?>
+	</p>
+
+<?php } else { ?>
+
 	<div class="sui-description sui-block-content-center refresh-infos">
 		<?php
 		printf(
@@ -58,5 +64,5 @@ if ( $last_check ) {
 		);
 		?>
 	</div>
-	<?php
-}
+
+<?php }

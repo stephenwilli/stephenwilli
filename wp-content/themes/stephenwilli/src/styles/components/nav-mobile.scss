@@ -1,0 +1,15 @@
+.nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  padding: var(--gutter);
+  background: #FFF;
+  transition: 0.25s;
+  transition-property: visibility, opacity;
+
+  [aria-expanded="false"] + & {
+    visibility: hidden;
+    opacity: 0;
+  }
+}

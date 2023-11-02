@@ -1,0 +1,26 @@
+.content {
+
+  > :where(* + *:not([class])) {
+    margin-top: 1.5em;
+  }
+
+  :where(ol, ul):not([class]) {
+    margin: 1.5em 0 1.5em 2em;
+  }
+  :where(ol, ul):not([class]) li {
+    margin-top: 0.25em;
+  }
+  :where(ol):not([class]) {
+    list-style-type: decimal;
+  }
+  :where(ul):not([class]) {
+    list-style-type: disc;
+  }
+
+  > *:first-child {
+    margin-top: 0;
+  }
+  > *:last-child  {
+    margin-bottom: 0;
+  }
+}

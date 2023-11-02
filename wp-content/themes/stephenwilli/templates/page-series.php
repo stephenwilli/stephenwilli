@@ -33,7 +33,7 @@
         <div class="mosaic-image intro-card">
           <div class="reveal"  data-delay="1" data-animate="reveal-up"></div>
           <div class="series-text">
-            <h1 id="intro-title"><?= $seriesTitle;?></h1>
+            <h1 class="h2" id="intro-title"><?= $seriesTitle;?></h1>
             <h3><?= $seriesSubtitle;?></h3>
             <p><?= $seriesText;?></p>
             <?php  
@@ -44,12 +44,9 @@
       <?php while ( $images->have_posts()) { $images->the_post();
             $photo = get_field('featured_photo')
           ?>
-          <a class="js-photo-open mosaic-image" href="<?php the_permalink();?>">
+          <a class="mosaic-image" href="<?php the_permalink();?>">
             <div class="reveal" data-delay="2" data-animate="reveal-up"></div>
             <img class="thumbnail" src="<?= $photo['sizes']['large'];?>" alt="<?php the_title();?> - Stephen Williams Photography"/>
-            <div id="photo-open-<?= $i;?>" class="photo-open">
-              <!-- <img class="enlarged" src="<?= $photo['sizes']['full_screen'];?>" alt="<?php the_title();?>"/> -->
-            </div> 
           </a>
       <?php $i++; } 
       wp_reset_postdata();
@@ -63,9 +60,7 @@
       </div>
       <?php } ?>
     </div>
-    <?php  
-      get_template_part( 'partials/02_molecule/related-series' ); 
-    ?>
+    <?php  render( 'related-series' ); ?>
   </main>
   
   <?php endwhile; 

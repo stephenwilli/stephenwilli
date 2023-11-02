@@ -1,0 +1,37 @@
+.footer {
+	width: 100%;
+	padding: space(4) space(6) space(6);
+	text-align: center;
+  font-family: var(--font-light-heading);
+  text-transform: uppercase;
+  font-size: .9rem;
+	
+	.footer-links  {
+		.footer-link {
+			margin: 0 space(2);
+		}
+	}
+	a {
+		color: color('black');
+		text-decoration: underline;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+	.copyright {
+		margin-top: 1rem;
+	}
+	
+	@include below('sm'){
+		.footer-links  {
+			.footer-link {
+				width: 100%;
+				margin: 1rem 0;
+				display: inline-block;
+				font-size: 1.1rem;
+			}
+		}
+	}
+}
+
+

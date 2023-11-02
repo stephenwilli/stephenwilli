@@ -10,7 +10,7 @@
         
         <div class="mosaic-image intro-card">
           <div class="reveal" data-delay="1" data-animate="reveal-up"></div>
-          <h1><?= $title;?></h1>
+          <h1 class="h2"><?= $title;?></h1>
 					<p><?= $text;?></h1>
         </div>
         

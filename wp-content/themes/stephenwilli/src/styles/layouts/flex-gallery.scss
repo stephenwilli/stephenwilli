@@ -1,0 +1,22 @@
+.flex-gallery {
+  padding: 8rem 4rem 4rem;
+  .gallery-mosaic {
+    .mosaic-image {
+      &.intro-card {
+        min-height: 400px;
+      }
+    }
+  }
+  @include below('md') {
+    padding: 4rem 2rem;
+  }
+  @include below('sm') {
+    .gallery-mosaic {
+      .mosaic-image {
+        &.intro-card {
+          min-height: auto;
+        }
+      }
+    }
+  }
+}

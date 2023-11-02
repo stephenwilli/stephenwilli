@@ -1,0 +1,19 @@
+.series-wrap {
+	padding: space(8) 0 space(4);
+
+	.gallery-mosaic {
+		margin-top: space(2);
+		
+		.mosaic-image {
+			&.series-end {
+				padding: 2rem;
+				cursor: url('../assets/images/cursor-circle-02.svg') 25 15, auto !important;
+			}
+		}
+	}
+	
+	
+	// @include below('xs') {
+	// 	padding: 6rem 0 4rem;
+	// }
+}

@@ -11,9 +11,7 @@
     <?php }?>
 
 
-    <?php  
-      get_template_part( 'partials/04_flex/flex-layouts' ); 
-    ?>
+    <?php render( 'sections' ); ?>
   </main>
   <?php endwhile; 
 get_footer();

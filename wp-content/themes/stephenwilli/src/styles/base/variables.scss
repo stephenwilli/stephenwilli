@@ -1,0 +1,43 @@
+$colors: (
+  'black' : #333,
+  'white' : #FFFFFF,
+  'red'   : #FF0000,
+  'secondary' : #555
+
+);
+
+$space: (
+  'steps'     : 10,
+  'min-base'  : 8,
+  'max-base'  : 10,
+  'min-ratio' : 1.333,
+  'max-ratio' : 1.414,
+  'min-width' : 375,
+  'max-width' : 1680
+);
+
+$breakpoints: (
+  'nav' : 1200,
+  'xs'  : 480,
+  'sm'  : 768,
+  'md'  : 1024,
+  'lg'  : 1280,
+  'xl'  : 1680,
+);
+
+$z-index: (
+  // 'header' : 20,
+  // 'footer' : 10,
+  // 'logo'   : 25,
+  // 'nav'    : 50,
+  // 'modal'  : 1000,
+);
+
+$fonts: (
+  // 'Elegant-Lux': (
+  //   'Open-Sans-Light'          300 normal,
+  //   'Open-Sans-Regular'        400 normal,
+  //   'Open-Sans-Regular-Italic' 400 italic,
+  //   'Open-Sans-Bold'           700 normal,
+  // )
+);

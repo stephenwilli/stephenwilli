@@ -1,0 +1,47 @@
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  min-height: 100%;
+  scrollbar-gutter: stable;
+}
+body {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  text-size-adjust: none;
+}
+img, picture, video, canvas, iframe, svg {
+  max-width: 100%;
+  display: block;
+  border: none;
+}
+h1, h2, h3, h4, h5, h6, blockquote, p {
+  overflow-wrap: break-word;
+}
+input, button, textarea, select {
+  font: inherit;
+  color: currentColor;
+  background-color: transparent;
+}
+button, input:where([type="button"], [type="reset"], [type="submit"]) {
+  border: none;
+  cursor: pointer;
+}
+ol, ul {
+  list-style: none;
+}
+img {
+  height: auto;
+  object-fit: cover;
+}
+[disabled] {
+  pointer-events: none !important;
+}
+[hidden] {
+  display: none !important;
+}

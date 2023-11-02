@@ -1,0 +1,17 @@
+[data-theme] {
+  background-color: var(--theme-color);
+  color: var(--theme-text);
+}
+
+[data-theme="light"]  {
+  // --theme-color: #FFF;
+  // --theme-text: #000;
+  // --theme-link: #F00;
+  // --theme-link-hover: #F0F;
+}
+[data-theme="dark"] {
+  // --theme-color: #000;
+  // --theme-text: #FFF;
+  // --theme-link: #F00;
+  // --theme-link-hover: #FFF;
+}

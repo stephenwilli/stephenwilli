@@ -1,0 +1,17 @@
+.inner-wrap {
+	padding: 2rem;
+	@include fill;
+	z-index: 5;
+	pointer-events: none;
+	.inner-border {
+		border: 2px solid white;
+		width: 100%;
+		height: 100%;
+		position: relative;
+		pointer-events: none;
+	}
+	
+	@include below('sm'){
+		padding: 1rem;
+	}
+}

@@ -1,0 +1,51 @@
+.navbar-hamburger {
+	display: block;
+  position: absolute;
+  top: 4rem;
+  right: 4rem;
+	width: 40px;
+	z-index: 120;
+	transition: all .5s;
+	cursor: url('../assets/images/cursor-arrow-03.svg') 25 5, auto;
+	
+	&:after, &:before, span {
+		background-color: color('black');
+		border-radius: 3px;
+		content: '';
+		display: block;
+		height: 2px;
+		margin: 2px 0;
+		transition: all .2s ease-in-out;
+	}
+	
+	span {
+		transform: scale(0);
+	}
+
+	&.-collapsed {
+		cursor: url('../assets/images/cursor-arrow-03.svg') 25 5, auto;
+		&:after, &:before, span {
+			background-color: color('black');
+		}
+		&:before {
+			transform: translateY(4px) rotate(135deg);
+		}
+		&:after {
+			transform: translateY(-4px) rotate(-135deg);
+		}
+		span {
+			transform: scale(0);
+		}
+	}
+	
+	&.scrolled {
+		position: fixed;
+		top: space(4);
+		right: space(4);	
+	}		
+
+  @include below('sm'){
+    top: 3rem;
+    right: 3rem;
+  }
+}

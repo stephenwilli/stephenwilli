@@ -32,12 +32,11 @@
         </div>
       </div>
     </section>
-    <?php  
-      get_template_part( 'partials/04_flex/flex-layouts' ); 
-    ?>
+    
+    <?php render( 'sections' ); ?>
     
     <?php  
-      get_template_part( 'partials/02_molecule/related-posts' ); 
+      render( 'related-posts' ); 
     ?>
   </main>
   <?php endwhile; 

@@ -80,7 +80,7 @@ class WPMUDEV_Dashboard_Message {
 				999
 			);
 
-			// Used on all WPMU DEV Dashboard pages.
+			//Used on all WPMU DEV Dashboard pages.
 			add_filter(
 				'wpmudev-admin-notice',
 				array( $this, 'get_global_message' )
@@ -114,7 +114,7 @@ class WPMUDEV_Dashboard_Message {
 		if ( $Queue_Loaded ) { return; }
 		$Queue_Loaded = true;
 
-		$this->queue = WPMUDEV_Dashboard::$site->get_option( 'notifications' );
+		$this->queue = WPMUDEV_Dashboard::$settings->get( 'notifications' );
 		if ( ! is_array( $this->queue ) ) {
 			$this->queue = array();
 			$changed = true;
@@ -176,7 +176,7 @@ class WPMUDEV_Dashboard_Message {
 		}
 
 		// Save the queue to database.
-		WPMUDEV_Dashboard::$site->set_option( 'notifications', $this->queue );
+		WPMUDEV_Dashboard::$settings->set( 'notifications', $this->queue );
 	}
 
 	/**
@@ -311,10 +311,10 @@ class WPMUDEV_Dashboard_Message {
 	 * @since  4.0.0
 	 * @param  string $msg_id Message ID.
 	 */
-	protected function mark_as_done( $msg_id ) {
+	protected function mark_as_done( $msg_id, $force = 0 ) {
 		$this->load_queue();
 
-		if ( isset( $this->queue[ $msg_id ] ) ) {
+		if ( isset( $this->queue[ $msg_id ] ) || $force ) {
 			$this->queue[ $msg_id ]['dismissed'] = true;
 			$this->save_queue();
 		}
@@ -333,9 +333,10 @@ class WPMUDEV_Dashboard_Message {
 	 */
 	public function ajax_dismiss() {
 		$msg_id = intval( $_POST['msg_id'] );
+		$force  = isset( $_POST['force'] ) ? intval( $_POST['force'] ) : 0;
 
 		if ( ! empty( $msg_id ) ) {
-			$this->mark_as_done( $msg_id );
+			$this->mark_as_done( $msg_id, $force );
 			wp_send_json_success();
 		}
 
@@ -371,13 +372,35 @@ class WPMUDEV_Dashboard_Message {
 	 * @since  4.0.0
 	 */
 	public function setup_message() {
-		$msg = $this->choose_message();
+
+		//message details.
+		$msg 	= $this->choose_message();
+
 		if ( ! $msg ) { return; }
 
-		WDEV_Plugin_Ui::render_dev_notification(
-			WPMUDEV_Dashboard::$site->plugin_url . 'shared-ui/',
-			$msg
-		);
+		//flag to show notice
+		$show_notice = apply_filters( 'wpmudev_show_notice', true, $msg );
+		if ( ! $show_notice ) { return; }
+
+		//filter to select template
+		$sui_template = apply_filters( 'wpmudev_notice_template', true, $msg );
+
+		if( true === $sui_template ){
+			WDEV_Plugin_Ui::render_dev_notification(
+				WPMUDEV_Dashboard::$site->plugin_url . 'shared-ui/',
+				$msg
+			);
+		} else {
+			WPMUDEV_Dashboard::$ui->render(
+				'sui/wpmudev_default_notice',
+				array(
+					'module_url'=> WPMUDEV_Dashboard::$site->plugin_url . 'assets/js/',
+					'msg'		=> $msg,
+					'type'  	=> apply_filters( 'wpmudev_default_notice_type', 'info', $msg ), //use this filter to set notice types. Default is info.
+				)
+			);
+		}
+
 	}
 
 	/**

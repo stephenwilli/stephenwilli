@@ -1,0 +1,42 @@
+.button {
+
+  display: inline-flex;
+  place-content: center;
+  font-size: var(--font-size-lg);
+  font-family: var(--font-light-heading);
+  text-transform: uppercase;
+  font-weight: bold;
+  line-height: 1.2;
+  padding: .5em 2em;
+  padding-bottom: 0.7em;
+  border: 2px solid white; 
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+  user-select: none;
+  outline: none;
+  appearance: none;
+  position: relative;
+  transition: 0.25s;
+  z-index: 1;
+  transition-property: all;
+
+  &:before {
+		content:'';
+		position: absolute;
+    top: 0;
+    left: 0;
+		width: 0;
+		height: 100%;
+		z-index: -1;
+		background-color: white;
+    transition: 0.25s;
+	}
+
+  &:where(:hover, :focus) {
+    color: color('black');
+    // &:before {
+    //   width: 100%;
+    // }
+  }
+}

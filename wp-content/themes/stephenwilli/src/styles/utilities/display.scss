@@ -1,0 +1,9 @@
+.hide         { display: none }
+.flex         { display: flex }
+.block        { display: block }
+.inline       { display: inline }
+.inline-flex  { display: inline-flex }
+.inline-block { display: inline-block }
+.visible      { visibility: visible }
+.invisible    { visibility: hidden }
+.sr-only      { @include hidden }
