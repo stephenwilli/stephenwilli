@@ -55,6 +55,9 @@ jQuery(document).ready(function($) {
       $('.js-nav-scroll').removeClass('scrolled');
     }
   });
+
+  // FITVIDS HACK
+  $('.content iframe[src*="youtube"],iframe[src*="vimeo"]').wrap("<div class='video-frame'/>");
   
   // GSAP Animations
   
@@ -171,12 +174,19 @@ jQuery(document).ready(function($) {
 });
 
 $(window).on('load', function() {
-  var grid = document.querySelector('.js-mosaic-gallery');
-  if(grid) {
-      var iso = new isotope( grid, {
-      itemSelector: '.mosaic-image',
-    });
-  };
+  // var grid = document.querySelector('.js-mosaic-gallery');
+  // if(grid) {
+  //     var iso = new isotope( grid, {
+  //     itemSelector: '.mosaic-image',
+  //   });
+  // };
+
+  $('.js-mosaic-gallery').each((i, item) => {
+    new isotope( item, {
+        itemSelector: '.mosaic-image',
+      });
+  });
+
   
   // see [data-animate] styles in scss/base/_animation.scss
   const observer = new IntersectionObserver(entries => {
