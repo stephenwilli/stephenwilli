@@ -1,23 +1,20 @@
 .content-wrap {
-	padding: space(8) space(6);
+	margin-top: space(6);
 	display: flex;
-	flex-wrap: wrap;
-
+	gap: space(6);
+	align-items: center;
 	a {
 		text-decoration: underline;
 	}
 	
 	.post-content {
 		width: 50%;
-		padding: 2rem 6rem 0 2rem;
+
 		.post-meta {
 			font-family: var(--font-light-heading);
 			text-transform: uppercase;
 			font-size: 1.2rem;
 			margin-bottom: 2rem;
-		}
-		.social-share {
-			margin-top: 1rem;
 		}
 		
 		.cat-link {
@@ -43,27 +40,18 @@
   }
   
   @include below('md') {
-    padding: 4rem 2rem;
+		flex-wrap: wrap;
 		.post-content {
 			width: 100%;
-			padding: 4rem 0;
 		}
 		.post-image {
 			width: 100%;
 		}
   }
-  
-  @include below('sm') {
-    padding: 2rem;
-    margin: 2rem 0;
-		.post-content {
-			padding: 2rem 0;
-		}
-  }
+
 }
 
 .archive-wrap {
-	padding: 8rem 4rem;	
 	.post-meta {
 		margin: 1rem 0;
 		.read-more {
@@ -84,7 +72,6 @@
 	}
 	
 	@include below('md'){
-		padding: 8rem 2rem;
 		.gallery-mosaic {
 			.mosaic-image {
 				&.intro-card {

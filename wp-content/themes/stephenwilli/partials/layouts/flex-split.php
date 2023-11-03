@@ -1,7 +1,7 @@
 <?php 
   $splits = $data['fc_split_half'];
 ?>
-<section class="flex-split">
+<section class="flex-split container pad-y">
     <div class="split-wrap">
 
       <?php 

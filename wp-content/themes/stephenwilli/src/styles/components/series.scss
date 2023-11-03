@@ -1,8 +1,6 @@
 .series-wrap {
-	padding: space(8) 0 space(4);
 
 	.gallery-mosaic {
-		margin-top: space(2);
 		
 		.mosaic-image {
 			&.series-end {
@@ -11,9 +9,4 @@
 			}
 		}
 	}
-	
-	
-	// @include below('xs') {
-	// 	padding: 6rem 0 4rem;
-	// }
 }

@@ -30,9 +30,9 @@
 .my-auto { @extend .mt-auto, .mb-auto; }
 .m-auto  { @extend .mx-auto, .my-auto; }
 
-.pad-t { padding-top: var(--container-space); }
-.pad-r { padding-right: var(--container-space); }
-.pad-b { padding-bottom: var(--container-space); }
+.pad-t { padding-top: calc(var(--container-space) * 2); }
+.pad-r { padding-right: var(--vertical-space); }
+.pad-b { padding-bottom: calc(var(--container-space) * 2); }
 .pad-l { padding-left: var(--container-space); }
 .pad-x { @extend .pad-l, .pad-r; }
 .pad-y { @extend .pad-t, .pad-b; }

@@ -3,7 +3,7 @@
 	$text = get_field('post_page_text', 'option');
 ?>
 
-<main class="archive-wrap">
+<main class="archive-wrap container pad-y">
   
 		<?php if(have_posts()): ?>
       <div class="gallery-mosaic js-mosaic-gallery">

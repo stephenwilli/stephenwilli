@@ -4,9 +4,10 @@
 	
 	.photo-wrap {
 		display: flex;
+
 		.photo-content {
 			width: 40%;
-			padding: 3rem 6rem 0 6rem;
+			padding: space(4) space(8) 0 var(--container-space) ;
 			position: relative;
 			h1 {
 				font-size: 4rem;

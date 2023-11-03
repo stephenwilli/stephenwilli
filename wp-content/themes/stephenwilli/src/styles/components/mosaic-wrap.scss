@@ -1,6 +1,6 @@
 .gallery-mosaic {
+	margin-top: space(6);
 	.mosaic-image {
-		margin-top: space(2);
 		display: block;
 		width: calc(33% - space(4));
 		margin: 0 space(2) space(4);
@@ -22,7 +22,7 @@
 		}
 		
 		&.intro-card {
-			padding: space(2);
+			padding-right: space(2);
 			min-height: 600px;
 			cursor: url('../assets/images/cursor-circle-02.svg') 25 15, auto !important;
 		}

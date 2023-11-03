@@ -1,13 +1,12 @@
 .flex-split {
-  padding: 4rem 6rem;
   
   .split-wrap {
     display: flex;
     align-items: center;
+    gap: space(8);
     
     .split-half {
       width: 50%;
-      padding: 0 2rem;
     }
       
     .-image {
@@ -25,14 +24,14 @@
         .caption {
           font-size: .9rem;
           max-width: 50%;
-          margin-top: 1rem;
+          margin-top: space(2);
           display: inline-block;
         }
       }
         
       .image-2 {
         position: relative;
-        bottom: 16rem;
+        bottom: 18rem;
         left: 40%;
         width: 60%;
       }
@@ -40,17 +39,6 @@
   }
   
   @include below('md'){
-    .split-wrap {
-      .images {
-      .image-2 {
-          bottom: 12rem;
-        }
-      }
-    }
-  }
-  
-  @include below('sm'){
-    padding: 2rem 1rem;
     .split-wrap {
       display: inline-block;
       .split-half {
@@ -68,7 +56,8 @@
   
   @include below('sm'){
     .split-wrap {
-      .-images {  
+      .-images {
+        margin-bottom: space(4);  
         .image-1 {
           display: none;
         }

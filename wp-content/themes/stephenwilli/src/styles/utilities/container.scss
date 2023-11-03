@@ -2,5 +2,26 @@
   width: min(var(--container-width), 100vw - (var(--container-space) * 2));
   margin-left: auto;
   margin-right: auto;
-  outline: #F00 1px dotted;
+}
+
+.container-lg {
+  max-width: 980px;
+  margin-left: (var(--container-space));
+  margin-right: (var(--container-space));
+}
+
+.container-center {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  @include below('md') {
+    width: 100%;
+    padding: 0 (var(--container-space));
+  }
+}
+
+.container-md {
+  max-width: 680px;
+  margin-left: (var(--container-space));
+  margin-right: (var(--container-space));
 }

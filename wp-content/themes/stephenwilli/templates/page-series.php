@@ -11,7 +11,7 @@
   $seriesEnd = get_field('series_end_card');
   
 ?>
-  <main class="series-wrap">
+  <main class="series-wrap container pad-y">
     <div class="gallery-mosaic js-mosaic-gallery">
       <?php 
       $args = array(  

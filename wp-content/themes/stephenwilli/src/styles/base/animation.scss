@@ -75,6 +75,7 @@
 [data-animate~="reveal-up"] {
   height: 100%;
   transition-property: height;
+  transition-duration: 400ms;
   &.animate { 
     height: 0;
   }

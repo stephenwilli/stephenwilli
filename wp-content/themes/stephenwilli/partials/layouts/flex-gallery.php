@@ -4,7 +4,7 @@
   $images = $data['fc_images'];  
 ?>
 
-<section class="flex-gallery">
+<section class="flex-gallery container pad-y">
 
   <div class="js-mosaic-gallery gallery-mosaic">
       <?php if($sectionTitle){?>

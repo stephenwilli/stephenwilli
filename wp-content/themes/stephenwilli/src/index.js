@@ -184,6 +184,13 @@ $(window).on('load', function() {
   $('.js-mosaic-gallery').each((i, item) => {
     new isotope( item, {
         itemSelector: '.mosaic-image',
+          percentPosition: true,
+          // masonry: {
+          //   // use outer width of grid-sizer for columnWidth
+          //   columnWidth: 20,
+          //   gutter: 20,
+          //   fitWidth: true
+          // }
       });
   });
 

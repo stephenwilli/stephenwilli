@@ -6,7 +6,7 @@
   $terms = get_the_terms(get_the_ID(), 'category');
 ?>
   <main class="main-wrap">
-    <section class="content-wrap" data-animate="fade-right" data-delay="1">
+    <section class="content-wrap container pad-y" data-animate="fade-right" data-delay="1">
       <div class="post-content">
         <h1 class="h2" id="intro-title"><?php the_title();?></h1>
         <div class="post-meta">
