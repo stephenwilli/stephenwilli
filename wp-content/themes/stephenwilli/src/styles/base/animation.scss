@@ -170,3 +170,11 @@
   display: inline-block;
 }
 
+.js.loading {
+  #loader-heading,
+  #intro-title {
+    opacity: 0;
+  }
+}
+
+
