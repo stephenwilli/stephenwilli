@@ -2,8 +2,8 @@
 	margin-top: space(6);
 	.mosaic-image {
 		display: block;
-		width: calc(33% - space(4));
-		margin: 0 space(2) space(4);
+		width: calc(33% - 2rem);
+		margin: 0 2rem 2rem 0;
 		overflow: hidden;
 		cursor: url('../assets/images/cursor-plus.svg') 35 25, auto;
 		transition: all .6s ease-in-out;
@@ -30,7 +30,7 @@
 	
 	@include below('md') {
 		.mosaic-image {
-			width: calc(50% - space(6));
+			width: calc(50% - 2rem);
 		}
 	}
 	
