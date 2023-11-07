@@ -24,7 +24,9 @@
       <a title="<?= $caption;?> - Stephen Williams Photography" class="js-flex-gallery-img mosaic-image" href="<?php echo $full;?>">
         <div class="reveal" data-delay="2" data-animate="reveal-up"></div>
         <div class="overlay"></div>
+        <div class="" data-animate="fade-in">
         <img src="<?php echo $thumb;?>" alt="<?php echo $image['alt'];?> - Stephen Williams Photography"/>
+        </div>
       </a>
     <?php }?>
   </div>
