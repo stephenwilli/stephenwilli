@@ -34,7 +34,7 @@
       </div>
       
       <div class="photo-full -<?= $orientation;?>">
-        <div class="reveal" data-delay="2" data-animate="reveal-up"></div>
+        <div class="reveal" data-delay="3" data-animate="reveal-up"></div>
         <img src="<?= $photo['sizes']['large'];?>" alt="<?php the_title();?> - Stephen Williams Photography, Jackson Wyoming" />
       </div>
     </section>
