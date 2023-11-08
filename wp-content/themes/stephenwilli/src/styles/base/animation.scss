@@ -153,10 +153,10 @@
 
 .reveal-wrap, .mosaic-image {
   position: relative;
+
   .reveal {
     @include fill;
     background-color: white;
-    z-index: 50;
     &.animate {
       height: 0;
     }

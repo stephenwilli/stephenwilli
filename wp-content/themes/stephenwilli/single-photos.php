@@ -33,7 +33,7 @@
         <?php render( 'post-navigation' ); ?> 
       </div>
       
-      <div class="photo-full -<?= $orientation;?>">
+      <div class="photo-full -<?= $orientation;?> reveal-wrap">
         <div class="reveal" data-delay="3" data-animate="reveal-up"></div>
         <img src="<?= $photo['sizes']['large'];?>" alt="<?php the_title();?> - Stephen Williams Photography, Jackson Wyoming" />
       </div>
