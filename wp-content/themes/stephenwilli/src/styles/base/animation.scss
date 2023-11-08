@@ -76,7 +76,7 @@
 [data-animate~="reveal-up"] {
   height: 100%;
   transition-property: height;
-  transition-duration: 400ms;
+  transition-duration: 500ms;
   opacity: 1;
   &.animate { 
     height: 0;
@@ -157,9 +157,15 @@
   .reveal {
     @include fill;
     background-color: white;
+    z-index: 50;
     &.animate {
       height: 0;
     }
+  }
+
+  img {
+    z-index: 1;
+    position: relative;
   }
 }
 
