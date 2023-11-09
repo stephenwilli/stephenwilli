@@ -64,6 +64,12 @@ add_action('login_head', function() {
     #login :where(#backtoblog, .privacy-policy-page-link) {
         display: none !important;
     }
+
+    .login h1 a {
+        background: url('../wp-content/themes/stephenwilli/assets/images/swp-01.svg') center / contain no-repeat !important;
+        width: 400px !important;
+        height: 200px !important;
+    }
     </style>
     HTML;
 });

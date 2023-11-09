@@ -18,7 +18,7 @@ add_action('init', function() {
  * The api key can be made available to scripts via the following in footer.php:
  * site.GOOGLE_KEY = '<?= GOOGLE_KEY ?>';
  */
-// define('GOOGLE_GTM', '');
+define('GOOGLE_GTM', 'GTM-N7MNBV');
 // define('GOOGLE_KEY', '');
 
 /**
