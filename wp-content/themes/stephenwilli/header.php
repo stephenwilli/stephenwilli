@@ -15,6 +15,8 @@
 
     <link rel="stylesheet" href="<?= build_url('main.css') ?>" />
 
+    <meta name="google-site-verification" content="J3PJo3UnhG5np7wtKZ11BoZGoayr8XDlxHzhSmDFTnQ" />
+
 </head>
 
 <?php
