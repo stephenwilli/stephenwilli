@@ -16,14 +16,19 @@
     <link rel="stylesheet" href="<?= build_url('main.css') ?>" />
 
 </head>
-<body <?php
-  if (is_front_page()){
-    body_class('home-template');
-    } else {
-    body_class('internal-template');
+
+<?php
+  $class = '';
+  if(is_front_page()){
+    $class = 'home';
+  } 
+
+  if(is_page_template('templates/page-dev.php')){
+    $class = 'dev-template';
   }
   ?>
->
+
+<body class="<?= $class;?>">
 
 <a href="#content">Skip to Content</a>
 <?php wp_body_open() ?>

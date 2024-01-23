@@ -393,15 +393,25 @@ class WPMUDEV_Dashboard_Utils {
 	public function get_site_info() {
 		global $wp_version;
 
+		$php_memory = '';
+
+		// No fatal errors please.
+		if (
+			class_exists( 'WP_Site_Health' )
+			&& method_exists( 'WP_Site_Health', 'get_instance' )
+			&& property_exists( 'WP_Site_Health', 'php_memory_limit' )
+		) {
+			$php_memory = WP_Site_Health::get_instance()->php_memory_limit;
+		}
+
 		// Prepare info.
 		$info = array(
 			'wp_version'   => $wp_version,
 			'php_version'  => phpversion(),
 			'wp_debug'     => defined( 'WP_DEBUG' ) && WP_DEBUG,
 			'issues_total' => $this->get_site_health_issues_total(),
-			'php_memory'   => ini_get( 'memory_limit' ),
+			'php_memory'   => $php_memory,
 			'is_multisite' => is_multisite(),
-			'server_ip'    => isset( $_SERVER['SERVER_ADDR'] ) ? $_SERVER['SERVER_ADDR'] : '',
 		);
 
 		/**
@@ -462,7 +472,7 @@ class WPMUDEV_Dashboard_Utils {
 			 * @since 4.11.19
 			 *
 			 * @param array $previous Previous info.
-			 * @param array $previous Current info.
+			 * @param array $current  Current info.
 			 */
 			do_action( 'wpmudev_dashboard_site_info_changed', $previous, $current );
 		}
