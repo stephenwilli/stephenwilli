@@ -9,7 +9,7 @@
  */
 
 // Dynamically generate url.
-$link = trailingslashit( $urls->hub_account_url ) . '?utm_source=wpmudev-dashboard&utm_medium=plugin&utm_campaign=dashboard_expired_modal_reactivate';
+$link = trailingslashit( $urls->hub_account_url ) . '?utm_source=wpmudev-dashboard&utm_medium=plugin&utm_campaign=dashboard_expired_modal_reactivate';	  	 	  						 				 
 
 ?>
 

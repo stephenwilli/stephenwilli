@@ -7,7 +7,7 @@
     </div>
 </div>
   
-<?php render('home-hero'); ?>
+<?php render('home-hero-slider'); ?>
   
 <div class="inner-wrap">
     <div class="inner-border">

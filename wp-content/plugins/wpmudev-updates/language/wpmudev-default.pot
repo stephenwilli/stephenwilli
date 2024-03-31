@@ -1,15 +1,15 @@
-# Copyright (C) 2023 WPMU DEV
+# Copyright (C) 2024 WPMU DEV
 # This file is distributed under the same license as the WPMU DEV Dashboard plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPMU DEV Dashboard 4.11.23\n"
+"Project-Id-Version: WPMU DEV Dashboard 4.11.25\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-23T13:09:30+00:00\n"
+"POT-Creation-Date: 2024-03-11T09:38:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: wpmudev\n"
@@ -69,7 +69,7 @@ msgid "Not installed"
 msgstr ""
 
 #: includes/class-wpmudev-dashboard-ajax.php:313
-#: includes/class-wpmudev-dashboard-upgrader.php:1169
+#: includes/class-wpmudev-dashboard-upgrader.php:1176
 msgid "Already installed"
 msgstr ""
 
@@ -242,14 +242,14 @@ msgid "Nonce check failed"
 msgstr ""
 
 #: includes/class-wpmudev-dashboard-remote.php:865
-#: includes/class-wpmudev-dashboard-upgrader.php:1836
+#: includes/class-wpmudev-dashboard-upgrader.php:1843
 msgid "Plugin could not be deleted."
 msgstr ""
 
 #: includes/class-wpmudev-dashboard-remote.php:907
-#: includes/class-wpmudev-dashboard-upgrader.php:1082
-#: includes/class-wpmudev-dashboard-upgrader.php:1361
-#: includes/class-wpmudev-dashboard-upgrader.php:1773
+#: includes/class-wpmudev-dashboard-upgrader.php:1089
+#: includes/class-wpmudev-dashboard-upgrader.php:1368
+#: includes/class-wpmudev-dashboard-upgrader.php:1780
 msgid "Unable to connect to the filesystem. Please confirm your credentials."
 msgstr ""
 
@@ -698,92 +698,92 @@ msgstr ""
 msgid "The following plugins are either active or not installed and cannot be deleted:"
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:681
+#: includes/class-wpmudev-dashboard-upgrader.php:688
 msgid "Project not installed"
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:689
-#: includes/class-wpmudev-dashboard-upgrader.php:1194
+#: includes/class-wpmudev-dashboard-upgrader.php:696
+#: includes/class-wpmudev-dashboard-upgrader.php:1201
 msgid "Incompatible: %s"
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:769
-#: includes/class-wpmudev-dashboard-upgrader.php:894
-#: includes/class-wpmudev-dashboard-upgrader.php:1212
-#: includes/class-wpmudev-dashboard-upgrader.php:1327
+#: includes/class-wpmudev-dashboard-upgrader.php:776
+#: includes/class-wpmudev-dashboard-upgrader.php:901
+#: includes/class-wpmudev-dashboard-upgrader.php:1219
+#: includes/class-wpmudev-dashboard-upgrader.php:1334
 msgid "Invalid upgrade call"
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:805
+#: includes/class-wpmudev-dashboard-upgrader.php:812
 msgid "Unable to connect to the filesystem. Please confirm your credentials"
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:854
-#: includes/class-wpmudev-dashboard-upgrader.php:1004
+#: includes/class-wpmudev-dashboard-upgrader.php:861
+#: includes/class-wpmudev-dashboard-upgrader.php:1011
 msgid "Update failed for an unknown reason"
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:901
-#: includes/class-wpmudev-dashboard-upgrader.php:1058
-#: includes/class-wpmudev-dashboard-upgrader.php:1187
+#: includes/class-wpmudev-dashboard-upgrader.php:908
+#: includes/class-wpmudev-dashboard-upgrader.php:1065
+#: includes/class-wpmudev-dashboard-upgrader.php:1194
 msgid "Insufficient filesystem permissions"
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:1052
+#: includes/class-wpmudev-dashboard-upgrader.php:1059
 msgid "WPMU Dev translations upto date"
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:1101
-#: includes/class-wpmudev-dashboard-upgrader.php:1566
+#: includes/class-wpmudev-dashboard-upgrader.php:1108
+#: includes/class-wpmudev-dashboard-upgrader.php:1573
 msgid "Update failed for an unknown reason."
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:1178
+#: includes/class-wpmudev-dashboard-upgrader.php:1185
 msgid "Invalid project"
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:1422
-#: includes/class-wpmudev-dashboard-upgrader.php:1517
+#: includes/class-wpmudev-dashboard-upgrader.php:1429
+#: includes/class-wpmudev-dashboard-upgrader.php:1524
 msgid "You have disabled automatic core updates via define( 'WP_AUTO_UPDATE_CORE', false ); in your wp-config.php or a filter. Remove that code to allow updating core by Automate or disable \"WordPress Core\" in your Automate settings. %1$sContact support%2$s if you need further assistance."
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:1437
+#: includes/class-wpmudev-dashboard-upgrader.php:1444
 msgid "Could not access filesystem."
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:1443
+#: includes/class-wpmudev-dashboard-upgrader.php:1450
 msgid "Automatic core updates are disabled when WordPress is checked out from version control."
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:1466
+#: includes/class-wpmudev-dashboard-upgrader.php:1473
 msgid "No WordPress core updates appear available."
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:1480
+#: includes/class-wpmudev-dashboard-upgrader.php:1487
 msgid "The new version of WordPress is incompatible with your PHP or MySQL version."
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:1505
+#: includes/class-wpmudev-dashboard-upgrader.php:1512
 msgid "There was a previous failure with this update. Please update manually instead."
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:1727
+#: includes/class-wpmudev-dashboard-upgrader.php:1734
 msgid "Plugin not installed"
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:1750
+#: includes/class-wpmudev-dashboard-upgrader.php:1757
 msgid "This plugin is active on a subsite. Try again after deactivating it there."
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:1752
+#: includes/class-wpmudev-dashboard-upgrader.php:1759
 msgid "This plugin is active. Try again after deactivating it."
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:1759
+#: includes/class-wpmudev-dashboard-upgrader.php:1766
 msgid "This plugin is network-active. Try again after deactivating it."
 msgstr ""
 
-#: includes/class-wpmudev-dashboard-upgrader.php:1810
+#: includes/class-wpmudev-dashboard-upgrader.php:1817
 msgid "Plugin Uninstall hook could not be removed."
 msgstr ""
 
@@ -1286,6 +1286,7 @@ msgstr ""
 #: template/sui/permission-settings/user-select-modal.php:29
 #: template/sui/plugins.php:376
 #: template/sui/popup-ftp-details.php:39
+#: template/sui/popup-logout-confirmation.php:32
 #: template/sui/popup-translation-details.php:24
 #: template/sui/support.php:780
 msgid "Close this dialog."
@@ -1584,7 +1585,9 @@ msgstr ""
 msgid "Open settings"
 msgstr ""
 
-#: template/sui/header.php:65
+#: template/sui/header.php:66
+#: template/sui/header.php:70
+#: template/sui/popup-logout-confirmation.php:38
 msgid "Logout"
 msgstr ""
 
@@ -2133,6 +2136,18 @@ msgstr ""
 
 #: template/sui/popup-ftp-details.php:130
 msgid "Okay, continue!"
+msgstr ""
+
+#: template/sui/popup-logout-confirmation.php:44
+msgid "By logging out of the WPMU DEV Dashboard plugin, you'll also be disconnected from WPMU DEV free services. Don’t worry! You can easily reconnect to these services directly from their respective plugins within your site."
+msgstr ""
+
+#: template/sui/popup-logout-confirmation.php:52
+msgid "Stay Connected"
+msgstr ""
+
+#: template/sui/popup-logout-confirmation.php:58
+msgid "Confirm Logout"
 msgstr ""
 
 #: template/sui/popup-no-access.php:37

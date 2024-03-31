@@ -8,6 +8,7 @@ import mount from './lib/mount';
 import isotope from 'isotope-layout';
 import './lib/hello';
 import './lib/icons';
+import './modules/sliders'
 // import './lib/animations';
 import './styles/index.scss';
 

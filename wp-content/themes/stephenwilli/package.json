@@ -13,8 +13,9 @@
   "dependencies": {
     "@tmbr/utils": "^1.8.9",
     "gsap": "file:gsap-bonus.tgz",
+    "isotope-layout": "^3.0.6",
     "magnific-popup": "^1.1.0",
-    "slick-carousel": "^1.8.1",
-    "isotope-layout": "^3.0.6"
+    "slick-animation": "^0.3.3",
+    "slick-carousel": "^1.8.1"
   }
 }
