@@ -71,9 +71,10 @@
   
 	
 	@include below('sm'){
-		width: 100%;
+		display: flex;
+    flex-direction: column;
 		.button {
-			margin-left: 50px;
+			margin-left: 0;
 			color: color('black');
 			&:after {
 				display: none;
