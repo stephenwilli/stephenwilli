@@ -9,7 +9,7 @@
     <div class="hero-slide" style="background-image: url('<?= $image['sizes']['large'];?>');">
       <div class="hero-caption">
         <a href="<?= $link['url'];?>" class="block-link">
-          <h1 data-animate="fade-right"><?= $title;?></h1>
+          <h1><?= $title;?></h1>
           <h3><?= $subtitle;?></h3>
           <a href="<?= $link['url'];?>" class="button"><?= $link['title'];?></a>
         </a>

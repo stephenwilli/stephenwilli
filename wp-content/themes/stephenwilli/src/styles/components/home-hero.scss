@@ -73,6 +73,10 @@
 	@include below('sm'){
 		display: flex;
     flex-direction: column;
+		left: 0;
+		bottom: 0;
+		padding: 0 space(6) space(6);
+		width: 100%;
 		.button {
 			margin-left: 0;
 			color: color('black');
