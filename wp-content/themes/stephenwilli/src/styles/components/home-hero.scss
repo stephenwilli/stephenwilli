@@ -87,4 +87,8 @@
 			}
 		}
 	}
+
+	@include below('xs'){
+		bottom: space(10);
+	}
 }
