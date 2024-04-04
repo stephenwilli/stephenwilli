@@ -5,7 +5,7 @@ class ConsumerStrategies_SocketConsumerTest extends PHPUnit_Framework_TestCase {
     /**
      * @var ConsumerStrategies_SocketConsumer
      */
-    protected $_instance = null;	 			  			 	 	   	 		
+    protected $_instance = null;
     protected $_file = null;
     protected function setUp()
     {

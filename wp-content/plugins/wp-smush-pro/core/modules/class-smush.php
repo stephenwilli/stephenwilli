@@ -544,7 +544,7 @@ class Smush extends Abstract_Module {
 
 		if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
 			$error = sprintf(
-				/* translators: 1: Error code, 2: Error message */
+				/* translators: 1: Error code, 2: Error message. */
 				__( 'Error posting to API: %1$s %2$s', 'wp-smushit' ),
 				wp_remote_retrieve_response_code( $response ),
 				wp_remote_retrieve_response_message( $response )

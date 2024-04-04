@@ -66,6 +66,16 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 	}
 
 	/**
+	 * Add additional field to payment gateway settings which is unique to the gateway.
+	 *
+	 * @param array $settings Settings array.
+	 * @return array
+	 */
+	public function get_unique_settings( $settings = [] ) {
+		return $settings;
+	}
+
+	/**
 	 * Displays the admin settings webhook description.
 	 *
 	 * @since 4.1.0
@@ -339,6 +349,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 				'sepa'       => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/sepa.svg" class="stripe-sepa-icon stripe-icon" alt="SEPA" />',
 				'boleto'     => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/boleto.svg" class="stripe-boleto-icon stripe-icon" alt="Boleto" />',
 				'oxxo'       => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/oxxo.svg" class="stripe-oxxo-icon stripe-icon" alt="OXXO" />',
+				'cards'      => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/cards.svg" class="stripe-cards-icon stripe-icon" alt="credit / debit card" />',
 			]
 		);
 	}
@@ -429,13 +440,12 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 	 */
 	public function generate_payment_request( $order, $prepared_payment_method ) {
 		$settings                              = get_option( 'woocommerce_stripe_settings', [] );
-		$statement_descriptor                  = ! empty( $settings['statement_descriptor'] ) ? str_replace( "'", '', $settings['statement_descriptor'] ) : '';
-		$short_statement_descriptor            = ! empty( $settings['short_statement_descriptor'] ) ? str_replace( "'", '', $settings['short_statement_descriptor'] ) : '';
 		$is_short_statement_descriptor_enabled = ! empty( $settings['is_short_statement_descriptor_enabled'] ) && 'yes' === $settings['is_short_statement_descriptor_enabled'];
 		$capture                               = ! empty( $settings['capture'] ) && 'yes' === $settings['capture'] ? true : false;
 		$post_data                             = [];
 		$post_data['currency']                 = strtolower( $order->get_currency() );
 		$post_data['amount']                   = WC_Stripe_Helper::get_stripe_amount( $order->get_total(), $post_data['currency'] );
+
 		/* translators: 1) blog name 2) order number */
 		$post_data['description'] = sprintf( __( '%1$s - Order %2$s', 'woocommerce-gateway-stripe' ), wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ), $order->get_order_number() );
 		$billing_email            = $order->get_billing_email();
@@ -446,21 +456,11 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			$post_data['receipt_email'] = $billing_email;
 		}
 
-		switch ( $order->get_payment_method() ) {
-			case 'stripe':
-				if ( $is_short_statement_descriptor_enabled && ! ( empty( $short_statement_descriptor ) && empty( $statement_descriptor ) ) ) {
-					$post_data['statement_descriptor'] = WC_Stripe_Helper::get_dynamic_statement_descriptor( $short_statement_descriptor, $order, $statement_descriptor );
-				} elseif ( ! empty( $statement_descriptor ) ) {
-					$post_data['statement_descriptor'] = WC_Stripe_Helper::clean_statement_descriptor( $statement_descriptor );
-				}
-
-				$post_data['capture'] = $capture ? 'true' : 'false';
-				break;
-			case 'stripe_sepa':
-				if ( ! empty( $statement_descriptor ) ) {
-					$post_data['statement_descriptor'] = WC_Stripe_Helper::clean_statement_descriptor( $statement_descriptor );
-				}
-				// other payment methods error if we try to add a statement descriptor in the request
+		if ( 'stripe' === $order->get_payment_method() ) {
+			$post_data['capture'] = $capture ? 'true' : 'false';
+			if ( $is_short_statement_descriptor_enabled ) {
+				$post_data['statement_descriptor_suffix'] = WC_Stripe_Helper::get_dynamic_statement_descriptor_suffix( $order );
+			}
 		}
 
 		if ( method_exists( $order, 'get_shipping_postcode' ) && ! empty( $order->get_shipping_postcode() ) ) {
@@ -585,7 +585,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			}
 
 			/* translators: transaction id */
-			$order->update_status( 'on-hold', sprintf( __( 'Stripe charge authorized (Charge ID: %s). Process order to take payment, or cancel to remove the pre-authorization. Attempting to refund the order in part or in full will release the authorization and cancel the payment.', 'woocommerce-gateway-stripe' ), $response->id ) );
+			$order->update_status( 'on-hold', sprintf( __( 'Stripe charge authorized (Charge ID: %s). Process order to take payment, or cancel to remove the pre-authorization. Refunding is unavailable until payment has been captured.', 'woocommerce-gateway-stripe' ), $response->id ) );
 		}
 
 		if ( is_callable( [ $order, 'save' ] ) ) {
@@ -607,7 +607,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 	 */
 	public function send_failed_order_email( $order_id ) {
 		$emails = WC()->mailer()->get_emails();
-		if ( ! empty( $emails ) && ! empty( $order_id ) ) {
+		if ( ! empty( $emails ) && ! empty( $order_id ) && isset( $emails['WC_Email_Failed_Order'] ) ) {
 			$emails['WC_Email_Failed_Order']->trigger( $order_id );
 		}
 	}
@@ -708,14 +708,18 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 	 * @since 7.0.2
 	 * @param object $intent Stripe API Payment Intent object response.
 	 *
-	 * @return object
+	 * @return string|object
 	 */
 	public function get_latest_charge_from_intent( $intent ) {
+		$latest_charge = null;
+
 		if ( ! empty( $intent->charges->data ) ) {
-			return end( $intent->charges->data );
-		} else {
-			return $this->get_charge_object( $intent->latest_charge );
+			$latest_charge = end( $intent->charges->data );
+		} elseif ( ! empty( $intent->latest_charge ) ) {
+			$latest_charge = $this->get_charge_object( $intent->latest_charge );
 		}
+
+		return $latest_charge;
 	}
 
 	/**
@@ -815,25 +819,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 		if ( ! empty( $_POST['stripe_source'] ) ) {
 			$source_object = self::get_source_object( wc_clean( wp_unslash( $_POST['stripe_source'] ) ) );
 			$source_id     = $source_object->id;
-
-			// This checks to see if customer opted to save the payment method to file.
-			$maybe_saved_card = isset( $_POST[ 'wc-' . $payment_method . '-new-payment-method' ] ) && ! empty( $_POST[ 'wc-' . $payment_method . '-new-payment-method' ] );
-
-			/**
-			 * This is true if the user wants to store the card to their account.
-			 * Criteria to save to file is they are logged in, they opted to save or product requirements and the source is
-			 * actually reusable. Either that or force_save_source is true.
-			 */
-			if ( ( $user_id && $this->saved_cards && $maybe_saved_card && WC_Stripe_Helper::is_reusable_payment_method( $source_object ) ) || $force_save_source ) {
-				$response = $customer->attach_source( $source_object->id );
-
-				if ( ! empty( $response->error ) ) {
-					throw new WC_Stripe_Exception( print_r( $response, true ), $this->get_localized_error_message_from_response( $response ) );
-				}
-				if ( is_wp_error( $response ) ) {
-					throw new WC_Stripe_Exception( $response->get_error_message(), $response->get_error_message() );
-				}
-			}
+			$customer->maybe_create_customer();
 		} elseif ( $this->is_using_saved_payment_method() ) {
 			// Use an existing token, and then process the payment.
 			$wc_token_id = isset( $_POST[ 'wc-' . $payment_method . '-payment-token' ] ) ? wc_clean( wp_unslash( $_POST[ 'wc-' . $payment_method . '-payment-token' ] ) ) : '';
@@ -870,10 +856,8 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			}
 		}
 
-		$customer_id = $customer->get_id();
-		if ( ! $customer_id ) {
-			$customer->set_id( $customer->create_customer() );
-			$customer_id = $customer->get_id();
+		if ( ! $customer->get_id() ) {
+			$customer_id = $customer->create_customer();
 		} else {
 			$customer_id = $customer->update_customer();
 		}
@@ -1085,34 +1069,47 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 
 		$request['charge'] = $charge_id;
 		WC_Stripe_Logger::log( "Info: Beginning refund for order {$charge_id} for the amount of {$amount}" );
+		$response = new stdClass();
+		try {
+			$request = apply_filters( 'wc_stripe_refund_request', $request, $order );
 
-		$request = apply_filters( 'wc_stripe_refund_request', $request, $order );
+			$intent           = $this->get_intent_from_order( $order );
+			$intent_cancelled = false;
+			if ( $intent ) {
+				// If the order has a Payment Intent pending capture, then the Intent itself must be refunded (cancelled), not the Charge.
+				if ( ! empty( $intent->error ) ) {
+					$response         = $intent;
+					$intent_cancelled = true;
+				} elseif ( 'requires_capture' === $intent->status ) {
+					$result           = WC_Stripe_API::request(
+						[],
+						'payment_intents/' . $intent->id . '/cancel'
+					);
+					$intent_cancelled = true;
 
-		$intent           = $this->get_intent_from_order( $order );
-		$intent_cancelled = false;
-		if ( $intent ) {
-			// If the order has a Payment Intent pending capture, then the Intent itself must be refunded (cancelled), not the Charge.
-			if ( ! empty( $intent->error ) ) {
-				$response         = $intent;
-				$intent_cancelled = true;
-			} elseif ( 'requires_capture' === $intent->status ) {
-				$result           = WC_Stripe_API::request(
-					[],
-					'payment_intents/' . $intent->id . '/cancel'
-				);
-				$intent_cancelled = true;
-
-				if ( ! empty( $result->error ) ) {
-					$response = $result;
-				} else {
-					$charge   = end( $result->charges->data );
-					$response = end( $charge->refunds->data );
+					if ( ! empty( $result->error ) ) {
+						$response = $result;
+					} else {
+						$charge   = end( $result->charges->data );
+						$response = end( $charge->refunds->data );
+					}
 				}
 			}
-		}
 
-		if ( ! $intent_cancelled && 'yes' === $captured ) {
-			$response = WC_Stripe_API::request( $request, 'refunds' );
+			if ( ! $intent_cancelled && 'yes' === $captured ) {
+				$response = WC_Stripe_API::request( $request, 'refunds' );
+			}
+		} catch ( WC_Stripe_Exception $e ) {
+			WC_Stripe_Logger::log( 'Error: ' . $e->getMessage() );
+
+			return new WP_Error(
+				'stripe_error',
+				sprintf(
+					/* translators: %1$s is a stripe error message */
+					__( 'There was a problem initiating a refund: %1$s', 'woocommerce-gateway-stripe' ),
+					$e->getMessage()
+				)
+			);
 		}
 
 		if ( ! empty( $response->error ) ) {
@@ -1291,9 +1288,11 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			$payment_method_types = [ $prepared_source->source_object->type ];
 		}
 
+		$currency = strtolower( $order->get_currency() );
+
 		$request = [
-			'amount'               => WC_Stripe_Helper::get_stripe_amount( $order->get_total() ),
-			'currency'             => strtolower( $order->get_currency() ),
+			'amount'               => WC_Stripe_Helper::get_stripe_amount( $order->get_total(), $currency ),
+			'currency'             => $currency,
 			'description'          => $full_request['description'],
 			'metadata'             => $full_request['metadata'],
 			'capture_method'       => ( 'true' === $full_request['capture'] ) ? 'automatic' : 'manual',
@@ -1313,8 +1312,8 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			$request['customer'] = $prepared_source->customer;
 		}
 
-		if ( isset( $full_request['statement_descriptor'] ) ) {
-			$request['statement_descriptor'] = $full_request['statement_descriptor'];
+		if ( isset( $full_request['statement_descriptor_suffix'] ) ) {
+			$request['statement_descriptor_suffix'] = $full_request['statement_descriptor_suffix'];
 		}
 
 		if ( isset( $full_request['shipping'] ) ) {
@@ -1438,7 +1437,8 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			$request = WC_Stripe_Helper::add_payment_method_to_request_array( $prepared_source->source, $request );
 		}
 
-		$new_amount = WC_Stripe_Helper::get_stripe_amount( $order->get_total() );
+		$currency   = strtolower( $order->get_currency() );
+		$new_amount = WC_Stripe_Helper::get_stripe_amount( $order->get_total(), $currency );
 		if ( $intent->amount !== $new_amount ) {
 			$request['amount'] = $new_amount;
 		}
@@ -1526,18 +1526,22 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 	 * @param stdClass $intent Payment intent information.
 	 */
 	public function save_intent_to_order( $order, $intent ) {
-		if ( 'payment_intent' === $intent->object ) {
-			WC_Stripe_Helper::add_payment_intent_to_order( $intent->id, $order );
-		} elseif ( 'setup_intent' === $intent->object ) {
-			$order->update_meta_data( '_stripe_setup_intent', $intent->id );
+		// Don't save any intent information on a subscription.
+		if ( $this->is_subscription( $order ) ) {
+			return;
 		}
 
-		// Add the mandate id necessary for renewal payments with Indian cards if it's present.
-		$charge = $this->get_latest_charge_from_intent( $intent );
+		if ( 'payment_intent' === $intent->object ) {
+			WC_Stripe_Helper::add_payment_intent_to_order( $intent->id, $order );
 
-		if ( isset( $charge->payment_method_details->card->mandate ) ) {
-			$mandate_id = $charge->payment_method_details->card->mandate;
-			$order->update_meta_data( '_stripe_mandate_id', $mandate_id );
+			// Add the mandate id necessary for renewal payments with Indian cards if it's present.
+			$charge = $this->get_latest_charge_from_intent( $intent );
+
+			if ( isset( $charge->payment_method_details->card->mandate ) ) {
+				$order->update_meta_data( '_stripe_mandate_id', $charge->payment_method_details->card->mandate );
+			}
+		} elseif ( 'setup_intent' === $intent->object ) {
+			$order->update_meta_data( '_stripe_setup_intent', $intent->id );
 		}
 
 		if ( is_callable( [ $order, 'save' ] ) ) {
@@ -1688,9 +1692,8 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 		$full_request = $this->generate_payment_request( $order, $prepared_source );
 
 		$payment_method_types = [ 'card' ];
-		if ( WC_Stripe_Feature_Flags::is_upe_checkout_enabled() ) {
-			$payment_method_types = $this->get_upe_enabled_at_checkout_payment_method_ids();
-		} elseif ( isset( $prepared_source->source_object->type ) ) {
+
+		if ( isset( $prepared_source->source_object->type ) ) {
 			$payment_method_types = [ $prepared_source->source_object->type ];
 		}
 
@@ -1782,14 +1785,13 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			return false;
 		}
 
-		$order_id = wc_get_order_id_by_order_key( wc_clean( wp_unslash( $_GET['key'] ) ) );
+		$order_id = absint( get_query_var( 'order-pay' ) );
+		$order    = wc_get_order( $order_id );
 
-		// If the order ID is not found or the order ID does not match the order ID in the URL, return false.
-		if ( ! $order_id || ( absint( get_query_var( 'order-pay' ) ) !== absint( $order_id ) ) ) {
+		// If the order is not found or the param `key` is not set or the order key does not match the order key in the URL param, return false.
+		if ( ! $order || ! isset( $_GET['key'] ) || wc_clean( wp_unslash( $_GET['key'] ) ) !== $order->get_order_key() ) {
 			return false;
 		}
-
-		$order = wc_get_order( $order_id );
 
 		// If the order doesn't need payment, we don't need to prepare the payment page.
 		if ( ! $order->needs_payment() ) {
@@ -1899,8 +1901,8 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			return;
 		}
 
-		// If Stripe is not enabled bail.
-		if ( 'no' === $this->enabled ) {
+		// Bail if no Stripe payment method is enabled.
+		if ( 'no' === $this->enabled && empty( WC_Stripe_Helper::get_legacy_enabled_payment_methods() ) ) {
 			return;
 		}
 
@@ -1980,7 +1982,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 		];
 
 		// If we're on the pay page we need to pass stripe.js the address of the order.
-		if ( $this->is_valid_pay_for_order_endpoint() ) {
+		if ( $this->is_valid_pay_for_order_endpoint() || $this->is_changing_payment_method_for_subscription() ) {
 			$order_id = absint( get_query_var( 'order-pay' ) );
 			$order    = wc_get_order( $order_id );
 

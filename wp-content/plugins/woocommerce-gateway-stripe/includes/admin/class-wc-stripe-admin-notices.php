@@ -75,6 +75,8 @@ class WC_Stripe_Admin_Notices {
 						'href'   => [],
 						'target' => [],
 					],
+					'strong' => [],
+					'br'     => [],
 				]
 			);
 			echo '</p></div>';
@@ -129,6 +131,23 @@ class WC_Stripe_Admin_Notices {
 		$three_d_secure      = isset( $options['three_d_secure'] ) && 'yes' === $options['three_d_secure'];
 
 		if ( isset( $options['enabled'] ) && 'yes' === $options['enabled'] ) {
+			// Check if Stripe is in test mode.
+			if ( $testmode ) {
+				// phpcs:ignore
+				$is_stripe_settings_page = isset( $_GET['page'], $_GET['section'] ) && 'wc-settings' === $_GET['page'] && 0 === strpos( $_GET['section'], 'stripe' );
+
+				if ( $is_stripe_settings_page ) {
+					$testmode_notice_message = sprintf(
+						/* translators: 1) HTML strong open tag 2) HTML strong closing tag */
+						__( '%1$sTest mode active:%2$s All transactions are simulated. Customers can\'t make real purchases through Stripe.', 'woocommerce-gateway-stripe' ),
+						'<strong>',
+						'</strong>'
+					);
+
+					$this->add_admin_notice( 'mode', 'notice notice-warning', $testmode_notice_message );
+				}
+			}
+
 			if ( empty( $show_3ds_notice ) && $three_d_secure ) {
 				$url = 'https://stripe.com/docs/payments/3d-secure#three-ds-radar';
 
@@ -294,11 +313,14 @@ class WC_Stripe_Admin_Notices {
 	public function payment_methods_check_environment() {
 		$payment_methods = $this->get_payment_methods();
 
-		foreach ( $payment_methods as $method => $class ) {
-			$show_notice = get_option( 'wc_stripe_show_' . $method . '_notice' );
-			$gateway     = new $class();
+		// phpcs:ignore
+		$is_stripe_settings_page = isset( $_GET['page'], $_GET['section'] ) && 'wc-settings' === $_GET['page'] && 0 === strpos( $_GET['section'], 'stripe' );
+		$currency_messages       = '';
 
-			if ( 'yes' !== $gateway->enabled || 'no' === $show_notice ) {
+		foreach ( $payment_methods as $method => $class ) {
+			$gateway = new $class();
+
+			if ( 'yes' !== $gateway->enabled ) {
 				continue;
 			}
 
@@ -311,10 +333,15 @@ class WC_Stripe_Admin_Notices {
 				);
 
 				$this->add_admin_notice( 'sofort', 'notice notice-warning', $message, false );
-			} elseif ( ! in_array( get_woocommerce_currency(), $gateway->get_supported_currency(), true ) ) {
+			} elseif ( ! $is_stripe_settings_page && ! in_array( get_woocommerce_currency(), $gateway->get_supported_currency(), true ) ) {
 				/* translators: 1) Payment method, 2) List of supported currencies */
-				$this->add_admin_notice( $method, 'notice notice-error', sprintf( __( '%1$s is enabled - it requires store currency to be set to %2$s', 'woocommerce-gateway-stripe' ), $gateway->get_method_title(), implode( ', ', $gateway->get_supported_currency() ) ), true );
+				$currency_messages .= sprintf( __( '%1$s is enabled - it requires store currency to be set to %2$s<br>', 'woocommerce-gateway-stripe' ), $gateway->get_method_title(), implode( ', ', $gateway->get_supported_currency() ) );
 			}
+		}
+
+		$show_notice = get_option( 'wc_stripe_show_payment_methods_notice' );
+		if ( ! empty( $currency_messages && 'no' !== $show_notice ) ) {
+			$this->add_admin_notice( 'payment_methods', 'notice notice-error', $currency_messages, true );
 		}
 
 		if ( ! WC_Stripe_Feature_Flags::is_upe_preview_enabled() || ! WC_Stripe_Feature_Flags::is_upe_checkout_enabled() ) {
@@ -322,13 +349,12 @@ class WC_Stripe_Admin_Notices {
 		}
 
 		foreach ( WC_Stripe_UPE_Payment_Gateway::UPE_AVAILABLE_METHODS as $method_class ) {
-			if ( WC_Stripe_UPE_Payment_Method_CC::class === $method_class ) {
+			if ( WC_Stripe_UPE_Payment_Method_CC::class === $method_class || WC_Stripe_UPE_Payment_Method_Link::class === $method_class ) {
 				continue;
 			}
-			$method      = $method_class::STRIPE_ID;
-			$show_notice = get_option( 'wc_stripe_show_' . $method . '_upe_notice' );
-			$upe_method  = new $method_class();
-			if ( ! $upe_method->is_enabled() || 'no' === $show_notice ) {
+			$method     = $method_class::STRIPE_ID;
+			$upe_method = new $method_class();
+			if ( ! $upe_method->is_enabled() ) {
 				continue;
 			}
 
@@ -341,10 +367,15 @@ class WC_Stripe_Admin_Notices {
 				);
 
 				$this->add_admin_notice( 'sofort', 'notice notice-warning', $message, false );
-			} elseif ( ! in_array( get_woocommerce_currency(), $upe_method->get_supported_currencies(), true ) ) {
+			} elseif ( ! $is_stripe_settings_page && ! in_array( get_woocommerce_currency(), $upe_method->get_supported_currencies(), true ) ) {
 				/* translators: %1$s Payment method, %2$s List of supported currencies */
-				$this->add_admin_notice( $method . '_upe', 'notice notice-error', sprintf( __( '%1$s is enabled - it requires store currency to be set to %2$s', 'woocommerce-gateway-stripe' ), $upe_method->get_label(), implode( ', ', $upe_method->get_supported_currencies() ) ), true );
+				$currency_messages .= sprintf( __( '%1$s is enabled - it requires store currency to be set to %2$s<br>', 'woocommerce-gateway-stripe' ), $upe_method->get_label(), implode( ', ', $upe_method->get_supported_currencies() ) );
 			}
+		}
+
+		$show_notice = get_option( 'wc_stripe_show_upe_payment_methods_notice' );
+		if ( ! empty( $currency_messages ) && 'no' !== $show_notice ) {
+			$this->add_admin_notice( 'upe_payment_methods', 'notice notice-error', $currency_messages, true );
 		}
 	}
 
@@ -388,32 +419,11 @@ class WC_Stripe_Admin_Notices {
 				case '3ds':
 					update_option( 'wc_stripe_show_3ds_notice', 'no' );
 					break;
-				case 'alipay':
-					update_option( 'wc_stripe_show_alipay_notice', 'no' );
-					break;
-				case 'bancontact':
-					update_option( 'wc_stripe_show_bancontact_notice', 'no' );
-					break;
-				case 'eps':
-					update_option( 'wc_stripe_show_eps_notice', 'no' );
-					break;
-				case 'giropay':
-					update_option( 'wc_stripe_show_giropay_notice', 'no' );
-					break;
-				case 'ideal':
-					update_option( 'wc_stripe_show_ideal_notice', 'no' );
-					break;
-				case 'multibanco':
-					update_option( 'wc_stripe_show_multibanco_notice', 'no' );
-					break;
-				case 'p24':
-					update_option( 'wc_stripe_show_p24_notice', 'no' );
-					break;
-				case 'sepa':
-					update_option( 'wc_stripe_show_sepa_notice', 'no' );
-					break;
 				case 'sofort':
 					update_option( 'wc_stripe_show_sofort_notice', 'no' );
+					break;
+				case 'sofort':
+					update_option( 'wc_stripe_show_sofort_upe_notice', 'no' );
 					break;
 				case 'sca':
 					update_option( 'wc_stripe_show_sca_notice', 'no' );
@@ -421,10 +431,11 @@ class WC_Stripe_Admin_Notices {
 				case 'changed_keys':
 					update_option( 'wc_stripe_show_changed_keys_notice', 'no' );
 					break;
-				default:
-					if ( false !== strpos( $notice, '_upe' ) ) {
-						update_option( 'wc_stripe_show_' . $notice . '_notice', 'no' );
-					}
+				case 'payment_methods':
+					update_option( 'wc_stripe_show_payment_methods_notice', 'no' );
+					break;
+				case 'upe_payment_methods':
+					update_option( 'wc_stripe_show_upe_payment_methods_notice', 'no' );
 					break;
 			}
 		}

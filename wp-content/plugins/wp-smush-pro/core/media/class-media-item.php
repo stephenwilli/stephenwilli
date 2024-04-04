@@ -259,12 +259,16 @@ class Media_Item extends Smush_File {
 		return '';
 	}
 
+	/**
+	 * File dir relative to the uploads directory e.g. 2023/05/. Includes trailing slash.
+	 * @return string
+	 */
 	public function get_relative_file_dir() {
 		$relative_file_dir = dirname( $this->get_relative_file_path() );
 		if ( '.' === $relative_file_dir ) {
 			return '';
 		}
-		return untrailingslashit( $relative_file_dir );
+		return trailingslashit( $relative_file_dir );
 	}
 
 	/**
@@ -825,7 +829,7 @@ class Media_Item extends Smush_File {
 		$basedir    = untrailingslashit( $upload_dir['basedir'] );
 		$file_dir   = $this->get_relative_file_dir();
 
-		return "$basedir/$file_dir/";
+		return "$basedir/$file_dir";
 	}
 
 	public function get_base_url() {
@@ -833,7 +837,7 @@ class Media_Item extends Smush_File {
 		$upload_dir_url = untrailingslashit( $upload_dir['baseurl'] );
 		$file_dir       = $this->get_relative_file_dir();
 
-		return "$upload_dir_url/$file_dir/";
+		return "$upload_dir_url/$file_dir";
 	}
 
 	/**
@@ -935,7 +939,7 @@ class Media_Item extends Smush_File {
 		$short_dir = $this->get_relative_file_dir();
 		$main_size = $this->get_main_size();
 		$new_meta  = array(
-			'file'     => "$short_dir/{$main_size->get_file_name()}",
+			'file'     => "$short_dir{$main_size->get_file_name()}",
 			'width'    => $main_size->get_width(),
 			'height'   => $main_size->get_height(),
 			'filesize' => $main_size->get_filesize(),
@@ -1126,12 +1130,13 @@ class Media_Item extends Smush_File {
 		return 'image/png' === $mime || 'image/x-png' === $mime;
 	}
 
-	public function backup_file_exists() {
+	public function can_be_restored() {
 		if ( ! $this->plugin_settings->is_backup_active() ) {
 			return false;
 		}
-		$backup_size = $this->get_default_backup_size();
-		return $backup_size && $backup_size->file_exists();
+
+		// Note that we don't check if file exists because the file might be on a remote server e.g. s3
+		return ! empty( $this->get_default_backup_size() );
 	}
 
 	public function is_large() {

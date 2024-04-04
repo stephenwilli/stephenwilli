@@ -8,6 +8,7 @@
 
 namespace Smush\Core;
 
+use Smush\App\Admin;
 use WP_Smush;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -208,8 +209,24 @@ class Core extends Stats {
 		new Integrations\Gutenberg();
 		new Integrations\Composer();
 		new Integrations\Gravity_Forms();
-		new Integrations\Envira( $this->mod->cdn );
-		new Integrations\Avada( $this->mod->cdn );
+		$avada = new Integrations\Avada();
+		$avada->init();
+		$envira = new Integrations\Envira();
+		$envira->init();
+		$hummingbird = new Integrations\Hummingbird_Integration();
+		$hummingbird->init();
+
+		$woo = new Integrations\WooCommerce();
+		$woo->init();
+
+		$amp = new Integrations\AMP_Integration();
+		$amp->init();
+
+		$essential_grid = new Integrations\Essential_Grid_Integration();
+		$essential_grid->init();
+
+		$elementor = new Integrations\Elementor_Integration();
+		$elementor->init();
 
 		// Register logger to schedule cronjob.
 		Helper::logger();
@@ -284,8 +301,16 @@ class Core extends Stats {
 				'<a href="' . esc_url( $upgrade_url ) . '" target="_blank">',
 				'</a>'
 			),
-			'processing_cdn_for_free' => esc_html__( 'Want to serve images even faster? Get up to 2x more speed with Smush Pro’s CDN, which spans 114 servers worldwide.', 'wp-smushit' ),
-			'processed_cdn_for_free'  => esc_html__( 'Let images reach your audience faster no matter where your hosting servers are. Smush Pro’s global CDN serves images closer to site visitors via 114 worldwide server locations.', 'wp-smushit' ),
+			'processing_cdn_for_free' => sprintf(
+				/* translators: %d: Number of CDN PoP locations */
+				esc_html__( 'Want to serve images even faster? Get up to 2x more speed with Smush Pro’s CDN, which spans %d servers worldwide.', 'wp-smushit' ),
+				Admin::CDN_POP_LOCATIONS
+			),
+			'processed_cdn_for_free'  => sprintf(
+				/* translators: %d: Number of CDN PoP locations */
+				esc_html__( 'Let images reach your audience faster no matter where your hosting servers are. Smush Pro’s global CDN serves images closer to site visitors via %d worldwide server locations.', 'wp-smushit' ),
+				Admin::CDN_POP_LOCATIONS
+			),
 			'restore'                 => esc_html__( 'Restoring image...', 'wp-smushit' ),
 			'smushing'                => esc_html__( 'Smushing image...', 'wp-smushit' ),
 			'btn_ignore'              => esc_html__( 'Ignore', 'wp-smushit' ),
@@ -319,15 +344,15 @@ class Core extends Stats {
 				'<a href=' . esc_url( menu_page_url( 'smush-tutorials', false ) ) . '>',
 				'</a>'
 			),
-			'smush_cdn_activation_notice'  => WP_Smush::is_pro() && ! $this->mod->cdn->is_active() ?
+			'smush_cdn_activation_notice'  => WP_Smush::is_pro() && ! Settings::get_instance()->is_cdn_active() ?
 				sprintf(
-					/* translators: %1$s - opening a tag, %2$s - closing a tag */
-					esc_html__( 'Activate Smush CDN to bulk smush and serve animated GIF’s via 114 worldwide locations. %1$sActivate CDN%2$s', 'wp-smushit' ),
-					'<a href="'. esc_url( network_admin_url( 'admin.php?page=smush-cdn' ) ) .'" />',
+					/* translators: 1 - Number of CDN PoP locations, 2 - opening a tag, 3 - closing a tag */
+					esc_html__( 'Activate Smush CDN to bulk smush and serve animated GIF’s via %1$d worldwide locations. %2$sActivate CDN%3$s', 'wp-smushit' ),
+					Admin::CDN_POP_LOCATIONS,
+					'<a href="' . esc_url( network_admin_url( 'admin.php?page=smush-cdn' ) ) . '" />',
 					'</a>'
 				) :
-				''
-			,
+				'',
 			// URLs.
 			'smush_url'               => network_admin_url( 'admin.php?page=smush' ),
 			'bulk_smush_url'          => network_admin_url( 'admin.php?page=smush-bulk' ),

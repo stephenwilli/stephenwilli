@@ -122,8 +122,16 @@ class WC_Stripe_Customer {
 	 * @return array
 	 */
 	protected function generate_customer_request( $args = [] ) {
-		$billing_email = isset( $_POST['billing_email'] ) ? filter_var( wp_unslash( $_POST['billing_email'] ), FILTER_SANITIZE_EMAIL ) : '';
-		$user          = $this->get_user();
+		$billing_email  = isset( $_POST['billing_email'] ) ? filter_var( wp_unslash( $_POST['billing_email'] ), FILTER_SANITIZE_EMAIL ) : '';
+		$user           = $this->get_user();
+		$address_fields = [
+			'line1'       => 'billing_address_1',
+			'line2'       => 'billing_address_2',
+			'postal_code' => 'billing_postcode',
+			'city'        => 'billing_city',
+			'state'       => 'billing_state',
+			'country'     => 'billing_country',
+		];
 
 		if ( $user ) {
 			$billing_first_name = get_user_meta( $user->ID, 'billing_first_name', true );
@@ -173,7 +181,44 @@ class WC_Stripe_Customer {
 		$defaults['metadata']          = apply_filters( 'wc_stripe_customer_metadata', $metadata, $user );
 		$defaults['preferred_locales'] = $this->get_customer_preferred_locale( $user );
 
+		// Add customer address default values.
+		foreach ( $address_fields as $key => $field ) {
+			if ( $user ) {
+				$defaults['address'][ $key ] = get_user_meta( $user->ID, $field, true );
+			} else {
+				$defaults['address'][ $key ] = isset( $_POST[ $field ] ) ? filter_var( wp_unslash( $_POST[ $field ] ), FILTER_SANITIZE_STRING ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+			}
+		}
+
 		return wp_parse_args( $args, $defaults );
+	}
+
+	/**
+	 * If customer does not exist, create a new customer. Else retrieve the Stripe customer through the API to check it's existence.
+	 * Recreate the customer if it does not exist in this Stripe account.
+	 *
+	 * @return string Customer ID
+	 *
+	 * @throws WC_Stripe_Exception
+	 */
+	public function maybe_create_customer() {
+		if ( ! $this->get_id() ) {
+			return $this->set_id( $this->create_customer() );
+		}
+
+		$response = WC_Stripe_API::retrieve( 'customers/' . $this->get_id() );
+
+		if ( ! empty( $response->error ) ) {
+			if ( $this->is_no_such_customer_error( $response->error ) ) {
+				// This can happen when switching the main Stripe account or importing users from another site.
+				// Recreate the customer in this case.
+				return $this->recreate_customer();
+			}
+
+			throw new WC_Stripe_Exception( print_r( $response, true ), $response->error->message );
+		}
+
+		return $response->id;
 	}
 
 	/**

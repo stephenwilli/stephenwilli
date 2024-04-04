@@ -6,6 +6,46 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.16.1 ( 2024-03-27 ) =
+- Improvement: Better compatibility with page builders
+- Improvement: General code improvements
+- Fix: WP Offload integration preventing some formats from getting offloaded
+
+= 3.16.0 ( 2024-03-06 ) =
+- New: Directly serve Local Webp images, no rewrite rules required!
+- New: Support for inline style tags in CDN and Local WebP modules
+- New: Support for multiple background images in CDN and Local WebP modules
+- New: Better support for relative links in CDN and Local WebP modules
+- New: Better REST API support in CDN and Local WebP modules
+- New: CDN and Local WebP images served in WooCommerce REST API responses
+- New: Local WebP compatibility with Windows IIS servers
+- New: Local WebP compatibility with bedrock
+- New: Local WebP compatibility with Litespeed
+- New: Local WebP compatibility with Cloudways
+- New: Lazy loading of background images
+- Fix: Local WebP redirection doesn't work for images with special characters
+- Fix: Free version of Smush creating smush-webp folder when activated
+- Fix: Extra slash added to image URLs during optimization
+- Fix: WP 6.3 compatibility - Skip lazyload for high priority images
+
+= 3.15.5 ( 2024-02-06 ) =
+- Improvement: Update the number of CDN locations
+- Improvement: Minor copy and UI adjustments
+
+= 3.15.4 ( 2024-01-23 ) =
+- Fix: Media library scan gets stuck on some websites
+- Improvement: Minor copy and UI changes
+
+= 3.15.3 ( 2023-12-20 ) =
+- Improvement: Code stability improvements
+
+= 3.15.2 ( 2023-12-06 ) =
+- Fix: Compatibility issues with WP Offload Media integration
+- Fix: Resize module deletes thumbnail when there is a naming conflict
+
+= 3.15.1 ( 2023-11-15 ) =
+- Improvement: Code stability improvements
+
 = 3.15.0 ( 2023-10-11 ) =
 - Improvement: Image size limit increased for pro version
 - Fix: Query running frequently and causing performance issues on some sites
@@ -196,4 +236,4 @@ Change Log:
 
 
 
-610151-1698955153-au
+610151-1712260707-au
