@@ -4,7 +4,7 @@
  */
 use Smush\App\Admin;
 
-$discount = WP_Smush::get_instance()->admin()->get_plugin_discount();	 			  			 	 	   	 		
+$discount = WP_Smush::get_instance()->admin()->get_plugin_discount();
 ?>
 <div style="margin:0px auto;padding:0;max-width:600px;">
 	<table id="smush-cdn-faster-delivery" border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%" style="max-width:600px;border-collapse:collapse;margin:10px auto 0;padding:0 0;color:#fff">

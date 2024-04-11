@@ -13,6 +13,7 @@ use Smush\Core\Settings;
 use Smush\Core\Stats\Global_Stats;
 use Smush\Core\Webp\Webp_Configuration;
 use WP_Smush;
+use WPMUDEV_Analytics;
 
 class Product_Analytics {
 	const PROJECT_TOKEN = '5d545622e3a040aca63f2089b0e6cae7';
@@ -65,8 +66,11 @@ class Product_Analytics {
 		add_action( 'wp_smush_config_applied', array( $this, 'track_config_applied' ) );
 		add_action( 'wp_smush_webp_method_changed', array( $this, 'track_webp_method_changed' ) );
 		add_action( 'wp_smush_webp_status_changed', array( $this, 'track_webp_status_changed' ) );
-		add_action( 'wp_smush_after_delete_all_webp_files', array( $this, 'track_webp_after_deleting_all_webp_files' ) );
-		add_action( 'wp_ajax_smush_toggle_webp_wizard', array( $this, 'track_webp_reconfig' ), -1 );
+		add_action( 'wp_smush_after_delete_all_webp_files', array(
+			$this,
+			'track_webp_after_deleting_all_webp_files',
+		) );
+		add_action( 'wp_ajax_smush_toggle_webp_wizard', array( $this, 'track_webp_reconfig' ), - 1 );
 
 		$identifier = $this->scan_background_process->get_identifier();
 
@@ -85,6 +89,12 @@ class Product_Analytics {
 			array( $this, 'track_background_scan_process_death' ),
 			10, 2
 		);
+
+		add_action( 'wp_smush_plugin_activated', array( $this, 'track_plugin_activation' ) );
+		if ( defined( 'WP_SMUSH_BASENAME' ) ) {
+			$plugin_basename = WP_SMUSH_BASENAME;
+			add_action( "deactivate_{$plugin_basename}", array( $this, 'track_plugin_deactivation' ) );
+		}
 	}
 
 	/**
@@ -246,7 +256,11 @@ class Product_Analytics {
 	}
 
 	private function prepare_mixpanel_instance() {
-		$mixpanel = new Mixpanel( $this->get_token() );
+		if ( ! class_exists( 'WPMUDEV_Analytics' ) ) {
+			require_once WP_SMUSH_DIR . 'core/external/wpmudev-analytics/autoload.php';
+		}
+
+		$mixpanel = new WPMUDEV_Analytics( 'smush', 'Smush', 75, $this->get_token() );
 		$mixpanel->identify( $this->get_unique_id() );
 		$mixpanel->registerAll( $this->get_super_properties() );
 
@@ -404,7 +418,17 @@ class Product_Analytics {
 		$settings = $this->remove_unchanged_settings( $old_settings, $settings );
 
 		if ( isset( $settings['usage'] ) ) {
-			$this->get_mixpanel()->track( $settings['usage'] ? 'Opt In' : 'Opt Out' );
+			// Following the new change, the location for Opt In/Out is lowercase and none whitespace.
+			// @see SMUSH-1538.
+			$location = str_replace( ' ', '_', $this->identify_referrer() );
+			$location = strtolower( $location );
+			$this->get_mixpanel()->track(
+				$settings['usage'] ? 'Opt In' : 'Opt Out',
+				array(
+					'Location'       => $location,
+					'active_plugins' => $this->get_active_plugins(),
+				)
+			);
 		}
 	}
 
@@ -455,7 +479,13 @@ class Product_Analytics {
 
 	public function intercept_reset() {
 		if ( $this->settings->get( 'usage' ) ) {
-			$this->get_mixpanel()->track( 'Opt Out' );
+			$this->get_mixpanel()->track(
+				'Opt Out',
+				array(
+					'Location'       => 'reset',
+					'active_plugins' => $this->get_active_plugins(),
+				)
+			);
 		}
 	}
 
@@ -755,6 +785,71 @@ class Product_Analytics {
 		$path       = parse_url( wp_get_referer(), PHP_URL_QUERY );
 		$query_vars = array();
 		parse_str( $path, $query_vars );
+
 		return empty( $query_vars['page'] ) ? '' : $query_vars['page'];
+	}
+
+	public function track_plugin_activation() {
+		$this->get_mixpanel()->track(
+			'Opt In',
+			array(
+				'Location'       => 'reactivate',
+				'active_plugins' => $this->get_active_plugins(),
+			)
+		);
+	}
+
+	public function track_plugin_deactivation() {
+		$location = $this->get_deactivation_location();
+		$this->get_mixpanel()->track(
+			'Opt Out',
+			array(
+				'Location'       => $location,
+				'active_plugins' => $this->get_active_plugins(),
+			)
+		);
+	}
+
+	private function get_deactivation_location() {
+		$is_hub_request = ! empty( $_REQUEST['wpmudev-hub'] );
+		if ( $is_hub_request ) {
+			return 'deactivate_hub';
+		}
+
+		$is_dashboard_request = wp_doing_ajax() &&
+								! empty( $_REQUEST['action'] ) &&
+								'wdp-project-deactivate' === wp_unslash( $_REQUEST['action'] );
+
+		if ( $is_dashboard_request ) {
+			return 'deactivate_dashboard';
+		}
+
+		return 'deactivate_pluginlist';
+	}
+
+	private function get_active_plugins() {
+		$active_plugins      = array();
+		$active_plugin_files = $this->get_active_and_valid_plugin_files();
+		foreach ( $active_plugin_files as $plugin_file ) {
+			$plugin_name = $this->get_plugin_name( $plugin_file );
+			if ( $plugin_name ) {
+				$active_plugins[] = $plugin_name;
+			}
+		}
+
+		return $active_plugins;
+	}
+
+	private function get_active_and_valid_plugin_files() {
+		$active_plugins = is_multisite() ? wp_get_active_network_plugins() : array();
+		$active_plugins = array_merge( $active_plugins, wp_get_active_and_valid_plugins() );
+
+		return array_unique( $active_plugins );
+	}
+
+	private function get_plugin_name( $plugin_file ) {
+		$plugin_data = get_plugin_data( $plugin_file );
+
+		return ! empty( $plugin_data['Name'] ) ? $plugin_data['Name'] : '';
 	}
 }

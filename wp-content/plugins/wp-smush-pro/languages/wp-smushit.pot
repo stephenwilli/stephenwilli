@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smush Pro 3.16.1\n"
+"Project-Id-Version: Smush Pro 3.16.2\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-27T12:46:53+00:00\n"
+"POT-Creation-Date: 2024-04-09T13:08:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: wp-smushit\n"
@@ -113,7 +113,7 @@ msgstr ""
 #: app/class-abstract-page.php:910
 #: app/class-admin.php:328
 #: app/views/settings/permissions-meta-box.php:92
-#: core/class-settings.php:1253
+#: core/class-settings.php:1266
 msgid "Tutorials"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgstr ""
 #: app/views/dashboard/summary-meta-box.php:62
 #: app/views/settings/permissions-meta-box.php:85
 #: core/class-configs.php:656
-#: core/class-settings.php:1252
+#: core/class-settings.php:1265
 #: _src/react/modules/configs.jsx:148
 msgid "CDN"
 msgstr ""
@@ -288,7 +288,7 @@ msgstr ""
 #: app/pages/class-nextgen.php:111
 #: app/views/dashboard/bulk/exists-uncompressed.php:53
 #: app/views/settings/permissions-meta-box.php:70
-#: core/class-settings.php:1249
+#: core/class-settings.php:1262
 #: core/modules/bulk/class-mail.php:96
 #: _src/react/modules/configs.jsx:145
 msgid "Bulk Smush"
@@ -309,7 +309,7 @@ msgstr ""
 #: app/views/dashboard/summary-meta-box.php:134
 #: app/views/settings/permissions-meta-box.php:80
 #: core/class-configs.php:655
-#: core/class-settings.php:1251
+#: core/class-settings.php:1264
 #: _src/react/modules/configs.jsx:147
 msgid "Lazy Load"
 msgstr ""
@@ -332,7 +332,7 @@ msgstr ""
 #: app/pages/class-dashboard.php:85
 #: app/pages/class-integrations.php:38
 #: app/views/settings/permissions-meta-box.php:75
-#: core/class-settings.php:1250
+#: core/class-settings.php:1263
 #: _src/react/modules/configs.jsx:146
 msgid "Integrations"
 msgstr ""
@@ -514,7 +514,7 @@ msgstr ""
 
 #: app/class-ajax.php:426
 #: app/class-ajax.php:508
-#: core/class-settings.php:735
+#: core/class-settings.php:748
 #: core/integrations/class-nextgen.php:553
 #: core/integrations/class-nextgen.php:676
 #: core/integrations/nextgen/class-admin.php:542
@@ -1424,17 +1424,17 @@ msgid "Ignore all"
 msgstr ""
 
 #: app/views/bulk/lossy-level.php:17
-#: core/class-settings.php:1184
+#: core/class-settings.php:1197
 msgid "Basic"
 msgstr ""
 
 #: app/views/bulk/lossy-level.php:18
-#: core/class-settings.php:1185
+#: core/class-settings.php:1198
 msgid "Super"
 msgstr ""
 
 #: app/views/bulk/lossy-level.php:19
-#: core/class-settings.php:1186
+#: core/class-settings.php:1199
 msgid "Ultra"
 msgstr ""
 
@@ -2110,20 +2110,20 @@ msgid "Add page or post URLs one per line in relative format. I.e. %1$s/example-
 msgstr ""
 
 #: app/views/lazyload/meta-box.php:540
-msgid "Classes & IDs"
+msgid "Keywords"
 msgstr ""
 
 #: app/views/lazyload/meta-box.php:542
-msgid "Additionally, you can specify classes or IDs to avoid lazy loading. This gives you absolute control over each image on a page, not just the page itself."
+msgid "Specify keywords from the image or iframe code - classes, IDs, filenames, source URLs or any string of characters - to exclude from lazy loading (case-sensitive)."
 msgstr ""
 
 #: app/views/lazyload/meta-box.php:550
-msgid "Add classes or IDs, one per line"
+msgid "Add keywords, one per line"
 msgstr ""
 
 #. translators: %1$s - opening strong tag, %2$s - closing strong tag
 #: app/views/lazyload/meta-box.php:555
-msgid "Add one class or ID per line, including the prefix. E.g %1$s#image-id%2$s or %1$s.image-class%2$s."
+msgid "Add one keyword per line. E.g. %1$s#image-id%2$s or %1$s.image-class%2$s or %1$slogo_image%2$s or %1$sgo_imag%2$s or %1$sx.com/%2$s"
 msgstr ""
 
 #: app/views/lazyload/meta-box.php:568
@@ -3312,11 +3312,11 @@ msgstr ""
 msgid "Help make Smush better by letting our designers learn how you’re using the plugin."
 msgstr ""
 
-#: core/class-settings.php:749
+#: core/class-settings.php:762
 msgid "The page these settings belong to is missing."
 msgstr ""
 
-#: core/class-settings.php:803
+#: core/class-settings.php:816
 msgid "The tab these settings belong to is missing."
 msgstr ""
 

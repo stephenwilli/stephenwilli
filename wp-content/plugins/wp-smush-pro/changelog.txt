@@ -6,6 +6,12 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.16.2 ( 2024-04-09 ) =
+- Fix: LazyLoad module not working correctly for picture elements in certain situations
+- Fix: LazyLoad module not working correctly for some CSS variables
+- Fix: Better handling of !important CSS rules by the LazyLoad module
+- Fix: Performance issues on some WooCommerce pages
+
 = 3.16.1 ( 2024-03-27 ) =
 - Improvement: Better compatibility with page builders
 - Improvement: General code improvements
@@ -236,4 +242,4 @@ Change Log:
 
 
 
-610151-1712260707-au
+610151-1712759544-au

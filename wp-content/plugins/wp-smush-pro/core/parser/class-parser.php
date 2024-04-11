@@ -85,6 +85,21 @@ class Parser {
 		return $matches[1];
 	}
 
+	public function get_composite_elements( $markup, $base_url ) {
+		$composite_elements = array();
+		$tag_names          = array( 'picture' );
+		foreach ( $tag_names as $tag_name ) {
+			$html_elements = $this->get_tags( $markup, array( $tag_name ) );
+			foreach ( $html_elements as $html_element ) {
+				$elements = $this->get_elements_with_image_attributes( $html_element, $base_url );
+				if ( ! empty( $elements ) ) {
+					$composite_elements[] = new Composite_Element( $html_element, $tag_name, $elements );
+				}
+			}
+		}
+		return $composite_elements;
+	}
+
 	/**
 	 * @param $markup
 	 * @param $base_url
@@ -105,6 +120,11 @@ class Parser {
 			$attributes     = $this->get_element_attributes( $element, $base_url );
 			$background     = $this->get_element_background_image( $element, $base_url );
 			$css_properties = $background ? array( $background ) : array();
+
+			// TODO: Support CSS variable with images.
+			if ( empty( $attributes ) && empty( $css_properties ) ) {
+				continue;
+			}
 
 			$elements[] = new Element( $element, $tag_name, $attributes, $css_properties );
 		}
@@ -171,7 +191,7 @@ class Parser {
 		 */
 
 		// Regex rule to get all inline style after background(-image) property.
-		$pattern = '#(?<property>background(?:-image)?):(?<value>[^;:]*?url\s*\([^>]+\)[^=:;]*);{0,1}#is';
+		$pattern = '#(?<!-)\b(?<property>background(?:-image)?):(?<value>[^;:]*?url\s*\([^>]+\)[^=:;]*);{0,1}#is';
 		$pattern = apply_filters( 'wp_smush_background_images_regex', $pattern );
 
 		if ( ! preg_match_all( $pattern, $style, $matches, PREG_SET_ORDER ) ) {

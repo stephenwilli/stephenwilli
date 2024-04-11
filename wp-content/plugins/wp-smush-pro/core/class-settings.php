@@ -708,17 +708,30 @@ class Settings {
 		delete_site_option( self::SUBSITE_CONTROLS_OPTION_KEY );
 		delete_site_option( 'wp-smush-webp_hide_wizard' );
 		delete_site_option( 'wp-smush-preset_configs' );
-		$this->delete_setting( self::SETTINGS_KEY );
 		$this->delete_setting( 'wp-smush-image_sizes' );
 		$this->delete_setting( 'wp-smush-resize_sizes' );
 		$this->delete_setting( 'wp-smush-cdn_status' );
 		$this->delete_setting( 'wp-smush-lazy_load' );
-		$this->delete_setting( 'skip-smush-setup' );
 		$this->delete_setting( 'wp-smush-hide-tutorials' );
 		delete_option( 'wp-smush-png2jpg-rewrite-rules-flushed' );
 		delete_option( 'wp_smush_scan_slice_size' );
 
+		// We used update_option for skip-smush-setup,
+		// so let's reset it with delete_option instead of delete_site_option for MU site.
+		delete_option( 'skip-smush-setup' );
+
+		// Reset site settings.
+		$this->reset_site_settings();
+
 		wp_send_json_success();
+	}
+
+	private function reset_site_settings() {
+		$this->delete_setting( self::SETTINGS_KEY );
+		$this->reset_cache_site_settings();
+		// The action wp_smush_settings_updated only triggers after option is updated, does not trigger on add_(site_)option.
+		// So to support this, we need to add the default option first.
+		$this->update_site_settings( $this->defaults );
 	}
 
 	/**

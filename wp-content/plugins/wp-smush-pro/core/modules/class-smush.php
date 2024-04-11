@@ -1642,17 +1642,30 @@ class Smush extends Abstract_Module {
 		}
 	}
 
-	public function should_auto_smush( $id ) {
-		$media_item = Media_Item_Cache::get_instance()->get( $id );
+	public function should_auto_smush( $attachment_id ) {
+		// TODO: We already verified in restoring status but better to disable auto smush while restoring.
+		if ( ! $this->settings->is_automatic_compression_active() ) {
+			return false;
+		}
+
+		$media_item = Media_Item_Cache::get_instance()->get( $attachment_id );
 		if ( ! $media_item->is_valid() ) {
 			return false;
 		}
 
-		if ( $media_item->is_large() ) {
-			// We don't want very large files to be auto smushed
+		/**
+		 * Skip auto smush filter.
+		 *
+		 * @param bool $skip_auto_smush Whether to skip auto smush or not.
+		 */
+		$skip_auto_smush = apply_filters( 'wp_smush_should_skip_auto_smush', false, $attachment_id );
+
+		// We don't want very large files to be auto smushed.
+		$skip_auto_smush = $skip_auto_smush || $media_item->is_large();
+		if ( $skip_auto_smush ) {
 			return false;
 		}
 
-		return $this->is_auto_smush_enabled();
+		return true;
 	}
 }

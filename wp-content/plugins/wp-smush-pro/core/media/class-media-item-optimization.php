@@ -35,7 +35,7 @@ abstract class Media_Item_Optimization {
 	/**
 	 * @param $size Media_Item_Size
 	 */
-	abstract public function should_optimize_size( $size );
+	abstract public function should_optimize_size( $size );	 			  			 	 	   	 		
 
 	/**
 	 * @return mixed

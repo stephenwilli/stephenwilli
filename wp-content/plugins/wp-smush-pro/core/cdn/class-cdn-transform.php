@@ -42,9 +42,11 @@ class CDN_Transform implements Transform {
 	}
 
 	public function transform_page( $page ) {
-		foreach ( $page->get_elements() as $element ) {
-			$this->transform_element( $element );
+		foreach ( $page->get_composite_elements() as $composite_element ) {
+			$this->transform_elements( $composite_element->get_elements() );
 		}
+
+		$this->transform_elements( $page->get_elements() );
 
 		foreach ( $page->get_styles() as $style ) {
 			$this->transform_style( $style );
@@ -354,5 +356,16 @@ class CDN_Transform implements Transform {
 
 	private function is_rest_request() {
 		return defined( 'REST_REQUEST' ) && REST_REQUEST;
+	}
+
+	/**
+	 * @param array $elements
+	 *
+	 * @return void
+	 */
+	private function transform_elements( array $elements ) {
+		foreach ( $elements as $element ) {
+			$this->transform_element( $element );
+		}
 	}
 }

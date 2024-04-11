@@ -60,15 +60,11 @@ class Webp_Transform implements Transform {
 			$this->update_image_urls( $style->get_image_urls() );
 		}
 
-		foreach ( $page->get_elements() as $element ) {
-			$this->transform_image_element_attributes( $element );
-
-			$this->transform_image_element_css_properties( $element );
-
-			if ( $this->settings->is_webp_fallback_active() ) {
-				$this->add_fallback_attribute( $element );
-			}
+		foreach ( $page->get_composite_elements() as $composite_element ) {
+			$this->transform_elements( $composite_element->get_elements() );
 		}
+
+		$this->transform_elements( $page->get_elements() );
 	}
 
 	private function add_fallback_attribute( Element $element ) {
@@ -130,5 +126,31 @@ class Webp_Transform implements Transform {
 	public function transform_image_url( $url ) {
 		$webp_url = $this->webp_helper->get_webp_file_url( $url );
 		return $webp_url ? $webp_url : $url;
+	}
+
+	/**
+	 * @param Element $element
+	 *
+	 * @return void
+	 */
+	private function transform_element( Element $element ) {
+		$this->transform_image_element_attributes( $element );
+
+		$this->transform_image_element_css_properties( $element );
+
+		if ( $this->settings->is_webp_fallback_active() ) {
+			$this->add_fallback_attribute( $element );
+		}
+	}
+
+	/**
+	 * @param array $elements
+	 *
+	 * @return void
+	 */
+	private function transform_elements( array $elements ) {
+		foreach ( $elements as $element ) {
+			$this->transform_element( $element );
+		}
 	}
 }

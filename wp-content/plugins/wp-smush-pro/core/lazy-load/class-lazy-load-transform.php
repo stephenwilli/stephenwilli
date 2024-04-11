@@ -3,6 +3,7 @@
 namespace Smush\Core\Lazy_Load;
 
 use Smush\Core\Array_Utils;
+use Smush\Core\Parser\Composite_Element;
 use Smush\Core\Parser\Element;
 use Smush\Core\Parser\Element_Attribute;
 use Smush\Core\Parser\Page;
@@ -279,9 +280,13 @@ class Lazy_Load_Transform implements Transform {
 	}
 
 	private function transform_image_elements( Page $page ) {
-		foreach ( $page->get_elements() as $element ) {
-			$this->transform_image_element( $element );
+		foreach ( $page->get_composite_elements() as $composite_element ) {
+			if ( ! $this->is_composite_element_excluded( $composite_element ) ) {
+				$this->transform_elements( $composite_element->get_elements() );
+			}
 		}
+
+		$this->transform_elements( $page->get_elements() );
 	}
 
 	private function transform_image_element( Element $element ) {
@@ -490,5 +495,30 @@ class Lazy_Load_Transform implements Transform {
 		}
 
 		return getimagesize( $image_path );
+	}
+
+	/**
+	 * @param Composite_Element $composite_element
+	 *
+	 * @return bool
+	 */
+	private function is_composite_element_excluded( Composite_Element $composite_element ): bool {
+		foreach ( $composite_element->get_elements() as $sub_element ) {
+			if ( $this->is_element_excluded( $sub_element ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @param array $elements
+	 *
+	 * @return void
+	 */
+	private function transform_elements( array $elements ) {
+		foreach ( $elements as $element ) {
+			$this->transform_image_element( $element );
+		}
 	}
 }
