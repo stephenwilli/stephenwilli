@@ -40,6 +40,7 @@
   }
   
   @include below('md') {
+		margin-top: space(10);
 		flex-wrap: wrap;
 		.post-content {
 			width: 100%;

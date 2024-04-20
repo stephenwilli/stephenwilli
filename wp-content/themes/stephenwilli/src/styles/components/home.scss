@@ -7,6 +7,10 @@ body.home {
 		.icon {
 			color: white;
 		}
+    @include below('sm'){
+      top: 2rem;
+      left: 2rem;
+    }
 	}
 
   .navbar-hamburger {
@@ -20,6 +24,11 @@ body.home {
 		&:after, &:before, span {
 			background-color: white;
 		}
+
+    @include below('sm'){
+      top: 3rem;
+      right: 2rem;
+    }
 	}
 
   .navbar-menu {
