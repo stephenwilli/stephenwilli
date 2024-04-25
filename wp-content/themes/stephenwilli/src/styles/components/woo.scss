@@ -122,6 +122,12 @@
       }
     }
 
+    .cart-collaterals .cart_totals {
+      @include below('md'){
+        padding: 0 1rem;
+      }
+    }
+
   .wc-proceed-to-checkout a.checkout-button {
     background-color: color('black') ;
     &:hover {
