@@ -40,13 +40,15 @@
   }
   
   @include below('md') {
-		margin-top: space(10);
+		margin-top: space(4);
 		flex-wrap: wrap;
 		.post-content {
 			width: 100%;
+			order: 1;
 		}
 		.post-image {
 			width: 100%;
+			order: 0;
 		}
   }
 
