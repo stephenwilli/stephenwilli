@@ -34,13 +34,14 @@
         bottom: 18rem;
         left: 40%;
         width: 60%;
+        margin-bottom: -18rem;
       }
     }
   }
   
   @include below('md'){
     .split-wrap {
-      display: inline-block;
+      flex-wrap: wrap;
       .split-half {
         width: 100%;
         padding: 0 1rem;
@@ -56,6 +57,21 @@
   
   @include below('sm'){
     .split-wrap {
+      gap: 0;
+      margin-bottom: 3rem;
+
+      .split-half {
+        padding: 0;
+      }
+      
+      .-image {
+        order: 0;
+      }
+
+      .-text {
+        order: 1;
+      }
+
       .-images {
         margin-bottom: space(4);  
         .image-1 {
@@ -66,6 +82,7 @@
           bottom: 0;
           left: 0;
           width: 100%;
+          margin-bottom: 0;
         }
       }
     }
