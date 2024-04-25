@@ -3,6 +3,10 @@ body.home {
     cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
   }
 
+  .site-header {
+    height: 0;
+  }
+
   .navbar-brand {
 		.icon {
 			color: white;

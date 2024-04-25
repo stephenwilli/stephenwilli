@@ -4,13 +4,6 @@
 ?>
   <main class="main-wrap">
 
-    <?php 
-    $content = get_the_content();
-    if($content){?>
-        <?php the_content();?>
-    <?php }?>
-
-
     <?php render( 'sections' ); ?>
   </main>
   <?php endwhile; 
