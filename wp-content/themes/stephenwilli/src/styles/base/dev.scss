@@ -10,6 +10,7 @@
   }
 
   .navbar-hamburger {
+    cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
     &:after, &:before, span {
       background-color: color('white');
     }
