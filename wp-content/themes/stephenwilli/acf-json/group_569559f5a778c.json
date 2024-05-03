@@ -301,11 +301,103 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_6634f3bfbb867": {
+                    "key": "layout_6634f3bfbb867",
+                    "name": "text_columns",
+                    "label": "Text Columns",
+                    "display": "row",
+                    "sub_fields": [
+                        {
+                            "key": "field_6634f3cebb86e",
+                            "label": "Column",
+                            "name": "column",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "min": 0,
+                            "max": 0,
+                            "collapsed": "",
+                            "button_label": "Add Row",
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_6634f3d7bb86f",
+                                    "label": "Column Title",
+                                    "name": "column_title",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_6634f3cebb86e"
+                                },
+                                {
+                                    "key": "field_6634f3e6bb870",
+                                    "label": "Column Text",
+                                    "name": "column_text",
+                                    "aria-label": "",
+                                    "type": "wysiwyg",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "tabs": "all",
+                                    "toolbar": "full",
+                                    "media_upload": 1,
+                                    "delay": 0,
+                                    "parent_repeater": "field_6634f3cebb86e"
+                                },
+                                {
+                                    "key": "field_6634f3f2bb871",
+                                    "label": "Column Link",
+                                    "name": "column_link",
+                                    "aria-label": "",
+                                    "type": "link",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "return_format": "array",
+                                    "parent_repeater": "field_6634f3cebb86e"
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
-            "button_label": "Add Content Type",
             "min": "",
-            "max": ""
+            "max": "",
+            "button_label": "Add Content Type"
         }
     ],
     "location": [
@@ -333,5 +425,5 @@
     "active": true,
     "description": "Post Type = Page or Post",
     "show_in_rest": 0,
-    "modified": 1711906323
+    "modified": 1714746432
 }

@@ -6,7 +6,7 @@
   
 ?>
 
-  <main class="dev-wrap container pad-y">
+  <main class="dev-wrap">
     <?php render( 'sections' ); ?>
   </main>
   

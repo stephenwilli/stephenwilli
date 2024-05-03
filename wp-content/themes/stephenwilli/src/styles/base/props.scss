@@ -16,7 +16,7 @@
   --font-heading: 'ivypresto-display', serif;
   --font-light-heading: 'Elegant-Lux', sans-serif;
 
-  --container-width: 1680px;
+  --container-width: 1500px;
   --container-space: #{fluid(10, 60)};
   --vertical-space: #{fluid(40, 80)};
 
@@ -26,7 +26,7 @@
   --grid-cols: 3;
   --grid-size: 300px;
   --grid-repeat: auto-fill;
-  --grid-gap: #{fluid(20, 30)};
+  --grid-gap: #{fluid(60, 80)};
   --grid-row-gap: unset;
   --grid-col-gap: unset;
 
