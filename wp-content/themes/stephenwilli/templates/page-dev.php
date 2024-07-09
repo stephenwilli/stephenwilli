@@ -6,9 +6,7 @@
   
 ?>
 
-  <main class="dev-wrap">
     <?php render( 'sections' ); ?>
-  </main>
   
   <?php
 get_footer();

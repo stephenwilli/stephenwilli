@@ -25,7 +25,7 @@
     $class = 'home';
   } 
 
-  if(is_page_template('templates/page-dev.php')){
+  if(is_page_template('templates/page-dev.php') || is_singular('projects')){
     $class = 'dev-template';
   }
   ?>

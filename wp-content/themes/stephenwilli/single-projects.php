@@ -1,48 +1,33 @@
 <?php
-  get_header();
-  while(have_posts()) { the_post(); 
-    $title = get_the_title();
-    $content = get_the_content();
-    $photo = get_field('featured_photo');
-    $orientation = get_field('photo_orientation');
-    $subtitle = get_field('photo_subtitle');
-    $printLink = get_field('print_link');
-    $kicker = get_field('photo_kicker');
-  ?>
-  
-  <main class="single-photo" role="main">
-    <section class="photo-wrap -<?= $orientation;?>">
-      <div class="photo-content" data-animate="fade-left" data-delay="1">
-        <h1 id="intro-title"><?= $title; ?></h1>
-        <?php if($subtitle){?>
-          <h3><?= $subtitle; ?></h3>
-        <?php } ?>
-        <p><?= $content;?></p>
-        <?php if($printLink){?>
-          <a href="<?= $printLink['url'];?>">Purchase Prints</a>
-        <?php } else { ?>
-          <p>Prints coming soon</p>
-        <?php } ?>
-        <?php  
-          // get_template_part( 'partials/02_molecule/social-share' ); 
-        ?>
-        
-        <?php if($kicker){?>
-          <div class="kicker" data-animate="fade-left-2" data-delay="2">
-            <p><?= $kicker;?></p>
-          </div>
-        <?php } ?>
-        
-        <?php get_template_part( 'partials/02_molecule/post-navigation' ); ?> 
+  get_header(); 
+  $postImage = get_the_post_thumbnail_url(get_the_ID(),'full_screen');
+  $role = get_field('project_role');
+  $terms = get_the_terms(get_the_ID(), 'category');
+  $credits = get_field('project_credits');
+?>
+
+  <section class="content-wrap container pad-b" data-animate="fade-right" data-delay="1">
+      <div class="post-content">
+        <h1 class="h2" id="intro-title"><?php the_title();?></h1>
+        <div class="post-meta">
+          <ul class="credits">
+            <?php foreach($credits as $credit){ 
+              $text = $credit['credit'];
+              ?>
+              <li><?= $text;?></li>
+            <?php } ?>
+          </ul>
+        </div>
+        <?php the_content();?>
       </div>
-      
-      <div class="photo-full -<?= $orientation;?>">
-        <div class="reveal" data-delay="2" data-animate="reveal-up"></div>
-        <img src="<?= $photo['sizes']['full_screen'];?>" alt="<?php the_title();?> - Stephen Williams Photography, Jackson Wyoming" />
+      <div class="post-image">
+        <div class="reveal-wrap">
+          <div class="reveal" data-delay="1" data-animate="reveal-up"></div>  
+          <img src="<?= $postImage;?>" alt="<?php the_title();?>">
+        </div>
       </div>
     </section>
-    
-  </main>
+    <?php render( 'sections' ); ?>
   
-<?php }
+  <?php
 get_footer();
