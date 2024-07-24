@@ -3,6 +3,10 @@
     color: color('white');
     cursor: url('../assets/images/cursor-circle.svg') 25 15, auto !important;
 
+    p {
+      font-size: 1.125rem;
+    }
+
   .navbar-brand {
     .icon {
       color: color('white');

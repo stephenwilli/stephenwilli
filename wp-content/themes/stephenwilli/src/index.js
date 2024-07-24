@@ -66,7 +66,7 @@ jQuery(document).ready(function($) {
   mySplitText = new SplitText("#loader-heading", {type:"words,chars"}), 
   chars = mySplitText.chars;
   gsap.set("#loader-heading", {perspective: 400});
-  tl.from(chars, {duration: .5, opacity:0, scale:.9, y:10, delay: 1, transformOrigin:"0% 50% -50", ease:"easeInOut", stagger: 0.03}, "+=0");
+  tl.from(chars, {duration: .3, opacity:0, scale:.9, y:10, delay: .9, transformOrigin:"0% 50% -50", ease:"easeInOut", stagger: 0.03}, "+=0");
   
   var tl2 = gsap.timeline(), 
   mySplitText = new SplitText("#intro-title", {type:"words,chars"}), 

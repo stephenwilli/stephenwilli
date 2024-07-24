@@ -12,6 +12,15 @@
       text-decoration: none;
     }
   }
+
+  h3 {
+    font-family: var(--font-heading);
+    line-height: 1.15;
+    font-size: var(--font-size-h2a);
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    text-transform: none;
+  }
   
   @include below('sm') {
     padding: 4rem;

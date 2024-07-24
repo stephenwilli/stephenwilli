@@ -3,26 +3,6 @@
     "title": "Projects",
     "fields": [
         {
-            "key": "field_66379c1d506de",
-            "label": "Role",
-            "name": "project_role",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
             "key": "field_66379c28506df",
             "label": "Credits",
             "name": "project_credits",
@@ -86,5 +66,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1714920526
+    "modified": 1721695202
 }

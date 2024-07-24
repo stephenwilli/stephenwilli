@@ -1,4 +1,4 @@
-<section class="flex-wysiwyg container-center pad-y" data-animate="fade-right" data-delay="1">
+<section class="flex-wysiwyg container-center pad-y content" data-animate="fade-right" data-delay="1">
   <?php 
   $wysiwyg = $data['fc_wysiwyg'];  
   ?>

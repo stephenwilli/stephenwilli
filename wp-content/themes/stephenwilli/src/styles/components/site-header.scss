@@ -97,7 +97,7 @@
 			a {
 				font-family: var(--font-heading);
 				font-weight: bold;
-				font-size: var(--font-size-h1);
+				font-size: var(--font-size-h2);
 				color: color('black');
 				display: block;
 				position: relative;
@@ -359,8 +359,8 @@
 		}
 		.contact-nav {
       position: absolute;
-      bottom: space(8);
-      left: space(4);
+      bottom: space(2);
+      left: space(6);
       right: auto;
 			.social-links {
 				.social-link {

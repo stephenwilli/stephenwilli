@@ -52,3 +52,9 @@ a:where(:hover, :focus) {
   outline-width: var(--outline-width, 1px);
   outline-offset: var(--outline-offset, var(--outline-width));
 }
+
+.content {
+  a {
+    text-decoration: underline !important;
+  }
+}
