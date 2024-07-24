@@ -90,6 +90,7 @@
 		transition-delay: .5s;
 		@include center-y;
 		left: 4rem;
+		width: 60%;
 		
 		> .menu-item {
 			position: relative;
@@ -284,6 +285,7 @@
 		}
 		
 		.parent-menu {
+			width: auto;
 			> .menu-item {
 				&:after {
 					display: none;
