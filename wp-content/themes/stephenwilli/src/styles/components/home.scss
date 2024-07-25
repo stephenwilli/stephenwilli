@@ -35,27 +35,27 @@ body.home {
     }
 	}
 
-  .navbar-menu {
-    height: calc(100% - 4rem);
-    margin: 2rem;
-		&.-open {
-			width: calc(100% - 4rem);
-		}
+  // .navbar-menu {
+  //   height: calc(100% - 4rem);
+  //   margin: 2rem;
+	// 	&.-open {
+	// 		width: calc(100% - 4rem);
+	// 	}
 
-    @include below('md'){
-      height: calc(100% - 2rem);
-      margin: 1rem;
-      &.-open {
-        width: calc(100% - 2rem);
-      }
-    }
+  //   @include below('md'){
+  //     height: calc(100% - 2rem);
+  //     margin: 1rem;
+  //     &.-open {
+  //       width: calc(100% - 2rem);
+  //     }
+  //   }
 
-    @include below('sm'){
-      height: 100%;
-      margin: 0;
-      &.-open {
-        width: 100%;
-      }
-    }
-	}
+  //   @include below('sm'){
+  //     height: 100%;
+  //     margin: 0;
+  //     &.-open {
+  //       width: 100%;
+  //     }
+  //   }
+	// }
 }

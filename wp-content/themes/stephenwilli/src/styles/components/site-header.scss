@@ -36,49 +36,52 @@
 	}
 }
 
-.site-header {
-	&.scrolled {
+// .site-header {
+// 	&.scrolled {
 		
-		.navbar-brand {
-			position: fixed;
-			top: 1rem;
-			left: 1rem;
-			.icon {
-				font-size: 2rem;
-			}	
-		}
+// 		.navbar-brand {
+// 			position: fixed;
+// 			top: 1rem;
+// 			left: 1rem;
+// 			.icon {
+// 				font-size: 2rem;
+// 			}	
+// 		}
 		
-		.hamburger-wrap {
-			height: 4rem;
-			width: 100%;
-			display: inline-block;
-			position: fixed;
-			z-index: 120;
-			background-color: white;
-			transition: none;
-		}
+// 		.hamburger-wrap {
+// 			height: 4rem;
+// 			width: 100%;
+// 			display: inline-block;
+// 			position: fixed;
+// 			z-index: 120;
+// 			background-color: white;
+// 			transition: none;
+// 		}
 		
-		.navbar-hamburger {
-			position: fixed;
-			top: 1.5rem;
-			right: 2rem;
-			@include below('xs'){
-				right: 1rem;
-			}
-		}
-	}
-}
+// 		.navbar-hamburger {
+// 			position: fixed;
+// 			top: 1.5rem;
+// 			right: 2rem;
+// 			@include below('xs'){
+// 				right: 1rem;
+// 			}
+// 		}
+// 	}
+// }
 	
 		
 .navbar-menu {
-  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: fixed;
   top: 0;
   right: 0;
-	width: 0;
-	height: 100%;
 	background: rgba(255, 255, 255, .9);
 	z-index: 110;
-	transition: all .5s ease-in-out;
+  transition: .8s ease('in-out-quart');
+  transition-property: clip-path;
+  clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
 	cursor: url('../assets/images/cursor-circle-02.svg') 25 15, auto;
 	a {
 		cursor: url('../assets/images/cursor-arrow-02.svg') 25 15, auto;
@@ -86,8 +89,8 @@
 	
 	.parent-menu {
 		opacity: 0;
-		transition: all .5s;
-		transition-delay: .5s;
+    transition: 1s;
+    transition-delay: .25s;
 		@include center-y;
 		left: 4rem;
 		width: 60%;
@@ -246,8 +249,8 @@
 	}
 	
 	&.-open {
-		width: 100%;
-		margin: 0;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    pointer-events: auto;
 		
 		.parent-menu {
 			opacity: 1;
@@ -348,7 +351,7 @@
 						padding: 0;
 						> .menu-item {
 							a {
-								font-size: 1.7rem;
+								font-size: 1.5rem;
 							}
 						}
 					}
