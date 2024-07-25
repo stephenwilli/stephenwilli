@@ -1,13 +1,11 @@
 <?php
   $sectionTitle  = $data['section_title'];
   $sectionText = $data['section_text'];  
-  $image = $data['screen_image'];  
-  $video = $data['screen_video'];
-  $props = json_encode(['video' => $video]);  
   $subhead = $data['subhead'];
+  $items = $data['carousel_item'];
 ?>
 
-<section class="flex-screen pad-y" >
+<section class="flex-carousel pad-y" >
 <div class="container-center" data-animate="fade-up">
 
   <?php if($subhead){?>
@@ -23,14 +21,16 @@
   <?php } ?>
 </div>
 
-<div class="container-center" data-animate="fade-right">
-  <div class="screen-frame">
-    <img src="<?= $image['sizes']['large'];?>">
-    <?php if($video){?>
-      <div class="hero" data-props='<?= $props ?>'>
+<div class="js-carousel carousel-wrap" data-animate="fade-up">
+    <?php foreach($items as $item){ 
+         $image = $item['image'];
+         $text = $item['text'];
+      ?>
+      <div class="carousel-item">
+        <img src="<?= $image['sizes']['large'];?>">
+        <span><?= $text;?></span>
       </div>
     <?php } ?>
-  </div>
 </div>
 
 </section><!-- /section -->

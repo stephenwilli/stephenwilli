@@ -12,4 +12,26 @@ jQuery(function($) {
     });
   });
 
+
+  $('.js-carousel').each(function(elem) {
+    $(this).slick({
+      autoplay: true,
+      autoplaySpeed: 6000,
+      arrows: false,
+      dots: false,
+      slidesToShow: 1,
+      centerMode: true,
+      centerPadding:'300px',
+      responsive: [
+          {
+            breakpoint: 968,
+            settings: {
+              slidesToShow: 1,
+              centerPadding:'60px',
+            }
+          }
+        ]
+    });
+  });
+
 });

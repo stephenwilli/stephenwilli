@@ -226,7 +226,8 @@
                                 "id": ""
                             },
                             "post_type": [
-                                "projects"
+                                "projects",
+                                "post"
                             ],
                             "post_status": "",
                             "taxonomy": "",
@@ -737,7 +738,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "return_format": "array",
+                            "return_format": "url",
                             "library": "all",
                             "min_width": "",
                             "min_height": "",
@@ -930,5 +931,5 @@
     "active": true,
     "description": "Post Type = Page or Post",
     "show_in_rest": 0,
-    "modified": 1721695171
+    "modified": 1721941022
 }

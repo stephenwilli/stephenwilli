@@ -17,7 +17,7 @@
               $term = array_pop($terms);
               $catLink = get_term_link($term);
               $catTitle = $term->name; ?>
-                <a class="cat-link" href="<?= $catLink;?>"><?= $catTitle;?></a>
+                <span class="cat-link" href="<?= $catLink;?>"><?= $catTitle;?></span>
               <?php } }?> 
             <?php foreach($credits as $credit){ 
               $text = $credit['credit'];

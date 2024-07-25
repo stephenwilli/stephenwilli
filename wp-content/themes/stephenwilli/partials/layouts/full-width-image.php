@@ -1,13 +1,11 @@
 <?php
   $sectionTitle  = $data['section_title'];
   $sectionText = $data['section_text'];  
-  $image = $data['screen_image'];  
-  $video = $data['screen_video'];
-  $props = json_encode(['video' => $video]);  
+  $image = $data['image'];  
   $subhead = $data['subhead'];
 ?>
 
-<section class="flex-screen pad-y" >
+<section class="flex-full pad-y">
 <div class="container-center" data-animate="fade-up">
 
   <?php if($subhead){?>
@@ -23,15 +21,7 @@
   <?php } ?>
 </div>
 
-<div class="container-center" data-animate="fade-right">
-  <div class="screen-frame">
-    <img src="<?= $image['sizes']['large'];?>">
-    <?php if($video){?>
-      <div class="hero" data-props='<?= $props ?>'>
-      </div>
-    <?php } ?>
-  </div>
-</div>
+<img src="<?= $image;?>" alt="" data-animate="fade-up">
 
 </section><!-- /section -->
 

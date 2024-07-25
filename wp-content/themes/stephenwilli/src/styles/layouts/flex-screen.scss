@@ -1,0 +1,14 @@
+.flex-screen {
+  .screen-frame {
+    position: relative;
+    margin-top: space(6);
+    border-radius: 6px;
+    border: 8px solid #9B9B9B;
+    box-shadow: 33px 33px 13px -28px rgba(0,0,0,0.75);
+
+    img {
+      @include fill;
+      border-radius: 2px;
+    }
+  }
+}

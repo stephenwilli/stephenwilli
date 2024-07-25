@@ -1,0 +1,22 @@
+.flex-carousel {
+  .carousel-wrap {
+    margin-top: space(6);
+  	position: relative;
+    cursor: url('../assets/images/cursor-arrows-02.svg') 25 15, auto !important;
+  	
+  	.carousel-item {
+      margin: 0 .5rem;
+
+      span {
+        margin-top: space(2);
+        font-size: var(--font-size-lg);
+        display: inline-block;
+      }
+
+  		img {
+  			max-width: 100%;
+  		}
+  	}
+  }
+  
+}

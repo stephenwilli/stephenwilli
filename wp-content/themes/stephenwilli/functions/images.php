@@ -1,5 +1,7 @@
 <?php
 
+add_image_size( 'large_thumb', 1280, 853, true ); // Force crop
+
 // 1px transparent gif
 define('PIXEL', 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==');
 
@@ -33,8 +35,10 @@ add_filter('wp_get_attachment_image_attributes', function($attributes, $attachme
 add_filter('intermediate_image_sizes', function($sizes) {
     $defaults = ['thumbnail', 'medium', 'large'];
     return array_filter($sizes, fn($size) => in_array($size, $defaults));
+    
 });
 
 add_filter('jpeg_quality', function($quality) {
     return 90;
 });
+

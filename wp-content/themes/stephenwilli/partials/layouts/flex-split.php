@@ -8,12 +8,16 @@
         foreach($splits as $split){
           $type = $split['fc_split_half_type'];
           $text = $split['fc_text_editor'];
+          $subhead = $split['fc_subhead'];
           $image1 = $split['fc_split_image_1'];
           $image2 = $split['fc_split_image_2'];
           $caption = $split['fc_split_image_caption'];
         ?>
         <?php if($type === 'text'){?>
           <div class="split-half -text flex-text" data-animate="fade-right" >
+            <?php if($subhead){?>
+              <h4><?= $subhead;?></h4>
+            <?php } ?>
             <?= $text;?>
           </div>
         <?php } elseif($type === 'image'){?>
@@ -25,7 +29,7 @@
                   <img src="<?= $image1['sizes']['medium'];?>" alt="Stephen Williams Photography, Jackson Wyoming">
                 </div>
                 <?php if($caption){?>
-                  <span class="caption"><?= $caption;?></span>
+                  <span data-animate="fade-in" class="caption"><?= $caption;?></span>
                 <?php } ?>
               </div>
             <?php } ?>

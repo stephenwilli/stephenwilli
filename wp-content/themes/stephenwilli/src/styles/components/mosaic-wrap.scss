@@ -31,6 +31,25 @@
 			}
 		}
 	}
+
+	&.-projects {
+		.mosaic-image {
+			width: calc(50% - 2rem);
+			position: relative;
+
+			.cat-link {
+				margin-right: 1rem;
+				position: relative;
+			}
+
+			.project-text {
+				position: absolute;
+				left: space(2);
+				bottom: space(2);
+				z-index: 2;
+			}
+		}
+	}
 	
 	@include below('md') {
 		.mosaic-image {
@@ -46,6 +65,13 @@
 			&.intro-card {
 				min-height: auto;
 				padding: 2rem 0;
+			}
+		}
+
+		&.-projects {
+			.mosaic-image {
+				width: 100%;
+				margin: 1rem 0;
 			}
 		}
 	}
