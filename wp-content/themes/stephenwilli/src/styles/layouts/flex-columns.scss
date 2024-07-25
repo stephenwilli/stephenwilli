@@ -1,0 +1,8 @@
+.flex-columns {
+
+  @include below('sm') {
+    .column {
+      transition-delay: 0;
+    }
+  }
+}
