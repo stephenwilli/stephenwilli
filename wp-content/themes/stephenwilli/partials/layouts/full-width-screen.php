@@ -5,7 +5,7 @@
   $video = $data['screen_video'];  
 ?>
 
-<section class="flex-screen pad-y" data-animate="fade-right" data-delay="1">
+<section class="flex-screen pad-y" data-animate="fade-right">
 <div class="container-center">
   <?php if($sectionTitle){ ?>
     <h2><?= $sectionTitle;?></h2>

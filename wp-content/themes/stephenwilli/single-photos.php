@@ -12,8 +12,8 @@
   
   <main class="single-photo" role="main">
     <section class="photo-wrap -<?= $orientation;?>">
-      <div class="photo-content" data-animate="fade-left" data-delay="1">
-        <h1 id="intro-title"><?= $title; ?></h1>
+      <div class="photo-content" data-animate="fade-left">
+        <h1><?= $title; ?></h1>
         <?php if($subtitle){?>
           <h3><?= $subtitle; ?></h3>
         <?php } ?>
@@ -25,7 +25,7 @@
         <?php } ?>
         
         <?php if($kicker){?>
-          <div class="kicker" data-animate="fade-left-2" data-delay="2">
+          <div class="kicker" data-animate="fade-left-2">
             <p><?= $kicker;?></p>
           </div>
         <?php } ?>
@@ -34,7 +34,7 @@
       </div>
       
       <div class="photo-full -<?= $orientation;?> reveal-wrap">
-        <div class="reveal" data-delay="3" data-animate="reveal-up"></div>
+        <div class="reveal" data-animate="reveal-up"></div>
         <img src="<?= $photo['sizes']['large'];?>" alt="<?php the_title();?> - Stephen Williams Photography, Jackson Wyoming" />
       </div>
     </section>

@@ -11,8 +11,8 @@
       <div class="gallery-mosaic js-mosaic-gallery">
         
         <div class="mosaic-image intro-card">
-          <div class="reveal" data-delay="1" data-animate="reveal-up"></div>
-          <h1 id="intro-title"><?= $title;?></h1>
+          <div class="reveal" data-animate="reveal-up"></div>
+          <h1><?= $title;?></h1>
           <?php if($text){?>
             <p><?= $text;?></p>
           <?php }?>
@@ -25,7 +25,7 @@
           $postImage = get_the_post_thumbnail_url(get_the_ID(),'large');
         ?>
             <a class="mosaic-image" href="<?php the_permalink();?>">
-              <div class="reveal" data-delay="2" data-animate="reveal-up"></div>
+              <div class="reveal" data-animate="reveal-up"></div>
               <img class="thumbnail" src="<?= $postImage;?>" alt="<?php the_title();?>"/>
             </a>
         <?php endwhile;?>

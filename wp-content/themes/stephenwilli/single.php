@@ -6,9 +6,9 @@
   $terms = get_the_terms(get_the_ID(), 'category');
 ?>
   <main class="main-wrap">
-    <section class="content-wrap container pad-y" data-animate="fade-right" data-delay="1">
+    <section class="content-wrap container pad-y" data-animate="fade-right">
       <div class="post-content">
-        <h1 class="h2" id="intro-title"><?php the_title();?></h1>
+        <h1 class="h2""><?php the_title();?></h1>
         <div class="post-meta">
           <p><?= $date ?> / / 
             <?php if(!empty($terms)) {
@@ -27,7 +27,7 @@
       </div>
       <div class="post-image">
         <div class="reveal-wrap">
-          <div class="reveal" data-delay="1" data-animate="reveal-up"></div>  
+          <div class="reveal" data-animate="reveal-up"></div>  
           <img src="<?= $postImage;?>" alt="<?php the_title();?>">
         </div>
       </div>

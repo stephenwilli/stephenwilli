@@ -31,9 +31,9 @@
       $images = new WP_Query($args);
       $i = 1;?>
         <div class="mosaic-image intro-card">
-          <div class="reveal"  data-delay="1" data-animate="reveal-up"></div>
+          <div class="reveal" data-animate="reveal-up"></div>
           <div class="series-text">
-            <h1 class="h2" id="intro-title"><?= $seriesTitle;?></h1>
+            <h1 class="h2"><?= $seriesTitle;?></h1>
             <h3><?= $seriesSubtitle;?></h3>
             <p><?= $seriesText;?></p>
             <?php  
@@ -45,7 +45,7 @@
             $photo = get_field('featured_photo')
           ?>
           <a class="mosaic-image" href="<?php the_permalink();?>">
-            <div class="reveal" data-delay="2" data-animate="reveal-up"></div>
+            <div class="reveal" data-animate="reveal-up"></div>
             <img class="thumbnail" src="<?= $photo['sizes']['large'];?>" alt="<?php the_title();?> - Stephen Williams Photography"/>
           </a>
       <?php $i++; } 
@@ -53,7 +53,7 @@
       ?>
       <?php if($seriesEnd){?>
       <div class="mosaic-image series-end">
-        <div class="reveal"  data-delay="2" data-animate="reveal-up"></div>
+        <div class="reveal"  data-animate="reveal-up"></div>
         <div class="series-text">
           <?= $seriesEnd;?>
         </div>

@@ -35,40 +35,6 @@
 		left: 1rem;
 	}
 }
-
-// .site-header {
-// 	&.scrolled {
-		
-// 		.navbar-brand {
-// 			position: fixed;
-// 			top: 1rem;
-// 			left: 1rem;
-// 			.icon {
-// 				font-size: 2rem;
-// 			}	
-// 		}
-		
-// 		.hamburger-wrap {
-// 			height: 4rem;
-// 			width: 100%;
-// 			display: inline-block;
-// 			position: fixed;
-// 			z-index: 120;
-// 			background-color: white;
-// 			transition: none;
-// 		}
-		
-// 		.navbar-hamburger {
-// 			position: fixed;
-// 			top: 1.5rem;
-// 			right: 2rem;
-// 			@include below('xs'){
-// 				right: 1rem;
-// 			}
-// 		}
-// 	}
-// }
-	
 		
 .navbar-menu {
   width: 100vw;
@@ -260,23 +226,7 @@
 			visibility: visible;
 		}
 	}
-	
-	// @include respond-max($screen-jumbo){
-	// 	.parent-menu {
-	// 		> .menu-item {
-	// 			&.menu-item-has-children {
-	// 				.sub-menu {
-	// 					width: 600px;		
-	// 					> .menu-item {
-	// 						a {
-	// 							font-size: 2rem
-	// 						}
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// }
+
 	
 	
 	@include below('md'){
