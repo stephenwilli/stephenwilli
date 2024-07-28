@@ -23,13 +23,25 @@
 
 <div class="js-carousel carousel-wrap" data-animate="fade-up">
     <?php foreach($items as $item){ 
+          $type = $item['item_type'];
+          $video = $item['video_url'];
+          $props = json_encode(['video' => $video]); 
          $image = $item['image'];
          $text = $item['text'];
       ?>
-      <div class="carousel-item">
-        <img src="<?= $image['sizes']['large'];?>">
-        <span><?= $text;?></span>
-      </div>
+      <?php if($type === 'image'){ ?>
+        <div class="carousel-item">
+          <img src="<?= $image['sizes']['large'];?>">
+          <span><?= $text;?></span>
+        </div>
+      <?php } elseif($type === 'video'){ ?>
+        <div class="carousel-item">
+          <div class="hero" data-props='<?= $props ?>'>
+          </div>
+          <span><?= $text;?></span>
+        </div>
+      <?php } ?>
+
     <?php } ?>
 </div>
 
