@@ -19,7 +19,7 @@
 
   --container-width: 1500px;
   --container-space: #{fluid(10, 60)};
-  --vertical-space: #{fluid(40, 80)};
+  --vertical-space: #{fluid(30, 80)};
 
   --gutters: calc(100vw - min(var(--container-width), 100vw - var(--container-space) * 2));
   --gutter:  calc(var(--gutters) / 2);
