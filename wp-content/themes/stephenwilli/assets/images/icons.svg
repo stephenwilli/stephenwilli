@@ -6,11 +6,11 @@
   </symbol>
 
   <symbol id="icon:arrow-left" viewBox="0 0 115.6 24.5">
-    <path fill="#14161a" d="m102.4 0-2.1 2.2 9.3 8.6H0v3h109.6l-9.3 8.5 2.1 2.2 13.2-12.2z"/>
+    <path d="m102.4 0-2.1 2.2 9.3 8.6H0v3h109.6l-9.3 8.5 2.1 2.2 13.2-12.2z"/>
   </symbol>
 
   <symbol id="icon:arrow-right" viewBox="0 0 115.6 24.5">
-    <path fill="#14161a" d="m13.2 24.5 2.1-2.2L6 13.7h109.6v-3H6l9.3-8.5L13.2 0 0 12.2z"/>
+    <path d="m13.2 24.5 2.1-2.2L6 13.7h109.6v-3H6l9.3-8.5L13.2 0 0 12.2z"/>
   </symbol>
 
    <symbol id="icon:cart"  viewBox="0 0 576 512">

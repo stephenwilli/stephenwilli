@@ -40,6 +40,10 @@
   </section><!-- /section -->
 
   <?php render( 'sections' ); ?>
+
+  <?php  
+      render( 'related-projects' ); 
+    ?>
   
   <?php
 get_footer();
