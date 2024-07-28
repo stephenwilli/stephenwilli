@@ -11,7 +11,7 @@
         $prevThumbnail = get_the_post_thumbnail_url($prevPost->ID, 'large' );
         ?>
           <a href="<?= $prevUrl; ?>">
-            <h4>Previous Post</h4>
+            <h4>Previous Project</h4>
             <h2><?php echo $prevPost->post_title ?></h2>
             <?= icon('arrow-right'); ?>
           </a>
@@ -28,7 +28,7 @@
         <?php if($nextPost) { 
           $nextThumbnail = get_the_post_thumbnail_url($nextPost->ID, 'large' );?>
             <a href="<?= $nextUrl; ?>">
-              <h4>Next Post</h4>
+              <h4>Next Project</h4>
               <h2><?php echo $nextPost->post_title ?></h2>
               <?= icon('arrow-left'); ?>
             </a>
