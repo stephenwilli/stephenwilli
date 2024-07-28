@@ -8,7 +8,7 @@
 ?>
 
 <section class="flex-screen pad-y" >
-<div class="container-center">
+<div class="container-center" data-animate="fade-up">
 
   <?php if($subhead){?>
     <h4><?= $subhead;?></h4>
@@ -23,7 +23,7 @@
   <?php } ?>
 </div>
 
-<div class="container-center">
+<div class="container-center" data-animate="fade-up">
   <div class="screen-frame">
     <img src="<?= $image['sizes']['large'];?>">
     <?php if($video){?>

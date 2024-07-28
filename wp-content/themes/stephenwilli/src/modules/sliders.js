@@ -15,7 +15,7 @@ jQuery(function($) {
 
   $('.js-carousel').each(function(elem) {
     $(this).slick({
-      autoplay: true,
+      autoplay: false,
       autoplaySpeed: 6000,
       arrows: false,
       dots: false,
