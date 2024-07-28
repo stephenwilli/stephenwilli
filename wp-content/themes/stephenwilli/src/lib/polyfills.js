@@ -1,6 +1,6 @@
 const polyfills = [];
 
-// https://polyfill.io/v3/url-builder/
+// https://cdnjs.cloudflare.com/polyfill
 ('fetch' in window)                     || polyfills.push('fetch');
 ('Promise' in window)                   || polyfills.push('Promise');
 ('IntersectionObserver' in window)      || polyfills.push('IntersectionObserver');

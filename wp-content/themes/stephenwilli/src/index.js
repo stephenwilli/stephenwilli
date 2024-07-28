@@ -40,7 +40,7 @@ function init() {
 
 if (polyfills.length) {
   const script = document.createElement('script');
-  script.src = `//polyfill.io/v3/polyfill.min.js?features=${polyfills.join(',')}&flags=gated&ua=${window.navigator.userAgent}`;
+  script.src = `https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=${polyfills.join(',')}&flags=gated&ua=${window.navigator.userAgent}`;
   script.onload = init;
   body.appendChild(script);
 } else { init() }
@@ -62,17 +62,17 @@ jQuery(document).ready(function($) {
   
   // GSAP Animations
   
-  var tl = gsap.timeline(), 
-  mySplitText = new SplitText("#loader-heading", {type:"words,chars"}), 
-  chars = mySplitText.chars;
-  gsap.set("#loader-heading", {perspective: 400});
-  tl.from(chars, {duration: .3, opacity:0, scale:.9, y:10, delay: .9, transformOrigin:"0% 50% -50", ease:"easeInOut", stagger: 0.03}, "+=0");
+  // var tl = gsap.timeline(), 
+  // mySplitText = new SplitText("#loader-heading", {type:"words,chars"}), 
+  // chars = mySplitText.chars;
+  // gsap.set("#loader-heading", {perspective: 400});
+  // tl.from(chars, {duration: .3, opacity:0, scale:.9, y:10, delay: .9, transformOrigin:"0% 50% -50", ease:"easeInOut", stagger: 0.03}, "+=0");
   
-  var tl2 = gsap.timeline(), 
-  mySplitText = new SplitText("#intro-title", {type:"words,chars"}), 
-  chars = mySplitText.chars;
-  gsap.set("#intro-title", {perspective: 400});
-  tl2.from(chars, {duration: .3, opacity:0, scale:.9, y:10, delay: .5, transformOrigin:"0% 50% -50", ease:"easeInOut", stagger: 0.02}, "+=0");
+  // var tl2 = gsap.timeline(), 
+  // mySplitText = new SplitText("#intro-title", {type:"words,chars"}), 
+  // chars = mySplitText.chars;
+  // gsap.set("#intro-title", {perspective: 400});
+  // tl2.from(chars, {duration: .3, opacity:0, scale:.9, y:10, delay: .5, transformOrigin:"0% 50% -50", ease:"easeInOut", stagger: 0.02}, "+=0");
 
   // var loadingtl = gsap.timeline(); 
   // loadingtl.to('#site-loader', {duration: .3, opacity:0, width: 0, ease:"easeInOut"}, "+=0");
