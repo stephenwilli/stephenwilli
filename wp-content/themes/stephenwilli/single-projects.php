@@ -1,7 +1,8 @@
 <?php
   get_header(); 
   $postImage = get_the_post_thumbnail_url(get_the_ID(),'full_screen');
-  $role = get_field('project_role');
+  $post_thumbnail_id = get_post_thumbnail_id($post);
+  $caption = wp_get_attachment_caption($post_thumbnail_id);
   $terms = get_the_terms(get_the_ID(), 'category');
   $credits = get_field('project_credits');
   $terms = get_the_terms(get_the_ID(), 'project-categories');
@@ -32,6 +33,9 @@
         <div class="reveal-wrap">
           <div class="reveal" data-animate="reveal-up"></div>  
           <img src="<?= $postImage;?>" alt="<?php the_title();?>">
+          <?php if($caption){ ?>
+            <span class="photo-credit"><?= $caption;?></span>
+          <?php } ?>
         </div>
       </div>
     </section>

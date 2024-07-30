@@ -46,3 +46,12 @@ h4, .h4 {
   font-size: var(--font-size-lg);
   line-height: inherit;
 }
+
+
+.photo-credit {
+  position: absolute;
+  right: space(1);
+  bottom: space(1);
+  z-index: 5;
+  font-size: .9rem;
+}
