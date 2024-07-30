@@ -24,9 +24,15 @@
 		}
 	}
 	
-	.loader-heading {
+	.loader-title {
 		margin-top: space(1);
-		font-size: 4rem;
+		opacity: 0;
+		animation: fadein 1s ease-in-out forwards;
+		@keyframes fadein {
+			to {
+				opacity: 1;
+			}
+		}
 	}
 	
 	svg {
@@ -77,12 +83,8 @@
 	
 	@include below('sm') {
 		.loader-wrap {
-			transition: .2s ease-in-out;
-			transition-delay: 3s;
-			.loader-heading {
-				margin-top: 1rem;
-				font-size: 3rem;
-			}
+			// transition: .2s ease-in-out;
+			// transition-delay: 3s;
 		}
 	}
 }

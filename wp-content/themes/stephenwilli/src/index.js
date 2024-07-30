@@ -86,7 +86,7 @@ jQuery(document).ready(function($) {
   });
   
   
-  if ($(window).width() < 992) {
+  if ($(window).width() > 992) {
     // $('.parent-menu > .menu-item > a').addClass('click-through');
     $('.parent-menu > .menu-item-has-children > a').on('click',function(e){
       if($(this).parent().hasClass('-open')) {}

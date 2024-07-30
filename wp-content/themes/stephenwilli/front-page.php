@@ -3,6 +3,7 @@
 <div id="site-loader">
     <div class="loader-wrap">
         <?php echo file_get_contents(get_template_directory_uri() . '/assets/images/sw-03.svg'); ?>
+        <h3 class="loader-title">Stephen Williams <br> Photographer / Creative Developer</h3>
     </div>
 </div>
   
