@@ -13,6 +13,20 @@ add_action('wp_enqueue_scripts', function() {
     wp_enqueue_script('jquery.slick', '//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js', ['jquery'], '1.8.1');
 });
 
+add_action('wp_head', function() {
+    ob_start(); ?><!--
+    <link rel="preload" as="style" href="<?= build_url('main.css') ?>" />
+    <link rel="preload" as="script" href="<?= build_url('main.js') ?>" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="<?= url('assets/fonts/Example-One.woff2') ?>" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="<?= url('assets/fonts/Example-Two.woff2') ?>" crossorigin />
+    -->
+    <link rel="icon" href="<?= url('assets/images/favicon.svg') ?>" type="image/svg+xml" />
+    <link rel="icon" href="<?= url('assets/images/favicon.png') ?>" type="image/png" />
+    <link rel="manifest" href="<?= url('assets/manifest.json') ?>" crossorigin="use-credentials" />
+    
+<?php echo PHP_EOL.ob_get_clean();
+});
+
 add_action('after_setup_theme', function() {
     // add_post_type_support('page', 'excerpt');
     add_theme_support('post-thumbnails');
