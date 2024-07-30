@@ -10,7 +10,7 @@
       <div class="post-content">
         <h1 class="h2""><?php the_title();?></h1>
         <div class="post-meta">
-          <p><?= $date ?> / / 
+          <p><?= $date ?> <br>
             <?php if(!empty($terms)) {
               foreach($terms as $term){
               $term = array_pop($terms);
