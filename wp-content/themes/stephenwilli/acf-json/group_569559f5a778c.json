@@ -653,6 +653,26 @@
                             "placeholder": "",
                             "prepend": "",
                             "append": ""
+                        },
+                        {
+                            "key": "field_66a91cdf083ad",
+                            "label": "Mobile Video",
+                            "name": "mobile_video",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
                         }
                     ],
                     "min": "",
@@ -994,5 +1014,5 @@
     "active": true,
     "description": "Post Type = Page or Post",
     "show_in_rest": 0,
-    "modified": 1722188111
+    "modified": 1722359030
 }

@@ -4,6 +4,8 @@
   $image = $data['screen_image'];  
   $video = $data['screen_video'];
   $props = json_encode(['video' => $video]);  
+  $mobile = $data['mobile_video'];
+  $mobileprops = json_encode(['video' => $mobile]);  
   $subhead = $data['subhead'];
 ?>
 
@@ -25,9 +27,18 @@
 
 <div class="container-center" data-animate="fade-up">
   <div class="screen-frame">
-    <img src="<?= $image['sizes']['large'];?>">
+
+    <?php if($image){?>
+      <img src="<?= $image['sizes']['large'];?>">
+    <?php } ?>
+
     <?php if($video){?>
-      <div class="hero" data-props='<?= $props ?>'>
+      <div class="hero" data-props='<?= $props; ?>'>
+      </div>
+    <?php } ?>
+
+    <?php if($mobile){?>
+      <div class="hero -mobile" data-props='<?= $mobileprops; ?>'>
       </div>
     <?php } ?>
   </div>
