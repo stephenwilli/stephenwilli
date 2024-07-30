@@ -11,6 +11,11 @@ body.home {
 		.icon {
 			color: white;
 		}
+
+    .tagline {
+      color: white;
+    }
+    
     @include below('sm'){
       top: 2rem;
       left: 2rem;

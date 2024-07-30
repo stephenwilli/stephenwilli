@@ -7,11 +7,16 @@
   top: 3rem;
   left: 3rem;
 	z-index: 121;
-	width: 70px;
 	height: 70px;
-	display: inline-block;
 	opacity: 1;
 	transition: all .2s;
+	display: flex;
+	align-items: center;
+
+	.tagline {
+		font-size: 1rem;
+		margin-left: space(2);
+	}
 
 	&:hover {
 		opacity: .6;
@@ -73,6 +78,7 @@
 				position: relative;
 				z-index: 10;
 				line-height: 1.5;
+				text-transform: none;
 			}
 			
 			&:after {

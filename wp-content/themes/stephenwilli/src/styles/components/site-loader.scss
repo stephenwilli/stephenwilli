@@ -28,6 +28,7 @@
 		margin-top: space(1);
 		opacity: 0;
 		animation: fadein 1s ease-in-out forwards;
+		font-weight: 600;
 		@keyframes fadein {
 			to {
 				opacity: 1;
@@ -84,10 +85,5 @@
 		}
 	}
 	
-	@include below('sm') {
-		.loader-wrap {
-			// transition: .2s ease-in-out;
-			// transition-delay: 3s;
-		}
-	}
+
 }
