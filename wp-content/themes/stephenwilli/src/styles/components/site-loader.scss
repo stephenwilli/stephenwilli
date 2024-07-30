@@ -79,6 +79,9 @@
 		svg {
 			opacity: 0;
 		}
+		.loader-title {
+			opacity: 0;
+		}
 	}
 	
 	@include below('sm') {
