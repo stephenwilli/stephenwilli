@@ -26,6 +26,7 @@
       ?>
       <a title="<?php the_title();?> - Stephen Williams Photography" class="mosaic-image" href="<?php the_permalink(); ?>">
         <?php the_post_thumbnail('medium') ?>
+        <div class="project-overlay"></div>
         <div class="project-text">
           <h3><?php the_title();?></h3>
           <?php if(!empty($terms)) {
