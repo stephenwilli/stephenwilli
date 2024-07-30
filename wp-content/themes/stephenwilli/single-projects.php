@@ -11,7 +11,7 @@
       <div class="post-content">
         <h1 class="h2"><?php the_title();?></h1>
         <div class="post-meta">
-          <ul class="credits">
+          
           <?php if(!empty($terms)) {
               foreach($terms as $term){
               $term = array_pop($terms);
@@ -19,6 +19,7 @@
               $catTitle = $term->name; ?>
                 <span class="cat-link" href="<?= $catLink;?>"><?= $catTitle;?></span>
               <?php } }?> 
+            <ul class="credits">
             <?php foreach($credits as $credit){ 
               $text = $credit['credit'];
               ?>
