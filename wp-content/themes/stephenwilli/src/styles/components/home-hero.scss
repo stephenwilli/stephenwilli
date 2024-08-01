@@ -25,6 +25,19 @@
 		background-repeat: no-repeat;
 		position: relative;
 		background-position: center center;
+
+		.mobile-image {
+			display: none;
+		}
+	}
+
+	@include below('sm'){
+		.hero-slide {
+			.mobile-image {
+				display: inline;
+				@include fill;
+			}
+		}
 	}
 }
 
