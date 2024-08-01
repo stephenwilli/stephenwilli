@@ -11,6 +11,7 @@
     $link = $slide['slide_link'];
     ?>
     <div class="hero-slide" style="background-image: url('<?= $image['sizes']['large'];?>');">
+      <div class="overlay"></div>
       <?php if($mobileimage){ ?>
         <img class="mobile-image" src="<?= $mobileimage['sizes']['large'];?>"/>
       <?php } ?>
