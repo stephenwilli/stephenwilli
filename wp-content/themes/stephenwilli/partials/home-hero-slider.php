@@ -1,6 +1,6 @@
 <?php 
   $slides = get_field('hero_slide');
-  shuffle($slides);
+  // shuffle($slides);
   ?>
   <section class="js-hero-slider home-hero">
   <?php foreach($slides as $slide) {
