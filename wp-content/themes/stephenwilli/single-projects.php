@@ -40,7 +40,7 @@
       </div>
     </section>
 
-  <section class="flex-wysiwyg container-center pad-b" data-animate="fade-right">
+  <section class="flex-wysiwyg container-center pad-b content" data-animate="fade-right">
     <?php the_content();?>
   </section><!-- /section -->
 

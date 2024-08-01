@@ -13,6 +13,9 @@
 .container-center {
   max-width: 1200px;
   margin: 0 auto;
+  p {
+    margin: 0 auto;
+  }
   @include below('md') {
     width: 100%;
     padding: 0 (var(--container-space));
