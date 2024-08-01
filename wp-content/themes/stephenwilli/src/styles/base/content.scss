@@ -1,8 +1,8 @@
 .content {
 
-  > :where(* + *:not([class])) {
-    margin-top: 1.5em;
-  }
+  // > :where(* + *:not([class])) {
+  //   margin-top: 1.5em;
+  // }
 
   :where(ol, ul):not([class]) {
     margin: 1.5em 0 1.5em 2em;
