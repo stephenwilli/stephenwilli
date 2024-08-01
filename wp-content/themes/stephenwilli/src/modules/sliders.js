@@ -2,7 +2,7 @@ jQuery(function($) {
 
   $('.js-hero-slider').each(function(elem) {
     $(this).slick({
-      autoplay: false,
+      autoplay: true,
       fade: true,
       autoplaySpeed: 8000,
       slidesToShow: 1,
