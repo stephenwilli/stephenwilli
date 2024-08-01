@@ -17,6 +17,26 @@
     .split-half {
       width: 50%;
     }
+
+    .screen-frame {
+      position: relative;
+      margin: 0 auto;
+      border-radius: 10px;
+      border: 15px solid #444;
+      box-shadow: 33px 33px 13px -28px rgba(0,0,0,0.55);
+      max-width: 500px;
+      margin-bottom: space(4);
+  
+      img {
+        @include fill;
+        border-radius: 2px;
+      }
+  
+      .hero {
+        display: grid;
+        position: relative;
+      }
+    }
       
     .-image {
       .image-1 {

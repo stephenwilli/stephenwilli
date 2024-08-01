@@ -2,9 +2,9 @@
   .screen-frame {
     position: relative;
     margin-top: space(6);
-    border-radius: 6px;
-    border: 8px solid #9B9B9B;
-    box-shadow: 33px 33px 13px -28px rgba(0,0,0,0.75);
+    border-radius: 10px;
+    border: 15px solid #444;
+    box-shadow: 33px 33px 13px -28px rgba(0,0,0,0.55);
 
     img {
       @include fill;
@@ -14,22 +14,6 @@
     .hero {
       display: grid;
       position: relative;
-      // min-height: clamp(500px,  100vmin - var(--banner-height) - var(--header-height), 1200px);
-      // padding-top: calc(var(--container-space) * 2);
-      // padding-bottom: calc(var(--container-space) * 2);
-
-      &.-mobile {
-        display: none;
-      }
-    }
-
-    @include below('sm') {
-      .hero {
-          display: none;
-        &.-mobile {
-          display: grid;
-        }
-      }
     }
   }
 }

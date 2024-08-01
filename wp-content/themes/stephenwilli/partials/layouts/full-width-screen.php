@@ -4,8 +4,6 @@
   $image = $data['screen_image'];  
   $video = $data['screen_video'];
   $props = json_encode(['video' => $video]);  
-  $mobile = $data['mobile_video'];
-  $mobileprops = json_encode(['video' => $mobile]);  
   $subhead = $data['subhead'];
 ?>
 
@@ -37,10 +35,6 @@
       </div>
     <?php } ?>
 
-    <?php if($mobile){?>
-      <div class="hero -mobile" data-props='<?= $mobileprops; ?>'>
-      </div>
-    <?php } ?>
   </div>
 </div>
 

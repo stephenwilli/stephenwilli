@@ -270,6 +270,7 @@
                             "max": 0,
                             "layout": "row",
                             "button_label": "Add Row",
+                            "rows_per_page": 20,
                             "sub_fields": [
                                 {
                                     "key": "field_609059c2afcf7",
@@ -287,13 +288,14 @@
                                     },
                                     "choices": {
                                         "text": "Text Editor",
-                                        "image": "Images"
+                                        "image": "Images",
+                                        "screen": "Screen"
                                     },
+                                    "default_value": "",
+                                    "return_format": "value",
                                     "allow_null": 0,
                                     "other_choice": 0,
-                                    "default_value": "",
                                     "layout": "horizontal",
-                                    "return_format": "value",
                                     "save_other_choice": 0,
                                     "parent_repeater": "field_609059b8afcf6"
                                 },
@@ -431,21 +433,57 @@
                                     "type": "text",
                                     "instructions": "",
                                     "required": 0,
-                                    "conditional_logic": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_609059c2afcf7",
+                                                "operator": "==",
+                                                "value": "image"
+                                            }
+                                        ]
+                                    ],
                                     "wrapper": {
                                         "width": "",
                                         "class": "",
                                         "id": ""
                                     },
                                     "default_value": "",
+                                    "maxlength": "",
                                     "placeholder": "",
                                     "prepend": "",
                                     "append": "",
+                                    "parent_repeater": "field_609059b8afcf6"
+                                },
+                                {
+                                    "key": "field_66abd9f731d96",
+                                    "label": "Screen URL",
+                                    "name": "fc_split_screen_url",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_609059c2afcf7",
+                                                "operator": "==",
+                                                "value": "screen"
+                                            }
+                                        ]
+                                    ],
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
                                     "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
                                     "parent_repeater": "field_609059b8afcf6"
                                 }
-                            ],
-                            "rows_per_page": 20
+                            ]
                         }
                     ],
                     "min": "",
@@ -638,26 +676,6 @@
                             "key": "field_668eac823fdb9",
                             "label": "Screen Video",
                             "name": "screen_video",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": ""
-                        },
-                        {
-                            "key": "field_66a91cdf083ad",
-                            "label": "Mobile Video",
-                            "name": "mobile_video",
                             "aria-label": "",
                             "type": "text",
                             "instructions": "",
@@ -1014,5 +1032,5 @@
     "active": true,
     "description": "Post Type = Page or Post",
     "show_in_rest": 0,
-    "modified": 1722359030
+    "modified": 1722538790
 }
