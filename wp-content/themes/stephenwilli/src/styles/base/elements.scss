@@ -54,6 +54,9 @@ a:where(:hover, :focus) {
 }
 
 .content {
+  p {
+    max-width: 800px;
+  }
   a {
     text-decoration: underline !important;
   }

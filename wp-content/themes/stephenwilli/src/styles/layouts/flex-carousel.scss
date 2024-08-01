@@ -9,8 +9,10 @@
 
       span {
         margin-top: space(2);
-        font-size: var(--font-size-lg);
         display: inline-block;
+        font-size: 1rem;
+        max-width: 600px;
+        padding-right: space(2);
       }
 
   		img {
