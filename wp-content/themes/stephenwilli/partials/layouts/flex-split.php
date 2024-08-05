@@ -43,11 +43,12 @@
             <?php } ?>
           </div>
           <?php } elseif($type === 'screen'){
+            $type = $split['fc_split_screen_type'];
               $video = $split['fc_split_screen_url'];
               $props = json_encode(['video' => $video]); 
             ?>
             <div class="split-half" data-animate="fade-up">
-              <div class="screen-frame">
+              <div class="screen-frame <?php if($type === 'mobile'){ ?>-mobile<?php } ?>">
                 <div class="hero" data-props='<?= $props; ?>'>
                 </div>
               </div>
