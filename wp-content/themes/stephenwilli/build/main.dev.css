@@ -495,8 +495,8 @@ img.mfp-img {
   --grid-gap: clamp(3.75rem, 3.3908rem + 1.5326vw, 5rem);
   --grid-row-gap: unset;
   --grid-col-gap: unset;
-  --c-black: #2c2c2c;
-  --c-black-rgb: 44 44 44;
+  --c-black: #222222;
+  --c-black-rgb: 34 34 34;
   --c-white: #FFFFFF;
   --c-white-rgb: 255 255 255;
   --c-red: #FF0000;
