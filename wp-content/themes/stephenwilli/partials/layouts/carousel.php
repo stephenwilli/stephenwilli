@@ -6,6 +6,7 @@
 ?>
 
 <section class="flex-carousel pad-y" >
+<?php if($sectionTitle){ ?>
 <div class="container-center" data-animate="fade-up">
 
   <?php if($subhead){?>
@@ -20,6 +21,7 @@
     <div class="content"><?= $sectionText;?></div>
   <?php } ?>
 </div>
+<?php } ?>
 
 <div class="js-carousel carousel-wrap" data-animate="fade-up">
     <?php foreach($items as $item){ 
