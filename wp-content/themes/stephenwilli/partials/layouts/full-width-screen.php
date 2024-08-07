@@ -8,7 +8,7 @@
 ?>
 
 <section class="flex-screen pad-y" >
-<div class="container-center" data-animate="fade-up">
+<div class="container-center content" data-animate="fade-up">
 
   <?php if($subhead){?>
     <h4><?= $subhead;?></h4>
