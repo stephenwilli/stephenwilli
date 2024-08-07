@@ -22,6 +22,7 @@
     <?php } ?>
   </div>
 </div>
+<?php } ?>
 
 <img src="<?= $image;?>" alt="" data-animate="fade-up">
 
