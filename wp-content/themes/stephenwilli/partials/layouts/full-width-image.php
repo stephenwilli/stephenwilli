@@ -6,23 +6,22 @@
 ?>
 
 <section class="flex-full pad-y">
-<?php if($sectionTitle){ ?>
-  <div class="container-center content" data-animate="fade-up">
+  <?php if($sectionTitle){ ?>
+    <div class="container-center content" data-animate="fade-up">
 
-    <?php if($subhead){?>
-      <h4><?= $subhead;?></h4>
-    <?php } ?>
+      <?php if($subhead){?>
+        <h4><?= $subhead;?></h4>
+      <?php } ?>
 
-    <?php if($sectionTitle){ ?>
-      <h2><?= $sectionTitle;?></h2>
-    <?php } ?>
+      <?php if($sectionTitle){ ?>
+        <h2><?= $sectionTitle;?></h2>
+      <?php } ?>
 
-    <?php if($sectionText){ ?>
-      <div><?= $sectionText;?></div>
-    <?php } ?>
-  </div>
-</div>
-<?php } ?>
+      <?php if($sectionText){ ?>
+        <div><?= $sectionText;?></div>
+      <?php } ?>
+    </div>
+  <?php } ?>
 
 <img src="<?= $image;?>" alt="" data-animate="fade-up">
 
