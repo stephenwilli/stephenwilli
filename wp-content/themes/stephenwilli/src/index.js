@@ -175,18 +175,8 @@ jQuery(document).ready(function($) {
 });
 
 $(window).on('load', function() {
-  // var grid = document.querySelector('.js-mosaic-gallery');
-  // if(grid) {
-  //     var iso = new isotope( grid, {
-  //     itemSelector: '.mosaic-image',
-  //   });
-  // };
 
-  $('.js-mosaic-gallery').each((i, item) => {
-    new isotope( item, {
-        itemSelector: '.mosaic-image'
-      });
-  });
+
 
   
   // see [data-animate] styles in scss/base/_animation.scss
@@ -205,6 +195,12 @@ $(window).on('load', function() {
   
   setTimeout(function() {
     $('#site-loader').addClass('-loaded');
+  });
+
+  $('.js-mosaic-gallery').each((i, item) => {
+    new isotope( item, {
+        itemSelector: '.mosaic-image'
+      });
   });
 
 });

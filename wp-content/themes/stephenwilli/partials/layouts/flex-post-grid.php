@@ -25,25 +25,23 @@
           $terms = get_the_terms(get_the_ID(), 'project-categories');
       ?>
       <div class="mosaic-image">
-      <a title="<?php the_title();?> - Stephen Williams Photography"  href="<?php the_permalink(); ?>">
-      <div class="reveal" data-animate="reveal-up"></div>
-        <div class="overlay"></div>
-        <div class="" data-animate="fade-in">
-        <?php the_post_thumbnail('medium') ?>
+        <a title="<?php the_title();?> - Stephen Williams Photography"  href="<?php the_permalink(); ?>">
+        <div class="reveal" data-animate="reveal-up"></div>
+          <div class="overlay"></div>
+          <?php the_post_thumbnail('medium') ?>
 
-        <div class="project-text">
-          <h3><?php the_title();?></h3>
-          <?php if(!empty($terms)) {
-              foreach($terms as $term){
-              $term = array_pop($terms);
-              $catLink = get_term_link($term);
-              $catTitle = $term->name; ?>
-                <span class="cat-link" href="<?= $catLink;?>"><?= $catTitle;?></span>
-              <?php } }?> 
-        </div>
-        </div>
-      </a>
-              </div>
+          <div class="project-text">
+            <h3><?php the_title();?></h3>
+            <?php if(!empty($terms)) {
+                foreach($terms as $term){
+                $term = array_pop($terms);
+                $catLink = get_term_link($term);
+                $catTitle = $term->name; ?>
+                  <span class="cat-link" href="<?= $catLink;?>"><?= $catTitle;?></span>
+                <?php } }?> 
+          </div>
+        </a>
+      </div>
     <?php  } wp_reset_postdata();?>
   </div>
 
