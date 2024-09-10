@@ -40,7 +40,7 @@ class Media_Library_Scan_Background_Process extends Background_Process {
 	protected function get_revival_limit() {
 		$constant_value = $this->get_revival_limit_constant();
 
-		return $constant_value ? $constant_value : parent::get_revival_limit();	 			  			 	 	   	 		
+		return $constant_value ? $constant_value : parent::get_revival_limit();
 	}
 
 	private function get_revival_limit_constant() {

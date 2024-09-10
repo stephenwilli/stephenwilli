@@ -6,6 +6,10 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.16.6 ( 2024-07-30 ) =
+- Fix: PHP warnings
+- Improvement: Compatibility with WP 6.6
+
 = 3.16.5 ( 2024-06-20 ) =
 - Improvement: Security improvements
 - Fix: Compatibility issue with Divi
@@ -257,4 +261,4 @@ Change Log:
 
 
 
-610151-1720537870-au
+610151-1726005107-au

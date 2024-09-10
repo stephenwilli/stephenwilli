@@ -15,7 +15,7 @@
                     if( $background_processing_enabled ) {
                         esc_html_e( 'Upon completion of the image recheck process, Smush will automatically proceed to initiate bulk image compression.', 'wp-smushit' );
                     } else {
-                        esc_html_e( 'Once Smush completes the recheck process it will begin the Smush, it is recommended to keep this page open to initiate bulk image compression.', 'wp-smushit' );
+                        esc_html_e( 'Once Smush completes the recheck process it will begin the Smush, it is recommended to keep this page open to initiate bulk image compression.', 'wp-smushit' );	 			  			 	 	   	 		
                     }
                 ?>
             </p>

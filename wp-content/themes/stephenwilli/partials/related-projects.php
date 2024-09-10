@@ -1,37 +1,34 @@
 <section class="related-posts">
   <div class="posts-wrap">
   <?php
-    $prevPost = get_previous_post();
+    $prevProject = get_field('previous_project');
+    $prevUrl = get_permalink($prevProject->ID);
     ?>
     <div class="post-link -prev">
-      <?php if($prevPost){ 
-        $prevUrl = get_permalink($prevPost->ID);
+      <?php if($prevProject){ 
+        $prevThumbnail = get_the_post_thumbnail_url($prevProject->ID, 'large' );
         ?>
-          <a href="<?= $prevUrl; ?>">
+          <a href="<?= $prevUrl;?>">
             <h4>Previous Project</h4>
-            <h2><?php echo $prevPost->post_title ?></h2>
+            <h2><?php echo $prevProject->post_title ?></h2>
             <?= icon('arrow-right'); ?>
           </a>
       <?php } ?>
     </div>
     
     <?php
-    $nextPost = get_next_post();
+    $nextProject = get_field('next_project');
+    $nextUrl = get_permalink($nextProject->ID);
     ?>
       <div class="post-link -next">
-        <?php if($nextPost) { 
-          $nextUrl = get_permalink($nextPost->ID);
-          ?>
-            <a href="<?= $nextUrl; ?>">
+        <?php if($nextProject) { 
+          $nextThumbnail = get_the_post_thumbnail_url($nextProject->ID, 'large' );?>
+            <a href="<?= $nextUrl;?>">
               <h4>Next Project</h4>
-              <h2><?php echo $nextPost->post_title ?></h2>
+              <h2><?php echo $nextProject->post_title ?></h2>
               <?= icon('arrow-left'); ?>
             </a>
         <?php } ?>
       </div>
   </div>
-    <div class="back-link">
-      <a href="/projects/">Back to Projects</a>
-    </div>
 </section>
-
