@@ -11,7 +11,7 @@
 
     <?php wp_head() ?>
 
-    <link rel="stylesheet" href="https://use.typekit.net/qzz4jnb.css">
+    <link rel="stylesheet" href="https://use.typekit.net/jwq1vgn.css">
 
     <link rel="stylesheet" href="<?= build_url('main.css') ?>" />
 
