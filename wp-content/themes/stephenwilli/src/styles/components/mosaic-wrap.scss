@@ -44,11 +44,18 @@
 				position: relative;
 			}
 
+			.overlay {
+				@include fill;
+				background: rgb(0,0,0);
+				background: linear-gradient(0deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,0.2) 25%, rgba(0,0,0,0) 100%);
+				z-index: 4;
+			}
+
 			.project-text {
 				position: absolute;
 				left: space(2);
 				bottom: space(2);
-				z-index: 2;
+				color: white;
 			}
 		}
 	}

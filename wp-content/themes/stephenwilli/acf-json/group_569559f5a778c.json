@@ -227,7 +227,8 @@
                             },
                             "post_type": [
                                 "projects",
-                                "post"
+                                "post",
+                                "page"
                             ],
                             "post_status": "",
                             "taxonomy": "",
@@ -237,6 +238,7 @@
                             "return_format": "object",
                             "min": "",
                             "max": "",
+                            "allow_in_bindings": 1,
                             "elements": "",
                             "bidirectional": 0,
                             "bidirectional_target": []
@@ -452,40 +454,6 @@
                                     "placeholder": "",
                                     "prepend": "",
                                     "append": "",
-                                    "parent_repeater": "field_609059b8afcf6"
-                                },
-                                {
-                                    "key": "field_66b100b1b9721",
-                                    "label": "Screen Type",
-                                    "name": "fc_split_screen_type",
-                                    "aria-label": "",
-                                    "type": "radio",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": [
-                                        [
-                                            {
-                                                "field": "field_609059c2afcf7",
-                                                "operator": "==",
-                                                "value": "screen"
-                                            }
-                                        ]
-                                    ],
-                                    "wrapper": {
-                                        "width": "",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "choices": {
-                                        "full": "Full",
-                                        "mobile": "Mobile"
-                                    },
-                                    "default_value": "",
-                                    "return_format": "value",
-                                    "allow_null": 0,
-                                    "other_choice": 0,
-                                    "layout": "horizontal",
-                                    "save_other_choice": 0,
                                     "parent_repeater": "field_609059b8afcf6"
                                 },
                                 {
@@ -1066,5 +1034,5 @@
     "active": true,
     "description": "Post Type = Page or Post",
     "show_in_rest": 0,
-    "modified": 1722876112
+    "modified": 1727821297
 }
