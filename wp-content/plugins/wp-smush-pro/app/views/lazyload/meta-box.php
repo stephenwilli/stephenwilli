@@ -53,7 +53,7 @@ wp_enqueue_style( 'wp-color-picker' );
 	</div>
 <?php endif; ?>
 
-<div class="sui-box-settings-row">
+<div class="sui-box-settings-row" id="lazyload-media-types-settings-row">
 	<div class="sui-box-settings-col-1">
 		<span class="sui-settings-label">
 			<?php esc_html_e( 'Media Types', 'wp-smushit' ); ?>
@@ -102,7 +102,7 @@ wp_enqueue_style( 'wp-color-picker' );
 	</div>
 </div>
 
-<div class="sui-box-settings-row">
+<div class="sui-box-settings-row" id="lazyload-output-locations-settings-row">
 	<div class="sui-box-settings-col-1">
 		<span class="sui-settings-label">
 			<?php esc_html_e( 'Output Locations', 'wp-smushit' ); ?>
@@ -139,7 +139,7 @@ wp_enqueue_style( 'wp-color-picker' );
 	</div>
 </div>
 
-<div class="sui-box-settings-row">
+<div class="sui-box-settings-row" id="lazyload-display-animation-settings-row">
 	<div class="sui-box-settings-col-1">
 		<span class="sui-settings-label">
 			<?php esc_html_e( 'Display & Animation', 'wp-smushit' ); ?>
@@ -393,7 +393,7 @@ wp_enqueue_style( 'wp-color-picker' );
 	</style>
 </div><!-- end .sui-box-settings-row -->
 
-<div class="sui-box-settings-row">
+<div class="sui-box-settings-row" id="lazyload-include-exclude-settings-row">
 	<div class="sui-box-settings-col-1">
 		<span class="sui-settings-label">
 			<?php esc_html_e( 'Include/Exclude', 'wp-smushit' ); ?>
@@ -562,7 +562,7 @@ wp_enqueue_style( 'wp-color-picker' );
 	</div>
 </div>
 
-<div class="sui-box-settings-row">
+<div class="sui-box-settings-row" id="lazyload-scripts-settings-row">
 	<div class="sui-box-settings-col-1">
 		<span class="sui-settings-label">
 			<?php esc_html_e( 'Scripts', 'wp-smushit' ); ?>
@@ -614,7 +614,7 @@ wp_enqueue_style( 'wp-color-picker' );
 	</div>
 </div>
 
-<div class="sui-box-settings-row">
+<div class="sui-box-settings-row" id="lazyload-native-settings-row">
 	<div class="sui-box-settings-col-1">
 		<span class="sui-settings-label">
 			<?php esc_html_e( 'Native lazy load', 'wp-smushit' ); ?>
@@ -689,7 +689,7 @@ wp_enqueue_style( 'wp-color-picker' );
 	</div>
 </div>
 
-<div class="sui-box-settings-row">
+<div class="sui-box-settings-row" id="lazyload-deactivate-settings-row">
 	<div class="sui-box-settings-col-1">
 		<span class="sui-settings-label">
 			<?php esc_html_e( 'Deactivate', 'wp-smushit' ); ?>

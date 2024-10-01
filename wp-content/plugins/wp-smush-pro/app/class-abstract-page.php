@@ -8,6 +8,7 @@
 namespace Smush\App;
 
 use Smush\Core\Helper;
+use Smush\Core\Modules\Helpers\WhiteLabel;
 use Smush\Core\Settings;
 use WP_Smush;
 use WPMUDEV_Dashboard;
@@ -75,6 +76,13 @@ abstract class Abstract_Page {
 	protected $upgrade_url = 'https://wpmudev.com/project/wp-smush-pro/';
 
 	/**
+	 * Whitle Label
+	 *
+	 * @var WhiteLabel
+	 */
+	protected $whitelabel;
+
+	/**
 	 * Abstract_Page constructor.
 	 *
 	 * @param string $slug     Page slug.
@@ -83,8 +91,9 @@ abstract class Abstract_Page {
 	 * @param bool   $nextgen  Is that a NextGen subpage.
 	 */
 	public function __construct( $slug, $title, $parent = false, $nextgen = false, $is_upsell_link = false ) {
-		$this->slug     = $slug;
-		$this->settings = Settings::get_instance();
+		$this->whitelabel = new WhiteLabel();
+		$this->slug       = $slug;
+		$this->settings   = Settings::get_instance();
 
 		if ( ! $parent ) {
 			$this->page_id = add_menu_page(

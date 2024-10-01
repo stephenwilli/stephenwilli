@@ -65,6 +65,10 @@ class Installer {
 		$version = get_site_option( 'wp-smush-version' );
 		self::maybe_mark_as_pre_3_12_6_site( $version );
 
+		// Cache activated date time.
+		$event_name = ! empty( $version ) ? 'plugin_activated' : 'plugin_installed';
+		self::cache_event_time( $event_name );
+
 		if ( ! class_exists( '\\Smush\\Core\\Settings' ) ) {
 			require_once __DIR__ . '/class-settings.php';
 		}
@@ -118,6 +122,9 @@ class Installer {
 			if ( ! defined( 'WP_SMUSH_UPGRADING' ) ) {
 				define( 'WP_SMUSH_UPGRADING', true );
 			}
+
+			// Cache last updated time.
+			self::cache_event_time( 'plugin_upgraded' );
 
 			if ( version_compare( $version, '3.7.0', '<' ) ) {
 				self::upgrade_3_7_0();
@@ -336,5 +343,12 @@ class Installer {
 			$stored_configs[ $key ]                          = $preset_config;
 		}
 		update_site_option( 'wp-smush-preset_configs', $stored_configs );
+	}
+
+	private static function cache_event_time( $event ) {
+		$option_key            = 'wp_smush_event_times';
+		$event_times           = get_site_option( $option_key, array() );
+		$event_times[ $event ] = time();
+		update_site_option( $option_key, $event_times );
 	}
 }

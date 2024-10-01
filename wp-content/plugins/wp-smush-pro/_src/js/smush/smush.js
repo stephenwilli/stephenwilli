@@ -1024,6 +1024,8 @@ class Smush {
 			: () => false;
 
 		this.syncStats().done(callback);
+
+		this.onFinishBulkSmush();
 	}
 
 	getPercentOptimized(totalImages, totalImagesToSmush) {
@@ -1124,12 +1126,35 @@ class Smush {
 	run() {
 		// If bulk and we have a definite number of IDs.
 		if ( this.is_bulk && this.ids.length > 0 ) {
+			this.onStartBulkSmush();
 			this.callAjax(true);
 		}
 
 		if ( ! this.is_bulk ) {
 			this.callAjax();
 		}
+	}
+
+	onStartBulkSmush() {
+		this.showInProcessingNotice();
+	}
+
+	showInProcessingNotice() {
+		const inProcessingNoticeElement = document.querySelector( '.ajax-bulk-smush-in-progressing-notice' );
+		if ( ! inProcessingNoticeElement ) {
+			return;
+		}
+
+		inProcessingNoticeElement.classList.remove( 'sui-hidden' );
+	}
+
+	hideInProcessingNotice() {
+		const inProcessingNoticeElement = document.querySelector( '.ajax-bulk-smush-in-progressing-notice' );
+		if ( ! inProcessingNoticeElement ) {
+			return;
+		}
+
+		inProcessingNoticeElement.classList.add( 'sui-hidden' );
 	}
 
 	/**
@@ -1188,6 +1213,12 @@ class Smush {
 		jQuery( '.wp-smush-bulk-progress-bar-wrapper' ).addClass( 'sui-hidden' );
 
 		this.hideBulkFreeLimitReachedNotice();
+
+		this.onFinishBulkSmush();
+	}
+
+	onFinishBulkSmush() {
+		this.hideInProcessingNotice();
 	}
 
 	/**

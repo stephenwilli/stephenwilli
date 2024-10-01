@@ -15,6 +15,7 @@ use Smush\Core\Core;
 use Smush\Core\Settings;
 use Smush\Core\Stats\Global_Stats;
 use Smush\Core\Media_Library\Background_Media_Library_Scanner;
+use Smush\Core\Modules\Background\Background_Pre_Flight_Controller;
 use WP_Smush;
 use Smush\Core\Backups\Backups;
 
@@ -73,6 +74,39 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 	 */
 	public function register_meta_boxes() {
 		if ( ! is_network_admin() ) {
+			$bg_optimization = WP_Smush::get_instance()->core()->mod->bg_optimization;
+
+			if ( ! $bg_optimization->should_use_background() ) {
+				$this->add_meta_box(
+					'ajax-bulk-smush-in-progressing-notice',
+					null,
+					array( $this, 'ajax_bulk_smush_in_progressing_notice' ),
+					null,
+					null,
+					'main',
+					array(
+						'box_class'         => 'sui-box ajax-bulk-smush-in-progressing-notice sui-hidden',
+						'box_content_class' => false,
+					)
+				);
+			}
+
+			$background_health = Background_Pre_Flight_Controller::get_instance();
+			if ( ! $background_health->is_cron_healthy() ) {
+				$this->add_meta_box(
+					'cron-disabled-notice',
+					null,
+					array( $this, 'cron_disabled_notice_meta_box' ),
+					null,
+					null,
+					'main',
+					array(
+						'box_class'         => 'sui-box wp-smush-cron-disabled-notice-box',
+						'box_content_class' => false,
+					)
+				);
+			}
+
 			$this->add_meta_box(
 				'recheck-images-notice',
 				null,
@@ -86,7 +120,6 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 				)
 			);
 
-			$bg_optimization               = WP_Smush::get_instance()->core()->mod->bg_optimization;
 			$scan_background_process       = Background_Media_Library_Scanner::get_instance()->get_background_process();
 			$is_scan_process_dead          = $scan_background_process->get_status()->is_dead();
 			$show_bulk_smush_inline_notice = $bg_optimization->is_background_enabled() && $bg_optimization->is_dead();
@@ -681,5 +714,17 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 
 	public function inline_retry_bulk_smush_notice_box() {
 		$this->view( 'bulk/inline-retry-bulk-smush-notice' );
+	}
+
+	public function ajax_bulk_smush_in_progressing_notice() {
+		$this->view(
+			'ajax-bulk-smush-in-progressing-notice',
+			array(),
+			'views/bulk'
+		);
+	}
+
+	public function cron_disabled_notice_meta_box() {
+		$this->view( 'bulk/cron-disabled-notice' );
 	}
 }

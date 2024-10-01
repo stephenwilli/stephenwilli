@@ -147,7 +147,7 @@ class Modules {
 
 		$this->bg_optimization = Modules\Bulk\Background_Bulk_Smush::get_instance();
 
-		$smush_controller = new Smush_Controller();
+		$smush_controller = Smush_Controller::get_instance();
 		$smush_controller->init();
 
 		$png2jpg_controller = Png2Jpg_Controller::get_instance();

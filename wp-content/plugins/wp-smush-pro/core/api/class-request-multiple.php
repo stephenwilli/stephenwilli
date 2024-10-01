@@ -14,7 +14,10 @@ class Request_Multiple {
 			array(
 				'complete' => function ( $response, $key ) use ( &$requests, $on_complete ) {
 					// Convert to a response that looks like standard WP HTTP API responses
+					$request  = $requests[ $key ];
 					$response = $this->multi_to_singular_response( $response );
+
+					do_action( 'smush_http_api_debug', $response, $request );
 
 					// Call the actual on complete callback
 					call_user_func( $on_complete, $response, $key );
@@ -39,16 +42,16 @@ class Request_Multiple {
 
 	/** \Requests lib are deprecated on WP 6.2.0 */
 
-    private static function get_wp_requests_class_name() {
-        return class_exists('\WpOrg\Requests\Requests') ? '\WpOrg\Requests\Requests' : '\Requests';
-    }
+	private static function get_wp_requests_class_name() {
+		return class_exists( '\WpOrg\Requests\Requests' ) ? '\WpOrg\Requests\Requests' : '\Requests';
+	}
 
-    private static function request_multiple( $requests, $options = array() ) {
-        $wp_requests_class_name = self::get_wp_requests_class_name();
-        return $wp_requests_class_name::request_multiple( $requests, $options );
-    }
+	private static function request_multiple( $requests, $options = array() ) {
+		$wp_requests_class_name = self::get_wp_requests_class_name();
+		return $wp_requests_class_name::request_multiple( $requests, $options );
+	}
 
-    private static function get_requests_exception_class_name() {
-        return class_exists('\WpOrg\Requests\Exception') ? '\WpOrg\Requests\Exception' : '\Requests_Exception';
-    }
+	private static function get_requests_exception_class_name() {
+		return class_exists( '\WpOrg\Requests\Exception' ) ? '\WpOrg\Requests\Exception' : '\Requests_Exception';
+	}
 }

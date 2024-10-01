@@ -16,8 +16,8 @@ class Webp_Converter extends Smusher {
 		$this->webp_helper = new Webp_Helper();
 	}
 
-	protected function get_api_request_headers( $file_path ) {
-		$headers         = parent::get_api_request_headers( $file_path );
+	protected function get_api_request_headers( $file_path, $file_url ) {
+		$headers         = parent::get_api_request_headers( $file_path, $file_url );
 		$headers['webp'] = 'true';
 
 		return $headers;
@@ -31,5 +31,11 @@ class Webp_Converter extends Smusher {
 		}
 
 		return $webp_file_path;
+	}
+
+	public function save_smushed_image_stream( $nonce, $source_file_path, $target_file_path, $file_url, $file_md5, $chunk_size = self::DEFAULT_CHUNK_SIZE ) {
+		$webp_file_path = $this->webp_helper->get_webp_file_path( $target_file_path, true );
+
+		return parent::save_smushed_image_stream( $nonce, $source_file_path, $webp_file_path, $file_url, $file_md5, $chunk_size );
 	}
 }

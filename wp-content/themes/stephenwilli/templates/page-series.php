@@ -14,18 +14,21 @@
   <main class="series-wrap container pad-y">
     <div class="gallery-mosaic js-mosaic-gallery">
       <?php 
-      $args = array(  
-        'post_type' => 'Photos',
+      $args = array(
+        'post_type'             => 'product',
+        'post_status'           => 'publish',
         'orderby' => 'menu_order',
         'order' => 'ASC',
         'posts_per_page' => -1,
-        'tax_query' => array(
-          array (
-            'taxonomy' => 'series',
-            'field' => 'slug',
-            'terms' => $series,
+        'tax_query'             => array(
+          array(
+              'taxonomy'  => 'product_cat',
+              'field'     => 'slug',
+              'terms' => $series,
+              'operator'  => 'IN',
           )
-        ),
+     )
+       
       );
 
       $images = new WP_Query($args);
@@ -42,11 +45,11 @@
           </div>
         </div>
       <?php while ( $images->have_posts()) { $images->the_post();
-            $photo = get_field('featured_photo')
+            $photo = get_the_post_thumbnail_url(get_the_ID(),'large');
           ?>
           <a class="mosaic-image" href="<?php the_permalink();?>">
             <div class="reveal" data-animate="reveal-up"></div>
-            <img class="thumbnail" src="<?= $photo['sizes']['large'];?>" alt="<?php the_title();?> - Stephen Williams Photography"/>
+            <img class="thumbnail" src="<?= $photo;?>" alt="<?php the_title();?> - Stephen Williams Photography"/>
           </a>
       <?php $i++; } 
       wp_reset_postdata();

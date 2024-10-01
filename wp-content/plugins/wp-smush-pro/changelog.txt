@@ -6,6 +6,16 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.16.8 ( 2024-09-19 ) =
+- Fix: Smush API handing improvements
+
+= 3.16.7 ( 2024-09-11 ) =
+- Improvement: Reduced memory consumption during the Smush process
+- Improvement: Better directory Smush compatibility with Flywheel
+- Fix: Unicode characters in image URLs causing issues
+- Fix: Improved compatibility with native lazy loading
+- Fix: PHP errors and warnings
+
 = 3.16.6 ( 2024-07-30 ) =
 - Fix: PHP warnings
 - Improvement: Compatibility with WP 6.6
@@ -261,4 +271,4 @@ Change Log:
 
 
 
-610151-1726005107-au
+610151-1727805993-au

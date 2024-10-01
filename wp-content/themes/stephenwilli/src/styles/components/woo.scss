@@ -1,30 +1,31 @@
 .single-product {
-  .post-meta {
-    display: none;
-  }
-
-  #intro-title {
-    font-size: 4rem;
-  }
-
+ 
   .related-posts {
     display: none;
   }
   .woocommerce-product-gallery {
     display: none;
   }
+  
 
   .summary {
     width: 100% !important;
+    display: flex;
+    flex-wrap: wrap;
+    > * {
+      width: 100%;
+    }
     .price {
-      font-size: 1.5rem;
-      color: color('black') !important;
-      font-weight: bold;
+      display: none;
+    }
 
-      .woocommerce-Price-amount {
-        margin-bottom: 1rem;
-        display: inline-block;
-      }
+    .product_meta {
+      order: -1;
+      margin-bottom: space(6);
+    }
+
+    .sku_wrapper {
+      display: none;
     }
 
     .stock in-stock {
@@ -32,20 +33,49 @@
     }
 
     .variations {
+      margin-bottom: space(4);
       select {
         border: 1px color('black')  solid !important;
         padding: .5em;
       }
+      th {
+        text-align: left;
+        vertical-align: middle !important;
+        label {
+          font-weight: 400 !important;
+          margin-right: space(2);
+        }
+      }
+
     }
     .quantity .qty {
       padding: .4em;
     }
   }
-  // .product_meta {
-  //   display: none;
-  // }
-  
+
+  .woocommerce-variation {
+    margin-bottom: space(4);
+    .price {
+      display:inline-block;
+    }
+    .woocommerce-Price-amount {
+      font-size: 1.5rem;
+    }
+  }
+
+  .variations_button {
+    .quantity {
+      display: none !important;
+    }
+  }
+
+  .type-product {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   .woocommerce-tabs {
+    order: -1;
     .wc-tabs {
       display: none;
     }
@@ -61,6 +91,7 @@
   }
 
   .related {
+    display: none;
     h2 {
       font-size: 3rem;
       margin-top: 3rem;
@@ -85,7 +116,9 @@
   }
   &.disabled {
     background-color: #999;
-
+    &:hover {
+      background-color: #888;
+    }
   }
 }
 
@@ -98,7 +131,9 @@
 
 
 .woocommerce {
-
+  .button {
+    font-family: var(--font-body);
+  }
   &.columns-4 {
     padding: 0 6rem;
     @include below('md'){

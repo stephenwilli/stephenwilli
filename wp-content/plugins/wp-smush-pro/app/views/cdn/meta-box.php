@@ -40,7 +40,7 @@ if ( ! defined( 'WPINC' ) ) {
 	</div>
 </div>
 
-<div class="sui-box-settings-row">
+<div class="sui-box-settings-row" id="cdn-supported-media-types-settings-row">
 	<div class="sui-box-settings-col-1">
 		<span class="sui-settings-label">
 			<?php esc_html_e( 'Supported Media Types', 'wp-smushit' ); ?>
@@ -88,7 +88,7 @@ foreach ( $cdn_group as $name ) {
 }
 ?>
 
-<div class="sui-box-settings-row">
+<div class="sui-box-settings-row" id="cdn-deactivate-settings-row">
 	<div class="sui-box-settings-col-1">
 		<span class="sui-settings-label">
 			<?php esc_html_e( 'Deactivate', 'wp-smushit' ); ?>

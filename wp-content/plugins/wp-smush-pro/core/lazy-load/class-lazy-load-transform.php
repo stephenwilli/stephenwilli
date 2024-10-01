@@ -100,6 +100,7 @@ class Lazy_Load_Transform implements Transform {
 				$this->add_native_lazy_loading_attribute( $iframe_element );
 			}
 		} else {
+			$this->remove_native_lazy_loading_attribute( $iframe_element );
 			$this->update_element_attributes_for_lazy_load( $iframe_element, array( 'src' ) );
 			$iframe_element->add_attribute( new Element_Attribute( 'data-load-mode', '1' ) );
 		}
@@ -113,8 +114,7 @@ class Lazy_Load_Transform implements Transform {
 	}
 
 	private function element_has_native_lazy_load_attribute( Element $element ) {
-		$attribute_value = $element->get_attribute_value( 'loading' );
-		return ! empty( $attribute_value );
+		return $element->has_attribute( 'loading' );
 	}
 
 	private function is_element_excluded( Element $element ) {
@@ -279,6 +279,13 @@ class Lazy_Load_Transform implements Transform {
 		$element->add_attribute( new Element_Attribute( 'loading', 'lazy' ) );
 	}
 
+	private function remove_native_lazy_loading_attribute( Element $element ) {
+		$native_lazyload_attr = $element->get_attribute( 'loading' );
+		if ( ! empty( $native_lazyload_attr ) ) {
+			$element->remove_attribute( $native_lazyload_attr );
+		}
+	}
+
 	private function transform_image_elements( Page $page ) {
 		foreach ( $page->get_composite_elements() as $composite_element ) {
 			if ( ! $this->is_composite_element_excluded( $composite_element ) ) {
@@ -320,6 +327,7 @@ class Lazy_Load_Transform implements Transform {
 			return false;
 		}
 
+		$this->remove_native_lazy_loading_attribute( $element );
 		$this->replace_attributes_with_data_attributes( $element, array(
 			'src',
 			'srcset',
@@ -360,6 +368,7 @@ class Lazy_Load_Transform implements Transform {
 				$this->add_native_lazy_loading_attribute( $element );
 			}
 		} else {
+			$this->remove_native_lazy_loading_attribute( $element );
 			$this->update_element_attributes_for_lazy_load( $element, array(
 				'src',
 				'srcset',

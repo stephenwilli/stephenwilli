@@ -67,7 +67,7 @@ if ( ! defined( 'WPINC' ) ) {
 	</div>
 
 	<div id="bulk-smush-resume-button" class="sui-hidden">
-		<a class="wp-smush-all sui-button wp-smush-started wp-smush-resume-bulk-smush">
+		<a class="sui-button wp-smush-started wp-smush-resume-bulk-smush">
 			<i class="sui-icon-play" aria-hidden="true"></i>
 			<?php esc_html_e( 'Resume', 'wp-smushit' ); ?>
 		</a>
