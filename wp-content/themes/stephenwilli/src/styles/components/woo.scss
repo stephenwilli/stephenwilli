@@ -9,6 +9,11 @@
     width: 100% !important;
     display: flex;
     flex-wrap: wrap;
+
+    .woocommerce-product-details__short-description {
+      margin-bottom: space(4);
+    }
+
     > * {
       width: 100%;
     }
