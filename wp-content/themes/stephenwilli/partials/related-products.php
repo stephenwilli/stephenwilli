@@ -1,6 +1,6 @@
 <section class="related-products pad-y" data-animate="fade-up">
   <div class="container">
-    <h2>Other Photos</h2>
+    <h2>More From this Series</h2>
   </div>
 
   <?php 
