@@ -1,7 +1,7 @@
 .dev-template {
     background-color: color('black');
     color: color('white');
-    cursor: url('../assets/images/cursor-circle.svg') 25 15, auto !important;
+    //cursor: url('../assets/images/cursor-circle.svg') 25 15, auto !important;
 
     p {
       font-size: 1.125rem;
@@ -18,7 +18,7 @@
   }
 
   .navbar-hamburger {
-    cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
+    //cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
     &:after, &:before, span {
       background-color: color('white');
     }
@@ -27,7 +27,7 @@
   a {
     color: color('white');
     text-decoration: none;
-    cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
+    //cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
   }
 
   .footer {

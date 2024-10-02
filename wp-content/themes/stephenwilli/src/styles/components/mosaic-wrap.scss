@@ -6,7 +6,7 @@
 		width: calc(33% - 2rem);
 		margin: 0 1rem 2rem;
 		overflow: hidden;
-		cursor: url('../assets/images/cursor-plus.svg') 35 25, auto;
+		//cursor: url('../assets/images/cursor-plus.svg') 35 25, auto;
 		transition: all .6s ease-in-out;
 			
 		img {
@@ -25,7 +25,7 @@
 		&.intro-card {
 			padding: 2rem;
 			min-height: 600px;
-			cursor: url('../images/cursor-circle-02.svg') 25 15, auto !important;
+			//cursor: url('../images/cursor-circle-02.svg') 25 15, auto !important;
 			h1 {
 				font-size: 4rem;
 			}
@@ -36,7 +36,7 @@
 		.mosaic-image {
 			width: calc(50% - 2rem);
 			position: relative;
-			cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
+			//cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
 			max-height: 400px;
 
 			.cat-link {

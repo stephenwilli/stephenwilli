@@ -6,7 +6,7 @@
 	width: 40px;
 	z-index: 120;
 	transition: all .5s;
-	cursor: url('../assets/images/cursor-arrow-03.svg') 25 5, auto;
+	//cursor: url('../assets/images/cursor-arrow-03.svg') 25 5, auto;
 	
 	&:after, &:before, span {
 		background-color: color('black');
@@ -23,7 +23,7 @@
 	}
 
 	&.-collapsed {
-		cursor: url('../assets/images/cursor-arrow-03.svg') 25 5, auto;
+		//cursor: url('../assets/images/cursor-arrow-03.svg') 25 5, auto;
 		&:after, &:before, span {
 			background-color: color('black');
 		}

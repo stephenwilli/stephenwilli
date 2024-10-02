@@ -34,4 +34,26 @@ jQuery(function($) {
     });
   });
 
+  $('.js-product-carousel').each(function(elem) {
+    $(this).slick({
+      autoplay: false,
+      autoplaySpeed: 6000,
+      arrows: false,
+      dots: false,
+      slidesToShow: 2,
+      centerMode: true,
+      variableWidth: true,
+      centerPadding:'300px',
+      responsive: [
+          {
+            breakpoint: 968,
+            settings: {
+              slidesToShow: 1,
+              centerPadding:'20px',
+            }
+          }
+        ]
+    });
+  });
+
 });

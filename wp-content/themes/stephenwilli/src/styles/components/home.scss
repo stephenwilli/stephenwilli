@@ -1,6 +1,6 @@
 body.home {
   a {
-    cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
+    //cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
   }
 
   .site-header {
@@ -23,9 +23,9 @@ body.home {
 	}
 
   .navbar-hamburger {
-		cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
+		//cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
     &.-collapsed {
-      cursor: url('../assets/images/cursor-arrow-03.svg') 25 5, auto;
+      //cursor: url('../assets/images/cursor-arrow-03.svg') 25 5, auto;
       &:after, &:before, span {
         background-color: color('black');
       }
