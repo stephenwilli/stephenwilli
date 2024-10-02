@@ -4,6 +4,9 @@
     display: none;
   }
   
+  .woocommerce-Tabs-panel--additional_information {
+    display: none !important;
+  }
 
   .summary {
     width: 100% !important;
@@ -89,7 +92,7 @@
   .woocommerce-tabs {
     order: -1;
     margin-bottom: space(4);
-    display: none;
+
     .wc-tabs {
       display: none;
     }
