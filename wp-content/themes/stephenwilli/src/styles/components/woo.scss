@@ -61,11 +61,13 @@
       .value {
         width: 400px;
 
-        @include below('md'){
-          width: auto;
+
+      }
+      @include below('md'){
+        .value {
+        width: auto;
         }
       }
-
     }
     .quantity .qty {
       padding: .4em;
