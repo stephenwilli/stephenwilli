@@ -17,7 +17,6 @@
         </div>
         <?php the_content();?>
         
-        <?php //render( 'post-navigation' ); ?> 
       </div>
       
       <div class="photo-full -<?= $orientation;?> reveal-wrap">
@@ -26,7 +25,7 @@
       </div>
     </section>
     <?php  
-      render( 'related-products' ); 
+      //render( 'related-products' ); 
     ?>
   </main>
   
