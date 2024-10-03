@@ -62,7 +62,7 @@
         width: 400px;
 
         @include below('md'){
-          width: 300px;
+          width: initial;
         }
       }
 
