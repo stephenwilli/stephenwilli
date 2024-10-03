@@ -25,7 +25,7 @@
       </div>
     </section>
     <?php  
-      //render( 'related-products' ); 
+      render( 'related-products' ); 
     ?>
   </main>
   
