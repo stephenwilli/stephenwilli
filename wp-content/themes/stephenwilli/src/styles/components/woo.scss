@@ -60,6 +60,10 @@
 
       .value {
         width: 400px;
+
+        @include below('md'){
+          width: 350px;
+        }
       }
 
     }
