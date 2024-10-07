@@ -104,13 +104,13 @@
   @include below('md'){
     .split-half {
       &.-left {
-        clip-path: polygon(0 0, 100% 0, 100% 28%, 0 74%);
+        clip-path: polygon(0 0, 100% 0, 100% 27%, 0 74%);
         h2 {
           top: 25%;
         }
       }
       &.-right {
-        clip-path: polygon(0 74%, 100% 28%, 100% 100%, 0% 100%);
+        clip-path: polygon(0 74%, 100% 27%, 100% 100%, 0% 100%);
         h2 {
           top: auto;
           bottom: 15%;
