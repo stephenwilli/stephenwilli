@@ -1,7 +1,8 @@
 <header class="site-header js-nav-scroll" id="header" role="header">
-  <a class="navbar-brand" href="<?php bloginfo('url'); ?>">
+  
+  <a class="navbar-brand" href="/">
     <?= icon('sw') ?>
-    <h4 class="tagline">Stephen Williams<h4>
+    <h4 class="tagline">Stephen Williams</h4>
   </a>
 
   <a class="js-hamburger-toggle hamburger-wrap" data-target=".navbar-menu">

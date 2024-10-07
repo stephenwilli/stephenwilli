@@ -1,5 +1,7 @@
 .site-header {
 	height: 80px;
+	position: absolute;
+	width: 100%;
 }
 
 .navbar-brand {
@@ -16,6 +18,7 @@
 	.tagline {
 		font-size: 1.2rem;
 		margin-left: space(2);
+		width: 300px;
 	}
 
 	&:hover {
@@ -38,6 +41,9 @@
 	@include below('sm'){
 		top: 1rem;
 		left: 1rem;
+		.tagline {
+			width: 200px;
+		}
 	}
 }
 		

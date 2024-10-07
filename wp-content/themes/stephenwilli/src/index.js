@@ -84,6 +84,18 @@ jQuery(document).ready(function($) {
     $('.navbar-hamburger').toggleClass( '-collapsed' );
     $('.navbar-menu').toggleClass( '-open' );
   });
+
+  $('.split-half').on('click', function(e) {
+    e.preventDefault();
+
+    $(this).addClass( '-open' );
+    
+    var href = $('> .split-link', this).attr("href"); 
+
+    setTimeout(function() {
+      window.location.href = href;
+    },0);
+  });
   
   
   if ($(window).width() > 992) {

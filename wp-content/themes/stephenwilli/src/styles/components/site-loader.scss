@@ -2,8 +2,8 @@
 	@include fill;
 	z-index: 1000;
 	background-color: white;
-	transition: .5s ease-in-out;
-	transition-delay: 3s;
+	transition: 1s ease-in-out;
+	transition-delay: 2.5s;
 	//cursor: url('../images/cursor-hourglass-02.svg') 25 15, auto;
 	
 	.loader-wrap {
@@ -60,20 +60,24 @@
 	  }
 	}
 
-
 	&.-loaded {
-		width: 0;
-		z-index: -1;
-		.loader-wrap {
-			opacity: 0;
-		}
-		svg {
-			opacity: 0;
-		}
-		.loader-title {
-			opacity: 0;
-		}
+		opacity: 0;
+		pointer-events: none;
 	}
+
+	// &.-loaded {
+	// 	width: 0;
+	// 	z-index: -1;
+	// 	.loader-wrap {
+	// 		opacity: 0;
+	// 	}
+	// 	svg {
+	// 		opacity: 0;
+	// 	}
+	// 	.loader-title {
+	// 		opacity: 0;
+	// 	}
+	// }
 	
 
 }
