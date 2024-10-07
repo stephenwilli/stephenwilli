@@ -227,7 +227,8 @@
                             },
                             "post_type": [
                                 "projects",
-                                "post"
+                                "post",
+                                "page"
                             ],
                             "post_status": "",
                             "taxonomy": "",
@@ -237,6 +238,7 @@
                             "return_format": "object",
                             "min": "",
                             "max": "",
+                            "allow_in_bindings": 1,
                             "elements": "",
                             "bidirectional": 0,
                             "bidirectional_target": []
@@ -1251,5 +1253,5 @@
     "active": true,
     "description": "Post Type = Page or Post",
     "show_in_rest": 0,
-    "modified": 1728330025
+    "modified": 1728341662
 }
