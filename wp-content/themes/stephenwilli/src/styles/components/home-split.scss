@@ -7,6 +7,7 @@
   .split-half {
     @include fill;
     cursor: pointer;
+    color: white;
 
     img {
       @include fill;
@@ -26,20 +27,29 @@
       z-index: 5;
     }
 
-    h2 {
+    h1 {
       @include center-y;
-      color: white;
       transition: all .3s ease-in-out;
       transition-delay: .5s;
       z-index: 10;
+
+      .icon {
+       position: absolute;
+       bottom: -4rem;
+        --icon-scale: 1.5;
+        transition: all .3s ease-in-out;
+      }
     }
 
     &.-left {
       clip-path: polygon(0 0, 68% 0, 32% 100%, 0% 100%);
       transition: all .6s ease-in-out;
 
-      h2 {
-        left: space(4);
+      h1 {
+        left: space(8);
+        .icon {
+          left: 0;
+         }
       }
 
       &:hover {
@@ -50,6 +60,12 @@
         .overlay {
           background-color: rgba(0, 0, 0, 0);
         }
+
+        h1 {
+          .icon {
+            left: -2rem;
+           }
+        }
       }
 
       &.-open {
@@ -58,7 +74,7 @@
         img {
           filter: grayscale(0);
         }
-        h2 {
+        h1 {
           opacity: 0;
         }
         .overlay {
@@ -71,8 +87,11 @@
       clip-path: polygon(68% 0, 100% 0, 100% 100%, 29% 100%);
       transition: all .6s ease-in-out;
 
-      h2 {
-        right: space(4);
+      h1 {
+        right: space(8);
+        .icon {
+          right: 0;
+         }
       }
 
       &:hover {
@@ -83,6 +102,12 @@
         .overlay {
           background-color: rgba(0, 0, 0, 0);
         }
+
+        h1 {
+          .icon {
+            right: -2rem;
+           }
+        }
       }
 
       &.-open {
@@ -91,7 +116,7 @@
         img {
           filter: grayscale(0);
         }
-        h2 {
+        h1 {
           opacity: 0;
         }
         .overlay {
@@ -105,13 +130,13 @@
     .split-half {
       &.-left {
         clip-path: polygon(0 0, 100% 0, 100% 27%, 0 74%);
-        h2 {
+        h1 {
           top: 25%;
         }
       }
       &.-right {
         clip-path: polygon(0 74%, 100% 27%, 100% 100%, 0% 100%);
-        h2 {
+        h1 {
           top: auto;
           bottom: 15%;
           max-width: 80%;

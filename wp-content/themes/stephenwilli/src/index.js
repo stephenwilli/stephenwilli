@@ -96,6 +96,20 @@ jQuery(document).ready(function($) {
       window.location.href = href;
     },10);
   });
+
+  window.addEventListener( "pageshow", function ( event ) {
+    var historyTraversal = event.persisted || 
+      ( typeof window.performance != "undefined" && 
+        window.performance.navigation.type === 2 );
+  });
+
+  $('.hero-scroll').click(function(e) {
+    e.preventDefault();
+
+    $('html, body').animate({
+      scrollTop: $('.container').offset().top
+    }, 500);
+  });
   
   
   if ($(window).width() > 992) {

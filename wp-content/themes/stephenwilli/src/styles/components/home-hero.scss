@@ -4,20 +4,39 @@
 	position: relative;
 	overflow: hidden;
 
+	@keyframes fadeInAnimation {
+			0% {
+					opacity: 0;
+			}
+
+			100% {
+					opacity: 1;
+			}
+	}
+
 	.overlay {
 		@include fill;
 		background: rgb(0,0,0);
 		background: linear-gradient(0deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,0.2) 25%, rgba(0,0,0,0) 100%);
 		z-index: 10;
 		animation: fadeInAnimation ease .1s;
-			@keyframes fadeInAnimation {
-				0% {
-						opacity: 0;
-				}
-		
-				100% {
-						opacity: 1;
-				}
+	}
+
+	.hero-scroll {
+		position: absolute;
+		right: space(6);
+		bottom: space(6);
+		color: white;
+		z-index: 40;
+		animation: fadeInAnimation ease .1s;
+		transform: rotate(-90deg);
+		transition: all .3s ease-in-out;
+		.icon {
+      --icon-scale: 4;
+    }
+
+		&:hover {
+			bottom: space(5);
 		}
 	}
 
@@ -36,6 +55,9 @@
 	}
 
 	@include below('sm'){
+		.hero-scroll {
+			display: none;
+		}
 		.hero-slide {
 			.mobile-image {
 				display: inline;
@@ -51,15 +73,7 @@
   bottom: space(6);
 	z-index: 10;
 	animation: fadeInAnimation ease 1s;
-	@keyframes fadeInAnimation {
-		0% {
-				opacity: 0;
-		}
 
-		100% {
-				opacity: 1;
-		}
-}
 	h1 {
 		color: white;
 		margin-bottom: 0;

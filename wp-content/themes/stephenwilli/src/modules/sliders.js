@@ -36,9 +36,9 @@ jQuery(function($) {
 
   $('.js-product-carousel').each(function(elem) {
     $(this).slick({
-      autoplay: false,
+      autoplay: true,
       autoplaySpeed: 6000,
-      arrows: false,
+      arrows: true,
       dots: false,
       slidesToShow: 2,
       centerMode: true,
@@ -48,8 +48,8 @@ jQuery(function($) {
           {
             breakpoint: 968,
             settings: {
-              slidesToShow: 1,
               centerPadding:'20px',
+              slidesToShow: 3,
             }
           }
         ]

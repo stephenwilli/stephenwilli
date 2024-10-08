@@ -15,4 +15,27 @@
       display: flex !important;
   }
 
+  .carousel-wrap {
+     .slick-arrow {
+      @include center-x;
+      bottom: -4rem;
+      width: 50px;
+      line-height: 0px;
+      font-size: 0px;
+      cursor: pointer;
+      &.slick-prev {
+        margin-left: -40px;
+        &:before {
+          content: url('../assets/images/arrow-left.svg') ;
+        }
+      }
+
+      &.slick-next {
+        margin-left: 40px;
+        &:before {
+          content: url('../assets/images/arrow-right.svg') ;
+        }
+      }
+     }
+  }
 }
