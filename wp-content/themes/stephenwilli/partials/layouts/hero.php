@@ -15,7 +15,6 @@
         <img class="mobile-image" src="<?= $mobileimage['sizes']['large'];?>"/>
       <?php } ?>
       <div class="hero-caption">
-        <a href="<?= $link['url'];?>" class="block-link">
           <h1><?= $title;?></h1>
 
           <?php if($subtitle){?>
@@ -25,7 +24,6 @@
           <?php if($link){?>
             <a href="<?= $link['url'];?>" class="button"><?= $link['title'];?></a>
           <?php } ?>
-        </a>
       </div>
     </div>
     <?php } ?>

@@ -94,7 +94,7 @@ jQuery(document).ready(function($) {
 
     setTimeout(function() {
       window.location.href = href;
-    },0);
+    },10);
   });
   
   

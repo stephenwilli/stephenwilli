@@ -2,6 +2,10 @@ body:has(.home-hero), body:has(.home-split) {
   a {
     //cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
   }
+
+  .site-header {
+    position: absolute;
+  }
   .navbar-brand {
 		.icon {
 			color: white;
@@ -9,11 +13,6 @@ body:has(.home-hero), body:has(.home-split) {
 
     .tagline {
       color: white;
-    }
-    
-    @include below('sm'){
-      top: 2rem;
-      left: 2rem;
     }
 	}
 
@@ -28,10 +27,5 @@ body:has(.home-hero), body:has(.home-split) {
 		&:after, &:before, span {
 			background-color: white;
 		}
-
-    @include below('sm'){
-      top: 3rem;
-      right: 2rem;
-    }
 	}
 }

@@ -22,14 +22,14 @@
     .overlay {
       @include fill;
       background-color: rgba(0, 0, 0, .7);
-      transition: all .6s ease-in-out;
+      transition: all .3s ease-in-out;
       z-index: 5;
     }
 
     h2 {
       @include center-y;
       color: white;
-      transition: all .6s ease-in-out;
+      transition: all .3s ease-in-out;
       transition-delay: .5s;
       z-index: 10;
     }

@@ -4,33 +4,21 @@
 	position: relative;
 	overflow: hidden;
 
-	body {
-		animation: fadeInAnimation ease 3s;
-		animation-iteration-count: 1;
-		animation-fill-mode: forwards;
-}
-
-h1 {
-		color: green;
-}
-
-
-
 	.overlay {
 		@include fill;
 		background: rgb(0,0,0);
 		background: linear-gradient(0deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,0.2) 25%, rgba(0,0,0,0) 100%);
 		z-index: 10;
-		animation: fadeInAnimation ease 3s;
-		@keyframes fadeInAnimation {
-			0% {
-					opacity: 0;
-			}
-	
-			100% {
-					opacity: 1;
-			}
-	}
+		animation: fadeInAnimation ease .1s;
+			@keyframes fadeInAnimation {
+				0% {
+						opacity: 0;
+				}
+		
+				100% {
+						opacity: 1;
+				}
+		}
 	}
 
 	.hero-slide {
@@ -62,7 +50,7 @@ h1 {
   left: space(6);
   bottom: space(6);
 	z-index: 10;
-	animation: fadeInAnimation ease 3s;
+	animation: fadeInAnimation ease 1s;
 	@keyframes fadeInAnimation {
 		0% {
 				opacity: 0;
