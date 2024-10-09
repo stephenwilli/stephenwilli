@@ -38,4 +38,11 @@
       }
      }
   }
+
+  @include below('sm'){ 
+    .product-slide {
+      height: 300px;
+    }
+  }
+
 }

@@ -17,13 +17,9 @@
         <?php } ?>
         <div class="hero-caption">
             <h1><?= $title;?></h1>
-
-            <?php if($subtitle){?>
-              <h3><?= $subtitle;?></h3>
-            <?php } ?>
             
             <?php if($link){?>
-              <a href="<?= $link['url'];?>" class="button"><?= $link['title'];?></a>
+              <a href="<?= $link['url'];?>"><h3><?= $link['title'];?><?= icon('arrow-left'); ?></h3></a>
             <?php } ?>
         </div>
       </div>

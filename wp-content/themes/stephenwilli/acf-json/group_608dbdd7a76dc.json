@@ -28,6 +28,26 @@
             "mime_types": ""
         },
         {
+            "key": "field_609207545864b",
+            "label": "Photo Number",
+            "name": "photo_number",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_60931498f2238",
             "label": "Orientation",
             "name": "photo_orientation",
@@ -53,6 +73,42 @@
             "save_other_choice": 0
         },
         {
+            "key": "field_60959864101ea",
+            "label": "Photo Subtitle",
+            "name": "photo_subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_60959870101eb",
+            "label": "Print Link",
+            "name": "print_link",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
             "key": "field_6095c6e4a1a90",
             "label": "Series Link",
             "name": "series_link",
@@ -67,6 +123,26 @@
                 "id": ""
             },
             "return_format": "array"
+        },
+        {
+            "key": "field_60984f879fedc",
+            "label": "Kicker",
+            "name": "photo_kicker",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         }
     ],
     "location": [
@@ -76,13 +152,6 @@
                 "operator": "==",
                 "value": "photos"
             }
-        ],
-        [
-            {
-                "param": "post_type",
-                "operator": "==",
-                "value": "product"
-            }
         ]
     ],
     "menu_order": 0,
@@ -91,8 +160,8 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": true,
+    "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1727808594
+    "modified": 1728433695
 }

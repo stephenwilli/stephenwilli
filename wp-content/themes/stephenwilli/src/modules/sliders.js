@@ -4,7 +4,7 @@ jQuery(function($) {
     $(this).slick({
       autoplay: true,
       fade: true,
-      autoplaySpeed: 10000,
+      autoplaySpeed: 8000,
       slidesToShow: 1,
       slidesToScroll: 1,
       arrows: false,
