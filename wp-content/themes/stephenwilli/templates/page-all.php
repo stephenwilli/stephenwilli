@@ -22,7 +22,7 @@
       $i = 1;?>
         <div class="mosaic-image intro-card">
           <div class="reveal" data-animate="reveal-up"></div>
-          <div class="series-text">
+          <div class="series-text content">
             <?php the_content();?>
           </div>
         </div>

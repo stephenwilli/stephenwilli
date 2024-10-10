@@ -9,7 +9,7 @@
 
   <div class="js-mosaic-gallery gallery-mosaic -projects">
       <?php if($sectionTitle){?>
-        <a class="mosaic-image intro-card" href="<?= $full;?>">
+        <div class="mosaic-image intro-card">
           <?php if($subhead){?>
             <h4><?= $subhead;?></h4>
           <?php } ?>
@@ -17,7 +17,7 @@
           <?php if($sectionText){?>
             <p><?= $sectionText;?></p>
           <?php } ?>
-        </a>
+          </div>
       <?php }?>
     <?php
         foreach( $items as $post ) {
