@@ -55,10 +55,12 @@
 	}
 
 	@include below('sm'){
+		height: 85vh;
 		.hero-scroll {
 			display: none;
 		}
 		.hero-slide {
+			height: 85vh;
 			.mobile-image {
 				display: inline;
 				@include fill;
