@@ -1,1 +1,22 @@
-// .pagination { }
+.pagination { 
+  font-family: var(--font-light-heading);
+  font-weight: 400;
+  font-size: var(--font-size-h4);
+  margin-bottom: 0.25em;
+  line-height: 1.2;
+  text-align: center;
+
+  .page-numbers {
+    display: flex;
+    gap: 1.5em;
+    justify-content: center;
+    li {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .current {
+      text-decoration: underline;
+    }
+  }
+}
