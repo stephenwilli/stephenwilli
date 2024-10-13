@@ -128,7 +128,7 @@
 		display: flex;
     flex-direction: column;
 		left: 0;
-		padding: 0 space(6) space(10);
+		padding: 0 space(6) space(6);
 		width: 100%;
 		// .button {
 		// 	margin-left: 0;
@@ -143,6 +143,6 @@
 	}
 
 	@include below('xs'){
-		bottom: space(6);
+		bottom: space(2);
 	}
 }

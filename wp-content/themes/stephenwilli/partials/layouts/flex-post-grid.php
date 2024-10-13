@@ -23,13 +23,12 @@
         foreach( $items as $post ) {
           setup_postdata($post);
           $terms = get_the_terms(get_the_ID(), 'project-categories');
+          $photo = get_the_post_thumbnail_url(get_the_ID(),'large');
       ?>
-      <div class="mosaic-image">
-        <a title="<?php the_title();?> - Stephen Williams Photography"  href="<?php the_permalink(); ?>">
+        <a class="mosaic-image" href="<?php the_permalink();?>">
         <div class="reveal" data-animate="reveal-up"></div>
           <div class="overlay"></div>
-          <?php the_post_thumbnail('medium') ?>
-
+          <img class="thumbnail" src="<?= $photo;?>" alt="<?php the_title();?> - Stephen Williams Photography"/>
           <div class="project-text">
             <h3><?php the_title();?></h3>
             <?php if(!empty($terms)) {
@@ -41,7 +40,7 @@
                 <?php } }?> 
           </div>
         </a>
-      </div>
+
     <?php  } wp_reset_postdata();?>
   </div>
 
