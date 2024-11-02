@@ -19,8 +19,7 @@
 		background: rgb(0,0,0);
 		background: linear-gradient(0deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,0.2) 25%, rgba(0,0,0,0) 100%);
 		z-index: 10;
-		opacity: 0;
-		animation: fadeInAnimation ease .1s;
+		animation: fadeInAnimation ease 1.5s;
 	}
 
 	.hero-scroll {
@@ -29,8 +28,7 @@
 		bottom: space(6);
 		color: white;
 		z-index: 40;
-		opacity: 0;
-		animation: fadeInAnimation ease .1s;
+		animation: fadeInAnimation ease 1.5s;
 		transform: rotate(-90deg);
 		transition: all .3s ease-in-out;
 		.icon {
