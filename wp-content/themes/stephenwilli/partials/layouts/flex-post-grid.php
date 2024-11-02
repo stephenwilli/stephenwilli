@@ -2,12 +2,13 @@
   $sectionTitle  = $data['fc_section_title'];
   $sectionText = $data['fc_section_text'];  
   $items = $data['fc_grid_items'];
-  $subhead = $data['fc_subhead'];  
+  $subhead = $data['fc_subhead'];
+  $products = $data['fc_products'];  
 ?>
 
 <section class="flex-gallery container pad-y">
 
-  <div class="js-mosaic-gallery gallery-mosaic -projects">
+  <div class="js-mosaic-gallery gallery-mosaic -projects <?php if($products){ ?>-products<?php } ?>">
       <?php if($sectionTitle){?>
         <div class="mosaic-image intro-card">
           <?php if($subhead){?>

@@ -57,10 +57,21 @@
 			}
 		}
 	}
+
+	&.-products {
+		.mosaic-image {
+			width: calc(33% - 2rem);
+		}
+	}
 	
 	@include below('md') {
 		.mosaic-image {
 			width: calc(50% - 2rem);
+		}
+		&.-products {
+			.mosaic-image {
+				width: calc(50% - 2rem);
+			}
 		}
 	}
 	
@@ -84,6 +95,12 @@
 					margin-bottom: space(1);
 					display: inline-block;
 				}
+			}
+		}
+		&.-products {
+			.mosaic-image {
+				width: 100%;
+				margin: 1rem 0;
 			}
 		}
 	}
