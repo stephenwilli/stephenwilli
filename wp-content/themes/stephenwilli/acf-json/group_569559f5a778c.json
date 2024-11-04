@@ -228,7 +228,8 @@
                             "post_type": [
                                 "projects",
                                 "post",
-                                "page"
+                                "page",
+                                "product"
                             ],
                             "post_status": "",
                             "taxonomy": "",
@@ -1274,5 +1275,5 @@
     "active": true,
     "description": "Post Type = Page or Post",
     "show_in_rest": 0,
-    "modified": 1730588072
+    "modified": 1730750087
 }
