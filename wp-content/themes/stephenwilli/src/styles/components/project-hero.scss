@@ -25,10 +25,12 @@
 		z-index: 10;
 	}
 
-  h1 {
+  .project-title {
     position: absolute;
-    left: space(6);
-    bottom: space(6);
+    left: (var(--container-space));
+    bottom: (var(--container-space));
+    max-width: 1200px;
+    margin: 0 auto;
     z-index: 10;
     animation: fadeInAnimation ease 1s;
     color: white;
@@ -36,17 +38,7 @@
 
 
 	@include below('sm'){
-		height: 85vh;
-		.hero-scroll {
-			display: none;
-		}
-		.hero-slide {
-			height: 85vh;
-			.mobile-image {
-				display: inline;
-				@include fill;
-			}
-		}
+		height: 45vh;
 	}
 }
 
