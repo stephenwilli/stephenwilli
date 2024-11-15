@@ -8,41 +8,42 @@
   $terms = get_the_terms(get_the_ID(), 'project-categories');
 ?>
 
+<section class="project-hero" style="background-image: url('<?= $postImage;?>');">
+  <div class="overlay"></div>
+  <h1 class="h2"><?php the_title();?></h1>
+</section>
+
   <section class="content-wrap container pad-b" data-animate="fade-right">
-      <div class="post-content">
-        <h1 class="h2"><?php the_title();?></h1>
-        <div class="post-meta">
-          
+      <div class="project-intro">
+
+        <div class="project-meta">
+          <h4>Project Role</h4>    
           <?php if(!empty($terms)) {
               foreach($terms as $term){
               $term = array_pop($terms);
               $catLink = get_term_link($term);
               $catTitle = $term->name; ?>
                 <span class="cat-link" href="<?= $catLink;?>"><?= $catTitle;?></span>
-              <?php } }?> 
-            <ul class="credits">
-            <?php foreach($credits as $credit){ 
-              $text = $credit['credit'];
-              ?>
-              <li><?= $text;?></li>
-            <?php } ?>
-          </ul>
+              <?php } }?>
+            <div class="credits"> 
+              <h4>Project Credits</h4> 
+              <ul>
+                <?php foreach($credits as $credit){ 
+                  $text = $credit['credit'];
+                  ?>
+                  <li><?= $text;?></li>
+                <?php } ?>
+              </ul>
+            </div>
         </div>
-      </div>
-      <div class="post-image">
-        <div class="reveal-wrap">
-          <div class="reveal" data-animate="reveal-up"></div>  
-          <img src="<?= $postImage;?>" alt="<?php the_title();?>">
-          <?php if($caption){ ?>
-            <span class="photo-credit"><?= $caption;?></span>
-          <?php } ?>
+        <div class="project-content">
+          <?php the_content();?>
         </div>
+
       </div>
+            
     </section>
 
-  <section class="flex-wysiwyg container-center pad-b content" data-animate="fade-right">
-    <?php the_content();?>
-  </section><!-- /section -->
 
   <?php render( 'sections' ); ?>
 

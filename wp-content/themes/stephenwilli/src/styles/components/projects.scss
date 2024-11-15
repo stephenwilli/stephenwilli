@@ -1,0 +1,33 @@
+.project-intro {
+  display: flex;
+  gap: space(4);
+
+  .project-meta {
+    width: 33%;
+  }
+
+  .project-content {
+    width: 66%;
+  }
+
+  .credits {
+    margin-top: space(4);
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+  }
+
+  @include below('sm'){
+    flex-wrap: wrap;
+    .project-meta {
+      width: 100%;
+      margin-bottom: space(4);
+    }
+  
+    .project-content {
+      width: 100%;
+    }
+  }
+}
