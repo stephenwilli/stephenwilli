@@ -11,11 +11,11 @@
 <section class="project-hero" style="background-image: url('<?= $postImage;?>');">
   <div class="overlay"></div>
   <div class="project-title">
-    <h1><?php the_title();?></h1>
+    <h1 class="h2"><?php the_title();?></h1>
   </div>
 </section>
 
-  <section class="content-wrap container pad-b" data-animate="fade-right">
+  <section class="content-wrap container pad-b">
       <div class="project-intro">
 
         <div class="project-meta">
