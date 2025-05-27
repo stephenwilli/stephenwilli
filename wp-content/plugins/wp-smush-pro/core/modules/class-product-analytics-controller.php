@@ -63,6 +63,7 @@ class Product_Analytics_Controller {
 		add_action( 'wp_smush_settings_updated', array( $this, 'track_toggle_local_webp_fallback' ), 10, 2 );
 
 		add_action( 'wp_ajax_smush_track_deactivate', array( $this, 'ajax_track_deactivation_survey' ) );
+		add_action( 'wp_ajax_smush_analytics_track_event', array( $this, 'ajax_handle_track_request' ) );
 
 		if ( ! $this->settings->get( 'usage' ) ) {
 			return;
@@ -98,9 +99,9 @@ class Product_Analytics_Controller {
 			add_action( "deactivate_$plugin_basename", array( $this, 'track_plugin_deactivation' ) );
 		}
 
-		add_action( 'wp_ajax_smush_analytics_track_event', array( $this, 'ajax_handle_track_request' ) );
-
 		add_action( 'wp_smush_bulk_smush_stuck', array( $this, 'track_bulk_smush_progress_stuck' ) );
+
+		add_action( 'wp_smush_lazy_load_updated', array( $this, 'track_lazy_load_settings_updated' ), 10, 2 );
 	}
 
 	private function track( $event, $properties = array() ) {
@@ -210,7 +211,19 @@ class Product_Analytics_Controller {
 	}
 
 	private function track_lazy_load_feature_toggle( $setting_value ) {
+		$this->track_lazy_load_feature_updated_on_toggle( $setting_value );
+
 		return $this->track_feature_toggle( $setting_value, 'Lazy Load' );
+	}
+
+	private function track_lazy_load_feature_updated_on_toggle( $activate ) {
+		$this->track_lazy_load_updated(
+			array(
+				'update_type'       => $activate ? 'activate' : 'deactivate',
+				'modified_settings' => 'na',
+			),
+			$this->settings->get_setting( 'wp-smush-lazy_load', array() )
+		);
 	}
 
 	private function track_feature_toggle( $active, $feature ) {
@@ -853,12 +866,28 @@ class Product_Analytics_Controller {
 			wp_send_json_error();
 		}
 
+		$properties = $this->get_event_properties( $event_name );
+
+		if ( ! $this->allow_to_track( $event_name, $properties ) ) {
+			wp_send_json_error();
+		}
+
 		$this->track(
 			$event_name,
-			$this->get_event_properties( $event_name )
+			$properties
 		);
 
 		wp_send_json_success();
+	}
+
+	private function allow_to_track( $event_name, $properties ) {
+		$trackable_events   = array(
+			'Setup Wizard'     => true,
+			'smush_pro_upsell' => isset( $properties['Location'] ) && 'wizard' === $properties['Location'],
+		);
+		$is_trackable_event = ! empty( $trackable_events[ $event_name ] );
+
+		return $is_trackable_event || $this->settings->get( 'usage' );
 	}
 
 	private function get_event_name() {
@@ -866,8 +895,8 @@ class Product_Analytics_Controller {
 	}
 
 	private function get_event_properties( $event_name ) {
-		$properties = isset( $_POST['properties'] ) ? wp_unslash( $_POST['properties'] ) : array();
-		$properties = array_map( 'sanitize_text_field', $properties );
+		$properties = isset( $_POST['properties'] ) && is_array( $_POST['properties'] ) ? wp_unslash( $_POST['properties'] ) : array();
+		$properties = map_deep( $properties, 'sanitize_text_field' );
 
 		$filter_callback = $this->get_filter_properties_callback( $event_name );
 		if ( method_exists( $this, $filter_callback ) ) {
@@ -1032,5 +1061,67 @@ class Product_Analytics_Controller {
 		$properties = $this->filter_bulk_smush_interrupted_properties( $properties );
 
 		$this->track( 'Bulk Smush Interrupted', $properties );
+	}
+
+	public function track_lazy_load_settings_updated( $old_settings, $settings ) {
+		$changed_settings = $this->remove_unchanged_settings( (array) $old_settings, (array) $settings );
+
+		$modified_settings = 'na';
+		if ( ! empty( $changed_settings ) ) {
+			$modified_settings_map = array(
+				'format'            => 'media_type',
+				'output'            => 'output_location',
+				'animation'         => 'display_animation',
+				'include'           => 'include_exclude_posttype',
+				'exclude-pages'     => 'include_exclude_url',
+				'exclude-classes'   => 'include_exclude_keyword',
+				'footer'            => 'script_method',
+				'native'            => 'native_lazyload',
+				'noscript_fallback' => 'noscript',
+			);
+
+			$modified_settings = array_intersect_key( $modified_settings_map, $changed_settings );
+			$modified_settings = ! empty( $modified_settings ) ? array_values( $modified_settings ) : 'na';
+		}
+
+		$this->track_lazy_load_updated(
+			array(
+				'update_type'       => 'modify',
+				'modified_settings' => $modified_settings,
+			),
+			$settings
+		);
+	}
+
+	private function track_lazy_load_updated( $properties, $settings ) {
+		$exclusion_enabled         = $this->is_lazy_load_exclusion_enabled( $settings );
+		$native_lazyload_enabled   = ! empty( $settings['native'] );
+		$noscript_fallback_enabled = ! empty( $settings['noscript_fallback'] );
+		$properties                = array_merge(
+			array(
+				'Location'           => $this->identify_referrer(),
+				'exclusions'         => $exclusion_enabled ? 'Enabled' : 'Disabled',
+				'native_lazy_status' => $native_lazyload_enabled ? 'Enabled' : 'Disabled',
+				'noscript_status'    => $noscript_fallback_enabled ? 'Enabled' : 'Disabled',
+			),
+			$properties
+		);
+
+		$this->track( 'lazy_load_updated', $properties );
+	}
+
+	private function is_lazy_load_exclusion_enabled( $settings ) {
+		if ( ! empty( $settings['exclude-pages'] ) || ! empty( $settings['exclude-classes'] ) ) {
+			return true;
+		}
+
+		if ( empty( $settings['include'] ) || ! is_array( $settings['include'] ) ) {
+			return false;
+		}
+
+		$included_post_types = $settings['include'];
+
+		// By default, we activated for all post types, so this option is changed when any post type is unchecked.
+		return in_array( false, $included_post_types, true );
 	}
 }

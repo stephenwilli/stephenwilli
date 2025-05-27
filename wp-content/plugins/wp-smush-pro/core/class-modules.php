@@ -27,6 +27,7 @@ use Smush\Core\Photon\Photon_Controller;
 use Smush\Core\Png2Jpg\Png2Jpg_Controller;
 use Smush\Core\Resize\Resize_Controller;
 use Smush\Core\S3\S3_Controller;
+use Smush\Core\Security\Security_Controller;
 use Smush\Core\Smush\Smush_Controller;
 use Smush\Core\Stats\Global_Stats_Controller;
 use Smush\Core\Transform\Transformation_Controller;
@@ -213,6 +214,12 @@ class Modules {
 
 		$media_lib_last_process = Media_Library_Last_Process::get_instance();
 		$media_lib_last_process->init();
+
+		$cron_controller = Cron_Controller::get_instance();
+		$cron_controller->init();
+
+		$security_controller = Security_Controller::get_instance();
+		$security_controller->init();
 	}
 
 }

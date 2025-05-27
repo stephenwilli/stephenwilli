@@ -93,14 +93,14 @@ class WC_Stripe_Logger {
 	 *
 	 * @return boolean
 	 */
-	private static function can_log(): bool {
+	public static function can_log(): bool {
 		if ( ! class_exists( 'WC_Logger' ) ) {
 			return false;
 		}
 
 		$settings = WC_Stripe_Helper::get_stripe_settings();
 
-		if ( empty( $settings ) || isset( $settings['logging'] ) && 'yes' !== $settings['logging'] ) {
+		if ( empty( $settings ) || ( isset( $settings['logging'] ) && 'yes' !== $settings['logging'] ) ) {
 			return false;
 		}
 

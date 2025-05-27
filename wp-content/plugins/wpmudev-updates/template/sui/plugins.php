@@ -325,7 +325,13 @@ foreach ( $data['projects'] as $project ) {
 	if ( empty( $project['id'] ) ) {
 		continue;
 	}
+
 	if ( 'plugin' !== $project['type'] ) {
+		continue;
+	}
+
+	// No need to render addons.
+	if ( ! empty( $project['is_plugin_addon'] ) ) {
 		continue;
 	}
 

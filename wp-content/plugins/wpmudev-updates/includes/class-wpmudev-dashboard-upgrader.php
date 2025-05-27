@@ -743,7 +743,7 @@ class WPMUDEV_Dashboard_Upgrader {
 				// Plugin upgrader class.
 				$upgrader = new Plugin_Upgrader( $skin );
 				// Run the upgrade process.
-				$result = $upgrader->upgrade( $file );
+				$result = $upgrader->bulk_upgrade( array( $file ) );
 
 				/*
 				 * Note: The following plugin activation is an intended and
@@ -767,7 +767,7 @@ class WPMUDEV_Dashboard_Upgrader {
 				// Theme upgrader class.
 				$upgrader = new Theme_Upgrader( $skin );
 				// Run the upgrade process.
-				$result = $upgrader->upgrade( $file );
+				$result = $upgrader->bulk_upgrade( array( $file ) );
 				break;
 
 			default:
@@ -817,7 +817,7 @@ class WPMUDEV_Dashboard_Upgrader {
 			}
 
 			return $response;
-		} elseif ( true === $result ) {
+		} elseif ( is_array( $result ) && ! empty( $result[ $file ] ) ) {
 			// Upgrade is success. Yay!.
 			$response['success'] = true;
 			// Get the new version.

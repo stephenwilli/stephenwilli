@@ -409,10 +409,12 @@ class WPMUDEV_Dashboard_Utils {
 			'wp_version'   => $wp_version,
 			'php_version'  => phpversion(),
 			'wp_debug'     => defined( 'WP_DEBUG' ) && WP_DEBUG,
-			'issues_total' => $this->get_site_health_issues_total(),
 			'php_memory'   => $php_memory,
 			'is_multisite' => is_multisite(),
 		);
+
+		// Add site health data.
+		$info = $this->set_site_health_issue_counts( $info );
 
 		/**
 		 * Filter hook to modify site info data.
@@ -425,27 +427,29 @@ class WPMUDEV_Dashboard_Utils {
 	}
 
 	/**
-	 * Get site properties.
+	 * Set site health data.
 	 *
-	 * Get site and server properties to show in Hub widget.
+	 * @param array $info Info data.
 	 *
 	 * @since 4.11.19
 	 *
-	 * @return int
+	 * @return array
 	 */
-	public function get_site_health_issues_total() {
+	public function set_site_health_issue_counts( $info = array() ) {
 		// Get site health issues count.
 		$issues = get_transient( 'health-check-site-status-result' );
 		if ( ! empty( $issues ) ) {
 			$issues = json_decode( $issues, true );
 		}
 
-		// If issues found.
-		if ( isset( $issues['recommended'], $issues['critical'] ) ) {
-			return $issues['recommended'] + $issues['critical'];
-		}
+		// Add all issues count separately.
+		$info['good_issues_count']        = $issues['good'] ?? 0;
+		$info['recommended_issues_count'] = $issues['recommended'] ?? 0;
+		$info['critical_issues_count']    = $issues['critical'] ?? 0;
+		// For backward compatibility.
+		$info['issues_total'] = $info['recommended_issues_count'] + $info['critical_issues_count'];
 
-		return 0;
+		return $info;
 	}
 
 	/**

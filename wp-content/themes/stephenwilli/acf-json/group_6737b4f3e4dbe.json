@@ -3,6 +3,13 @@
     "title": "Products",
     "fields": [
         {
+            "allow_backendsearch": false,
+            "show_column_filter": 0,
+            "allow_bulkedit": 1,
+            "allow_quickedit": 1,
+            "show_column": 1,
+            "show_column_weight": 1000,
+            "show_column_sortable": 0,
             "key": "field_6737b4f428aad",
             "label": "Photo Orientation",
             "name": "photo_orientation",
@@ -24,11 +31,18 @@
             "return_format": "value",
             "allow_null": 0,
             "other_choice": 0,
-            "allow_in_bindings": 0,
+            "allow_in_bindings": 1,
             "layout": "horizontal",
             "save_other_choice": 0
         },
         {
+            "allow_backendsearch": false,
+            "show_column_filter": false,
+            "allow_bulkedit": 1,
+            "allow_quickedit": 1,
+            "show_column": 1,
+            "show_column_weight": 1000,
+            "show_column_sortable": false,
             "key": "field_6737b52b28aae",
             "label": "Series Link",
             "name": "series_link",
@@ -64,5 +78,6 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1731704121
+    "qef_simple_location_rules": 0,
+    "modified": 1736009209
 }

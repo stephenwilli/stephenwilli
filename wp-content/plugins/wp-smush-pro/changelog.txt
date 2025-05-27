@@ -6,6 +6,23 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.16.11 ( 2024-12-10 ) =
+- Fix: CDN exclusions conflict with auto resizing
+
+= 3.16.10 ( 2024-12-04 ) =
+- New: Added a UI option to exclude specific images from Smush CDN.
+- Improvement: Disabled Noscript tags by default to prevent broken images and potential performance regressions.
+- Improvement: Enhanced the Bulk Smush process for a smoother user experience.
+- Improvement: Improved WPML compatibility for seamless multilingual support.
+- Fix: Excluded lazy loading placeholders from the CDN to resolve conflicts and prevent broken images.
+- Fix: Added WP 6.7 compatibility fixes.
+
+= 3.16.9 ( 2024-11-13 ) =
+- Improvement: Smush API upgrades and improvements for better memory management
+- Fix: Prevent broken images on Smush CDN when using relative links
+- Fix: Hummingbird Performance Test conflicts
+- Fix: Missing thumbnails when using PNG to JPG conversions
+
 = 3.16.8 ( 2024-09-19 ) =
 - Fix: Smush API handing improvements
 
@@ -271,4 +288,4 @@ Change Log:
 
 
 
-610151-1727805993-au
+610151-1736008786-au

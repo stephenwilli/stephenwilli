@@ -44,7 +44,13 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 		add_action( 'woocommerce_rest_checkout_process_payment_with_context', [ $this, 'add_payment_request_order_meta' ], 8, 2 );
 		add_action( 'woocommerce_rest_checkout_process_payment_with_context', [ $this, 'add_stripe_intents' ], 9999, 2 );
 		$this->payment_request_configuration = null !== $payment_request_configuration ? $payment_request_configuration : new WC_Stripe_Payment_Request();
-		$this->express_checkout_configuration = null !== $express_checkout_configuration ? $express_checkout_configuration : new WC_Stripe_Express_Checkout_Element();
+
+		if ( null === $express_checkout_configuration ) {
+			$helper = new WC_Stripe_Express_Checkout_Helper();
+			$ajax_handler = new WC_Stripe_Express_Checkout_Ajax_Handler( $helper );
+			$express_checkout_configuration = new WC_Stripe_Express_Checkout_Element( $ajax_handler, $helper );
+		}
+		$this->express_checkout_configuration = $express_checkout_configuration;
 	}
 
 	/**
@@ -110,7 +116,7 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 	 * Registers the UPE JS scripts.
 	 */
 	private function register_upe_payment_method_script_handles() {
-		$asset_path   = WC_STRIPE_PLUGIN_PATH . '/build/upe_blocks.asset.php';
+		$asset_path   = WC_STRIPE_PLUGIN_PATH . '/build/upe-blocks.asset.php';
 		$version      = WC_STRIPE_VERSION;
 		$dependencies = [];
 		if ( file_exists( $asset_path ) ) {
@@ -125,14 +131,14 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 
 		wp_enqueue_style(
 			'wc-stripe-blocks-checkout-style',
-			WC_STRIPE_PLUGIN_URL . '/build/upe_blocks.css',
+			WC_STRIPE_PLUGIN_URL . '/build/upe-blocks.css',
 			[],
 			$version
 		);
 
 		wp_register_script(
 			'wc-stripe-blocks-integration',
-			WC_STRIPE_PLUGIN_URL . '/build/upe_blocks.js',
+			WC_STRIPE_PLUGIN_URL . '/build/upe-blocks.js',
 			array_merge( [ 'stripe' ], $dependencies ),
 			$version,
 			true
@@ -178,7 +184,7 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 	 * @return array
 	 */
 	public function get_payment_method_data() {
-		$js_params = WC_Stripe_Feature_Flags::is_stripe_ece_enabled()
+		$js_params = WC_Stripe_Feature_Flags::is_upe_checkout_enabled() && WC_Stripe_Feature_Flags::is_stripe_ece_enabled()
 			? $this->get_express_checkout_javascript_params()
 			: $this->get_payment_request_javascript_params();
 		// We need to call array_merge_recursive so the blocks 'button' setting doesn't overwrite
@@ -188,15 +194,19 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 			$js_params,
 			// Blocks-specific options
 			[
-				'icons'                          => $this->get_icons(),
-				'supports'                       => $this->get_supported_features(),
-				'showSavedCards'                 => $this->get_show_saved_cards(),
-				'showSaveOption'                 => $this->get_show_save_option(),
-				'isAdmin'                        => is_admin(),
-				'shouldShowPaymentRequestButton' => $this->should_show_payment_request_button(),
-				'button'                         => [
+				'icons'                           => $this->get_icons(),
+				'plugin_url'                      => WC_STRIPE_PLUGIN_URL,
+				'supports'                        => $this->get_supported_features(),
+				'showSavedCards'                  => $this->get_show_saved_cards(),
+				'showSaveOption'                  => $this->get_show_save_option(),
+				'isAdmin'                         => is_admin(),
+				'shouldShowPaymentRequestButton'  => $this->should_show_payment_request_button(),
+				'shouldShowExpressCheckoutButton' => $this->should_show_express_checkout_button(),
+				'button'                          => [
 					'customLabel' => $this->payment_request_configuration->get_button_label(),
 				],
+				'style'                           => $this->get_style(),
+				'baseLocation'                    => wc_get_base_location(),
 			]
 		);
 	}
@@ -250,15 +260,33 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 	}
 
 	/**
+	 * Returns an array of style properties supported by the payment method.
+	 * This method is used only when rendering the payment method in the editor.
+	 *
+	 * @return array Array of style properties.
+	 */
+	private function get_style() {
+		return [
+			'height',
+			'borderRadius',
+		];
+	}
+
+	/**
 	 * Returns true if the ECE should be shown on the current page, false otherwise.
 	 *
 	 * @return boolean True if ECEs should be displayed, false otherwise.
 	 */
 	private function should_show_express_checkout_button() {
+		// Don't show if ECEs are turned off in settings.
+		if ( ! $this->express_checkout_configuration->express_checkout_helper->is_express_checkout_enabled() ) {
+			return false;
+		}
+
 		// Don't show if ECEs are supposed to be hidden on the cart page.
 		if (
 			has_block( 'woocommerce/cart' )
-			&& ! $this->express_checkout_configuration->express_checkout_helper->should_show_ece_on_cart_page()()
+			&& ! $this->express_checkout_configuration->express_checkout_helper->should_show_ece_on_cart_page()
 		) {
 			return false;
 		}
@@ -439,7 +467,7 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 		// This error would have been registered via wc_add_notice() and thus is not helpful for block checkout processing.
 		add_action(
 			'wc_gateway_stripe_process_payment_error',
-			function( $error ) use ( &$result ) {
+			function ( $error ) use ( &$result ) {
 				$payment_details                 = $result->payment_details;
 				$payment_details['errorMessage'] = wp_strip_all_tags( $error->getLocalizedMessage() );
 				$result->set_payment_details( $payment_details );
@@ -494,14 +522,22 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 	 * @param string    $payment_request_type The payment request type used for payment.
 	 */
 	private function add_order_meta( \WC_Order $order, $payment_request_type ) {
-		if ( 'apple_pay' === $payment_request_type ) {
-			$order->set_payment_method_title( 'Apple Pay (Stripe)' );
-			$order->save();
-		} elseif ( 'google_pay' === $payment_request_type ) {
-			$order->set_payment_method_title( 'Google Pay (Stripe)' );
-			$order->save();
-		} elseif ( 'payment_request_api' === $payment_request_type ) {
-			$order->set_payment_method_title( 'Payment Request (Stripe)' );
+		$payment_method_title = '';
+		switch ( $payment_request_type ) {
+			case WC_Stripe_Payment_Methods::APPLE_PAY:
+				$payment_method_title = WC_Stripe_Payment_Methods::APPLE_PAY_LABEL;
+				break;
+			case WC_Stripe_Payment_Methods::GOOGLE_PAY:
+				$payment_method_title = WC_Stripe_Payment_Methods::GOOGLE_PAY_LABEL;
+				break;
+			case 'payment_request_api':
+				$payment_method_title = WC_Stripe_Payment_Methods::PAYMENT_REQUEST_LABEL;
+				break;
+		}
+
+		if ( $payment_method_title ) {
+			$payment_method_suffix = WC_Stripe_Express_Checkout_Helper::get_payment_method_title_suffix();
+			$order->set_payment_method_title( $payment_method_title . $payment_method_suffix );
 			$order->save();
 		}
 	}

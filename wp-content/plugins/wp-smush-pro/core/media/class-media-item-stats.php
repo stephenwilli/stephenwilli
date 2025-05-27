@@ -91,7 +91,7 @@ class Media_Item_Stats {
 
 	public function from_array( $array ) {
 		$this->set_time( (float) $this->get_array_value( $array, 'time' ) );
-		$this->set_size_before( (int) $this->get_array_value( $array, 'size_before' ) );	 			  			 	 	   	 		
+		$this->set_size_before( (int) $this->get_array_value( $array, 'size_before' ) );
 		$this->set_size_after( (int) $this->get_array_value( $array, 'size_after' ) );
 	}
 

@@ -15,7 +15,7 @@ defined( 'WPINC' ) || die();
 $pid = $project->pid;
 
 // Thumb URL.
-$thumb_url = empty( $settings['thumb_id'] ) ? '' : wp_get_attachment_image_url( $settings['thumb_id'], 'thumbnail', true );	  	 	  						 				 
+$thumb_url = empty( $settings['thumb_id'] ) ? '' : wp_get_attachment_image_url( $settings['thumb_id'], 'thumbnail', true );
 
 ?>
 <div

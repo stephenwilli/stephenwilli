@@ -127,6 +127,13 @@ class Page {
 			}
 		}
 
+		// Maybe replace noscript that added by composite elements to placeholders.
+		if ( ! empty( $this->composite_elements ) && strpos( $updated, '<noscript>' ) ) {
+			$updated = $placeholders->add_placeholders( $updated, $this->parser->get_tags( $updated, array(
+				'noscript',
+			) ) );
+		}
+
 		foreach ( $this->elements as $element ) {
 			if ( $element->has_updates() ) {
 				$updated = str_replace(

@@ -1,4 +1,7 @@
 <?php
+
+use Automattic\WooCommerce\Enums\OrderStatus;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -238,40 +241,42 @@ class WC_Stripe_Helper {
 		return apply_filters(
 			'wc_stripe_localized_messages',
 			[
-				'invalid_number'           => __( 'The card number is not a valid credit card number.', 'woocommerce-gateway-stripe' ),
-				'invalid_expiry_month'     => __( 'The card\'s expiration month is invalid.', 'woocommerce-gateway-stripe' ),
-				'invalid_expiry_year'      => __( 'The card\'s expiration year is invalid.', 'woocommerce-gateway-stripe' ),
-				'invalid_cvc'              => __( 'The card\'s security code is invalid.', 'woocommerce-gateway-stripe' ),
-				'incorrect_number'         => __( 'The card number is incorrect.', 'woocommerce-gateway-stripe' ),
-				'incomplete_number'        => __( 'The card number is incomplete.', 'woocommerce-gateway-stripe' ),
-				'incomplete_cvc'           => __( 'The card\'s security code is incomplete.', 'woocommerce-gateway-stripe' ),
-				'incomplete_expiry'        => __( 'The card\'s expiration date is incomplete.', 'woocommerce-gateway-stripe' ),
-				'expired_card'             => __( 'The card has expired.', 'woocommerce-gateway-stripe' ),
-				'incorrect_cvc'            => __( 'The card\'s security code is incorrect.', 'woocommerce-gateway-stripe' ),
-				'incorrect_zip'            => __( 'The card\'s zip code failed validation.', 'woocommerce-gateway-stripe' ),
-				'postal_code_invalid'      => __( 'Invalid zip code, please correct and try again', 'woocommerce-gateway-stripe' ),
-				'invalid_expiry_year_past' => __( 'The card\'s expiration year is in the past', 'woocommerce-gateway-stripe' ),
-				'card_declined'            => __( 'The card was declined.', 'woocommerce-gateway-stripe' ),
-				'missing'                  => __( 'There is no card on a customer that is being charged.', 'woocommerce-gateway-stripe' ),
-				'processing_error'         => __( 'An error occurred while processing the card.', 'woocommerce-gateway-stripe' ),
-				'invalid_sofort_country'   => __( 'The billing country is not accepted by Sofort. Please try another country.', 'woocommerce-gateway-stripe' ),
-				'email_invalid'            => __( 'Invalid email address, please correct and try again.', 'woocommerce-gateway-stripe' ),
-				'invalid_request_error'    => is_add_payment_method_page()
+				'invalid_number'                        => __( 'The card number is not a valid credit card number.', 'woocommerce-gateway-stripe' ),
+				'invalid_expiry_month'                  => __( 'The card\'s expiration month is invalid.', 'woocommerce-gateway-stripe' ),
+				'invalid_expiry_year'                   => __( 'The card\'s expiration year is invalid.', 'woocommerce-gateway-stripe' ),
+				'invalid_cvc'                           => __( 'The card\'s security code is invalid.', 'woocommerce-gateway-stripe' ),
+				'incorrect_number'                      => __( 'The card number is incorrect.', 'woocommerce-gateway-stripe' ),
+				'incomplete_number'                     => __( 'The card number is incomplete.', 'woocommerce-gateway-stripe' ),
+				'incomplete_cvc'                        => __( 'The card\'s security code is incomplete.', 'woocommerce-gateway-stripe' ),
+				'incomplete_expiry'                     => __( 'The card\'s expiration date is incomplete.', 'woocommerce-gateway-stripe' ),
+				'expired_card'                          => __( 'The card has expired.', 'woocommerce-gateway-stripe' ),
+				'incorrect_cvc'                         => __( 'The card\'s security code is incorrect.', 'woocommerce-gateway-stripe' ),
+				'incorrect_zip'                         => __( 'The card\'s zip code failed validation.', 'woocommerce-gateway-stripe' ),
+				'postal_code_invalid'                   => __( 'Invalid zip code, please correct and try again', 'woocommerce-gateway-stripe' ),
+				'invalid_expiry_year_past'              => __( 'The card\'s expiration year is in the past', 'woocommerce-gateway-stripe' ),
+				'card_declined'                         => __( 'The card was declined.', 'woocommerce-gateway-stripe' ),
+				'missing'                               => __( 'There is no card on a customer that is being charged.', 'woocommerce-gateway-stripe' ),
+				'processing_error'                      => __( 'An error occurred while processing the card.', 'woocommerce-gateway-stripe' ),
+				'invalid_sofort_country'                => __( 'The billing country is not accepted by Sofort. Please try another country.', 'woocommerce-gateway-stripe' ),
+				'email_invalid'                         => __( 'Invalid email address, please correct and try again.', 'woocommerce-gateway-stripe' ),
+				'invalid_request_error'                 => is_add_payment_method_page()
 					? __( 'Unable to save this payment method, please try again or use alternative method.', 'woocommerce-gateway-stripe' )
 					: __( 'Unable to process this payment, please try again or use alternative method.', 'woocommerce-gateway-stripe' ),
-				'amount_too_large'         => __( 'The order total is too high for this payment method', 'woocommerce-gateway-stripe' ),
-				'amount_too_small'         => __( 'The order total is too low for this payment method', 'woocommerce-gateway-stripe' ),
-				'country_code_invalid'     => __( 'Invalid country code, please try again with a valid country code', 'woocommerce-gateway-stripe' ),
-				'tax_id_invalid'           => __( 'Invalid Tax Id, please try again with a valid tax id', 'woocommerce-gateway-stripe' ),
-				'invalid_wallet_type'      => __( 'Invalid wallet payment type, please try again or use an alternative method.', 'woocommerce-gateway-stripe' ),
+				'amount_too_large'                      => __( 'The order total is too high for this payment method', 'woocommerce-gateway-stripe' ),
+				'amount_too_small'                      => __( 'The order total is too low for this payment method', 'woocommerce-gateway-stripe' ),
+				'country_code_invalid'                  => __( 'Invalid country code, please try again with a valid country code', 'woocommerce-gateway-stripe' ),
+				'tax_id_invalid'                        => __( 'Invalid Tax Id, please try again with a valid tax id', 'woocommerce-gateway-stripe' ),
+				'invalid_wallet_type'                   => __( 'Invalid wallet payment type, please try again or use an alternative method.', 'woocommerce-gateway-stripe' ),
+				'payment_intent_authentication_failure' => __( 'We are unable to authenticate your payment method. Please choose a different payment method and try again.', 'woocommerce-gateway-stripe' ),
+				'insufficient_funds'                    => __( 'Your card has insufficient funds.', 'woocommerce-gateway-stripe' ),
 			]
 		);
 	}
 
 	/**
 	 * List of currencies supported by Stripe that has no decimals
-	 * https://stripe.com/docs/currencies#zero-decimal from https://stripe.com/docs/currencies#presentment-currencies
-	 * ugx is an exception and not in this list for being a special cases in Stripe https://stripe.com/docs/currencies#special-cases
+	 * https://docs.stripe.com/currencies#zero-decimal from https://docs.stripe.com/currencies#presentment-currencies
+	 * ugx is an exception and not in this list for being a special cases in Stripe https://docs.stripe.com/currencies#special-cases
 	 *
 	 * @return array $currencies
 	 */
@@ -490,7 +495,7 @@ class WC_Stripe_Helper {
 		// If the legacy method order is not set, return the default order.
 		if ( ! empty( $ordered_payment_method_ids ) ) {
 			$payment_method_ids = array_map(
-				function( $payment_method_id ) {
+				function ( $payment_method_id ) {
 					if ( 'stripe' === $payment_method_id ) {
 						return WC_Stripe_Payment_Methods::CARD;
 					} else {
@@ -516,7 +521,7 @@ class WC_Stripe_Helper {
 			}
 		} else {
 			$payment_method_ids = array_map(
-				function( $payment_method_class ) {
+				function ( $payment_method_class ) {
 					return str_replace( 'stripe_', '', $payment_method_class::ID );
 				},
 				$payment_method_classes
@@ -615,7 +620,8 @@ class WC_Stripe_Helper {
 	 * @return array
 	 */
 	public static function get_upe_individual_payment_method_settings( $gateway ) {
-		$available_gateways = $gateway->get_upe_available_payment_methods();
+		$payment_method_settings = [];
+		$available_gateways      = $gateway->get_upe_available_payment_methods();
 
 		foreach ( $available_gateways as $gateway ) {
 			$individual_gateway_settings = get_option( 'woocommerce_stripe_' . $gateway . '_settings', [] );
@@ -665,13 +671,13 @@ class WC_Stripe_Helper {
 	 */
 	public static function get_upe_ordered_payment_method_ids( $gateway ) {
 		$stripe_settings            = self::get_stripe_settings();
-		$testmode                   = isset( $stripe_settings['testmode'] ) && 'yes' === $stripe_settings['testmode'];
+		$testmode                   = WC_Stripe_Mode::is_test();
 		$ordered_payment_method_ids = isset( $stripe_settings['stripe_upe_payment_method_order'] ) ? $stripe_settings['stripe_upe_payment_method_order'] : [];
 
 		// When switched to the new checkout experience, the UPE method order is not set. Copy the legacy order to the UPE order to persist previous settings.
 		if ( empty( $stripe_settings['stripe_upe_payment_method_order'] ) && ! empty( $stripe_settings['stripe_legacy_method_order'] ) ) {
 			$ordered_payment_method_ids = array_map(
-				function( $payment_method_id ) {
+				function ( $payment_method_id ) {
 					if ( 'stripe' === $payment_method_id ) {
 						return WC_Stripe_Payment_Methods::CARD;
 					} elseif ( 'stripe_sepa' === $payment_method_id ) {
@@ -691,7 +697,7 @@ class WC_Stripe_Helper {
 
 		$ordered_payment_method_ids_with_capability = array_filter(
 			$ordered_payment_method_ids,
-			function( $payment_method_id ) use ( $available_methods_with_capability ) {
+			function ( $payment_method_id ) use ( $available_methods_with_capability ) {
 				return in_array( $payment_method_id, $available_methods_with_capability, true );
 			}
 		);
@@ -734,7 +740,7 @@ class WC_Stripe_Helper {
 		$payment_method_ids_with_capability = [];
 
 		foreach ( $payment_method_ids as $payment_method_id ) {
-			$key            = $payment_method_id . '_payments';
+			$key = self::get_payment_method_capability_id( $payment_method_id );
 			// Check if the payment method has capabilities set in the account data.
 			// Generally the key is the payment method id appended with '_payments' (i.e. 'card_payments', 'sepa_debit_payments', 'klarna_payments').
 			// In some cases, the Stripe account might have the legacy key set. For example, for Klarna, the legacy key is 'klarna'.
@@ -986,7 +992,7 @@ class WC_Stripe_Helper {
 			$order = wc_get_order( $order_id );
 		}
 
-		if ( ! empty( $order ) && $order->get_status() !== 'trash' ) {
+		if ( ! empty( $order ) && $order->get_status() !== OrderStatus::TRASH ) {
 			return $order;
 		}
 
@@ -1087,7 +1093,7 @@ class WC_Stripe_Helper {
 	 * Converts a WooCommerce locale to the closest supported by Stripe.js.
 	 *
 	 * Stripe.js supports only a subset of IETF language tags, if a country specific locale is not supported we use
-	 * the default for that language (https://stripe.com/docs/js/appendix/supported_locales).
+	 * the default for that language (https://docs.stripe.com/js/appendix/supported_locales).
 	 * If no match is found we return 'auto' so Stripe.js uses the browser locale.
 	 *
 	 * @param string $wc_locale The locale to convert.
@@ -1095,7 +1101,7 @@ class WC_Stripe_Helper {
 	 * @return string Closest locale supported by Stripe ('auto' if NONE).
 	 */
 	public static function convert_wc_locale_to_stripe_locale( $wc_locale ) {
-		// List copied from: https://stripe.com/docs/js/appendix/supported_locales.
+		// List copied from: https://docs.stripe.com/js/appendix/supported_locales.
 		$supported = [
 			'ar',     // Arabic.
 			'bg',     // Bulgarian (Bulgaria).
@@ -1487,7 +1493,17 @@ class WC_Stripe_Helper {
 	 * @return bool Whether the payment method allows manual capture.
 	 */
 	public static function payment_method_allows_manual_capture( string $payment_method_id ) {
-		return in_array( $payment_method_id, [ 'stripe', 'stripe_affirm', 'stripe_klarna', 'stripe_afterpay_clearpay' ], true );
+		return in_array(
+			$payment_method_id,
+			[
+				'stripe',
+				'stripe_affirm',
+				'stripe_klarna',
+				'stripe_afterpay_clearpay',
+				'stripe_amazon_pay',
+			],
+			true
+		);
 	}
 
 	/**
@@ -1495,8 +1511,11 @@ class WC_Stripe_Helper {
 	 *
 	 * @param WC_Order $order The order.
 	 * @return bool
+	 *
+	 * @deprecated 8.9.0
 	 */
 	public static function is_wallet_payment_method( $order ) {
+		wc_deprecated_function( __METHOD__, '8.9.0', 'in_array( $order->get_meta( \'_stripe_upe_payment_type\' ), WC_Stripe_Payment_Methods::WALLET_PAYMENT_METHODS, true )' );
 		return in_array( $order->get_meta( '_stripe_upe_payment_type' ), WC_Stripe_Payment_Methods::WALLET_PAYMENT_METHODS, true );
 	}
 
@@ -1504,35 +1523,83 @@ class WC_Stripe_Helper {
 	 * Checks if a given URL matches the current site's Webhook URL.
 	 *
 	 * This function ignores trailing slashes and compares the host and path of the URLs.
-	 * The protocol is not compared.
+	 * The protocol is ignored. It also requires that any query parameters in the
+	 * webhook URL are present in the supplied URL, though extra query parameters in the
+	 * supplied URL are ignored.
+	 * There is one special case: when the supplied URL has the same host and path,
+	 * but an empty query string, it is treated as a match. This is to allow for cleanup
+	 * of webhook URLs that don't have identifying URL parameters.
 	 *
 	 * @param string $url         The URL to check.
 	 * @param string $webhook_url The webhook URL to compare against.
 	 *
-	 * @return bool Whether the URL is a webhook URL.
+	 * @return bool Whether the URL is a matching webhook URL.
 	 */
 	public static function is_webhook_url( $url, $webhook_url = '' ) {
 		if ( empty( $webhook_url ) ) {
 			$webhook_url = self::get_webhook_url();
 		}
 
-		$url         = untrailingslashit( trim( strtolower( $url ) ) );
-		$webhook_url = untrailingslashit( trim( strtolower( $webhook_url ) ) );
+		$url         = trim( strtolower( $url ) );
+		$webhook_url = trim( strtolower( $webhook_url ) );
 
 		// If the URLs are the exact same, no need to compare further.
 		if ( $url === $webhook_url ) {
 			return true;
 		}
 
-		$webhook_url_parts = wp_parse_url( $url );
-		$url_parts         = wp_parse_url( $webhook_url );
+		$url_parts         = wp_parse_url( $url );
+		$webhook_url_parts = wp_parse_url( $webhook_url );
 
-		$url_host     = $url_parts['host'] ?? '';
-		$url_path     = $url_parts['path'] ?? '';
-		$webhook_host = $webhook_url_parts['host'] ?? '';
-		$webhook_path = $webhook_url_parts['path'] ?? '';
+		$url_host      = $url_parts['host'] ?? '';
+		$url_path      = $url_parts['path'] ?? '';
+		$url_query     = $url_parts['query'] ?? '';
+		$webhook_host  = $webhook_url_parts['host'] ?? '';
+		$webhook_path  = $webhook_url_parts['path'] ?? '';
+		$webhook_query = $webhook_url_parts['query'] ?? '';
 
-		return $url_host === $webhook_host && $url_path === $webhook_path;
+		if ( $url_host !== $webhook_host || $url_path !== $webhook_path ) {
+			return false;
+		}
+
+		// If the supplied URL has an empty query string, we will treat it as a webhook URL for the plugin,
+		// as we're guessing that it was created manually in the long-distant past when webhook
+		// management was all manual.
+		if ( '' === $url_query ) {
+			return true;
+		}
+
+		// For our standard webhook URL, we should never hit this condition, but we'll treat them as
+		// a mismatch, as we already know the supplied URL has a non-empty query.
+		if ( '' === $webhook_query ) {
+			return false;
+		}
+
+		$url_query_parts     = [];
+		$webhook_query_parts = [];
+
+		parse_str( $url_query, $url_query_parts );
+		parse_str( $webhook_query, $webhook_query_parts );
+
+		if ( [] === $url_query_parts && [] === $webhook_query_parts ) {
+			return true;
+		}
+
+		// We ignore extra URL parameters in the supplied URL,
+		// but we require all query parameters from the webhook URL to
+		// be present in the supplied URL.
+		foreach ( $webhook_query_parts as $webhook_query_key => $webhook_query_value ) {
+			if ( ! isset( $url_query_parts[ $webhook_query_key ] ) ) {
+				return false;
+			}
+
+			if ( $url_query_parts[ $webhook_query_key ] !== $webhook_query_value ) {
+				return false;
+			}
+		}
+
+		// If we get here, the supplied URL has all the query parameters from the webhook URL.
+		return true;
 	}
 
 	public static function get_transaction_url( $is_test_mode = false ) {
@@ -1600,5 +1667,121 @@ class WC_Stripe_Helper {
 		}
 
 		return $target_locale;
+	}
+
+	/**
+	 * Adds mandate data to the request.
+	 *
+	 * @param array $request The request to add mandate data to.
+	 *
+	 * @return array The request with mandate data added.
+	 */
+	public static function add_mandate_data( $request ) {
+		$ip_address = WC_Geolocation::get_ip_address();
+
+		// Handle cases where WC_Geolocation::get_ip_address() returns multiple, comma-separated IP addresses.
+		// This will be addressed upstream in WooCommerce 9.9.0 as of (https://github.com/woocommerce/woocommerce/pull/57284).
+		// TODO: Remove this block when WooCommerce 9.9.0 is released.
+		if ( str_contains( $ip_address, ',' ) ) {
+			$ip_address = trim( current( preg_split( '/,/', $ip_address ) ) );
+		}
+
+		self::maybe_log_ip_issues( $ip_address );
+
+		$request['mandate_data'] = [
+			'customer_acceptance' => [
+				'type'   => 'online',
+				'online' => [
+					'ip_address' => $ip_address,
+					'user_agent' => 'WooCommerce Stripe Gateway' . WC_STRIPE_VERSION . '; ' . get_bloginfo( 'url' ),
+				],
+			],
+		];
+
+		return $request;
+	}
+
+	/**
+	 * Logs an invalid IP address.
+	 *
+	 * @param string $ip_address The IP address to log.
+	 * @return void
+	 */
+	public static function maybe_log_ip_issues( $ip_address ) {
+		if ( rest_is_ip_address( $ip_address ) === false ) {
+			$log_data = [ 'WC_Geolocation::get_ip_address()' => $ip_address ];
+			$headers  = [
+				'HTTP_X_REAL_IP',
+				'HTTP_X_FORWARDED_FOR',
+				'REMOTE_ADDR',
+			];
+			foreach ( $headers as $header ) {
+				$log_data[ $header ] = isset( $_SERVER[ $header ] ) ? sanitize_text_field( wp_unslash( $_SERVER[ $header ] ) ) : 'not set';
+			}
+
+			WC_Stripe_Logger::log( 'Invalid IP address detected. Data: ' . wp_json_encode( $log_data ) );
+		}
+	}
+
+	/**
+	 * Return capability ID based on payment method ID.
+	 *
+	 * @param string $payment_method_id The payment method ID.
+	 * @return string The capability ID.
+	 */
+	public static function get_payment_method_capability_id( $payment_method_id ) {
+		// "_payments" is a suffix that comes from Stripe API, except when it is "transfers" or ACH.
+		if ( WC_Stripe_UPE_Payment_Method_ACH::STRIPE_ID === $payment_method_id ) {
+			return $payment_method_id . '_ach_payments';
+		}
+
+		return $payment_method_id . '_payments';
+	}
+
+	/**
+	 * Renders the admin header with back link consistently across admin pages.
+	 *
+	 * @param string $header_text The text to display in the header.
+	 * @param string $return_text The text for the return link.
+	 * @param string $return_url  The URL for the return link.
+	 * @return void
+	 */
+	public static function render_admin_header( $header_text, $return_text, $return_url ) {
+		if ( function_exists( 'wc_back_header' ) ) {
+			wc_back_header( $header_text, $return_text, $return_url );
+		} else {
+			// Until the wc_back_header function is available (WC Core 9.9) use the current available version.
+			echo '<h2>' . esc_html( $header_text );
+			wc_back_link( $return_text, $return_url );
+			echo '</h2>';
+		}
+	}
+
+	/**
+	 * Checks if a given currency is supported for Indian recurring payment mandates.
+	 *
+	 * @since 9.4.0
+	 * @param string $currency The currency code to check (e.g., 'usd', 'eur').
+	 * @return bool True if the currency is supported, false otherwise.
+	 */
+	public static function is_currency_supported_for_indian_recurring_payment_mandate( $currency ) {
+		// India recurring payment mandates can only be requested for the following currencies.
+		$supported_currencies = [
+			'inr', // Indian Rupee
+			'usd', // US Dollar
+			'eur', // Euro
+			'gbp', // British Pound
+			'sgd', // Singapore Dollar
+			'cad', // Canadian Dollar
+			'chf', // Swiss Franc
+			'sek', // Swedish Krona
+			'aed', // UAE Dirham
+			'jpy', // Japanese Yen
+			'nok', // Norwegian Krone
+			'myr', // Malaysian Ringgit
+			'hkd', // Hong Kong Dollar
+		];
+
+		return in_array( strtolower( $currency ), $supported_currencies, true );
 	}
 }

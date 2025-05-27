@@ -1,4 +1,8 @@
 <?php
+
+use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
+use Automattic\WooCommerce\Enums\OrderStatus;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -29,7 +33,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 	 *
 	 * @return string[]
 	 */
-	public function get_upe_enabled_payment_method_ids() {
+	public function get_upe_enabled_payment_method_ids( $force_refresh = false ) {
 		return [ WC_Stripe_Payment_Methods::CARD ];
 	}
 
@@ -97,10 +101,11 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 	 */
 	public function admin_options() {
 		$form_fields = $this->get_form_fields();
+		$return_url  = admin_url( 'admin.php?page=wc-settings&tab=checkout' );
+		$header      = $this->get_method_title();
+		$return_text = __( 'Return to payments', 'woocommerce-gateway-stripe' );
 
-		echo '<h2>' . esc_html( $this->get_method_title() );
-		wc_back_link( __( 'Return to payments', 'woocommerce-gateway-stripe' ), admin_url( 'admin.php?page=wc-settings&tab=checkout' ) );
-		echo '</h2>';
+		WC_Stripe_Helper::render_admin_header( $header, $return_text, $return_url );
 
 		$this->render_upe_settings();
 	}
@@ -145,10 +150,16 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 	 * @param object $error
 	 */
 	public function is_retryable_error( $error ) {
-		// We don't want to retry payments when a 3DS mandate is invalid; it doesn't make sense.
 		// Note that this check is required since the error type is 'invalid_request_error' which
 		// would otherwise return true.
-		if ( isset( $error->code ) && 'payment_intent_mandate_invalid' === $error->code ) {
+		if (
+			isset( $error->code ) &&
+			(
+				'payment_intent_mandate_invalid' === $error->code || // Don't retry payments when a 3DS mandate is invalid.
+				'charge_exceeds_transaction_limit' === $error->code || // Don't retry payments when the charge exceeds the transaction limit.
+				'amount_too_small' === $error->code
+			)
+		) {
 			return false;
 		}
 
@@ -334,27 +345,34 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 	 * @return array
 	 */
 	public function payment_icons() {
-		return apply_filters(
-			'wc_stripe_payment_icons',
-			[
-				WC_Stripe_Payment_Methods::ALIPAY      => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/alipay.svg" class="stripe-alipay-icon stripe-icon" alt="Alipay" />',
-				WC_Stripe_Payment_Methods::WECHAT_PAY  => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/wechat.svg" class="stripe-wechat-icon stripe-icon" alt="Wechat Pay" />',
-				WC_Stripe_Payment_Methods::BANCONTACT  => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/bancontact.svg" class="stripe-bancontact-icon stripe-icon" alt="Bancontact" />',
-				WC_Stripe_Payment_Methods::IDEAL       => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/ideal.svg" class="stripe-ideal-icon stripe-icon" alt="iDEAL" />',
-				WC_Stripe_Payment_Methods::P24         => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/p24.svg" class="stripe-p24-icon stripe-icon" alt="P24" />',
-				WC_Stripe_Payment_Methods::GIROPAY     => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/giropay.svg" class="stripe-giropay-icon stripe-icon" alt="giropay" />',
-				WC_Stripe_Payment_Methods::KLARNA      => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/klarna.svg" class="stripe-klarna-icon stripe-icon" alt="klarna" />',
-				WC_Stripe_Payment_Methods::AFFIRM      => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/affirm.svg" class="stripe-affirm-icon stripe-icon" alt="affirm" />',
-				WC_Stripe_Payment_Methods::EPS         => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/eps.svg" class="stripe-eps-icon stripe-icon" alt="EPS" />',
-				WC_Stripe_Payment_Methods::MULTIBANCO  => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/multibanco.svg" class="stripe-multibanco-icon stripe-icon" alt="Multibanco" />',
-				WC_Stripe_Payment_Methods::SOFORT      => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/sofort.svg" class="stripe-sofort-icon stripe-icon" alt="Sofort" />',
-				WC_Stripe_Payment_Methods::SEPA        => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/sepa.svg" class="stripe-sepa-icon stripe-icon" alt="SEPA" />',
-				WC_Stripe_Payment_Methods::BOLETO      => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/boleto.svg" class="stripe-boleto-icon stripe-icon" alt="Boleto" />',
-				WC_Stripe_Payment_Methods::OXXO        => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/oxxo.svg" class="stripe-oxxo-icon stripe-icon" alt="OXXO" />',
-				'cards'                                => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/cards.svg" class="stripe-cards-icon stripe-icon" alt="credit / debit card" />',
-				WC_Stripe_Payment_Methods::CASHAPP_PAY => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/cashapp.svg" class="stripe-cashapp-icon stripe-icon" alt="Cash App Pay" />',
-			]
-		);
+		$icon_list  = [
+			WC_Stripe_Payment_Methods::ACH         => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/bank-debit.svg" class="stripe-ach-icon stripe-icon" alt="ACH" />',
+			WC_Stripe_Payment_Methods::ACSS_DEBIT  => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/bank-debit.svg" class="stripe-ach-icon stripe-icon" alt="' . __( 'Pre-Authorized Debit', 'woocommerce-gateway-stripe' ) . '" />',
+			WC_Stripe_Payment_Methods::ALIPAY      => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/alipay.svg" class="stripe-alipay-icon stripe-icon" alt="Alipay" />',
+			WC_Stripe_Payment_Methods::BECS_DEBIT  => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/bank-debit.svg" class="stripe-ach-icon stripe-icon" alt="' . __( 'BECS Direct Debit', 'woocommerce-gateway-stripe' ) . '" />',
+			WC_Stripe_Payment_Methods::BLIK        => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/blik.svg" class="stripe-blik-icon stripe-icon" alt="BLIK" />',
+			WC_Stripe_Payment_Methods::WECHAT_PAY  => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/wechat.svg" class="stripe-wechat-icon stripe-icon" alt="Wechat Pay" />',
+			WC_Stripe_Payment_Methods::BANCONTACT  => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/bancontact.svg" class="stripe-bancontact-icon stripe-icon" alt="Bancontact" />',
+			WC_Stripe_Payment_Methods::IDEAL       => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/ideal.svg" class="stripe-ideal-icon stripe-icon" alt="iDEAL" />',
+			WC_Stripe_Payment_Methods::P24         => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/p24.svg" class="stripe-p24-icon stripe-icon" alt="P24" />',
+			WC_Stripe_Payment_Methods::GIROPAY     => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/giropay.svg" class="stripe-giropay-icon stripe-icon" alt="giropay" />',
+			WC_Stripe_Payment_Methods::KLARNA      => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/klarna.svg" class="stripe-klarna-icon stripe-icon" alt="Klarna" />',
+			WC_Stripe_Payment_Methods::AFFIRM      => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/affirm.svg" class="stripe-affirm-icon stripe-icon" alt="Affirm" />',
+			WC_Stripe_Payment_Methods::EPS         => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/eps.svg" class="stripe-eps-icon stripe-icon" alt="EPS" />',
+			WC_Stripe_Payment_Methods::MULTIBANCO  => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/multibanco.svg" class="stripe-multibanco-icon stripe-icon" alt="Multibanco" />',
+			WC_Stripe_Payment_Methods::SOFORT      => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/sofort.svg" class="stripe-sofort-icon stripe-icon" alt="Sofort" />',
+			WC_Stripe_Payment_Methods::SEPA        => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/sepa.svg" class="stripe-sepa-icon stripe-icon" alt="SEPA" />',
+			WC_Stripe_Payment_Methods::BOLETO      => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/boleto.svg" class="stripe-boleto-icon stripe-icon" alt="Boleto" />',
+			WC_Stripe_Payment_Methods::OXXO        => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/oxxo.svg" class="stripe-oxxo-icon stripe-icon" alt="OXXO" />',
+			'cards'                                => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/cards.svg" class="stripe-cards-icon stripe-icon" alt="' . __( 'Credit / Debit Card', 'woocommerce-gateway-stripe' ) . '" />',
+			WC_Stripe_Payment_Methods::CASHAPP_PAY => '<img src="' . WC_STRIPE_PLUGIN_URL . '/assets/images/cashapp.svg" class="stripe-cashapp-icon stripe-icon" alt="Cash App Pay" />',
+		];
+		$settings   = WC_Stripe_Helper::get_stripe_settings();
+		$oc_setting = $settings['optimized_checkout_element'] ?? null;
+		if ( 'yes' === $oc_setting ) {
+			$icon_list['cards'] = '';
+		}
+		return apply_filters( 'wc_stripe_payment_icons', $icon_list );
 	}
 
 	/**
@@ -481,8 +499,9 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 		$metadata = [
 			__( 'customer_name', 'woocommerce-gateway-stripe' ) => sanitize_text_field( $billing_first_name ) . ' ' . sanitize_text_field( $billing_last_name ),
 			__( 'customer_email', 'woocommerce-gateway-stripe' ) => sanitize_email( $billing_email ),
-			'order_id' => $order->get_order_number(),
-			'site_url' => esc_url( get_site_url() ),
+			'order_id'  => $order->get_order_number(),
+			'site_url'  => esc_url( get_site_url() ),
+			'signature' => $this->get_order_signature( $order ),
 		];
 
 		if ( $this->has_subscription( $order->get_id() ) ) {
@@ -541,8 +560,13 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			$this->update_fees( $order, is_string( $response->balance_transaction ) ? $response->balance_transaction : $response->balance_transaction->id );
 		}
 
+		// TODO: Refactor and add mandate ID support for other payment methods, if necessary.
+		// The mandate ID is not available for the intent object, so we need to fetch the charge.
+		// Mandate ID is necessary for renewal payments for certain payment methods and Indian cards.
 		if ( isset( $response->payment_method_details->card->mandate ) ) {
 			$order->update_meta_data( '_stripe_mandate_id', $response->payment_method_details->card->mandate );
+		} elseif ( isset( $response->payment_method_details->acss_debit->mandate ) ) {
+			$order->update_meta_data( '_stripe_mandate_id', $response->payment_method_details->acss_debit->mandate );
 		}
 
 		if ( isset( $response->payment_method, $response->payment_method_details ) ) {
@@ -555,7 +579,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			 * that are asynchronous may take couple days to clear. Webhook will
 			 * take care of the status changes.
 			 */
-			if ( 'pending' === $response->status ) {
+			if ( OrderStatus::PENDING === $response->status ) {
 				$order_stock_reduced = $order->get_meta( '_order_stock_reduced', true );
 
 				if ( ! $order_stock_reduced ) {
@@ -564,7 +588,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 
 				$order->set_transaction_id( $response->id );
 				/* translators: transaction id */
-				$order->update_status( 'on-hold', sprintf( __( 'Stripe charge awaiting payment: %s.', 'woocommerce-gateway-stripe' ), $response->id ) );
+				$order->update_status( OrderStatus::ON_HOLD, sprintf( __( 'Stripe charge awaiting payment: %s.', 'woocommerce-gateway-stripe' ), $response->id ) );
 			}
 
 			if ( 'succeeded' === $response->status ) {
@@ -593,18 +617,23 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 
 			if ( 'failed' === $response->status ) {
 				$localized_message = __( 'Payment processing failed. Please retry.', 'woocommerce-gateway-stripe' );
-				$order->add_order_note( $localized_message );
+				$order->add_order_note(
+					property_exists( $response, 'outcome' ) && isset( $response->outcome->seller_message )
+						? $response->outcome->seller_message
+						: $localized_message
+				);
+
 				throw new WC_Stripe_Exception( print_r( $response, true ), $localized_message );
 			}
 		} else {
 			$order->set_transaction_id( $response->id );
 
-			if ( $order->has_status( [ 'pending', 'failed' ] ) ) {
+			if ( $order->has_status( [ OrderStatus::PENDING, OrderStatus::FAILED ] ) ) {
 				wc_reduce_stock_levels( $order_id );
 			}
 
 			/* translators: transaction id */
-			$order->update_status( 'on-hold', sprintf( __( 'Stripe charge authorized (Charge ID: %s). Process order to take payment, or cancel to remove the pre-authorization. Refunding is unavailable until payment has been captured.', 'woocommerce-gateway-stripe' ), $response->id ) );
+			$order->update_status( OrderStatus::ON_HOLD, sprintf( __( 'Stripe charge authorized (Charge ID: %s). Process order to take payment, or cancel to remove the pre-authorization. Refunding is unavailable until payment has been captured.', 'woocommerce-gateway-stripe' ), $response->id ) );
 		}
 
 		if ( is_callable( [ $order, 'save' ] ) ) {
@@ -637,8 +666,8 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 		// will trigger its own failed order email.
 		if (
 			isset( $status_update['to'], $status_update['from'] ) &&
-			'failed' === $status_update['to'] &&
-			in_array( $status_update['from'], [ 'on-hold', 'pending' ], true )
+			OrderStatus::FAILED === $status_update['to'] &&
+			in_array( $status_update['from'], [ OrderStatus::ON_HOLD, OrderStatus::PENDING ], true )
 		) {
 			$callback  = [ $emails['WC_Email_Failed_Order'], 'trigger' ];
 			$hook_name = "woocommerce_order_status_{$status_update['from']}_to_failed_notification";
@@ -1104,7 +1133,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 		}
 
 		if ( $reason ) {
-			// Trim the refund reason to a max of 500 characters due to Stripe limits: https://stripe.com/docs/api/metadata.
+			// Trim the refund reason to a max of 500 characters due to Stripe limits: https://docs.stripe.com/api/metadata.
 			if ( strlen( $reason ) > 500 ) {
 				$reason = function_exists( 'mb_substr' ) ? mb_substr( $reason, 0, 450 ) : substr( $reason, 0, 450 );
 				// Add some explainer text indicating where to find the full refund reason.
@@ -1114,6 +1143,11 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			$request['metadata'] = [
 				'reason' => $reason,
 			];
+		}
+
+		// Refund without an amount is a no-op, but required to succeed
+		if ( '0.00' === sprintf( '%0.2f', $amount ?? 0 ) ) {
+			return true;
 		}
 
 		$request['charge'] = $charge_id;
@@ -1129,7 +1163,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 				if ( ! empty( $intent->error ) ) {
 					$response         = $intent;
 					$intent_cancelled = true;
-				} elseif ( 'requires_capture' === $intent->status ) {
+				} elseif ( WC_Stripe_Intent_Status::REQUIRES_CAPTURE === $intent->status ) {
 					$result           = WC_Stripe_API::request(
 						[],
 						'payment_intents/' . $intent->id . '/cancel'
@@ -1149,10 +1183,12 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			}
 
 			if ( ! $intent_cancelled && 'yes' === $captured ) {
+				$this->lock_order_refund( $order );
 				$response = WC_Stripe_API::request( $request, 'refunds' );
 			}
 		} catch ( WC_Stripe_Exception $e ) {
 			WC_Stripe_Logger::log( 'Error: ' . $e->getMessage() );
+			$this->unlock_order_refund( $order );
 
 			return new WP_Error(
 				'stripe_error',
@@ -1166,6 +1202,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 
 		if ( ! empty( $response->error ) ) { // @phpstan-ignore-line (return statement is added)
 			WC_Stripe_Logger::log( 'Error: ' . $response->error->message );
+			$this->unlock_order_refund( $order );
 
 			return new WP_Error(
 				'stripe_error',
@@ -1186,7 +1223,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			if ( 'yes' !== $captured ) {
 				/* translators: amount (including currency symbol) */
 				$order->add_order_note( sprintf( __( 'Pre-Authorization for %s voided.', 'woocommerce-gateway-stripe' ), $formatted_amount ) );
-				$order->update_status( 'cancelled' );
+				$order->update_status( OrderStatus::CANCELLED );
 				// If amount is set, that means this function was called from the manual refund form.
 				if ( ! is_null( $amount ) ) {
 					// Throw an exception to provide a custom message on why the refund failed.
@@ -1207,7 +1244,9 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			$refund_message = sprintf( __( 'Refunded %1$s - Refund ID: %2$s - Reason: %3$s', 'woocommerce-gateway-stripe' ), $formatted_amount, $response->id, $reason );
 
 			$order->add_order_note( $refund_message );
-			WC_Stripe_Logger::log( 'Success: ' . html_entity_decode( wp_strip_all_tags( $refund_message ) ) );
+			$this->unlock_order_refund( $order );
+
+			WC_Stripe_Logger::log( 'Success: ' . html_entity_decode( wp_strip_all_tags( $refund_message ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ) );
 
 			return true;
 		}
@@ -1402,7 +1441,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 		$currency    = $order->get_currency();
 
 		$stripe_line_items = array_map(
-			function( $item ) use ( $currency ) {
+			function ( $item ) use ( $currency ) {
 				if ( is_a( $item, 'WC_Order_Item_Product' ) ) {
 					$product_id = $item->get_variation_id()
 						? $item->get_variation_id()
@@ -1553,7 +1592,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 	 * @return object                   Either an error or the updated intent.
 	 */
 	public function confirm_intent( $intent, $order, $prepared_source ) {
-		if ( 'requires_confirmation' !== $intent->status ) {
+		if ( WC_Stripe_Intent_Status::REQUIRES_CONFIRMATION !== $intent->status ) {
 			return $intent;
 		}
 
@@ -1574,9 +1613,9 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 
 		// Save a note about the status of the intent.
 		$order_id = $order->get_id();
-		if ( 'succeeded' === $confirmed_intent->status ) {
+		if ( WC_Stripe_Intent_Status::SUCCEEDED === $confirmed_intent->status ) {
 			WC_Stripe_Logger::log( "Stripe PaymentIntent $intent->id succeeded for order $order_id" );
-		} elseif ( 'requires_action' === $confirmed_intent->status ) {
+		} elseif ( WC_Stripe_Intent_Status::REQUIRES_ACTION === $confirmed_intent->status ) {
 			WC_Stripe_Logger::log( "Stripe PaymentIntent $intent->id requires authentication for order $order_id" );
 		}
 
@@ -1599,14 +1638,23 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 		if ( 'payment_intent' === $intent->object ) {
 			WC_Stripe_Helper::add_payment_intent_to_order( $intent->id, $order );
 
-			// Add the mandate id necessary for renewal payments with Indian cards if it's present.
+			// TODO: Refactor and add mandate ID support for other payment methods, if necessary.
+			// The mandate ID is not available for the intent object, so we need to fetch the charge.
+			// Mandate ID is necessary for renewal payments for certain payment methods and Indian cards.
 			$charge = $this->get_latest_charge_from_intent( $intent );
 
 			if ( isset( $charge->payment_method_details->card->mandate ) ) {
 				$order->update_meta_data( '_stripe_mandate_id', $charge->payment_method_details->card->mandate );
+			} elseif ( isset( $charge->payment_method_details->acss_debit->mandate ) ) {
+				$order->update_meta_data( '_stripe_mandate_id', $charge->payment_method_details->acss_debit->mandate );
 			}
 		} elseif ( 'setup_intent' === $intent->object ) {
 			$order->update_meta_data( '_stripe_setup_intent', $intent->id );
+
+			// Add mandate for free trial subscriptions.
+			if ( isset( $intent->mandate ) ) {
+				$order->update_meta_data( '_stripe_mandate_id', $intent->mandate );
+			}
 		}
 
 		if ( is_callable( [ $order, 'save' ] ) ) {
@@ -1672,17 +1720,25 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 	 * @return bool            A flag that indicates whether the order is already locked.
 	 */
 	public function lock_order_payment( $order, $intent = null ) {
-		$order_id       = $order->get_id();
-		$transient_name = 'wc_stripe_processing_intent_' . $order_id;
-		$processing     = get_transient( $transient_name );
+		$order->read_meta_data( true );
 
-		// Block the process if the same intent is already being handled.
-		if ( '-1' === $processing || ( isset( $intent->id ) && $processing === $intent->id ) ) {
-			return true;
+		$existing_lock = $order->get_meta( '_stripe_lock_payment', true );
+
+		if ( $existing_lock ) {
+			$parts         = explode( '|', $existing_lock ); // Format is: "{expiry_timestamp}" or "{expiry_timestamp}|{pi_xxxx}" if an intent is passed.
+			$expiration    = (int) $parts[0];
+			$locked_intent = ! empty( $parts[1] ) ? $parts[1] : '';
+
+			// If the lock is still active, return true.
+			if ( time() <= $expiration && ( empty( $intent ) || empty( $locked_intent ) || ( $intent->id ?? '' ) === $locked_intent ) ) {
+				return true;
+			}
 		}
 
-		// Save the new intent as a transient, eventually overwriting another one.
-		set_transient( $transient_name, empty( $intent ) ? '-1' : $intent->id, 5 * MINUTE_IN_SECONDS );
+		$new_lock = ( time() + 5 * MINUTE_IN_SECONDS ) . ( isset( $intent->id ) ? '|' . $intent->id : '' );
+
+		$order->update_meta_data( '_stripe_lock_payment', $new_lock );
+		$order->save_meta_data();
 
 		return false;
 	}
@@ -1694,8 +1750,48 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 	 * @param WC_Order $order The order that is being unlocked.
 	 */
 	public function unlock_order_payment( $order ) {
-		$order_id = $order->get_id();
-		delete_transient( 'wc_stripe_processing_intent_' . $order_id );
+		$order->delete_meta_data( '_stripe_lock_payment' );
+		$order->save_meta_data();
+	}
+
+	/**
+	 * Locks an order for refund processing for 5 minutes.
+	 *
+	 * @since 9.1.0
+	 * @param WC_Order $order  The order that is being refunded.
+	 * @return bool            A flag that indicates whether the order is already locked.
+	 */
+	public function lock_order_refund( $order ) {
+		$order->read_meta_data( true );
+
+		$existing_lock = $order->get_meta( '_stripe_lock_refund', true );
+
+		if ( $existing_lock ) {
+			$expiration = (int) $existing_lock;
+
+			// If the lock is still active, return true.
+			if ( time() <= $expiration ) {
+				return true;
+			}
+		}
+
+		$new_lock = time() + 5 * MINUTE_IN_SECONDS;
+
+		$order->update_meta_data( '_stripe_lock_refund', $new_lock );
+		$order->save_meta_data();
+
+		return false;
+	}
+
+	/**
+	 * Unlocks an order for processing refund.
+	 *
+	 * @since 9.1.0
+	 * @param WC_Order $order The order that is being unlocked.
+	 */
+	public function unlock_order_refund( $order ) {
+		$order->delete_meta_data( '_stripe_lock_refund' );
+		$order->save_meta_data();
 	}
 
 	/**
@@ -1737,7 +1833,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 
 		if ( is_wp_error( $setup_intent ) ) {
 			WC_Stripe_Logger::log( "Unable to create SetupIntent for Order #$order_id: " . print_r( $setup_intent, true ) );
-		} elseif ( 'requires_action' === $setup_intent->status ) {
+		} elseif ( WC_Stripe_Intent_Status::REQUIRES_ACTION === $setup_intent->status ) {
 			$order->update_meta_data( '_stripe_setup_intent', $setup_intent->id );
 			$order->save();
 
@@ -1785,6 +1881,12 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 
 		if ( isset( $full_request['source'] ) ) {
 			$request = WC_Stripe_Helper::add_payment_method_to_request_array( $full_request['source'], $request );
+		}
+
+		// Add mandate if it exists.
+		$mandate = $order->get_meta( '_stripe_mandate_id', true );
+		if ( ! empty( $mandate ) ) {
+			$request['mandate'] = $mandate;
 		}
 
 		/**
@@ -1948,14 +2050,13 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 	 * @version 4.0.0
 	 */
 	public function payment_scripts() {
-		if (
-			! is_product()
-			&& ! WC_Stripe_Helper::has_cart_or_checkout_on_current_page()
-			&& ! $this->is_valid_pay_for_order_endpoint()
-			&& ! is_add_payment_method_page()
-			&& ! isset( $_GET['change_payment_method'] ) // wpcs: csrf ok.
-			&& ! ( ! empty( get_query_var( 'view-subscription' ) ) && is_callable( 'WCS_Early_Renewal_Manager::is_early_renewal_via_modal_enabled' ) && WCS_Early_Renewal_Manager::is_early_renewal_via_modal_enabled() ) // @phpstan-ignore-line (Class WCS_Early_Renewal_Manager is checked already)
-			|| ( is_order_received_page() )
+		if ( ( ! is_product()
+				&& ! WC_Stripe_Helper::has_cart_or_checkout_on_current_page()
+				&& ! $this->is_valid_pay_for_order_endpoint()
+				&& ! is_add_payment_method_page()
+				&& ! isset( $_GET['change_payment_method'] ) // phpcs:ignore WordPress.Security.NonceVerification
+				&& ! ( ! empty( get_query_var( 'view-subscription' ) ) && is_callable( 'WCS_Early_Renewal_Manager::is_early_renewal_via_modal_enabled' ) && WCS_Early_Renewal_Manager::is_early_renewal_via_modal_enabled() ) // @phpstan-ignore-line (Class WCS_Early_Renewal_Manager is checked already)
+			) || ( is_order_received_page() )
 		) {
 			return;
 		}
@@ -2173,7 +2274,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			return $before_hold_status;
 		}
 
-		$default_before_hold_status = $order->needs_processing() ? 'processing' : 'completed';
+		$default_before_hold_status = $order->needs_processing() ? OrderStatus::PROCESSING : OrderStatus::COMPLETED;
 		return apply_filters( 'woocommerce_payment_complete_order_status', $default_before_hold_status, $order->get_id(), $order );
 	}
 
@@ -2189,7 +2290,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 	 */
 	protected function set_stripe_order_status_before_hold( $order, $status ) {
 		if ( 'default_payment_complete' === $status ) {
-			$payment_complete_status = $order->needs_processing() ? 'processing' : 'completed';
+			$payment_complete_status = $order->needs_processing() ? OrderStatus::PROCESSING : OrderStatus::COMPLETED;
 			$status                  = apply_filters( 'woocommerce_payment_complete_order_status', $payment_complete_status, $order->get_id(), $order );
 		}
 
@@ -2315,5 +2416,26 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 		}
 
 		return $balance_transaction_id;
+	}
+
+	/**
+	 * Generates a unique signature for an order.
+	 *
+	 * This signature is included as metadata in Stripe requests and used to identify the order when webhooks are received.
+	 *
+	 * @param WC_Order|OrderRefund $order The Order object.
+	 * @return string The order's unique signature. Format: order_id:md5(order_id-order_key-customer_id-order_total).
+	 */
+	protected function get_order_signature( $order ) {
+		$order = ! is_a( $order, 'WC_Order' ) ? wc_get_order( $order ) : $order;
+
+		$signature = [
+			absint( $order->get_id() ),
+			$order->get_order_key(),
+			$order->get_customer_id() ?? '',
+			WC_Stripe_Helper::get_stripe_amount( $order->get_total(), $order->get_currency() ),
+		];
+
+		return sprintf( '%d:%s', $order->get_id(), md5( implode( '-', $signature ) ) );
 	}
 }

@@ -98,9 +98,7 @@ class WC_Stripe_Express_Checkout_Ajax_Handler {
 			$variation_id = $data_store->find_matching_product_variation( $product, $attributes );
 
 			WC()->cart->add_to_cart( $product->get_id(), $qty, $variation_id, $attributes );
-		}
-
-		if ( in_array( $product_type, [ 'simple', 'variation', 'subscription', 'subscription_variation', 'booking' ], true ) ) {
+		} elseif ( in_array( $product_type, $this->express_checkout_helper->supported_product_types(), true ) ) {
 			WC()->cart->add_to_cart( $product->get_id(), $qty );
 		}
 
@@ -294,31 +292,45 @@ class WC_Stripe_Express_Checkout_Ajax_Handler {
 
 			wp_send_json( $data );
 		} catch ( Exception $e ) {
+			WC_Stripe_Logger::log( 'Product data error in express checkout: ' . $e->getMessage() );
 			wp_send_json( [ 'error' => wp_strip_all_tags( $e->getMessage() ) ] );
 		}
 	}
 
 	/**
 	 * Create order. Security is handled by WC.
+	 *
+	 * @deprecated 9.2.0 Payment is processed using the Blocks API by default.
 	 */
 	public function ajax_create_order() {
-		if ( WC()->cart->is_empty() ) {
-			wp_send_json_error( __( 'Empty cart', 'woocommerce-gateway-stripe' ) );
+		_deprecated_function( __METHOD__, '9.2.0' );
+		try {
+			if ( WC()->cart->is_empty() ) {
+				wp_send_json_error( __( 'Empty cart', 'woocommerce-gateway-stripe' ) );
+			}
+
+			if ( ! defined( 'WOOCOMMERCE_CHECKOUT' ) ) {
+				define( 'WOOCOMMERCE_CHECKOUT', true );
+			}
+
+			$this->express_checkout_helper->fix_address_fields_mapping();
+
+			// Normalizes billing and shipping state values.
+			$this->express_checkout_helper->normalize_state();
+
+			// In case the state is required, but is missing, add a more descriptive error notice.
+			$this->express_checkout_helper->validate_state();
+
+			WC()->checkout()->process_checkout();
+		} catch ( Exception $e ) {
+			WC_Stripe_Logger::log( 'Failed to create order for express checkout payment: ' . $e );
+
+			$response = [
+				'result'   => 'error',
+				'messages' => $e->getMessage(),
+			];
+			wp_send_json( $response, 400 );
 		}
-
-		if ( ! defined( 'WOOCOMMERCE_CHECKOUT' ) ) {
-			define( 'WOOCOMMERCE_CHECKOUT', true );
-		}
-
-		$this->express_checkout_helper->fix_address_fields_mapping();
-
-		// Normalizes billing and shipping state values.
-		$this->express_checkout_helper->normalize_state();
-
-		// In case the state is required, but is missing, add a more descriptive error notice.
-		$this->express_checkout_helper->validate_state();
-
-		WC()->checkout()->process_checkout();
 
 		die( 0 );
 	}
@@ -338,8 +350,11 @@ class WC_Stripe_Express_Checkout_Ajax_Handler {
 
 	/**
 	 * Processes the Pay for Order AJAX request from the Express Checkout.
+	 *
+	 * @deprecated 9.2.0 Payment is processed using the Blocks API by default.
 	 */
 	public function ajax_pay_for_order() {
+		_deprecated_function( __METHOD__, '9.2.0' );
 		check_ajax_referer( 'wc-stripe-pay-for-order' );
 
 		if (
@@ -356,14 +371,14 @@ class WC_Stripe_Express_Checkout_Ajax_Handler {
 			return;
 		}
 
+		$order_id = intval( $_POST['order'] );
 		try {
 			// Set up an environment, similar to core checkout.
 			wc_maybe_define_constant( 'WOOCOMMERCE_CHECKOUT', true );
 			wc_set_time_limit( 0 );
 
 			// Load the order.
-			$order_id = intval( $_POST['order'] );
-			$order    = wc_get_order( $order_id );
+			$order = wc_get_order( $order_id );
 
 			if ( ! is_a( $order, WC_Order::class ) ) {
 				throw new Exception( __( 'Invalid order!', 'woocommerce-gateway-stripe' ) );
@@ -386,6 +401,8 @@ class WC_Stripe_Express_Checkout_Ajax_Handler {
 
 			$result = apply_filters( 'woocommerce_payment_successful_result', $result, $order_id );
 		} catch ( Exception $e ) {
+			WC_Stripe_Logger::log( 'Pay for order failed for order ' . $order_id . ' with express checkout: ' . $e );
+
 			$result = [
 				'result'   => 'error',
 				'messages' => $e->getMessage(),

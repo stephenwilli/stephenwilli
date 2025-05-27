@@ -242,7 +242,7 @@ class Admin {
 			}
 
 			if ( isset( $text ) ) {
-				$links['smush_upgrade'] = '<a href="' . esc_url( $upgrade_url ) . '" aria-label="' . esc_attr( $label ) . '" target="_blank" style="color: #8D00B1;">' . esc_html( $text ) . '</a>';
+				$links['smush_upgrade'] = '<a id="smush-pluginlist-upgrade-link" href="' . esc_url( $upgrade_url ) . '" aria-label="' . esc_attr( $label ) . '" target="_blank" style="color: #8D00B1;">' . esc_html( $text ) . '</a>';
 			}
 		}
 

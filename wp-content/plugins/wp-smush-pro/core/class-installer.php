@@ -37,17 +37,8 @@ class Installer {
 			require_once __DIR__ . '/cdn/class-cdn-controller.php';
 		}
 
-		CDN_Controller::unschedule_cron();
+		Cron_Controller::get_instance()->unschedule_cron();
 		Settings::get_instance()->delete_setting( 'wp-smush-cdn_status' );
-
-		if ( is_multisite() && is_network_admin() ) {
-			/**
-			 * Updating the option instead of removing it.
-			 *
-			 * @see https://incsub.atlassian.net/browse/SMUSH-350
-			 */
-			update_site_option( 'wp-smush-networkwide', 1 );
-		}
 
 		delete_site_option( 'wp_smush_api_auth' );
 	}

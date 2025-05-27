@@ -8,10 +8,11 @@ use Smush\Core\Array_Utils;
 use Smush\Core\File_System;
 use Smush\Core\Helper;
 use Smush\Core\Product_Analytics;
-use Smush\Core\Security_Utils;
 use Smush\Core\Settings;
 use Smush\Core\Timer;
 use Smush\Core\Upload_Dir;
+use Smush_Vendor\GuzzleHttp\Client;
+use Smush_Vendor\GuzzleHttp\Exception\GuzzleException;
 use WP_Error;
 use WP_Smush;
 
@@ -20,6 +21,7 @@ use WP_Smush;
  */
 class Smusher {
 	const ERROR_SSL_CERT = 'ssl_cert_error';
+	const IMAGE_NOT_SAVED_FROM_URL = 'image_not_saved_from_url';
 	/**
 	 * @var Settings
 	 */
@@ -65,6 +67,10 @@ class Smusher {
 	 */
 	private $errors;
 	/**
+	 * @var WP_Error
+	 */
+	private $warnings;
+	/**
 	 * @var File_System
 	 */
 	private $fs;
@@ -76,18 +82,16 @@ class Smusher {
 	 * @var Array_Utils
 	 */
 	private $array_utils;
-	/**
-	 * @var Security_Utils
-	 */
-	private $security_utils;
 
 	private $streaming_enabled;
 
-	const DEFAULT_CHUNK_SIZE = 2 * 1024 * 1024;
+	const DEFAULT_CHUNK_SIZE = 5 * 1024 * 1024;
 	/**
 	 * @var Product_Analytics
 	 */
 	private $product_analytics;
+
+	private $file_sizes_cache = array();
 
 	public function __construct() {
 		$this->retry_attempts    = WP_SMUSH_RETRY_ATTEMPTS;
@@ -103,10 +107,10 @@ class Smusher {
 		$this->request_multiple  = new Request_Multiple();
 		$this->backoff           = new Backoff();
 		$this->errors            = new WP_Error();
+		$this->warnings          = new WP_Error();
 		$this->fs                = new File_System();
 		$this->upload_dir        = new Upload_Dir();
 		$this->array_utils       = new Array_Utils();
-		$this->security_utils    = new Security_Utils();
 		$this->product_analytics = Product_Analytics::get_instance();
 	}
 
@@ -153,15 +157,24 @@ class Smusher {
 				$size_file_data                 = $files_data[ $response_size_key ];
 				list( $size_file_path ) = $this->get_file_path_and_url( $size_file_data );
 
-				if ( $this->should_retry_smush( $response ) ) {
+				if ( $this->is_network_error( $response ) ) {
 					$retry[ $response_size_key ] = $size_file_data;
+
+					$this->add_warnings( $response, $response_size_key );
 				} else {
-					$responses[ $response_size_key ] = $this->handle_response( $response, $response_size_key, $size_file_path );
+					$is_success_response = $this->handle_response( $response, $response_size_key, $size_file_path );
+					// If the network request was successful, there are still some cases where it's best to retry
+					if ( ! $is_success_response && $this->has_error_worth_retrying() ) {
+						$retry[ $response_size_key ] = $size_file_data;
+					} else {
+						$responses[ $response_size_key ] = $is_success_response;
+					}
 				}
 			},
 		) );
 
-		$this->maybe_track_callback_error( $responses );
+		$this->maybe_track_api_fetch_error();
+		$this->maybe_track_image_url_error();
 
 		// Retry failures with exponential backoff
 		foreach ( $retry as $retry_size_key => $retry_size_file ) {
@@ -199,7 +212,7 @@ class Smusher {
 		$response = $this->backoff->set_wait( $this->retry_wait )
 		                          ->set_max_attempts( $this->retry_attempts )
 		                          ->enable_jitter()
-		                          ->set_decider( array( $this, 'should_retry_smush' ) )
+		                          ->set_decider( array( $this, 'is_network_error' ) )
 		                          ->run( function () use ( $file_path, $file_url ) {
 			                          return $this->make_post_request( $file_path, $file_url );
 		                          } );
@@ -215,12 +228,11 @@ class Smusher {
 	}
 
 	private function get_api_request_args( $file_path, $file_url ) {
-		if ( empty( $file_url ) || ! $this->streaming_enabled() ) {
+		$request_body = $this->prepare_request_body_for_streaming( $file_url );
+		if ( empty( $request_body ) ) {
 			// Temporary increase the limit because we are about to read a full file into memory.
 			wp_raise_memory_limit( 'image' );
 			$request_body = $this->fs->file_get_contents( $file_path );
-		} else {
-			$request_body = $this->prepare_request_body_for_streaming( $file_url, $file_path );
 		}
 
 		return array(
@@ -251,10 +263,23 @@ class Smusher {
 		}
 
 		if ( $data->bytes_saved > 0 ) {
-			if ( empty( $data->callback_successful ) ) {
-				$callback_status_code   = empty( $data->callback_status_code ) ? '' : $data->callback_status_code;
-				$callback_error_message = sprintf( 'Smush was successful but the callback approach failed with error code [%s] for file: [%s]', $callback_status_code, $file_path );
-				$this->logger->error( $callback_error_message );
+			if ( ! empty( $data->image_url ) ) {
+				$saved_from_image_url = $this->save_from_image_url( $data->image_url, $file_path, $data->image_md5 );
+				if ( is_wp_error( $saved_from_image_url ) ) {
+					$this->add_error(
+						$size_key,
+						self::IMAGE_NOT_SAVED_FROM_URL,
+						/* translators: %s: Error message. */
+						sprintf( __( 'Smush was successful but we were unable to save from URL: %s.', 'wp-smushit' ), $saved_from_image_url->get_error_message() ),
+						array(
+							'original_code'    => $saved_from_image_url->get_error_code(),
+							'original_message' => $saved_from_image_url->get_error_message(),
+						)
+					);
+
+					return false;
+				}
+			} else {
 				$optimized_image_saved = $this->save_smushed_image_file( $file_path, $data->image );
 				if ( ! $optimized_image_saved ) {
 					$this->add_error(
@@ -266,8 +291,6 @@ class Smusher {
 
 					return false;
 				}
-			} else {
-				$this->logger->notice( sprintf( 'Smush was successful and the callback approach was successful for file: [%s]', $file_path ) );
 			}
 		}
 
@@ -283,25 +306,19 @@ class Smusher {
 		return $data;
 	}
 
-	public function should_save_image_stream( $nonce, $target_file_path, $file_url, $request_id ) {
-		$nonce_action = $this->make_nonce_action( $target_file_path, $file_url, $request_id );
-		if ( ! $this->security_utils->verify_public_nonce( $nonce, $nonce_action ) ) {
-			return new WP_Error( 'invalid-request', 'Invalid request' );
+	/**
+	 * @param $input_stream resource
+	 * @param $target_file_path
+	 * @param $file_md5
+	 * @param $chunk_size
+	 *
+	 * @return true|WP_Error
+	 */
+	protected function save_from_resource( $input_stream, $target_file_path, $file_md5, $chunk_size ) {
+		if ( ! function_exists( 'wp_tempnam' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 
-		if ( ! file_exists( $target_file_path ) || ! is_writable( $target_file_path ) ) {
-			return new WP_Error( 'file-not-found', sprintf( 'File not found at %s', $target_file_path ) );
-		}
-
-		$upload_dir = new Upload_Dir();
-		if ( ! str_starts_with( $target_file_path, $upload_dir->get_upload_path() ) ) {
-			return new WP_Error( 'invalid-file-path', sprintf( 'File path %s is not inside the uploads directory', $target_file_path ) );
-		}
-
-		return true;
-	}
-
-	public function save_smushed_image_stream( $nonce, $source_file_path, $target_file_path, $file_url, $file_md5, $chunk_size = self::DEFAULT_CHUNK_SIZE ) {
 		$timer = new Timer();
 		$timer->start();
 
@@ -313,8 +330,7 @@ class Smusher {
 				break;
 			}
 
-			$input_stream  = fopen( $source_file_path, "r" );
-			$output_stream = fopen( $temp_name, "w" );
+			$output_stream = fopen( $temp_name, "wb" );
 			do {
 				$chunk_copied_successfully = stream_copy_to_stream( $input_stream, $output_stream, $chunk_size );
 				if ( $chunk_copied_successfully === false ) {
@@ -331,14 +347,14 @@ class Smusher {
 				break;
 			}
 
-			if ( ! hash_equals( $file_md5, md5_file( $temp_name ) ) ) {
+			$hash_equals = hash_equals( $file_md5, md5_file( $temp_name ) );
+			if ( ! $hash_equals ) {
 				$error = new WP_Error( 'file-hash-mismatch', 'File hash mismatch' );
 				break;
 			}
 
 			$target_file_name = basename( $target_file_path );
-			$wp_filetype      = wp_check_filetype_and_ext( $temp_name, $target_file_name );
-			$type             = empty( $wp_filetype['type'] ) ? '' : $wp_filetype['type'];
+			$type             = wp_get_image_mime( $temp_name );
 			if ( ! str_starts_with( $type, 'image/' ) ) {
 				$error = new WP_Error(
 					'invalid-file-type',
@@ -366,6 +382,25 @@ class Smusher {
 		} else {
 			$this->logger->notice( sprintf( 'File saved successfully in %s seconds', $time ) );
 			return true;
+		}
+	}
+
+	public function save_from_image_url( $image_url, $target_file_path, $file_md5, $chunk_size = self::DEFAULT_CHUNK_SIZE ) {
+		try {
+			$client       = new Client();
+			$response     = $client->get( $image_url, [
+				'stream' => true,
+			] );
+			$input_stream = $response->getBody()->detach();
+
+			return $this->save_from_resource( $input_stream, $target_file_path, $file_md5, $chunk_size );
+		} catch ( GuzzleException $exception ) {
+			$this->logger->error( sprintf( 'Error fetching image from URL: %s', $exception->getMessage() ) );
+
+			$code = $exception->getCode();
+			$code = empty( $code ) ? 'timeout' : $code;
+
+			return new WP_Error( $code, 'Error fetching image from URL' );
 		}
 	}
 
@@ -529,7 +564,7 @@ class Smusher {
 			return false;
 		}
 
-		if ( empty( $data->callback_successful ) ) {
+		if ( empty( $data->image_url ) ) {
 			$image = empty( $data->image ) ? '' : $data->image;
 			if ( $data->bytes_saved > 0 ) {
 				// Because of the API response structure, the following should only be done when there are some bytes_saved.
@@ -550,7 +585,7 @@ class Smusher {
 		return $data;
 	}
 
-	public function should_retry_smush( $response ) {
+	public function is_network_error( $response ) {
 		return $this->retry_attempts > 0 && (
 				is_wp_error( $response )
 				|| 200 !== wp_remote_retrieve_response_code( $response )
@@ -558,9 +593,10 @@ class Smusher {
 	}
 
 	private function get_parallel_request_args( $file_path, $file_url = '' ) {
-		$data = empty( $file_url ) || ! $this->streaming_enabled()
-			? $this->fs->file_get_contents( $file_path )
-			: $this->prepare_request_body_for_streaming( $file_url, $file_path );
+		$data = $this->prepare_request_body_for_streaming( $file_url );
+		if ( empty( $data ) ) {
+			$data = $this->fs->file_get_contents( $file_path );
+		}
 
 		return array(
 			'url'     => $this->get_api_url(),
@@ -607,10 +643,18 @@ class Smusher {
 	}
 
 	private function is_large_file( $file_path ) {
-		$file_size = file_exists( $file_path ) ? filesize( $file_path ) : 0;
+		$file_size = $this->get_file_size( $file_path );
 		$cut_off   = $this->settings->get_large_file_cutoff();
 
 		return $file_size > $cut_off;
+	}
+
+	private function get_file_size( $file_path ) {
+		if ( ! isset( $this->file_sizes_cache[ $file_path ] ) ) {
+			$this->file_sizes_cache[ $file_path ] = file_exists( $file_path ) ? filesize( $file_path ) : 0;
+		}
+
+		return $this->file_sizes_cache[ $file_path ];
 	}
 
 	/**
@@ -696,11 +740,33 @@ class Smusher {
 	 *
 	 * @return void
 	 */
-	private function add_error( $size_key, $code, $message ) {
+	private function add_error( $size_key, $code, $message, $data = array() ) {
 		// Log the error
 		$this->logger->error( "[$size_key] $message" );
 		// Add the error
 		$this->errors->add( $code, "[$size_key] $message" );
+
+		if ( ! empty( $data ) ) {
+			$this->errors->add_data( $data, $code );
+		}
+	}
+
+	/**
+	 * @param $size_key string
+	 * @param $code string
+	 * @param $message string
+	 *
+	 * @return void
+	 */
+	private function add_warning( $size_key, $code, $message ) {
+		// Log the warning
+		$this->logger->warning( "[$size_key] $message" );
+		// Add the warning
+		$this->warnings->add( $code, "[$size_key] $message" );
+	}
+
+	public function get_warnings() {
+		return $this->warnings;
 	}
 
 	/**
@@ -714,21 +780,15 @@ class Smusher {
 
 	/**
 	 * @param $file_url
-	 * @param $file_path
 	 *
-	 * @return array
+	 * @return array|false
 	 */
-	private function prepare_request_body_for_streaming( $file_url, $file_path ): array {
-		$request_id = $this->generate_request_id();
-		$nonce      = $this->security_utils->create_public_nonce( $this->make_nonce_action( $file_path, $file_url, $request_id ) );
+	private function prepare_request_body_for_streaming( $file_url ) {
+		if ( empty( $file_url ) || ! $this->streaming_enabled() ) {
+			return false;
+		}
 
-		return array(
-			'file_url'       => $file_url,
-			'file_path'      => $file_path,
-			'callback'       => admin_url( 'admin-ajax.php?action=save_optimized_file' ),
-			'callback_nonce' => $nonce,
-			'request_id'     => $request_id,
-		);
+		return array( 'file_url' => $file_url );
 	}
 
 	/**
@@ -768,35 +828,79 @@ class Smusher {
 		$this->streaming_enabled = $streaming_enabled;
 	}
 
-	private function maybe_track_callback_error( $responses ) {
-		foreach ( $responses as $data ) {
-			$bytes_saved          = ! empty( $data->bytes_saved ) && $data->bytes_saved > 0;
-			$callback_failed      = isset( $data->callback_successful ) && ! $data->callback_successful;
-			$callback_status_code = empty( $data->callback_status_code ) ? '' : $data->callback_status_code;
-			$callback_message     = empty( $data->callback_message ) ? '' : $data->callback_message;
-			if ( $bytes_saved && $callback_failed && $callback_status_code ) {
-				$callback_message_full = sprintf( 'Callback failed. Error code: [%s]. Error message: [%s]', $callback_status_code, $callback_message );
-				$this->product_analytics->maybe_track_error( 'api_callback_failed', $callback_status_code, $callback_message_full );
-				return;
+	private function maybe_track_api_fetch_error() {
+		$fetch_error_message = $this->warnings->get_error_message( 'response_code_422' );
+		if ( $fetch_error_message ) {
+			$this->product_analytics->maybe_track_error(
+				'api_error',
+				422,
+				$fetch_error_message,
+				array(
+					'Smush Type' => $this->get_type_label(),
+				)
+			);
+		}
+	}
+
+	private function maybe_track_image_url_error() {
+		if ( $this->has_error( self::IMAGE_NOT_SAVED_FROM_URL ) ) {
+			$error_data       = $this->errors->get_error_data( self::IMAGE_NOT_SAVED_FROM_URL );
+			$original_code    = $this->array_utils->get_array_value( $error_data, 'original_code' );
+			$original_message = $this->array_utils->get_array_value( $error_data, 'original_message' );
+
+			if ( $original_code && $original_message ) {
+				$this->product_analytics->maybe_track_error(
+					self::IMAGE_NOT_SAVED_FROM_URL,
+					$original_code,
+					$original_message,
+					array(
+						'Smush Type' => $this->get_type_label(),
+					)
+				);
 			}
 		}
 	}
 
 	/**
-	 * @param $file_path
-	 * @param $file_url
-	 * @param string $request_id
-	 *
-	 * @return string
+	 * @return bool
 	 */
-	private function make_nonce_action( $file_path, $file_url, string $request_id ) {
-		return md5( $file_path . $file_url . $request_id );
+	private function has_error_worth_retrying() {
+		$errors_that_should_be_retried = array(
+			self::IMAGE_NOT_SAVED_FROM_URL,
+		);
+
+		foreach ( $errors_that_should_be_retried as $error_code ) {
+			if ( $this->has_error( $error_code ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
-	/**
-	 * @return string
-	 */
-	private function generate_request_id() {
-		return wp_generate_uuid4();
+	protected function get_type_label() {
+		return 'Classic';
+	}
+
+	private function add_warnings( $response, $size_key ) {
+		if ( is_wp_error( $response ) ) {
+			/**
+			 * @var WP_Error $error
+			 */
+			$error = $response;
+			$this->add_warning( $size_key, $error->get_error_code(), $error->get_error_message() );
+			return;
+		}
+
+		$code = wp_remote_retrieve_response_code( $response );
+		$body = wp_remote_retrieve_body( $response );
+		if ( ! empty( $body ) ) {
+			$json = json_decode( $body );
+			if ( empty( $json->success ) && ! empty( $json->data ) && is_string( $json->data ) ) {
+				$message = $json->data;
+			}
+		}
+
+		$this->add_warning( $size_key, "response_code_$code", $message );
 	}
 }

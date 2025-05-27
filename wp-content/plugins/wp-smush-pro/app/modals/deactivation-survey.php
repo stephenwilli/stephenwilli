@@ -152,9 +152,9 @@ $docs_link = Helper::get_utm_link(
 						</div>
 					</div>
 					<div class="sui-box-footer">
-						<button type="button" class="sui-button-blue sui-button smush-submit-deactivate-button"><?php esc_html_e( 'Submit & Deactivate', 'wp-smushit' ); ?></button>
+						<button type="button" class="sui-button-ghost sui-button smush-skip-deactivate-button"><?php esc_html_e( 'Skip & Deactivate', 'wp-smushit' ); ?></button>
 						<div class="sui-actions-right">
-							<button type="button" class="sui-button-ghost sui-button smush-skip-deactivate-button"><?php esc_html_e( 'Skip & Deactivate', 'wp-smushit' ); ?></button>
+							<button type="button" class="sui-button-blue sui-button smush-submit-deactivate-button"><?php esc_html_e( 'Submit & Deactivate', 'wp-smushit' ); ?></button>
 						</div>
 					</div>
 				</div>

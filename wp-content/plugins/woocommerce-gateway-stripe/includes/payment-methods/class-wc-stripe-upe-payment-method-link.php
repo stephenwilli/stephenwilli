@@ -24,21 +24,23 @@ class WC_Stripe_UPE_Payment_Method_Link extends WC_Stripe_UPE_Payment_Method {
 			for further payments.',
 			'woocommerce-gateway-stripe'
 		);
+
+		add_filter( 'woocommerce_gateway_title', [ $this, 'filter_gateway_title' ], 10, 2 );
 	}
 
 	/**
 	 * Return if Stripe Link is enabled
 	 *
+	 * @param WC_Gateway_Stripe $gateway The gateway instance.
 	 * @return bool
 	 */
-	public static function is_link_enabled() {
-
+	public static function is_link_enabled( WC_Gateway_Stripe $gateway ) {
 		// Assume Link is disabled if UPE is disabled.
 		if ( ! WC_Stripe_Feature_Flags::is_upe_checkout_enabled() ) {
 			return false;
 		}
 
-		$upe_enabled_method_ids = WC_Stripe_Helper::get_settings( null, 'upe_checkout_experience_accepted_payments' );
+		$upe_enabled_method_ids = $gateway->get_upe_enabled_payment_method_ids();
 
 		return is_array( $upe_enabled_method_ids ) && in_array( self::STRIPE_ID, $upe_enabled_method_ids, true );
 	}
@@ -109,5 +111,34 @@ class WC_Stripe_UPE_Payment_Method_Link extends WC_Stripe_UPE_Payment_Method {
 	 */
 	public function requires_automatic_capture() {
 		return false;
+	}
+
+	/**
+	 * Filters the gateway title to reflect Link as the payment method.
+	 *
+	 * @param string $title The gateway title.
+	 * @param string $id The gateway ID.
+	 */
+	public function filter_gateway_title( $title, $id ) {
+		global $theorder;
+
+		// If $theorder is empty (i.e. non-HPOS), fallback to using the global post object.
+		if ( empty( $theorder ) && ! empty( $GLOBALS['post']->ID ) ) {
+			$theorder = wc_get_order( $GLOBALS['post']->ID );
+		}
+
+		if ( ! is_object( $theorder ) ) {
+			return $title;
+		}
+
+		$method_title = $theorder->get_payment_method_title();
+
+		if ( 'stripe' === $id && ! empty( $method_title ) ) {
+			if ( WC_Stripe_Payment_Methods::LINK_LABEL === $method_title ) {
+				return $method_title;
+			}
+		}
+
+		return $title;
 	}
 }

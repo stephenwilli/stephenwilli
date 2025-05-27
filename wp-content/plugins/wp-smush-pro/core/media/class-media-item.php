@@ -255,8 +255,15 @@ class Media_Item extends Smush_File {
 	}
 
 	private function prepare_edit_link() {
-		// TODO: copy implementation from Helper::get_image_media_link
-		return '';
+		$mode     = get_user_option( 'media_library_mode' );
+		$image_id = $this->get_id();
+		if ( 'grid' === $mode ) {
+			$edit_link = admin_url( "upload.php?item={$image_id}" );
+		} else {
+			$edit_link = admin_url( "post.php?post={$image_id}&action=edit" );
+		}
+
+		return $edit_link;
 	}
 
 	/**

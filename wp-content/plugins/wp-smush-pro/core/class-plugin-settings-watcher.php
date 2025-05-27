@@ -42,6 +42,11 @@ class Plugin_Settings_Watcher extends Controller {
 			$this,
 			'trigger_image_sizes_added_action'
 		), 'wp-smush-image_sizes' );
+
+		$this->hook_settings_update_interceptor( array(
+			$this,
+			'trigger_lazy_load_updated_action',
+		), 'wp-smush-lazy_load' );
 	}
 
 	private function hook_settings_update_interceptor( $callback, $option_id = 'wp-smush-settings' ) {
@@ -107,5 +112,9 @@ class Plugin_Settings_Watcher extends Controller {
 		if ( $old_validity !== $new_validity ) {
 			do_action( 'wp_smush_membership_status_changed' );
 		}
+	}
+
+	public function trigger_lazy_load_updated_action( $old_settings, $settings ) {
+		do_action( 'wp_smush_lazy_load_updated', $old_settings, $settings );
 	}
 }

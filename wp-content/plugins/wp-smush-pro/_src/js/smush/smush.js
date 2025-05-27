@@ -62,7 +62,6 @@ class Smush {
 
 		this.start();
 		( ! this.is_bulk ) && this.run();
-		this.bindDeferredEvents();
 
 		// Handle cancel ajax.
 		// this.cancelAjax();
@@ -514,11 +513,10 @@ class Smush {
 		if ( 0 === this.ids.length ) {
 			jQuery('.bulk-smush-wrapper .wp-smush-all-done').removeClass( 'sui-hidden' );
 			jQuery( '.wp-smush-bulk-wrapper' ).addClass( 'sui-hidden' );
-			// Hide the progress bar if scan is finished.
-			jQuery( '.wp-smush-bulk-progress-bar-wrapper' ).addClass( 'sui-hidden' );
 
-			// Reset the progress when we finish so the next smushing starts from zero.
-			this._updateProgress( 0, 0 );
+			// Hide and reset the progress bar when bulk smush is completed.
+			SmushProgress.close();
+			this.onBulkSmushCompleted();
 		}
 
 		// Enable re-Smush and scan button.
@@ -833,17 +831,6 @@ class Smush {
 	 */
 	continue() {
 		return this.continueSmush && this.ids.length > 0 && this.is_bulk;
-		let continueSmush = this.button.attr( 'continue_smush' );
-
-		if ( 'undefined' === typeof continueSmush ) {
-			continueSmush = true;
-		}
-
-		if ( 'false' === continueSmush || ! continueSmush ) {
-			continueSmush = false;
-		}
-
-		return continueSmush && this.ids.length > 0 && this.is_bulk;
 	}
 
 	onStart() {
@@ -862,6 +849,8 @@ class Smush {
 		this.total = parseInt( progressBar.find( 'span:last-child' ).html() );
 
 		jQuery('.wp-smush-restore').prop('disabled', true);
+
+		this.bindDeferredEvents();
 	}
 
 	/**
@@ -891,6 +880,10 @@ class Smush {
 		this.current_id = this.is_bulk
 			? this.ids.shift()
 			: this.button.data( 'id' );
+
+		if ( ! this.current_id ) {
+			return;
+		}
 
 		// Remove the ID from respective variable as well.
 		Smush.updateSmushIds( this.current_id );
@@ -980,10 +973,6 @@ class Smush {
 					Smush.updateScoreProgress();
 				}
 
-				if (0 === self.ids.length && self.is_bulk ) {
-					self.onBulkSmushCompleted();
-				}
-
 				self.singleDone();
 			} )
 			.always( function() {
@@ -999,7 +988,7 @@ class Smush {
 
 		return this.deferred;
 	}
-	
+
 	maybeShowCDNUpsellForPreSiteOnCompleted() {
 		// Show upsell cdn.
 		const upsellCdn = document.querySelector('.wp-smush-upsell-cdn');
@@ -1008,7 +997,7 @@ class Smush {
 			upsellCdn.classList.remove('sui-hidden');
 		}
 	}
-	
+
 	onBulkSmushCompleted() {
 		// Show upsell unlimited on completed.
 		this.maybeShowUnlimitedUpsellNotice();

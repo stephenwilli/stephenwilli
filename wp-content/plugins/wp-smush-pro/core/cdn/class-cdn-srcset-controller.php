@@ -111,9 +111,7 @@ class CDN_Srcset_Controller extends Controller {
 			$this->home_url = get_home_url();
 		}
 
-		$priority = defined( 'WP_SMUSH_CDN_DELAY_SRCSET' ) && WP_SMUSH_CDN_DELAY_SRCSET ? 1000 : 99;
-		// Update responsive image srcset and sizes if required.
-		$this->register_filter( 'wp_calculate_image_srcset', array( $this, 'update_image_srcset' ), $priority, 5 );
+		$this->register_filter( 'wp_calculate_image_srcset', array( $this, 'update_image_srcset_in_ajax' ), $this->get_cdn_srcset_priority(), 5 );
 		if ( $this->settings->get( 'auto_resize' ) ) {
 			$this->register_filter( 'wp_calculate_image_sizes', array( $this, 'update_image_sizes' ), 1, 2 );
 		}
@@ -379,6 +377,14 @@ class CDN_Srcset_Controller extends Controller {
 		return apply_filters( 'smush_image_src_after_cdn', $src, $image );
 	}
 
+	public function update_image_srcset_in_ajax( $sources, $size_array, $image_src, $image_meta, $attachment_id = 0 ) {
+		if ( wp_doing_ajax() ) {
+			$sources = $this->update_image_srcset( $sources, $size_array, $image_src, $image_meta, $attachment_id );
+		}
+
+		return $sources;
+	}
+
 	/**
 	 * Filters an array of image srcset values, replacing each URL with resized CDN urls.
 	 *
@@ -396,7 +402,11 @@ class CDN_Srcset_Controller extends Controller {
 	 *
 	 */
 	public function update_image_srcset( $sources, $size_array, $image_src, $image_meta, $attachment_id = 0 ) {
-		if ( ! is_array( $sources ) || ! $this->cdn_helper->is_supported_url( $image_src ) ) {
+		if (
+			! is_array( $sources )
+			|| ! $this->cdn_helper->is_supported_url( $image_src )
+			|| $this->cdn_helper->skip_image_url( $image_src )
+		) {
 			return $sources;
 		}
 
@@ -409,11 +419,7 @@ class CDN_Srcset_Controller extends Controller {
 		}
 
 		foreach ( $sources as $i => $source ) {
-			if ( ! $this->is_valid_url( $source['url'] ) ) {
-				continue;
-			}
-
-			if ( apply_filters( 'smush_cdn_skip_image', false, $source['url'], $source ) ) {
+			if ( ! $this->is_valid_url( $source['url'] ) || $this->cdn_helper->skip_image_url( $source['url'] ) ) {
 				continue;
 			}
 
@@ -446,9 +452,6 @@ class CDN_Srcset_Controller extends Controller {
 		// Set additional sizes if required.
 		if ( $this->settings->get( 'auto_resize' ) ) {
 			$sources = $this->set_additional_srcset( $sources, $size_array, $main_image_url, $image_meta, $image_src );
-
-			// Make it look good.
-			ksort( $sources );
 		}
 
 		return $sources;
@@ -771,7 +774,7 @@ class CDN_Srcset_Controller extends Controller {
 
 		// Continue only if additional multipliers found or not skipped.
 		// Filter already documented in class-cdn.php.
-		if ( $this->cdn_helper->skip_image( $url, false ) || empty( $additional_multipliers ) ) {
+		if ( $this->cdn_helper->skip_image_url( $url, false ) || empty( $additional_multipliers ) ) {
 			return $sources;
 		}
 
@@ -859,7 +862,7 @@ class CDN_Srcset_Controller extends Controller {
 		}
 
 		// This is an image placeholder - do not generate srcset.
-		if ( $width === $height && 1 === $width ) {
+		if ( $width === $height && $width < 32 ) {
 			return false;
 		}
 
@@ -871,7 +874,11 @@ class CDN_Srcset_Controller extends Controller {
 		}
 
 		$size_array = array( absint( $width ), absint( $height ) );
+		$priority   = $this->get_cdn_srcset_priority();
+
+		add_filter( 'wp_calculate_image_srcset', array( $this, 'update_image_srcset' ), $priority, 5 );
 		$srcset     = wp_calculate_image_srcset( $size_array, $src, $image_meta, $attachment_id );
+		remove_filter( 'wp_calculate_image_srcset', array( $this, 'update_image_srcset' ), $priority );
 
 		/**
 		 * In some rare cases, the wp_calculate_image_srcset() will not generate any srcset, because there are
@@ -948,6 +955,13 @@ class CDN_Srcset_Controller extends Controller {
 		}
 
 		return wp_getimagesize( $path );
+	}
+
+	/**
+	 * @return int
+	 */
+	private function get_cdn_srcset_priority(): int {
+		return defined( 'WP_SMUSH_CDN_DELAY_SRCSET' ) && WP_SMUSH_CDN_DELAY_SRCSET ? 1000 : 99;
 	}
 
 }

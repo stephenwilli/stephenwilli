@@ -5,6 +5,7 @@ namespace Smush\Core\Smush;
 use Smush\Core\Array_Utils;
 use Smush\Core\Controller;
 use Smush\Core\Media\Media_Item;
+use Smush\Core\Security\Security_Utils;
 use Smush\Core\Stats\Global_Stats;
 use Smush\Core\Stats\Media_Item_Optimization_Global_Stats_Persistable;
 use Smush\Core\Webp\Webp_Converter;
@@ -20,10 +21,6 @@ class Smush_Controller extends Controller {
 	 * @var self
 	 */
 	private static $instance;
-	/**
-	 * @var Array_Utils
-	 */
-	private $array_utils;
 
 	public static function get_instance() {
 		if ( empty( self::$instance ) ) {
@@ -34,8 +31,7 @@ class Smush_Controller extends Controller {
 	}
 
 	private function __construct() {
-		$this->array_utils  = new Array_Utils();
-		$this->global_stats = Global_Stats::get();
+		$this->global_stats   = Global_Stats::get();
 
 		$this->register_filter( 'wp_smush_optimizations', array(
 			$this,
@@ -50,8 +46,6 @@ class Smush_Controller extends Controller {
 			$this,
 			'maybe_mark_global_stats_as_outdated',
 		), 10, 2 );
-		$this->register_action( 'wp_ajax_save_optimized_file', array( $this, 'ajax_save_optimized_file' ) );
-		$this->register_action( 'wp_ajax_nopriv_save_optimized_file', array( $this, 'ajax_save_optimized_file' ) );
 
 		// Bulk image sizes.
 		$this->register_action( 'wp_smush_image_sizes_updated', array(
@@ -103,42 +97,6 @@ class Smush_Controller extends Controller {
 
 		if ( $lossy_status_changed || $exif_status_changed ) {
 			$this->global_stats->mark_as_outdated();
-		}
-	}
-
-	public function ajax_save_optimized_file() {
-		$request_id = (string) $this->array_utils->get_array_value( $_REQUEST, 'request_id' );
-		$nonce      = (string) $this->array_utils->get_array_value( $_REQUEST, 'nonce' );
-		$file_path  = urldecode( (string) $this->array_utils->get_array_value( $_REQUEST, 'file_path' ) );
-		$file_url   = urldecode( (string) $this->array_utils->get_array_value( $_REQUEST, 'file_url' ) );
-		$md5        = (string) $this->array_utils->get_array_value( $_REQUEST, 'file_md5' );
-		$webp       = ! empty( $_REQUEST['webp'] );
-		$processor  = $webp
-			? new Webp_Converter()
-			: new Smusher();
-
-		$error       = null;
-		$should_save = $processor->should_save_image_stream( $nonce, $file_path, $file_url, $request_id );
-		if ( is_wp_error( $should_save ) ) {
-			$error = $should_save;
-		} else {
-			$saved = $processor->save_smushed_image_stream( $nonce, "php://input", $file_path, $file_url, $md5 );
-			if ( is_wp_error( $saved ) ) {
-				$error = $saved;
-			}
-		}
-
-		if ( $error ) {
-			wp_send_json( array(
-				'success'    => false,
-				'error_code' => $error->get_error_code(),
-				'message'    => $error->get_error_message(),
-			) );
-		} else {
-			wp_send_json( array(
-				'success' => true,
-				'message' => 'File saved successfully',
-			) );
 		}
 	}
 

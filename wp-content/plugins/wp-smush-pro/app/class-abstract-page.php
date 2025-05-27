@@ -75,6 +75,7 @@ abstract class Abstract_Page {
 	 */
 	protected $upgrade_url = 'https://wpmudev.com/project/wp-smush-pro/';
 
+
 	/**
 	 * Whitle Label
 	 *
@@ -972,8 +973,8 @@ abstract class Abstract_Page {
 					'configsPage'   => network_admin_url( 'admin.php?page=smush-settings&view=configs' ),
 					'accordionImg'  => WP_SMUSH_URL . 'app/assets/images/smush-config-icon@2x.png',
 					'hubConfigs'    => 'https://wpmudev.com/hub2/configs/my-configs',
-					'hubWelcome'    => $this->get_utm_link( array( 'utm_campaign' => 'smush_hub_config' ), 'https://wpmudev.com/hub-welcome/' ),
-					'freeNoticeHub' => $this->get_utm_link( array( 'utm_campaign' => 'smush_hub_config' ), 'https://wpmudev.com/hub-welcome/' ),
+					'hubWelcome'    => $this->get_utm_link( array( 'utm_campaign' => 'smush_hub_config' ), 'https://wpmudev.com/site-management/' ),
+					'freeNoticeHub' => $this->get_utm_link( array( 'utm_campaign' => 'smush_hub_config' ), 'https://wpmudev.com/site-management/' ),
 				),
 				'requestsData' => array(
 					'root'           => esc_url_raw( rest_url( 'wp-smush/v1/preset_configs' ) ),

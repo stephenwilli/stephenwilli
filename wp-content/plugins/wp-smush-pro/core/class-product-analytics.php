@@ -2,11 +2,13 @@
 
 namespace Smush\Core;
 
+use Smush\Core\Threads\Thread_Safe_Options;
 use WP_Smush;
 use WPMUDEV_Analytics;
 
 class Product_Analytics {
 	const PROJECT_TOKEN = '5d545622e3a040aca63f2089b0e6cae7';
+	const EVENT_DATA_OPTION_ID = 'wp_smush_event_data';
 	const EVENT_COUNT_KEY = 'wp_smush_event_count_%s';
 	/**
 	 * @var WPMUDEV_Analytics
@@ -35,6 +37,10 @@ class Product_Analytics {
 	 * @var Array_Utils
 	 */
 	private $array_utils;
+	/**
+	 * @var Time_Utils
+	 */
+	private $time_utils;
 
 	/**
 	 * Static instance getter
@@ -51,6 +57,7 @@ class Product_Analytics {
 		$this->server_utils = new Server_Utils();
 		$this->format_utils = new Format_Utils();
 		$this->array_utils  = new Array_Utils();
+		$this->time_utils   = new Time_Utils();
 		$this->settings     = Settings::get_instance();
 	}
 
@@ -63,6 +70,15 @@ class Product_Analytics {
 		}
 
 		return $this->analytics;
+	}
+
+	/**
+	 * @param $analytics WPMUDEV_Analytics
+	 *
+	 * @return void
+	 */
+	public function set_analytics( $analytics ) {
+		$this->analytics = $analytics;
 	}
 
 	private function prepare_analytics_instance() {
@@ -152,34 +168,19 @@ class Product_Analytics {
 	}
 
 	public function maybe_track( $event, $properties = array(), $limit_per_day = 0 ) {
-		if ( $this->should_track( $event, $properties, $limit_per_day ) ) {
+		if ( ! $this->tracking_enabled() ) {
+			return;
+		}
+
+		if ( $this->event_has_limit( $limit_per_day ) ) {
+			$this->track_with_limit( $event, $properties, $limit_per_day );
+		} else {
 			$this->track( $event, $properties );
 		}
 	}
 
-	private function should_track( $event, $properties, $limit_per_day ) {
-		if ( ! $this->settings->get( 'usage' ) ) {
-			return false;
-		}
-
-		if ( $limit_per_day < 1 ) {
-			return true;
-		}
-
-		return ! $this->is_event_limit_reached( $event, $properties, $limit_per_day );
-	}
-
-	private function is_event_limit_reached( $event, $properties, $limit_per_day ) {
-		$event_count_key = $this->get_event_count_key( $event, $properties );
-		$event_count     = (int) get_transient( $event_count_key, 0 );
-
-		if ( $event_count >= $limit_per_day ) {
-			return true;
-		}
-
-		set_transient( $event_count_key, $event_count + 1, DAY_IN_SECONDS );
-
-		return false;
+	private function tracking_enabled() {
+		return (bool) $this->settings->get( 'usage' );
 	}
 
 	private function get_event_count_key( $event, $properties ) {
@@ -199,15 +200,16 @@ class Product_Analytics {
 		}
 	}
 
-	public function maybe_track_error( $type, $code, $message ) {
+	public function maybe_track_error( $type, $code, $message, $extra_properties = array() ) {
 		$limit_per_day = 1;
+
 		$this->maybe_track(
 			'smush_error_encountered',
-			array(
+			array_merge( array(
 				'Error Type'    => $type,
 				'Error Code'    => $code,
 				'Error Message' => $message,
-			),
+			), $extra_properties ),
 			$limit_per_day
 		);
 	}
@@ -221,5 +223,53 @@ class Product_Analytics {
 		}
 
 		return sprintf( self::EVENT_COUNT_KEY, sanitize_key( $event_key ) );
+	}
+
+	private function track_with_limit( $event, $properties, $limit_per_day ) {
+		$thread_safe_options       = new Thread_Safe_Options();
+		$option_id                 = self::EVENT_DATA_OPTION_ID;
+		$event_count_key           = $this->get_event_count_key( $event, $properties );
+		$event_count_timestamp_key = $event_count_key . '_timestamp';
+		$event_count               = (int) $thread_safe_options->get_value( $option_id, $event_count_key, 0 );
+		$event_count_timestamp     = (int) $thread_safe_options->get_value( $option_id, $event_count_timestamp_key, 0 );
+		$not_tracked_in_24_hours   = $this->time_utils->get_time() - $event_count_timestamp > DAY_IN_SECONDS;
+
+		if ( $not_tracked_in_24_hours || $event_count < $limit_per_day ) {
+			$this->track( $event, array_merge( array(
+				'Total Error Count' => empty( $event_count_timestamp ) ? 1 : $event_count,
+			), $properties ) );
+
+			if ( $not_tracked_in_24_hours ) {
+				// Reset the count if it has been more than 24 hours
+				$thread_safe_options->set_values( $option_id, array(
+					$event_count_key           => 1,
+					$event_count_timestamp_key => $this->time_utils->get_time(),
+				) );
+			} else {
+				$thread_safe_options->increment_values( $option_id, [ $event_count_key ] );
+			}
+		} else {
+			$thread_safe_options->increment_values( $option_id, [ $event_count_key ] );
+		}
+	}
+
+	/**
+	 * @param $limit_per_day
+	 *
+	 * @return bool
+	 */
+	private function event_has_limit( $limit_per_day ) {
+		return 0 !== (int) $limit_per_day;
+	}
+
+	public function set_settings( $settings ) {
+		$this->settings = $settings;
+	}
+
+	/**
+	 * @return Time_Utils
+	 */
+	public function get_time_utils() {
+		return $this->time_utils;
 	}
 }

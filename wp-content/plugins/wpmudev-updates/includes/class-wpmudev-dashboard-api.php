@@ -47,6 +47,13 @@ class WPMUDEV_Dashboard_Api {
 	protected $rest_api_translation = 'api/translations/v1/';
 
 	/**
+	 * Path to the hosting site endpoints.
+	 *
+	 * @var string
+	 */
+	protected $rest_api_hub = 'api/hub/v1/';
+
+	/**
 	 * The complete WPMUDEV REST API endpoint. Defined in constructor.
 	 *
 	 * @var string (URL)
@@ -410,6 +417,9 @@ class WPMUDEV_Dashboard_Api {
 		} elseif ( 'POST' === $method ) {
 			$options['body'] = $data;
 			$response        = wp_remote_post( $link, $options );
+		} elseif ( 'DELETE' === $method ) {
+			$options['method'] = 'DELETE';
+			$response          = wp_remote_request( $link, $options );
 		}
 
 		// Add the request-URL to the response data.
@@ -2698,6 +2708,46 @@ class WPMUDEV_Dashboard_Api {
 	}
 
 	/**
+	 * Clear WPMUDEV hosting static cache if possible.
+	 *
+	 * This will be a non-blocking request, so do not expect a response.
+	 *
+	 * @return void
+	 */
+	public function maybe_clear_hosting_static_cache() {
+		// Only if WPMUDEV hosting.
+		if ( ! $this->is_wpmu_dev_hosting() ) {
+			return;
+		}
+
+		// Hub site ID.
+		$hub_site_id = WPMUDEV_Dashboard::$api->get_site_id();
+		// Not a Hub site.
+		if ( empty( $hub_site_id ) ) {
+			return;
+		}
+
+		// set api base.
+		$api_base = $this->server_root . $this->rest_api_hub;
+
+		// No blocking.
+		$options = array(
+			'timeout'  => 0.01,
+			'blocking' => false,
+		);
+		// Sets up special auth header.
+		$options['headers']                  = array();
+		$options['headers']['Authorization'] = $this->get_key();
+
+		WPMUDEV_Dashboard::$api->call(
+			$api_base . 'sites/' . $hub_site_id . '/modules/hosting/static-cache',
+			false,
+			'DELETE',
+			$options
+		);
+	}
+
+	/**
 	 * Enable and configure analytics to collect data for the site.
 	 *
 	 * @since  4.6
@@ -2723,6 +2773,9 @@ class WPMUDEV_Dashboard_Api {
 			if ( isset( $data['site_id'], $data['tracker'] ) ) {
 				WPMUDEV_Dashboard::$settings->set( 'site_id', $data['site_id'], 'analytics' );
 				WPMUDEV_Dashboard::$settings->set( 'tracker', $data['tracker'], 'analytics' );
+
+				// Clear WPMUDEV static cache.
+				$this->maybe_clear_hosting_static_cache();
 
 				return true;
 			}
@@ -2755,6 +2808,9 @@ class WPMUDEV_Dashboard_Api {
 		);
 
 		if ( wp_remote_retrieve_response_code( $response ) == 200 ) {
+			// Clear WPMUDEV static cache.
+			$this->maybe_clear_hosting_static_cache();
+
 			return true;
 		} else {
 			$this->parse_api_error( $response );

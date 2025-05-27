@@ -33,9 +33,13 @@ class Webp_Converter extends Smusher {
 		return $webp_file_path;
 	}
 
-	public function save_smushed_image_stream( $nonce, $source_file_path, $target_file_path, $file_url, $file_md5, $chunk_size = self::DEFAULT_CHUNK_SIZE ) {
+	protected function save_from_resource( $input_stream, $target_file_path, $file_md5, $chunk_size ) {
 		$webp_file_path = $this->webp_helper->get_webp_file_path( $target_file_path, true );
 
-		return parent::save_smushed_image_stream( $nonce, $source_file_path, $webp_file_path, $file_url, $file_md5, $chunk_size );
+		return parent::save_from_resource( $input_stream, $webp_file_path, $file_md5, $chunk_size );
+	}
+
+	protected function get_type_label() {
+		return 'WebP';
 	}
 }

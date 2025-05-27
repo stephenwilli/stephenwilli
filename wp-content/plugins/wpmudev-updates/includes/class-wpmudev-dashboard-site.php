@@ -1233,6 +1233,7 @@ class WPMUDEV_Dashboard_Site {
 				'is_active'           => false, // WordPress state, i.e. plugin activated?
 				'is_hidden'           => false, // Projects can be hidden via API.
 				'is_licensed'         => false, // User has license to use this project?
+				'is_plugin_addon'     => false,
 				'default_order'       => 0,
 				'downloads'           => 0,
 				'popularity'          => 0,
@@ -1286,6 +1287,7 @@ class WPMUDEV_Dashboard_Site {
 			$res->release_stamp    = intval( $remote['released'] );
 			$res->update_stamp     = intval( $remote['updated'] );
 			$res->requires_min_php = empty( $remote['requires_min_php'] ) ? WPMUDEV_Dashboard::$upgrader->min_php : $remote['requires_min_php'];
+			$res->is_plugin_addon  = $remote['is_plugin_addon'] ?? false;
 
 			// Project tags.
 			if ( 'plugin' === $res->type ) {

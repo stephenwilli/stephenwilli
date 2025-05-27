@@ -173,12 +173,20 @@ if ( ! class_exists( 'WC_Stripe_Connect' ) ) {
 			unset( $options['account_id'] );
 			unset( $options['test_account_id'] );
 
+			// Enable ECE for new connections.
+			$this->enable_ece_in_new_accounts();
+
 			WC_Stripe_Helper::update_main_stripe_settings( $options );
 
 			// Similar to what we do for webhooks, we save some stats to help debug oauth problems.
 			update_option( 'wc_stripe_' . $prefix . 'oauth_updated_at', time() );
 			update_option( 'wc_stripe_' . $prefix . 'oauth_failed_attempts', 0 );
 			update_option( 'wc_stripe_' . $prefix . 'oauth_last_failed_at', '' );
+
+			// Clear the invalid API keys transient.
+			$invalid_api_keys_option_key = $is_test ? WC_Stripe_API::TEST_MODE_INVALID_API_KEYS_OPTION_KEY : WC_Stripe_API::LIVE_MODE_INVALID_API_KEYS_OPTION_KEY;
+			update_option( $invalid_api_keys_option_key, false );
+			update_option( $invalid_api_keys_option_key . '_at', time() );
 
 			if ( 'app' === $type ) {
 				// Stripe App OAuth access_tokens expire after 1 hour:
@@ -196,6 +204,17 @@ if ( ! class_exists( 'WC_Stripe_Connect' ) ) {
 				return new WP_Error( 'wc_stripe_webhook_error', $e->getMessage() );
 			}
 
+			// If we are already using the UPE gateway, update the PMC with the currently enabled payment methods.
+			$gateway = WC_Stripe::get_instance()->get_main_stripe_gateway();
+			if ( $gateway instanceof WC_Stripe_UPE_Payment_Gateway ) {
+				// The UPE accepted payment list does not include Apple Pay/Google Pay, but PMC does, so we need to add them (if they are enabled).
+				$enabled_payment_methods = array_merge(
+					$options['upe_checkout_experience_accepted_payments'],
+					$gateway->is_payment_request_enabled() ? [ WC_Stripe_Payment_Methods::APPLE_PAY, WC_Stripe_Payment_Methods::GOOGLE_PAY ] : []
+				);
+				$gateway->update_enabled_payment_methods( $enabled_payment_methods );
+			}
+
 			return $result;
 		}
 
@@ -211,6 +230,17 @@ if ( ! class_exists( 'WC_Stripe_Connect' ) ) {
 			}
 
 			return 'yes';
+		}
+
+		/**
+		 * Enable Stripe express checkout element for new connections.
+		 */
+		private function enable_ece_in_new_accounts() {
+			$existing_stripe_settings = WC_Stripe_Helper::get_stripe_settings();
+
+			if ( empty( $existing_stripe_settings ) ) {
+				update_option( WC_Stripe_Feature_Flags::ECE_FEATURE_FLAG_NAME, 'yes' );
+			}
 		}
 
 		/**
@@ -239,13 +269,12 @@ if ( ! class_exists( 'WC_Stripe_Connect' ) ) {
 		 * @return bool True if connected, false otherwise.
 		 */
 		public function is_connected( $mode = null ) {
-			$options = WC_Stripe_Helper::get_stripe_settings();
-
 			// If the mode is not provided, we'll check the current mode.
 			if ( is_null( $mode ) ) {
-				$mode = isset( $options['testmode'] ) && 'yes' === $options['testmode'] ? 'test' : 'live';
+				$mode = WC_Stripe_Mode::is_test() ? 'test' : 'live';
 			}
 
+			$options = WC_Stripe_Helper::get_stripe_settings();
 			if ( 'test' === $mode ) {
 				return isset( $options['test_publishable_key'], $options['test_secret_key'] ) && trim( $options['test_publishable_key'] ) && trim( $options['test_secret_key'] );
 			} else {
@@ -276,11 +305,9 @@ if ( ! class_exists( 'WC_Stripe_Connect' ) ) {
 		 * @return bool True if connected via Stripe App OAuth, false otherwise.
 		 */
 		public function is_connected_via_app_oauth( $mode = null ) {
-			$options = WC_Stripe_Helper::get_stripe_settings();
-
 			// If the mode is not provided, we'll check the current mode.
 			if ( is_null( $mode ) ) {
-				$mode = isset( $options['testmode'] ) && 'yes' === $options['testmode'] ? 'test' : 'live';
+				$mode = WC_Stripe_Mode::is_test() ? 'test' : 'live';
 			}
 
 			return 'app' === $this->get_connection_type( $mode );
@@ -309,13 +336,11 @@ if ( ! class_exists( 'WC_Stripe_Connect' ) ) {
 				return;
 			}
 
-			$options    = WC_Stripe_Helper::get_stripe_settings();
-			$is_test    = isset( $options['testmode'] ) && 'yes' === $options['testmode'];
 			$event_name = ! $had_error ? 'wcstripe_stripe_connected' : 'wcstripe_stripe_connect_error';
 
 			// We're recording this directly instead of queueing it because
 			// a queue wouldn't be processed due to the redirect that comes after.
-			WC_Tracks::record_event( $event_name, [ 'is_test_mode' => $is_test ] );
+			WC_Tracks::record_event( $event_name, [ 'is_test_mode' => WC_Stripe_Mode::is_test() ] );
 		}
 
 		/**
@@ -366,7 +391,7 @@ if ( ! class_exists( 'WC_Stripe_Connect' ) ) {
 			}
 
 			$options       = WC_Stripe_Helper::get_stripe_settings();
-			$mode          = isset( $options['testmode'] ) && 'yes' === $options['testmode'] ? 'test' : 'live';
+			$mode          = WC_Stripe_Mode::is_test() ? 'test' : 'live';
 			$prefix        = 'test' === $mode ? 'test_' : '';
 			$refresh_token = $options[ $prefix . 'refresh_token' ];
 

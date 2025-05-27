@@ -29,7 +29,7 @@ class WC_Stripe_UPE_Payment_Method_Sepa extends WC_Stripe_UPE_Payment_Method {
 			'Reach 500 million customers and over 20 million businesses across the European Union.',
 			'woocommerce-gateway-stripe'
 		);
-		$this->supports[] = 'tokenization';
+		$this->supports[]           = 'tokenization';
 
 		// SEPA Direct Debit is the tokenization method for this method as well as Bancontact and iDEAL. Init subscription so it can process subscription payments.
 		$this->maybe_init_subscriptions();
@@ -49,15 +49,16 @@ class WC_Stripe_UPE_Payment_Method_Sepa extends WC_Stripe_UPE_Payment_Method {
 	/**
 	 * Returns testing credentials to be printed at checkout in test mode.
 	 *
+	 * @param bool $show_optimized_checkout_instruction Whether this is being called through the Optimized Checkout instructions method. Used to avoid an infinite loop call.
 	 * @return string
 	 */
-	public function get_testing_instructions() {
+	public function get_testing_instructions( $show_optimized_checkout_instruction = false ) {
 		return sprintf(
 			/* translators: 1) HTML strong open tag 2) HTML strong closing tag 3) HTML anchor open tag 2) HTML anchor closing tag */
 			esc_html__( '%1$sTest mode:%2$s use the test account number AT611904300234573201. Other payment methods may redirect to a Stripe test page to authorize payment. More test card numbers are listed %3$shere%4$s.', 'woocommerce-gateway-stripe' ),
 			'<strong>',
 			'</strong>',
-			'<a href="https://stripe.com/docs/testing?payment-method=sepa-direct-debit" target="_blank">',
+			'<a href="https://docs.stripe.com/testing?payment-method=sepa-direct-debit#non-card-payments" target="_blank">',
 			'</a>'
 		);
 	}

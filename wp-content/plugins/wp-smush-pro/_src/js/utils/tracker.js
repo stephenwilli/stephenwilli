@@ -3,6 +3,7 @@ import Fetcher from './fetcher';
 class Tracker {
 	/* @private */
 	#doingEvents = new Set();
+	#allowToTrack;
 
 	track( event, properties = {} ) {
 		if ( ! this.allowToTrack() || this.inProgressEvent( event ) ) {
@@ -33,7 +34,13 @@ class Tracker {
 	}
 
 	allowToTrack() {
-		return !! ( window.wp_smush_mixpanel?.opt_in );
+		return this.#allowToTrack || !! ( window.wp_smush_mixpanel?.opt_in );
+	}
+
+	setAllowToTrack( allowToTrack ) {
+		this.#allowToTrack = allowToTrack;
+
+		return this;
 	}
 }
 
