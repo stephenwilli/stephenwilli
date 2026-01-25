@@ -29,7 +29,7 @@
     "@wordpress/babel-preset-default": "^3.0.2",
     "babel-loader": "^8.0.5",
     "beepbeep": "^1.2.0",
-    "browser-sync": "^2.26.3",
+    "browser-sync": "^2.29.3",
     "browser-sync-webpack-plugin": "^2.2.2",
     "create-file-webpack": "^1.0.2",
     "css-loader": "^2.1.0",
