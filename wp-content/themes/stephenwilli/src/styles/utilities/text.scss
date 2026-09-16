@@ -1,0 +1,36 @@
+.f-0       { font-size: 0 }
+.f-body    { font-family: var(--font-body) !important }
+.f-heading { font-family: var(--font-heading) !important }
+
+.fw-100    { font-weight: 100 }
+.fw-200    { font-weight: 200 }
+.fw-300    { font-weight: 300 }
+.fw-400    { font-weight: 400 }
+.fw-500    { font-weight: 500 }
+.fw-600    { font-weight: 600 }
+.fw-700    { font-weight: 700 }
+.fw-800    { font-weight: 800 }
+.fw-900    { font-weight: 900 }
+
+.lh-0         { line-height: 0 }
+.lh-1         { line-height: 1 }
+.lh-tight     { line-height: var(--lh-tight, 1.25) }
+.lh-loose     { line-height: var(--lh-loose, 1.75) }
+
+.ls-0         { letter-spacing: 0 }
+.ls-tight     { letter-spacing: var(--ls-tight, -0.05em) }
+.ls-loose     { letter-spacing: var(--ls-loose,  0.05em) }
+
+.text-left    { text-align: left }
+.text-right   { text-align: right }
+.text-center  { text-align: center }
+
+.no-underline { text-decoration: none }
+.no-select    { user-select: none }
+.no-wrap      { white-space: nowrap }
+
+.italic       { font-style: italic }
+.underline    { text-decoration: underline }
+.lowercase    { text-transform: lowercase }
+.uppercase    { text-transform: uppercase }
+.truncate     { @include truncate; }

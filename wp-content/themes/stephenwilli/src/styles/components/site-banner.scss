@@ -1,0 +1,17 @@
+.site-banner {
+  display: block;
+  font-size: var(--font-size-sm);
+  padding: 0.75em;
+  color: #FFF;
+  background-color: #600;
+  text-decoration: none;
+  text-align: center;
+
+  &[href="#"] {
+    cursor: default;
+    pointer-events: none;
+  }
+  &:where(:hover, :focus) {
+    background-color: #F00;
+  }
+}

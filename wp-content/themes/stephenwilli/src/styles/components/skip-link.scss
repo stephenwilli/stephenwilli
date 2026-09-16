@@ -1,0 +1,14 @@
+body > a[href="#content"] {
+  position: absolute;
+  z-index: 1000;
+  left: -9999px;
+  top: 1em;
+  font-size: var(--font-size-sm);
+  line-height: 1;
+  padding: 1em 1.25em;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+
+  &:focus { left: 1em; }
+}

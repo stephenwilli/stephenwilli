@@ -1,0 +1,21 @@
+{
+  "name": "stephenwilli",
+  "private": true,
+  "scripts": {
+    "local:start": "../../../../tmbr-bundler/cli.js watch",
+    "local:build": "../../../../tmbr-bundler/cli.js build",
+    "start": "bundler watch",
+    "build": "bundler build"
+  },
+  "devDependencies": {
+    "@tmbr/bundler": "^1.10.0"
+  },
+  "dependencies": {
+    "@tmbr/utils": "^1.8.9",
+    "gsap": "file:gsap-bonus.tgz",
+    "isotope-layout": "^3.0.6",
+    "magnific-popup": "^1.1.0",
+    "slick-animation": "^0.3.3",
+    "slick-carousel": "^1.8.1"
+  }
+}

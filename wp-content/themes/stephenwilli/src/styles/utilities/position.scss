@@ -1,0 +1,23 @@
+.relative { position: relative }
+.absolute { position: absolute }
+.static   { position: static }
+.sticky   { position: sticky }
+.fixed    { position: fixed }
+
+.pin-t    { top: 0 }
+.pin-r    { right: 0 }
+.pin-b    { bottom: 0 }
+.pin-l    { left: 0 }
+.pin      { inset: 0 }
+
+.center-x { @include center-x }
+.center-y { @include center-y }
+.center   { @include center }
+
+.fit-contain { object-fit: contain }
+.fit-cover   { object-fit: cover }
+
+.z-0  { z-index: 0 }
+.z-1  { z-index: 1 }
+.z-2  { z-index: 2 }
+.z-10 { z-index: 10 }

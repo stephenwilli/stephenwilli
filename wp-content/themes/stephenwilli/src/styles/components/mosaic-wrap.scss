@@ -1,0 +1,107 @@
+.gallery-mosaic {
+	margin-top: space(6);
+	.mosaic-image {
+		margin-top: 1rem;
+		display: block;
+		width: calc(33% - 2rem);
+		margin: 0 1rem 2rem;
+		overflow: hidden;
+		//cursor: url('../assets/images/cursor-plus.svg') 35 25, auto;
+		transition: all .6s ease-in-out;
+			
+		img {
+			width: 100%;
+			opacity: 1;
+			transition: all .6s ease-in-out;
+		}
+			
+		&:hover {
+			img {
+				transform: scale(1.03);
+				opacity: .9;
+			}
+		}
+		
+		&.intro-card {
+			padding: 0 2rem 2rem 0;
+			min-height: 600px;
+			//cursor: url('../images/cursor-circle-02.svg') 25 15, auto !important;
+			h1 {
+				font-size: 4rem;
+			}
+		}
+	}
+
+	&.-projects {
+		.mosaic-image {
+			width: calc(50% - 2rem);
+			position: relative;
+
+			.cat-link {
+				margin-right: 1rem;
+				position: relative;
+			}
+
+			.overlay {
+				@include fill;
+				background: rgb(0,0,0);
+				background: linear-gradient(0deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,0.2) 25%, rgba(0,0,0,0) 100%);
+				z-index: 4;
+			}
+
+			.project-text {
+				position: absolute;
+				left: space(2);
+				bottom: space(2);
+				color: white;
+			}
+		}
+	}
+
+	&.-products {
+		.mosaic-image {
+			width: calc(33% - 2rem);
+		}
+	}
+	
+	@include below('md') {
+		.mosaic-image {
+			width: calc(50% - 2rem);
+		}
+		&.-products {
+			.mosaic-image {
+				width: calc(50% - 2rem);
+			}
+		}
+	}
+	
+	@include below('sm') {
+		margin-top: space(2);
+		.mosaic-image {
+			width: 100%;
+			margin: 1rem 0;
+			&.intro-card {
+				min-height: auto;
+				padding: 2rem 0;
+			}
+		}
+
+		&.-projects {
+			.mosaic-image {
+				width: 100%;
+				margin: 1rem 0;
+				.cat-link {
+					white-space: pre;
+					margin-bottom: space(1);
+					display: inline-block;
+				}
+			}
+		}
+		&.-products {
+			.mosaic-image {
+				width: 100%;
+				margin: 1rem 0;
+			}
+		}
+	}
+}

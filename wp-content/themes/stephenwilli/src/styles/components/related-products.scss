@@ -1,0 +1,48 @@
+.related-products {
+  h2 {
+    text-align: center;
+    font-size: var(--font-size-h3);
+  }
+  .product-slide {
+    height: 500px;
+    padding: 0 space(1);
+    img {
+      height: 100%;
+    }
+  }
+  .slick-track
+  {
+      display: flex !important;
+  }
+
+  .carousel-wrap {
+     .slick-arrow {
+      @include center-x;
+      bottom: -4rem;
+      width: 50px;
+      line-height: 0px;
+      font-size: 0px;
+      cursor: pointer;
+      &.slick-prev {
+        margin-left: -40px;
+        &:before {
+          content: url('../assets/images/arrow-left.svg') ;
+        }
+      }
+
+      &.slick-next {
+        margin-left: 40px;
+        &:before {
+          content: url('../assets/images/arrow-right.svg') ;
+        }
+      }
+     }
+  }
+
+  @include below('sm'){ 
+    .product-slide {
+      height: 300px;
+    }
+  }
+
+}

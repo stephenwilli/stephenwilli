@@ -1,0 +1,31 @@
+body:has(.home-hero), body:has(.home-split), body:has(.project-hero) {
+  a {
+    //cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
+  }
+
+  .site-header {
+    position: absolute;
+  }
+  .navbar-brand {
+		.icon {
+			color: white;
+		}
+
+    .tagline {
+      color: white;
+    }
+	}
+
+  .navbar-hamburger {
+		//cursor: url('../assets/images/cursor-arrow-02.svg') 25 5, auto;
+    &.-collapsed {
+      //cursor: url('../assets/images/cursor-arrow-03.svg') 25 5, auto;
+      &:after, &:before, span {
+        background-color: color('black');
+      }
+    }
+		&:after, &:before, span {
+			background-color: white;
+		}
+	}
+}

@@ -1,0 +1,15 @@
+.flex-columns {
+
+  @include below('sm') {
+    .column {
+      transition-delay: 0;
+    }
+  }
+}
+
+.flex-full {
+  img {
+    margin-top: space(6);
+    width: 100%;
+  }
+}

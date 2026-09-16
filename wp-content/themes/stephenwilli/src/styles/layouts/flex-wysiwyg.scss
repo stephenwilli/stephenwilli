@@ -1,0 +1,47 @@
+.flex-wysiwyg {
+  
+  ol, ul {
+    list-style: inherit;
+    padding-left: 2rem;
+    line-height: 2;
+  }
+  
+  a {
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  h3 {
+    font-family: var(--font-heading);
+    line-height: 1.15;
+    font-size: var(--font-size-h2a);
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    text-transform: none;
+  }
+  
+  @include below('sm') {
+    padding: 4rem;
+  }
+  
+  @include below('sm') {
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+}
+
+.flex-text {
+  ol, ul {
+    list-style: inherit;
+    padding-left: 2rem;
+    line-height: 2;
+  }
+  a {
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

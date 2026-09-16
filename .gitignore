@@ -1,0 +1,43 @@
+# ==============================================================
+# ignore everything in the root directory except wp-content
+# --------------------------------------------------------------
+/*
+!wp-content/
+
+# ==============================================================
+# ignore everything in wp-content except "plugins" and "themes"
+# --------------------------------------------------------------
+wp-content/*
+!wp-content/themes/
+!wp-content/plugins/
+
+# ==============================================================
+# ignore all plugins and themes unless listed below
+# --------------------------------------------------------------
+wp-content/themes/*
+wp-content/plugins/*
+!wp-content/plugins/advanced-custom-fields-pro
+!wp-content/plugins/image-position
+!wp-content/themes/stephenwilli/
+
+
+# ==============================================================
+# ignore specific files or extensions anywhere they appear
+# --------------------------------------------------------------
+# *.map
+*.log
+*.sql
+*.zip
+.DS_Store
+.parcel-cache
+error_log
+node_modules/
+package-lock.json
+
+# ==============================================================
+# track all whitelisted files and directories below
+# --------------------------------------------------------------
+!.gitignore
+!README.md
+!favicon.ico
+

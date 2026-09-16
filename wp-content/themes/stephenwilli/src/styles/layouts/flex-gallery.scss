@@ -1,0 +1,30 @@
+.flex-gallery {
+  .gallery-mosaic {
+    .mosaic-image {
+      position: relative;
+      &.intro-card {
+        min-height: 400px;
+      }
+
+      .project-overlay {
+        z-index: 5;
+        @include fill;
+        background-color: rgba(0,0,0,.2);
+      }
+
+      .project-text {
+        z-index: 5;
+        padding-right: space(6);
+      }
+    }
+  }
+  @include below('sm') {
+    .gallery-mosaic {
+      .mosaic-image {
+        &.intro-card {
+          min-height: auto;
+        }
+      }
+    }
+  }
+}

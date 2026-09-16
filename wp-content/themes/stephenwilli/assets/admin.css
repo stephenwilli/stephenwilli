@@ -1,0 +1,13 @@
+/* excerpt metabox "Excerpts are optional summaries..." */
+#postexcerpt p,
+/* page Attributes metabox "Need help? Use the Help tab above..." */
+.post-attributes-help-text,
+/* extraneous attachment details actions */
+.attachment-info .actions :not(.delete-attachment) {
+  display: none !important;
+}
+
+/* move "Delete permanently" to the right side */
+.attachment-info .actions {
+  text-align: right;
+}
