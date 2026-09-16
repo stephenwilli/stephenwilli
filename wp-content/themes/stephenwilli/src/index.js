@@ -139,12 +139,12 @@ jQuery(document).ready(function($) {
   });
   
   // EXTERNAL LINKS TARGET BLANK
-  // $('a').each(function() {
-  //    var a = new RegExp('/' + window.location.host + '/');
-  //    if (!a.test(this.href)) {
-  //       $(this).attr("target","_blank");
-  //    }
-  // });
+  $('a').each(function() {
+     var a = new RegExp('/' + window.location.host + '/');
+     if (!a.test(this.href)) {
+        $(this).attr("target","_blank");
+     }
+  });
 
   var warp = $('#image-warp');
   if(warp.length > 0){
