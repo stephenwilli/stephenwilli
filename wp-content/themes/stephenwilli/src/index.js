@@ -85,7 +85,7 @@ jQuery(document).ready(function($) {
     $('.navbar-menu').toggleClass( '-open' );
   });
 
-  $('.split-half').on('click', function(e) {
+  $('.home-split .split-half').on('click', function(e) {
     e.preventDefault();
 
     $(this).addClass( '-open' );
